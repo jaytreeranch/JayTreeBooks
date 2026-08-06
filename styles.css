@@ -1,0 +1,36 @@
+/* styles.css — simple responsive styles for JayTree Books */
+:root{
+  --bg:#f7f7f7;
+  --card:#ffffff;
+  --accent:#3b7dd8;
+  --muted:#666;
+  --max-width:1100px;
+}
+*{box-sizing:border-box}
+body{font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;line-height:1.5;margin:0;background:var(--bg);color:#111}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 16px}
+.site-header{background:#fff;border-bottom:1px solid #e6e6e6}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;padding:18px 16px}
+.logo{margin:0;font-size:1.25rem;color:var(--accent)}
+nav a{margin-left:16px;color:var(--muted);text-decoration:none}
+.hero{padding:48px 0;background:linear-gradient(180deg,#eef6ff,transparent)}
+.hero h2{margin:0 0 8px;font-size:2rem}
+.hero p{margin:0 0 12px;color:#333}
+.btn{display:inline-block;padding:10px 16px;background:var(--accent);color:#fff;border-radius:6px;text-decoration:none}
+.section{padding:36px 0}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.controls input[type="search"]{padding:8px 12px;border-radius:8px;border:1px solid #ddd;width:280px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);border-radius:10px;padding:12px;box-shadow:0 1px 4px rgba(20,20,20,0.04);display:flex;flex-direction:column}
+.cover{width:100%;height:300px;background:#eee;border-radius:6px;background-size:cover;background-position:center;margin-bottom:12px}
+.title{font-weight:600;margin:0 0 6px}
+.author{color:var(--muted);font-size:0.95rem;margin-bottom:8px}
+.tags{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:0.8rem;padding:6px 8px;background:#f0f6ff;border-radius:999px;color:var(--accent)}
+.card button{margin-top:10px;padding:8px 10px;background:var(--accent);color:#fff;border:0;border-radius:8px;cursor:pointer}
+.site-footer{padding:18px 0;text-align:center;color:var(--muted);font-size:0.95rem}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal.hidden{display:none}
+.modal-content{background:#fff;border-radius:8px;max-width:760px;width:100%;padding:20px;position:relative}
+.modal-close{position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:1.6rem;cursor:pointer}
+@media (max-width:600px){.cover{height:200px}.hero h2{font-size:1.5rem}}
