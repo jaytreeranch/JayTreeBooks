@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JayTree Books — Curated Independent Bookstore</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">JayTree Books</h1>
+      <nav>
+        <a href="#books">Books</a>
+        <a href="#resources">Resources</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Independent. Curated. Thoughtful.</h2>
+        <p>JayTree Books is a small online bookstore and reading resource platform offering a carefully curated selection of fiction, non-fiction, and children's books — handpicked for curious readers.</p>
+        <p><a class="btn" href="#books">Browse Curated Picks</a></p>
+      </div>
+    </section>
+
+    <section id="books" class="container section">
+      <div class="section-header">
+        <h3>Curated Selection</h3>
+        <div class="controls">
+          <input id="search" type="search" placeholder="Search by title, author, or tag" />
+        </div>
+      </div>
+      <div id="booksGrid" class="grid"></div>
+    </section>
+
+    <section id="resources" class="container section">
+      <h3>Reading Resources</h3>
+      <ul>
+        <li>Book club guides and discussion questions</li>
+        <li>Reading lists curated by theme and mood</li>
+        <li>Author spotlights and interviews</li>
+        <li>Local events & reading groups (coming soon)</li>
+      </ul>
+    </section>
+
+    <section id="about" class="container section">
+      <h3>About JayTree Books</h3>
+      <p>JayTree Books is an independent project dedicated to connecting readers with books that matter. We prioritize small presses, debut authors, and timeless stories. This site is an example storefront and resource hub built to be simple, accessible, and easy to extend.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; JayTree Books • Built with care</p>
+    </div>
+  </footer>
+
+  <!-- Book detail modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <button id="closeModal" class="modal-close" aria-label="Close">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
