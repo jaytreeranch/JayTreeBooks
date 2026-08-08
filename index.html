@@ -47,6 +47,18 @@ section{padding:90px 24px}
 .card p{color:#aaa9a3;font-size:.95rem;flex:1}
 .buy{display:block;text-align:center;text-decoration:none;border:1px solid var(--gold);padding:11px;margin-top:12px;text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;color:var(--cream)}
 .buy:hover{background:var(--gold);color:#080d12}
+
+.audiobooks{background:linear-gradient(180deg,#0b1116,#101920)}
+.audio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+.audio-card{background:linear-gradient(145deg,#18262e,#0d1419);border:1px solid rgba(200,161,90,.22);padding:26px;display:flex;flex-direction:column}
+.audio-icon{font-size:2rem;color:var(--gold);margin-bottom:12px}
+.audio-card h3{font-size:1.45rem;font-weight:400;margin:0 0 4px}
+.audio-card .format{color:var(--gold);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase}
+.audio-card p{color:#aaa9a3;font-size:.92rem;flex:1}
+.audible{display:block;text-align:center;text-decoration:none;border:1px solid var(--gold);padding:11px;margin-top:12px;text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;color:var(--cream)}
+.audible:hover{background:var(--gold);color:#080d12}
+.youtube-strip{margin-top:38px;text-align:center;padding:28px;border:1px solid rgba(200,161,90,.22);background:#0d151b}
+.youtube-strip p{color:#aaa9a3;margin:8px auto 18px}
 .challenge{background:#0b1116}
 .challenge-box{display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:60px;align-items:center;background:radial-gradient(circle at 20% 20%,#1b2931,#0c1217);border:1px solid var(--line);padding:38px}
 .challenge-box img{width:100%;display:block}
@@ -73,8 +85,10 @@ footer strong{color:var(--gold);letter-spacing:.2em}
     <a class="brand" href="#top">JAYTREE BOOKS</a>
     <div class="nav-links">
       <a href="#books">Books</a>
+      <a href="#audiobooks">Audiobooks</a>
       <a href="#challenge">Challenge</a>
       <a href="#about">About</a>
+      <a href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener noreferrer">YouTube</a>
     </div>
   </div>
 </nav>
@@ -120,20 +134,10 @@ footer strong{color:var(--gold);letter-spacing:.2em}
       <article class="card">
         <div class="cover"><img src="images/the-hollow-bell.png" alt="The Hollow Bell book cover"></div>
         <div class="card-body">
-          <div class="genre">A Novel • Supernatural Mystery</div>
-          <h3>The Hollow Bell: A Millbrook Falls Mystery</h3>
-          <p>Some secrets never stay buried. Some bells never stop ringing. A supernatural mystery set in Millbrook Falls.</p>
-          <a class="buy" href="https://www.amazon.com/dp/B0HD5RH8X5/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
-        </div>
-      </article>
-      
-      <article class="card">
-        <div class="cover"><img src="images/HollowBellNovela.jpg" alt="The Hollow Bell book cover"></div>
-        <div class="card-body">
           <div class="genre">A Novella • Supernatural Mystery</div>
           <h3>The Hollow Bell</h3>
           <p>Some secrets never stay buried. Some bells never stop ringing. A supernatural mystery set in Millbrook Falls.</p>
-          <a class="buy" href="https://www.amazon.com/dp/B0HD2H8586/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+          <a class="buy" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
         </div>
       </article>
       
@@ -157,6 +161,60 @@ footer strong{color:var(--gold);letter-spacing:.2em}
         </div>
       </article>
       
+    </div>
+  </div>
+</section>
+
+
+<section class="audiobooks" id="audiobooks">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Listen to the Stories</div>
+      <h2>Audiobooks</h2>
+      <p>Add your Audible links below so readers can go straight from Jaytree Books to each audiobook.</p>
+    </div>
+    <div class="audio-grid">
+      <article class="audio-card">
+        <div class="audio-icon">◉</div>
+        <div class="format">Audiobook</div>
+        <h3>Second Draft</h3>
+        <p>Listen to the story on Audible. Replace the placeholder link with the direct Audible page for this audiobook.</p>
+        <a class="audible" href="https://www.audible.com/" target="_blank" rel="noopener noreferrer">Listen on Audible</a>
+      </article>
+      <article class="audio-card">
+        <div class="audio-icon">◉</div>
+        <div class="format">Audiobook</div>
+        <h3>The Hollow Year</h3>
+        <p>Listen to the story on Audible. Replace the placeholder link with the direct Audible page for this audiobook.</p>
+        <a class="audible" href="https://www.audible.com/" target="_blank" rel="noopener noreferrer">Listen on Audible</a>
+      </article>
+      <article class="audio-card">
+        <div class="audio-icon">◉</div>
+        <div class="format">Audiobook</div>
+        <h3>The Hollow Bell</h3>
+        <p>Listen to the story on Audible. Replace the placeholder link with the direct Audible page for this audiobook.</p>
+        <a class="audible" href="https://www.audible.com/" target="_blank" rel="noopener noreferrer">Listen on Audible</a>
+      </article>
+      <article class="audio-card">
+        <div class="audio-icon">◉</div>
+        <div class="format">Audiobook</div>
+        <h3>The Absconding</h3>
+        <p>Listen to the story on Audible. Replace the placeholder link with the direct Audible page for this audiobook.</p>
+        <a class="audible" href="https://www.audible.com/" target="_blank" rel="noopener noreferrer">Listen on Audible</a>
+      </article>
+      <article class="audio-card">
+        <div class="audio-icon">◉</div>
+        <div class="format">Audiobook</div>
+        <h3>The Correction</h3>
+        <p>Listen to the story on Audible. Replace the placeholder link with the direct Audible page for this audiobook.</p>
+        <a class="audible" href="https://www.audible.com/" target="_blank" rel="noopener noreferrer">Listen on Audible</a>
+      </article>
+    </div>
+    <div class="youtube-strip">
+      <div class="eyebrow">Watch &amp; Follow</div>
+      <h2>Jaytree Books on YouTube</h2>
+      <p>Behind-the-scenes content, book news, readings, updates, and more.</p>
+      <a class="cta" href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener noreferrer">Visit @JayTreeBooks</a>
     </div>
   </div>
 </section>
@@ -189,7 +247,7 @@ footer strong{color:var(--gold);letter-spacing:.2em}
 
 <footer>
   <strong>JAYTREE BOOKS</strong><br>
-  <span>© 2025 Jaytree Books. All rights reserved.</span>
+  <span>© 2026 Jaytree Books. All rights reserved.</span>
 </footer>
 </body>
 </html>
