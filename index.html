@@ -1,83 +1,185 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JayTree Books — Curated Independent Bookstore</title>
-  <link rel="stylesheet" href="styles.css" />
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0DV2BWLKR0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0DV2BWLKR0');
-</script>
-  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Jaytree Books — dark mysteries, psychological thrillers, supernatural stories, and literary challenges.">
+<title>Jaytree Books | Stories That Stay</title>
+<style>
+:root {
+  --ink:#080d12; --panel:#101920; --panel2:#141f27; --cream:#e8dfcc;
+  --muted:#a8a9a3; --gold:#c8a15a; --line:rgba(200,161,90,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--cream);font-family:Georgia,"Times New Roman",serif;line-height:1.6}
+a{color:inherit}
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(8,13,18,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:auto;padding:15px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:1.2rem;letter-spacing:.22em;color:var(--gold);text-decoration:none}
+.nav-links{display:flex;gap:24px;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase}
+.nav-links a{text-decoration:none;color:#ddd7ca}
+.hero{min-height:92vh;display:grid;place-items:center;text-align:center;padding:130px 24px 80px;position:relative;overflow:hidden;background:
+ radial-gradient(circle at 50% 20%,rgba(45,71,82,.55),transparent 35%),
+ linear-gradient(180deg,#101d26 0%,#080d12 82%)}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,#080d12 100%);pointer-events:none}
+.hero-content{position:relative;max-width:850px}
+.kicker{letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-size:.82rem;margin-bottom:20px}
+h1{font-size:clamp(3.5rem,10vw,8rem);line-height:.86;margin:0;letter-spacing:.05em;font-weight:400;text-transform:uppercase}
+.hero p{max-width:680px;margin:30px auto;color:#c3c1b8;font-size:1.15rem}
+.cta{display:inline-block;padding:13px 26px;border:1px solid var(--gold);color:var(--cream);text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;transition:.25s}
+.cta:hover{background:var(--gold);color:#080d12}
+section{padding:90px 24px}
+.wrap{max-width:1180px;margin:auto}
+.section-head{text-align:center;margin-bottom:48px}
+.section-head .eyebrow{color:var(--gold);letter-spacing:.28em;text-transform:uppercase;font-size:.75rem}
+.section-head h2{font-size:clamp(2.2rem,5vw,4rem);font-weight:400;margin:10px 0}
+.section-head p{color:var(--muted);max-width:680px;margin:auto}
+.books{background:linear-gradient(180deg,#080d12,#0d151b)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+.card{background:linear-gradient(145deg,#15222a,#0d1419);border:1px solid rgba(232,223,204,.12);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-7px);border-color:var(--line)}
+.cover{aspect-ratio:2/3;overflow:hidden;background:#080d12}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:22px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:1.65rem;margin:0 0 4px;font-weight:400}
+.genre{color:var(--gold);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.card p{color:#aaa9a3;font-size:.95rem;flex:1}
+.buy{display:block;text-align:center;text-decoration:none;border:1px solid var(--gold);padding:11px;margin-top:12px;text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;color:var(--cream)}
+.buy:hover{background:var(--gold);color:#080d12}
+.challenge{background:#0b1116}
+.challenge-box{display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:60px;align-items:center;background:radial-gradient(circle at 20% 20%,#1b2931,#0c1217);border:1px solid var(--line);padding:38px}
+.challenge-box img{width:100%;display:block}
+.challenge h2{font-size:clamp(2.4rem,5vw,4.5rem);font-weight:400;line-height:.95;margin:8px 0 20px}
+.challenge p{color:#b7b5ad;max-width:600px}
+.about{background:linear-gradient(180deg,#0b1116,#080d12)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.about h2{font-weight:400;font-size:3rem;margin-top:0}
+.about p{color:#b1b0aa}
+.quote{border-left:2px solid var(--gold);padding:12px 0 12px 28px;font-size:1.35rem;font-style:italic;color:#d9d1c1}
+footer{border-top:1px solid var(--line);padding:35px 24px;color:#888;text-align:center;font-size:.85rem}
+footer strong{color:var(--gold);letter-spacing:.2em}
+@media(max-width:760px){
+ .nav-links{display:none}
+ section{padding:70px 18px}
+ .challenge-box,.about-grid{grid-template-columns:1fr;gap:28px;padding:24px}
+ .challenge-box img{max-width:330px;margin:auto}
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <h1 class="logo">JayTree Books</h1>
-      <nav>
-        <a href="#books">Books</a>
-        <a href="#resources">Resources</a>
-        <a href="#about">About</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h2>Independent. Curated. Thoughtful.</h2>
-        <p>JayTree Books is a small online bookstore and reading resource platform offering a carefully curated selection of fiction, non-fiction, and children's books — handpicked for curious readers.</p>
-        <p><a class="btn" href="#books">Browse Curated Picks</a></p>
-      </div>
-    </section>
-
-    <section id="books" class="container section">
-      <div class="section-header">
-        <h3>Curated Selection</h3>
-        <div class="controls">
-          <input id="search" type="search" placeholder="Search by title, author, or tag" />
-        </div>
-      </div>
-      <div id="booksGrid" class="grid"></div>
-    </section>
-
-    <section id="resources" class="container section">
-      <h3>Reading Resources</h3>
-      <ul>
-        <li>Book club guides and discussion questions</li>
-        <li>Reading lists curated by theme and mood</li>
-        <li>Author spotlights and interviews</li>
-        <li>Local events & reading groups (coming soon)</li>
-      </ul>
-    </section>
-
-    <section id="about" class="container section">
-      <h3>About JayTree Books</h3>
-      <p>JayTree Books is an independent project dedicated to connecting readers with books that matter. We prioritize small presses, debut authors, and timeless stories. This site is an example storefront and resource hub built to be simple, accessible, and easy to extend.</p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; JayTree Books • Built with care</p>
-    </div>
-  </footer>
-
-  <!-- Book detail modal -->
-  <div id="modal" class="modal hidden" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-      <button id="closeModal" class="modal-close" aria-label="Close">×</button>
-      <div id="modalBody"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">JAYTREE BOOKS</a>
+    <div class="nav-links">
+      <a href="#books">Books</a>
+      <a href="#challenge">Challenge</a>
+      <a href="#about">About</a>
     </div>
   </div>
+</nav>
 
-  <script src="app.js" defer></script>
+<header class="hero" id="top">
+  <div class="hero-content">
+    <div class="kicker">Jaytree Books</div>
+    <h1>Stories<br>That Stay</h1>
+    <p>Dark mysteries. Psychological thrillers. Supernatural secrets. Step into worlds where the past has a long memory—and nothing stays buried forever.</p>
+    <a class="cta" href="#books">Explore the Books</a>
+  </div>
+</header>
+
+<section class="books" id="books">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Jaytree Collection</div>
+      <h2>Enter the story.</h2>
+      <p>Discover the mysteries and thrillers of Jaytree Books. When you're ready, use the Amazon button on any title to purchase it.</p>
+    </div>
+    <div class="grid">
+      
+      <article class="card">
+        <div class="cover"><img src="images/second-draft.png" alt="Second Draft book cover"></div>
+        <div class="card-body">
+          <div class="genre">A Psychological Mystery Thriller</div>
+          <h3>Second Draft</h3>
+          <p>Nobody tells the truth the first time. A dark mystery where memory, secrets, and second chances collide.</p>
+          <a class="buy" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="cover"><img src="images/the-hollow-year.png" alt="The Hollow Year book cover"></div>
+        <div class="card-body">
+          <div class="genre">A Psychological Mystery Thriller</div>
+          <h3>The Hollow Year</h3>
+          <p>In Amity Hollow, one person is erased from every living memory each October.</p>
+          <a class="buy" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="cover"><img src="images/the-hollow-bell.png" alt="The Hollow Bell book cover"></div>
+        <div class="card-body">
+          <div class="genre">A Novella • Supernatural Mystery</div>
+          <h3>The Hollow Bell</h3>
+          <p>Some secrets never stay buried. Some bells never stop ringing. A supernatural mystery set in Millbrook Falls.</p>
+          <a class="buy" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="cover"><img src="images/the-absconding.png" alt="The Absconding book cover"></div>
+        <div class="card-body">
+          <div class="genre">A Psychological Mystery Thriller</div>
+          <h3>The Absconding</h3>
+          <p>Some truths won't stay buried. Some hives never forget. A chilling mystery from Jaytree Books.</p>
+          <a class="buy" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="cover"><img src="images/the-correction.png" alt="The Correction book cover"></div>
+        <div class="card-body">
+          <div class="genre">A Psychological Mystery Thriller</div>
+          <h3>The Correction</h3>
+          <p>Some records shouldn't be changed. Some truths shouldn't be forgotten.</p>
+          <a class="buy" href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
+        </div>
+      </article>
+      
+    </div>
+  </div>
+</section>
+
+<section class="challenge" id="challenge">
+  <div class="wrap">
+    <div class="challenge-box">
+      <img src="images/jaytree-books-challenge.png" alt="Jaytree Books Challenge emblem">
+      <div>
+        <div class="eyebrow">For Readers</div>
+        <h2>Jaytree Books Challenge</h2>
+        <p>Read more. Think deeper. Live the story. Make the Jaytree Books Challenge part of your reading journey.</p>
+        <a class="cta" href="#about">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">About Jaytree</div>
+      <h2>Stories built to linger.</h2>
+      <p>Jaytree Books brings together atmospheric mysteries, psychological thrillers, supernatural tales, and stories that invite readers to look twice at what they think they know.</p>
+      <p>Explore the collection above, choose your next mystery, and follow the clues wherever they lead.</p>
+    </div>
+    <div class="quote">“Some secrets never stay buried. Some bells never stop ringing.”</div>
+  </div>
+</section>
+
+<footer>
+  <strong>JAYTREE BOOKS</strong><br>
+  <span>© 2026 Jaytree Books. All rights reserved.</span>
+</footer>
 </body>
 </html>
