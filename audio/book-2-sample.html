@@ -6,46 +6,186 @@
 <title>The Hollow Year — Audio Sample | Jaytree Books</title>
 <style>
 :root {
-  --ink:#080d12; --cream:#e8dfcc; --gold:#c8a15a; --muted:#a8a9a3;
+  --ink: #080d12;
+  --cream: #e8dfcc;
+  --gold: #c8a15a;
+  --muted: #a8a9a3;
+  --panel: rgba(16, 25, 32, 0.78);
+  --line: rgba(200, 161, 90, 0.28);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  min-height:100vh;
-  background:linear-gradient(rgba(8,13,18,.88), rgba(8,13,18,.92)), url('../images/the-hollow-year.png') center/cover no-repeat fixed;
-  color:var(--cream);
-  font-family:Georgia,"Times New Roman",serif;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:40px 20px;
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(rgba(8,13,18,.57), rgba(8,13,18,.62)),
+              url('../images/second-draft.png') center/cover no-repeat fixed;
+  color: var(--cream);
+  font-family: Georgia, "Times New Roman", serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
 }
-.container{
-  max-width:520px;
-  width:100%;
-  background:rgba(16,25,32,.75);
-  border:1px solid rgba(200,161,90,.28);
-  padding:48px 36px;
-  backdrop-filter:blur(8px);
+
+.container {
+  max-width: 520px;
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 48px 36px 40px;
+  backdrop-filter: blur(10px);
+  text-align: center;
 }
-.eyebrow{color:var(--gold);letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}
-h1{font-size:2.4rem;font-weight:400;margin-bottom:8px;letter-spacing:.04em}
-.genre{color:var(--gold);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
-p{color:var(--muted);font-size:1rem;line-height:1.6;margin-bottom:32px}
-audio{width:100%;margin-bottom:36px;outline:none}
-.back{
-  display:inline-block;
-  padding:12px 28px;
-  border:1px solid var(--gold);
-  color:var(--cream);
-  text-decoration:none;
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-size:.78rem;
-  transition:.25s;
+
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  margin-bottom: 12px;
 }
-.back:hover{background:var(--gold);color:#080d12}
+
+h1 {
+  font-size: 2.4rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+  letter-spacing: .04em;
+}
+
+.genre {
+  color: var(--gold);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+/* ===== CUSTOM AUDIO PLAYER ===== */
+.player {
+  margin-bottom: 40px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.play-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .25s ease;
+  flex-shrink: 0;
+}
+
+.play-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.play-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.progress-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-bar {
+  height: 5px;
+  background: rgba(232, 223, 204, 0.15);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  font-size: .78rem;
+  color: var(--muted);
+  letter-spacing: .04em;
+  font-family: system-ui, sans-serif;
+}
+
+.volume-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  justify-content: center;
+}
+
+.volume-icon {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 4px;
+  background: rgba(232, 223, 204, 0.15);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+}
+
+.back {
+  display: inline-block;
+  padding: 12px 28px;
+  border: 1px solid var(--gold);
+  color: var(--cream);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: .78rem;
+  transition: .25s;
+}
+
+.back:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
 </style>
 </head>
 <body>
