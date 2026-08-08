@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hollow Year — Audio Sample | Jaytree Books</title>
+<style>
+:root {
+  --ink:#080d12; --cream:#e8dfcc; --gold:#c8a15a; --muted:#a8a9a3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:linear-gradient(rgba(8,13,18,.88), rgba(8,13,18,.92)), url('../images/the-hollow-year.png') center/cover no-repeat fixed;
+  color:var(--cream);
+  font-family:Georgia,"Times New Roman",serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 20px;
+}
+.container{
+  max-width:520px;
+  width:100%;
+  background:rgba(16,25,32,.75);
+  border:1px solid rgba(200,161,90,.28);
+  padding:48px 36px;
+  backdrop-filter:blur(8px);
+}
+.eyebrow{color:var(--gold);letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;margin-bottom:12px}
+h1{font-size:2.4rem;font-weight:400;margin-bottom:8px;letter-spacing:.04em}
+.genre{color:var(--gold);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:28px}
+p{color:var(--muted);font-size:1rem;line-height:1.6;margin-bottom:32px}
+audio{width:100%;margin-bottom:36px;outline:none}
+.back{
+  display:inline-block;
+  padding:12px 28px;
+  border:1px solid var(--gold);
+  color:var(--cream);
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.78rem;
+  transition:.25s;
+}
+.back:hover{background:var(--gold);color:#080d12}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="eyebrow">Audio Sample</div>
+    <h1>The Hollow Year</h1>
+    <div class="genre">A Psychological Mystery Thriller</div>
+    <p>In Amity Hollow, one person is erased from every living memory each October.</p>
+    <audio controls>
+      <source src="book-2-sample.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <a class="back" href="../index.html">← Back to Home</a>
+  </div>
+</body>
+</html>
