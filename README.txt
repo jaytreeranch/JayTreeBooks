@@ -4,6 +4,8 @@ Open `index.html` in a browser to preview the website.
 
 ## Add your Amazon links
 Open `index.html` in a text editor and replace each `https://www.amazon.com/` value with the direct Amazon product URL for that book.
+## Amazon links
+Replace each `https://www.amazon.com/` placeholder with the direct Amazon product URL for that book.
 
 There are five book cards:
 - Second Draft
@@ -11,7 +13,13 @@ There are five book cards:
 - The Hollow Bell
 - The Absconding
 - The Correction
+## Audible links
+In the Audiobooks section, replace each `https://www.audible.com/` placeholder with the direct Audible URL for that audiobook.
 
 The Jaytree Books Challenge emblem is included as a separate section.
+## YouTube
+The site includes a link to:
+https://www.youtube.com/@JayTreeBooks
 
 All supplied cover artwork is stored in the `images` folder.
+The supplied cover artwork and Jaytree Books Challenge emblem are included in the `images` folder.
