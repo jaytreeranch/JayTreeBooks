@@ -41,19 +41,110 @@ h1 {
 a {
 	color: #c8a15a
 }
+
+:root {
+	--text: #1a1a1a;
+	--muted: #555;
+	--bg: #faf9f7;
+	--accent: #2c3e50;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	font-family: "Arial", "Helvetica", sans-serif;
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin: 2.5rem 0 1.5rem;
+	color: var(--accent);
+}
+
+.part-title {
+	text-align: center;
+	font-family: "Arial", "Helvetica", sans-serif;
+	font-size: 1.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	margin: 4rem 0 3rem;
+	padding: 1.5rem 0;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	color: var(--accent);
+}
+
+.chapter-title {
+	text-align: center;
+	font-family: "Arial", "Helvetica", sans-serif;
+	font-size: 1.6rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	margin: 3rem 0 2rem;
+	color: var(--accent);
+}
+
+p {
+	margin-bottom: 1.15em;
+	text-align: justify;
+	hyphens: auto;
+}
+
+p:first-of-type::first-letter, .drop-cap::first-letter {
+	font-size: 3.2em;
+	float: left;
+	line-height: 0.8;
+	padding-right: 0.1em;
+	padding-top: 0.05em;
+	font-weight: 700;
+	color: var(--accent);
+}
+
+.dialogue {
+	margin-left: 0;
+}
+
+hr.section-break {
+	border: none;
+	text-align: center;
+	margin: 2.5rem 0;
+}
+
+hr.section-break::before {
+	content: "✦ ✦ ✦";
+	color: #999;
+	letter-spacing: 0.5em;
+}
+
+@media ( max-width : 600px) {
+	body {
+		font-size: 1.05rem;
+		padding: 2rem 1rem 3rem;
+	}
+	.title-page h1 {
+		font-size: 2rem;
+	}
+}
+
+@media print {
+	body {
+		background: white;
+		max-width: none;
+		font-size: 11pt;
+	}
+}
 </style>
 </head>
 <body>
+
 	<main>
 		<div class="kicker">Jaytree Books</div>
 		<h1>
-			The Hollow Bell<br> <small>First Chapter</small>
+			The Hollow Bell<br>
 		</h1>
 		<div class="note">
-			<h1 style="margin-left: 0in; text-indent: 0in">THE HOLLOW BELL</h1>
-
-			<h3 style="margin-left: 0in; text-indent: 0in">A Millbrook Falls
-				Mystery</h3>
 
 			<div
 				style="border: none; border-bottom: double gray 1.0pt; padding: 0in 0in 0in 0in">
@@ -62,12 +153,57 @@ a {
 
 			</div>
 
-			<h1 style="margin-left: 0in; text-indent: 0in">PART ONE: THE ICE</h1>
+			<h2>Prologue</h2>
 
-			<h2 style="margin-left: 0in; text-indent: 0in">Chapter One: What
-				the Ice Gave Up</h2>
+			<div
+				style="border: none; border-bottom: double gray 1.0pt; padding: 0in 0in 0in 0in">
 
-			<p class="MsoBodyText">The first hard freeze of the year always
+				<p class="HorizontalLine">&nbsp;</p>
+
+			</div>
+			<p></p>
+
+			<p class="drop-cap">The water has always been patient with her,
+				which is more than she can say for herself.</p>
+
+			<p>Forty-three years she has stood at the edge of it, in every
+				season, at every hour, and she has never once heard it demand
+				anything of her that she did not already, in some buried chamber of
+				herself, believe it was owed. That is the thing nobody in this town
+				has ever understood, watching her carry casseroles to the grieving,
+				watching her catalog its slow economic death into careful acid-free
+				folders, watching her be, for four decades, the softest and
+				steadiest hand this particular corner of Maine has ever known. They
+				think patience is a virtue she practices. They do not understand
+				that patience is the only shape her grief has ever been permitted to
+				take.</p>
+
+			<p>She will tell you, if you ask her plainly — and almost no one,
+				in forty-three years, has ever asked her plainly — that she does not
+				hate this town. She loves it with a ferocity that has cost her a
+				marriage, a comfortable retirement, every ordinary joy a woman her
+				age might otherwise expect to hold. She loves it the way a person
+				loves a wound they have tended so long they can no longer imagine
+				themselves without it. And she has kept, faithfully, quietly, at a
+				cost she alone has ever had to reckon, the one account this town has
+				never had the courage to keep honestly for itself: the plain,
+				unbearable fact that some debts do not care whether anyone remembers
+				agreeing to them.</p>
+
+			<p>A body is coming up out of the ice this winter. She has known
+				it would, eventually — ice always gives back what it takes, in its
+				own patient time, on a schedule no living person gets to set. She
+				does not yet know that this particular giving-back will be the
+				beginning of the end of everything she has spent forty-three years
+				building. She knows only that the water is finally, after twenty
+				years, ready to talk, and that she, as she has done every single
+				time before, will need to be the one standing closest when it does.</p>
+
+			<div class="part-title">PART ONE: THE ICE</div>
+
+			<div class="chapter-title">CHAPTER ONE: WHAT THE ICE GAVE UP</div>
+
+			<p class="drop-cap">The first hard freeze of the year always
 				changed the sound of Millbrook Falls, and Warden Pete Aldous had
 				lived beside that sound for thirty-one years. In summer the falls
 				roared. In autumn they muttered. By late December, when the cold
@@ -75,155 +211,130 @@ a {
 				two feet of ice, and the silence was the thing that woke you up at
 				night, not the noise.</p>
 
-			<p class="MsoBodyText">So when Pete heard the crack — a long,
-				splitting groan like a door opening in an old house — he was already
-				awake, already reaching for his boots.</p>
+			<p>So when Pete heard the crack — a long, splitting groan like a
+				door opening in an old house — he was already awake, already
+				reaching for his boots.</p>
 
-			<p class="MsoBodyText">It was 5:40 in the morning on the second
-				of December, dark as the inside of a boot, eleven degrees on the
-				thermometer nailed to his porch post. He told himself it was just
-				the ice settling. Ice did that. He'd heard it a thousand times.</p>
+			<p>It was 5:40 in the morning on the second of December, dark as
+				the frozen gorge below, the kind of darkness that erased distance,
+				eleven degrees on the thermometer nailed to his porch post. He told
+				himself it was just the ice settling. Ice did that. He’d heard it a
+				thousand times.</p>
 
-			<p class="MsoBodyText">He went out anyway.</p>
+			<p>He went out anyway.</p>
 
-			<p class="MsoBodyText">The beam of his flashlight found the ice
-				shelf below the falls first, humped and blistered the way it always
-				was before the real cold smoothed it flat. Then it found the dark
-				shape frozen into the surface, ten feet out from the bank, and Pete
-				Aldous stood very still, doing the thing the mind does when it is
-				shown something it does not want to be true: he tried to make it a
-				log. A trash bag. A dead deer.</p>
+			<p>The beam of his flashlight found the ice shelf below the falls
+				first, humped and blistered the way it always was before the real
+				cold smoothed it flat.</p>
 
-			<p class="MsoBodyText">It was none of those things. It was a
-				hand, palm up, fingers slightly curled, suspended eight inches under
-				clear black ice, and above the hand, deeper in the murk where his
-				light could not quite reach, the pale smear of a face turned toward
-				the surface as if it had been looking up at the sky the whole time
-				it went under.</p>
+			<p>Then it found the dark shape frozen into the surface, ten feet
+				out from the bank, and Pete Aldous stood very still, doing the thing
+				the mind does when it is shown something it does not want to be
+				true: he tried to make it a log. A trash bag. A dead deer.</p>
 
-			<p class="MsoBodyText">Pete Aldous did not go closer. He had
-				grown up in Millbrook Falls, had heard every story his grandmother
-				told about the bell in the old Congregational church — and some
-				deep, unreasoning part of him understood, before the state police
-				ever arrived, before anyone said a word about dental records, that
-				the ice had not given up a stranger.</p>
+			<p>It was none of those things. It was a hand, palm up, fingers
+				slightly curled, suspended eight inches under clear black ice, and
+				above the hand, deeper in the murk where his light could not quite
+				reach, the pale smear of a face turned toward the surface as if it
+				had been looking up at the sky the whole time it went under.</p>
 
-			<p class="MsoBodyText">He was right. It would take four days to
-				be sure, and when they were sure, the certainty would open a door in
-				the town that had been swollen shut for twenty years.</p>
+			<p>Pete Aldous did not go closer. He had grown up in Millbrook
+				Falls, had heard every story his grandmother told about the bell in
+				the old Congregational church — and some deep, unreasoning part of
+				him understood, before the state police ever arrived, before anyone
+				said a word about dental records, that the ice had not given up a
+				stranger.</p>
 
-			<div
-				style="border: none; border-bottom: double gray 1.0pt; padding: 0in 0in 0in 0in">
+			<p>He was right. It would take four days to be sure, and when
+				they were sure, the certainty would open a door in the town that had
+				been swollen shut for twenty years.</p>
 
-				<p class="HorizontalLine">&nbsp;</p>
+			<p>Sheriff Del Hutchins got the call at 6:12 a.m. and was
+				standing at the lip of the gorge by 6:40, watching the state crime
+				scene unit work a chainsaw through eighteen inches of ice with the
+				grim, unhurried care that told him this was not a rescue.</p>
 
-			</div>
+			<p>Del was fifty-four, sheriff of this county for eleven years,
+				long enough to know that Millbrook Falls did not, as a rule, produce
+				bodies. It produced potholes and poached deer and the occasional bar
+				fight outside the Moose Lodge. The falls had claimed exactly one
+				person in his tenure, a drunk college kid in 2019 who’d tried to
+				cross the ice on a dare, and the memory of pulling that boy out,
+				blue and stiff as a fence post, had never fully left him.</p>
 
-			<p class="MsoBodyText">Sheriff Del Hutchins got the call at 6:12
-				a.m. and was standing at the lip of the gorge by 6:40, watching the
-				state crime scene unit work a chainsaw through eighteen inches of
-				ice with the grim, unhurried care that told him this was not a
-				rescue.</p>
+			<p>This was worse. He could tell that much before they’d even
+				freed the body, just from the way Dr. Okafor, the medical examiner
+				up from Augusta, kept crouching at the edge of the cut ice and going
+				still.</p>
 
-			<p class="MsoBodyText">Del was fifty-four, sheriff of this county
-				for eleven years, long enough to know that Millbrook Falls did not,
-				as a rule, produce bodies. It produced potholes and poached deer and
-				the occasional bar fight outside the Moose Lodge. The falls had
-				claimed exactly one person in his tenure, a drunk college kid in
-				2019 who'd tried to cross the ice on a dare, and the memory of
-				pulling that boy out, blue and stiff as a fence post, had never
-				fully left him.</p>
+			<p>It took the crime scene unit the better part of three hours to
+				free her — a careful, almost surgical process once the initial shock
+				of discovery gave way to procedure, technicians cutting a wide
+				perimeter around the body rather than through it, working in from
+				the edges so the ice itself could be lifted nearly whole and
+				photographed before anyone touched what lay beneath. Del stood at
+				the lip of the gorge the entire time, hands jammed in his coat
+				pockets against a cold that had stopped registering as cold an hour
+				in, and found himself doing the arithmetic he would do a dozen more
+				times before the day was through: twenty years, this coming October.
+				A girl who would have been thirty-six now, who had instead been
+				sixteen for two full decades, preserved in black water while the
+				rest of the town went on aging around her.</p>
 
-			<p class="MsoBodyText">This was worse. He could tell that much
-				before they'd even freed the body, just from the way Dr. Okafor, the
-				medical examiner up from Augusta, kept crouching at the edge of the
-				cut ice and going still.</p>
+			<p>“How old,” Del said. Not a question, exactly. More of a brace.</p>
 
-			<p class="MsoBodyText">It took the crime scene unit the better
-				part of three hours to free her — a careful, almost surgical process
-				once the initial shock of discovery gave way to procedure,
-				technicians cutting a wide perimeter around the body rather than
-				through it, working in from the edges so the ice itself could be
-				lifted nearly whole and photographed before anyone touched what lay
-				beneath. Del stood at the lip of the gorge the entire time, hands
-				jammed in his coat pockets against a cold that had stopped
-				registering as cold an hour in, and found himself doing the
-				arithmetic he would do a dozen more times before the day was
-				through: twenty years, this coming October. A girl who would have
-				been thirty-six now, who had instead been sixteen for two full
-				decades, preserved in black water while the rest of the town went on
-				aging around her.</p>
+			<p>“Based on preservation and the clothing — and I want a full
+				lab workup before anyone quotes me — I’d guess this individual has
+				been in that ice a long time. Years, Sheriff. Not months.” She
+				straightened up, wincing at her own knees. “I’ll know more in
+				Augusta. But Del — you’re going to want your missing persons file.
+				All of it, not just the recent stuff.”</p>
 
-			<p class="MsoBodyText">&quot;How old,&quot; Del said. Not a
-				question, exactly. More of a brace.</p>
+			<p>Del Hutchins looked out at the black gash in the ice and
+				thought of exactly one name.</p>
 
-			<p class="MsoBodyText">&quot;Based on preservation and the
-				clothing — and I want a full lab workup before anyone quotes me —
-				I'd guess this individual has been in that ice a long time. Years,
-				Sheriff. Not months.&quot; She straightened up, wincing at her own
-				knees. &quot;I'll know more in Augusta. But Del — you're going to
-				want your missing persons file. All of it, not just the recent
-				stuff.&quot;</p>
-
-			<p class="MsoBodyText">Del Hutchins looked out at the black gash
-				in the ice and thought of exactly one name.</p>
-
-			<p class="MsoBodyText">Marnie Doucette. Sixteen years old.
-				Vanished from the footbridge above these falls on the night of the
-				Harvest Fair, October the eleventh, twenty years ago come next fall.
-				He'd been a deputy then, twenty-three and green as a spring onion,
-				and he had walked this gorge with a search line of forty volunteers
-				for six straight days and found nothing. The case had gone cold the
-				way cases in small towns go cold — not from lack of caring, but from
+			<p>Marnie Doucette. Sixteen years old. Vanished from the
+				footbridge above these falls on the night of the Harvest Fair,
+				October the eleventh, twenty years ago come next fall. He’d been a
+				deputy then, twenty-three and green as a spring onion, and he had
+				walked this gorge with a search line of forty volunteers for six
+				straight days and found nothing. The case had gone cold the way
+				cases in small towns go cold — not from lack of caring, but from
 				lack of anywhere left to look.</p>
 
-			<p class="MsoBodyText">&quot;Del.&quot; Okafor's voice again,
-				gentler now. &quot;I didn't say who it was. Don't get ahead of the
-				evidence.&quot;</p>
+			<p>“Del.” Okafor’s voice again, gentler now. “I didn’t say who it
+				was. Don’t get ahead of the evidence.”</p>
 
-			<p class="MsoBodyText">&quot;I know,&quot; Del said, and did not
-				believe himself even a little.</p>
+			<p>“I know,” Del said, and did not believe himself even a little.</p>
 
-			<div
-				style="border: none; border-bottom: double gray 1.0pt; padding: 0in 0in 0in 0in">
+			<hr class="section-break">
 
-				<p class="HorizontalLine">&nbsp;</p>
+			<p>Three hundred miles south, in an apartment above a laundromat
+				in Boston, Claire Renner was staring at a blinking cursor on a
+				half-finished magazine piece when her phone rang with a number she
+				hadn’t seen in eleven years.</p>
 
-			</div>
+			<p>Millbrook Falls Sheriff’s Department.</p>
 
-			<p class="MsoBodyText">Three hundred miles south, in an apartment
-				above a laundromat in Boston, Claire Renner was staring at a
-				blinking cursor on a half-finished magazine piece when her phone
-				rang with a number she hadn't seen in eleven years.</p>
+			<p>She let it ring twice before she picked it up. “This is
+				Claire.”</p>
 
-			<p class="MsoBodyText">Millbrook Falls Sheriff's Department.</p>
+			<p>“Claire. It’s Del Hutchins.” A pause, long enough that she
+				could hear wind on his end, some outdoor sound. “I need you to sit
+				down, if you’re not already.”</p>
 
-			<p class="MsoBodyText">She let it ring twice before she picked it
-				up.</p>
+			<p>She was standing. She sat down anyway, right there on the cold
+				kitchen tile. “You found her,” Claire said.</p>
 
-			<p class="MsoBodyText">&quot;This is Claire.&quot;</p>
+			<p>“We found somebody,” Del said. “In the gorge below the falls.
+				I’m not going to tell you it’s her, because I don’t know that yet.
+				But I think you should come home, Claire.”</p>
 
-			<p class="MsoBodyText">&quot;Claire. It's Del Hutchins.&quot; A
-				pause, long enough that she could hear wind on his end, some outdoor
-				sound. &quot;I need you to sit down, if you're not already.&quot;</p>
-
-			<p class="MsoBodyText">She was standing. She sat down anyway,
-				right there on the cold kitchen tile.</p>
-
-			<p class="MsoBodyText">&quot;You found her,&quot; Claire said.</p>
-
-			<p class="MsoBodyText">&quot;We found somebody,&quot; Del said.
-				&quot;In the gorge below the falls. I'm not going to tell you it's
-				her, because I don't know that yet. But I think you should come
-				home, Claire.&quot;</p>
-
-			<p class="MsoBodyText">Outside her window, a bus hissed to a
-				stop. Claire closed her eyes and saw the footbridge on an October
-				night twenty years gone, and her sister's laugh carrying back to her
-				over the sound of the water — the last sound of her Claire had ever
-				actually heard, rather than remembered.</p>
-
-			<p class="MsoBodyText">&quot;I'm coming,&quot; she said.</p>
+			<p>Outside her window, a bus hissed to a stop. Claire closed her
+				eyes and saw the footbridge on an October night twenty years gone,
+				and her sister’s laugh carrying back to her over the sound of the
+				water — the last sound of her sister Claire had ever actually heard,
+				rather than remembered. “I’m coming,” she said.</p>
 			<p>
 				<em>The Hollow Bell</em>
 			</p>
