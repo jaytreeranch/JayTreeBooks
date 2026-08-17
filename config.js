@@ -1,0 +1,80 @@
+window.JT = {
+  "youtube": "https://www.youtube.com/@JayTreeBooks",
+  "amazon": "https://www.amazon.com/",
+  "audible": "https://www.audible.com/",
+  "ga4": "G-PHE2JVV5P6",
+  "featuredBook": "the-correction",
+  "books": [
+    {
+      "slug": "second-draft",
+      "title": "Second Draft",
+      "genre": "A Psychological Mystery Thriller",
+      "description": "Nobody tells the truth the first time. A dark mystery where memory, secrets, and second chances collide.",
+      "cover": "images/second-draft.png",
+      "chapter": "chapters/book-1-first-chapter.html",
+      "audio": "audio/book-1-sample.html",
+      "amazonUrl": "https://www.amazon.com/",
+      "audibleUrl": "https://www.audible.com/",
+      "trailerUrl": "",
+      "shortUrl": "https://www.youtube.com/shorts/5HBvXR5-BRE",
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=GCNvXhv9Tto"
+    },
+    {
+      "slug": "the-hollow-year",
+      "title": "The Hollow Year",
+      "genre": "A Psychological Mystery Thriller",
+      "description": "In Amity Hollow, one person is erased from every living memory each October.",
+      "cover": "images/the-hollow-year.png",
+      "chapter": "chapters/book-2-first-chapter.html",
+      "audio": "audio/book-2-sample.html",
+      "amazonUrl": "https://www.amazon.com/",
+      "audibleUrl": "https://www.audible.com/",
+      "trailerUrl": "",
+      "shortUrl": "",
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=h1MynsN02dk"
+    },
+    {
+      "slug": "the-hollow-bell",
+      "title": "The Hollow Bell",
+      "genre": "A Psychological Mystery Thriller \u2022 Supernatural",
+      "description": "Some secrets never stay buried. Some bells never stop ringing. A supernatural mystery set in Millbrook Falls.",
+      "cover": "images/the-hollow-bell.png",
+      "chapter": "chapters/book-3-first-chapter.html",
+      "audio": "audio/book-3-sample.html",
+      "amazonUrl": "https://www.amazon.com/",
+      "audibleUrl": "https://www.audible.com/",
+      "trailerUrl": "",
+      "shortUrl": "https://www.youtube.com/shorts/M4VvgR2b0iw",
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=DGcA-ZA9Big"
+    },
+    {
+      "slug": "the-absconding",
+      "title": "The Absconding",
+      "genre": "A Psychological Mystery Thriller",
+      "description": "Some truths won't stay buried. Some hives never forget. A chilling mystery from JayTree Books.",
+      "cover": "images/the-absconding.png",
+      "chapter": "chapters/book-4-first-chapter.html",
+      "audio": "audio/book-4-sample.html",
+      "amazonUrl": "https://www.amazon.com/",
+      "audibleUrl": "https://www.audible.com/",
+      "trailerUrl": "",
+      "shortUrl": "",
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=uLumOPgp_K0"
+    },
+    {
+      "slug": "the-correction",
+      "title": "The Correction",
+      "genre": "A Psychological Mystery Thriller",
+      "description": "Some records shouldn't be changed. Some truths shouldn't be forgotten.",
+      "cover": "images/the-correction.png",
+      "chapter": "chapters/book-5-first-chapter.html",
+      "audio": "audio/book-5-sample.html",
+      "amazonUrl": "https://www.amazon.com/",
+      "audibleUrl": "https://www.audible.com/",
+      "trailerUrl": "https://www.youtube.com/watch?v=KOFvzhkAvsw",
+      "shortUrl": "",
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=fKGbYNAiB7I"
+    }
+  ]
+};
+window.JAYTREE_CONFIG = window.JT;

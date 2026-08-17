@@ -1,56 +1,47 @@
 [
   {
-    "id": "1",
-    "title": "The Quiet Reader",
-    "author": "A. N. Story",
-    "cover": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200&q=80&auto=format&fit=crop",
-    "description": "A gentle novel about community, memory, and why books matter. The Quiet Reader follows a small-town library and the people who keep it alive.",
-    "tags": ["fiction","community","literary"],
-    "buyLink": "https://example.com/book/quiet-reader"
+    "slug": "second-draft",
+    "title": "Second Draft",
+    "genre": "A Psychological Mystery Thriller",
+    "description": "Nobody tells the truth the first time. A dark mystery where memory, secrets, and second chances collide.",
+    "cover": "images/second-draft.png",
+    "chapter": "chapters/book-1-first-chapter.html",
+    "audio": "audio/book-1-sample.html"
   },
   {
-    "id": "2",
-    "title": "Maps for the Unfamiliar",
-    "author": "E. K. Lane",
-    "cover": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200&q=80&auto=format&fit=crop",
-    "description": "A collection of essays exploring belonging, travel, and the small rituals that make life feel navigable.",
-    "tags": ["non-fiction","essays"],
-    "buyLink": "https://example.com/book/maps-unfamiliar"
+    "slug": "the-hollow-year",
+    "title": "The Hollow Year",
+    "genre": "A Psychological Mystery Thriller",
+    "description": "In Amity Hollow, one person is erased from every living memory each October.",
+    "cover": "images/the-hollow-year.png",
+    "chapter": "chapters/book-2-first-chapter.html",
+    "audio": "audio/book-2-sample.html"
   },
   {
-    "id": "3",
-    "title": "Tiny Lights",
-    "author": "M. R. Coleman",
-    "cover": "https://images.unsplash.com/photo-1529119368492-2f3d7a5b13a6?w=1200&q=80&auto=format&fit=crop",
-    "description": "A moving debut novel about family, art, and the small decisions that change the course of our lives.",
-    "tags": ["fiction","debut"],
-    "buyLink": "https://example.com/book/tiny-lights"
+    "slug": "the-hollow-bell",
+    "title": "The Hollow Bell",
+    "genre": "A Psychological Mystery Thriller \u2022 Supernatural",
+    "description": "Some secrets never stay buried. Some bells never stop ringing. A supernatural mystery set in Millbrook Falls.",
+    "cover": "images/the-hollow-bell.png",
+    "chapter": "chapters/book-3-first-chapter.html",
+    "audio": "audio/book-3-sample.html"
   },
   {
-    "id": "4",
-    "title": "The Pocket Guide to Backyard Birding",
-    "author": "H. S. Patel",
-    "cover": "https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=1200&q=80&auto=format&fit=crop",
-    "description": "Practical, friendly, and perfect for new birdwatchers — this pocket guide helps you identify and attract birds to your yard.",
-    "tags": ["non-fiction","nature","guide"],
-    "buyLink": "https://example.com/book/backyard-birding"
+    "slug": "the-absconding",
+    "title": "The Absconding",
+    "genre": "A Psychological Mystery Thriller",
+    "description": "Some truths won't stay buried. Some hives never forget. A chilling mystery from JayTree Books.",
+    "cover": "images/the-absconding.png",
+    "chapter": "chapters/book-4-first-chapter.html",
+    "audio": "audio/book-4-sample.html"
   },
   {
-    "id": "5",
-    "title": "Moonlight & Paperclips",
-    "author": "Rhea Sol",
-    "cover": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80&auto=format&fit=crop",
-    "description": "A playful illustrated storybook for children about making things, fixing mistakes, and the magic of imagination.",
-    "tags": ["children","picture book"],
-    "buyLink": "https://example.com/book/moonlight-paperclips"
-  },
-  {
-    "id": "6",
-    "title": "Reading Lists for Rainy Days",
-    "author": "Curator Collective",
-    "cover": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200&q=80&auto=format&fit=crop",
-    "description": "A themed reading list collection including recommendations and short guides to pair books by mood and season.",
-    "tags": ["lists","reading guide"],
-    "buyLink": "https://example.com/book/reading-lists"
+    "slug": "the-correction",
+    "title": "The Correction",
+    "genre": "A Psychological Mystery Thriller",
+    "description": "Some records shouldn't be changed. Some truths shouldn't be forgotten.",
+    "cover": "images/the-correction.png",
+    "chapter": "chapters/book-5-first-chapter.html",
+    "audio": "audio/book-5-sample.html"
   }
 ]
