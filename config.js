@@ -17,7 +17,7 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "",
       "shortUrl": "https://www.youtube.com/shorts/5HBvXR5-BRE",
-      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=GCNvXhv9Tto"
+      "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc"
     },
     {
       "slug": "the-hollow-year",
