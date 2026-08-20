@@ -58,7 +58,7 @@ window.JT = {
       "amazonUrl": "https://www.amazon.com/",
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "",
-      "shortUrl": "",
+      "shortUrl": "https://youtube.com/shorts/T75N7GEYALg",
       "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=uLumOPgp_K0"
     },
     {
