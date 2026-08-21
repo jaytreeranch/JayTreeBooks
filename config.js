@@ -1,6 +1,6 @@
 window.JT = {
   "youtube": "https://www.youtube.com/@JayTreeBooks",
-  "amazon": "https://www.amazon.com/",
+  "amazon": "https://www.amazon.com/stores/JayTree-Books/author/B0HG41STKM",
   "audible": "https://www.audible.com/",
   "ga4": "G-PHE2JVV5P6",
   "featuredBook": "the-correction",
