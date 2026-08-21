@@ -71,7 +71,7 @@ window.JT = {
       "audio": "audio/book-5-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFV8GG73",
       "audibleUrl": "https://www.audible.com/",
-      "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
+      "trailerUrl": "https://youtu.be/KOFvzhkAvsw",
       "shortUrl": "https://youtube.com/shorts/VBnmRhaZGl0",
       "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc"
     }
