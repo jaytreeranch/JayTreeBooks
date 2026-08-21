@@ -43,7 +43,7 @@ window.JT = {
       "audio": "audio/book-3-sample.html",
       "amazonUrl": "https://www.amazon.com/",
       "audibleUrl": "https://www.audible.com/",
-      "trailerUrl": "",
+      "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
       "shortUrl": "https://www.youtube.com/shorts/M4VvgR2b0iw",
       "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=DGcA-ZA9Big"
     },
