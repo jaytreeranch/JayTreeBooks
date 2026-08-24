@@ -22,6 +22,11 @@
 	gtag('config', 'G-PHE2JVV5P6');
 </script>
 <link rel="stylesheet" href="styles.css">
+<style>
+.challenge-video-block{position:relative;z-index:1;margin-top:28px;display:grid;grid-template-columns:1fr minmax(280px,390px);gap:48px;align-items:center;border:1px solid var(--line);padding:34px;background:linear-gradient(145deg,rgba(15,24,31,.96),rgba(7,12,16,.98));box-shadow:0 28px 70px rgba(0,0,0,.32)}
+.challenge-video-copy h3{font-size:clamp(2rem,4vw,3.35rem);margin:10px 0 18px}.challenge-video-copy p{max-width:620px;color:var(--muted);font-size:1rem}.challenge-video-copy .hero-actions{margin-top:24px}.challenge-video-kicker{display:inline-block;margin-top:8px;color:var(--gold);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}.challenge-short-player{width:100%;max-width:390px;aspect-ratio:9/16;margin-left:auto;background:#05080a;border:1px solid rgba(200,161,90,.42);box-shadow:0 24px 58px rgba(0,0,0,.55);overflow:hidden}.challenge-short-player iframe{width:100%;height:100%;display:block;border:0}
+@media(max-width:800px){.challenge-video-block{grid-template-columns:1fr;padding:20px;gap:28px;text-align:center}.challenge-video-copy p{margin-left:auto;margin-right:auto}.challenge-video-copy .hero-actions{justify-content:center}.challenge-short-player{margin:0 auto;max-width:360px}}
+</style>
 </head>
 <body>
 	<header class="nav">
@@ -81,17 +86,38 @@
 					</div>
 					<div class="challenge-copy">
 						<div class="eyebrow">A New JayTree Books Original</div>
-						<div class="coming-soon">Coming Soon</div>
+						<div class="coming-soon">Case #001 Coming Soon</div>
 						<h2>The Mystery Challenge is about to begin.</h2>
 						<p class="challenge-lead">Three people. One crime scene. Everyone has a story. <strong>Someone is lying.</strong></p>
 						<p>Watch the evidence. Study the suspects. Follow the clues. Then make your accusation before the truth is revealed.</p>
 						<div class="challenge-question">Can you solve Case File #001?</div>
 						<div class="hero-actions">
-							<a class="cta solid" href="https://www.youtube.com/@JayTreeBooks"
-								target="_blank" rel="noopener" data-event="challenge_teaser_youtube">Follow @JayTreeBooks</a>
-							<a class="cta" href="#books">Explore the Mysteries</a>
+							<a class="cta solid" href="#case-001-teaser" data-event="challenge_teaser_play">Watch the Teaser</a>
+							<a class="cta" href="https://www.youtube.com/shorts/qf4mRPghXPo"
+								target="_blank" rel="noopener" data-event="challenge_teaser_youtube">Open on YouTube</a>
 						</div>
-						<small class="challenge-note">The case opens soon on JayTreeBooks.com and YouTube @JayTreeBooks.</small>
+						<small class="challenge-note">The teaser is live now. The full Case File #001 challenge is coming soon.</small>
+					</div>
+				</div>
+
+				<div class="challenge-video-block" id="case-001-teaser">
+					<div class="challenge-video-copy">
+						<div class="eyebrow">Case File #001 Teaser</div>
+						<span class="challenge-video-kicker">Now Playing</span>
+						<h3>Watch the case begin.</h3>
+						<p>Get your first look at the JayTree Books Mystery Challenge. Study what you see, remember the details, and get ready to decide who is telling the truth when the full case opens.</p>
+						<div class="hero-actions">
+							<a class="cta" href="https://www.youtube.com/shorts/qf4mRPghXPo" target="_blank" rel="noopener" data-event="challenge_teaser_youtube_fallback">Watch on YouTube →</a>
+						</div>
+					</div>
+					<div class="challenge-short-player">
+						<iframe
+							src="https://www.youtube-nocookie.com/embed/qf4mRPghXPo?rel=0&playsinline=1"
+							title="JayTree Books Mystery Challenge Case File 001 teaser"
+							loading="lazy"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowfullscreen></iframe>
 					</div>
 				</div>
 			</div>
