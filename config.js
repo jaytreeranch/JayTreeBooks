@@ -29,7 +29,7 @@ window.JT = {
       "audio": "audio/book-2-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFXF8MTP",
       "audibleUrl": "https://www.audible.com/",
-      "trailerUrl": "",
+      "trailerUrl": "https://youtu.be/lxZLVmRnec0",
       "shortUrl": "https://youtube.com/shorts/BncunKlRZcs",
       "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=h1MynsN02dk"
     },
