@@ -28,15 +28,32 @@ function youtubeEmbed(url, title) {
   return `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0" title="${title}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
 }
 
-function externalButton(url, label, eventName, bookSlug) {
+function externalButton(url, label, eventName, bookSlug, extraClass = "") {
   if (!url) return "";
-  return `<a class="cta" href="${url}" target="_blank" rel="noopener" data-track="${eventName}" data-book="${bookSlug}">${label}</a>`;
+  return `<a class="cta${extraClass ? ` ${extraClass}` : ""}" href="${url}" target="_blank" rel="noopener" data-track="${eventName}" data-book="${bookSlug}">${label}</a>`;
+}
+
+function kindleUnlimitedBadge(b) {
+  return b.kindleUnlimited ? `<div class="ku-badge">Kindle Unlimited</div>` : "";
+}
+
+function kindleUnlimitedCallout(b) {
+  if (!b.kindleUnlimited || !b.amazonUrl) return "";
+  return `<div class="ku-callout">
+    <div>
+      <span class="ku-kicker">Kindle Unlimited</span>
+      <strong>Read FREE with Kindle Unlimited</strong>
+      <small>Kindle Unlimited members can read this title at no additional cost.</small>
+    </div>
+    <a class="cta solid ku-button" href="${b.amazonUrl}" target="_blank" rel="noopener" data-track="kindle_unlimited" data-book="${b.slug}">Read on Kindle Unlimited</a>
+  </div>`;
 }
 
 function bookCard(b) {
   return `<article class="card">
     <a class="cover" href="book.html?book=${b.slug}" aria-label="Explore ${b.title}"><img src="${b.cover}" alt="${b.title} book cover"></a>
     <div class="card-body">
+      ${kindleUnlimitedBadge(b)}
       <div class="genre">${b.genre}</div><h3>${b.title}</h3><p>${b.description}</p>
       <div class="card-actions">
         <a class="read-sample" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read First Chapter</a>
@@ -84,6 +101,7 @@ function renderIndex() {
   if (heroActions && featured) {
     heroActions.innerHTML = `
       <a class="cta solid" href="${featured.chapter}" data-track="featured_chapter" data-book="${featured.slug}">Read Chapter One</a>
+      ${featured.kindleUnlimited ? externalButton(featured.amazonUrl, "Read FREE with Kindle Unlimited", "featured_kindle_unlimited", featured.slug) : ""}
       ${featured.trailerUrl ? `<a class="cta" href="#youtube" data-track="featured_trailer" data-book="${featured.slug}">Watch Trailer</a>` : ""}
       <a class="cta" href="book.html?book=${featured.slug}" data-track="featured_book" data-book="${featured.slug}">Explore ${featured.title}</a>`;
   }
@@ -132,6 +150,7 @@ function renderBook() {
       <div class="book-cover-large"><img src="${b.cover}" alt="${b.title} book cover"></div>
       <div>
         <div class="book-meta">${b.genre}</div><h1>${b.title}</h1><p class="book-hook">${b.description}</p>
+        ${kindleUnlimitedCallout(b)}
         <div class="book-actions">
           <a class="cta solid" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read Chapter One</a>
           <a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Play Audio Sample</a>
