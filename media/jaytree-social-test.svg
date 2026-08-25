@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">JayTree Books Social Media Test</title>
+  <desc id="desc">A dark cinematic JayTree Books test graphic for verifying public media hosting.</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0" stop-color="#14222a"/>
+      <stop offset="0.58" stop-color="#071015"/>
+      <stop offset="1" stop-color="#020405"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0" stop-color="#8f682d"/>
+      <stop offset="0.48" stop-color="#f1cf86"/>
+      <stop offset="1" stop-color="#9e7133"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="22" y="22" width="1156" height="586" rx="10" fill="none" stroke="#8f682d" stroke-width="2" opacity="0.72"/>
+  <g transform="translate(600 160)" stroke="url(#gold)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 105 C-8 72 -4 40 0 3" stroke-width="14"/>
+    <path d="M0 62 C-35 42 -60 14 -73 -18 M0 52 C34 32 59 6 74 -20" stroke-width="8"/>
+    <path d="M-9 33 C-38 18 -50 -4 -55 -27 M10 29 C39 14 49 -7 54 -31" stroke-width="6"/>
+    <g fill="#d7b66b" stroke="none">
+      <ellipse cx="-75" cy="-19" rx="12" ry="6" transform="rotate(-25 -75 -19)"/>
+      <ellipse cx="-55" cy="-29" rx="11" ry="5" transform="rotate(-10 -55 -29)"/>
+      <ellipse cx="74" cy="-21" rx="12" ry="6" transform="rotate(25 74 -21)"/>
+      <ellipse cx="54" cy="-33" rx="11" ry="5" transform="rotate(10 54 -33)"/>
+      <ellipse cx="-38" cy="14" rx="10" ry="5" transform="rotate(18 -38 14)"/>
+      <ellipse cx="39" cy="11" rx="10" ry="5" transform="rotate(-18 39 11)"/>
+    </g>
+    <path d="M-118 115 Q-62 90 0 118 Q62 90 118 115 Q64 128 0 140 Q-64 128 -118 115Z" stroke-width="5"/>
+    <path d="M0 118 V140" stroke-width="3"/>
+  </g>
+  <text x="600" y="390" text-anchor="middle" fill="url(#gold)" font-family="Georgia, 'Times New Roman', serif" font-size="94" letter-spacing="8">JAYTREE</text>
+  <text x="600" y="458" text-anchor="middle" fill="#d8d9d8" font-family="Georgia, 'Times New Roman', serif" font-size="46" letter-spacing="16">BOOKS</text>
+  <line x1="385" y1="485" x2="815" y2="485" stroke="#9e7133" stroke-width="2"/>
+  <text x="600" y="532" text-anchor="middle" fill="#cfad68" font-family="Arial, Helvetica, sans-serif" font-size="24" letter-spacing="5">SOCIAL MEDIA HOSTING TEST</text>
+  <text x="600" y="570" text-anchor="middle" fill="#aab0b2" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="2">JayTreeBooks.com</text>
+</svg>
