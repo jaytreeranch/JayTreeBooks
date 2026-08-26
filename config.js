@@ -96,8 +96,15 @@ window.JT = {
   },
   "newsletter": {
     "name": "JayTree Case Files",
+    "provider": "formsubmit",
     "formAction": "https://formsubmit.co/jaytreebooks@gmail.com",
-    "thankYouUrl": "https://www.JayTreeBooks.com/case-files-thanks.html"
+    "thankYouUrl": "https://www.JayTreeBooks.com/case-files-thanks.html",
+    "kit": {
+      "formName": "JayTree Case Files",
+      "sequenceName": "JayTree Case Files Welcome",
+      "embedCode": "",
+      "confirmationRedirect": "https://www.JayTreeBooks.com/case-files-thanks.html"
+    }
   }
 };
 window.JAYTREE_CONFIG = window.JT;

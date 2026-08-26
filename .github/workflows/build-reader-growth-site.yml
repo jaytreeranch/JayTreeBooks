@@ -8,6 +8,8 @@ on:
     paths:
       - "scripts/build_reader_growth_site.py"
       - "scripts/finalize_reader_growth.py"
+      - "scripts/apply_newsletter_provider.py"
+      - "scripts/configure_kit_newsletter.py"
       - "config.js"
       - "images/*.png"
       - "chapters/*.html"
@@ -38,6 +40,7 @@ jobs:
         run: |
           python scripts/build_reader_growth_site.py
           python scripts/finalize_reader_growth.py
+          python scripts/apply_newsletter_provider.py
 
       - name: Validate generated site
         shell: bash
@@ -53,13 +56,19 @@ jobs:
           assert match, 'config.js could not be parsed'
           config = json.loads(match.group(1))
           books = config['books']
+          newsletter = config['newsletter']
+          provider = newsletter.get('provider', 'formsubmit')
           assert len(books) == 5
           assert config['socials']['youtube'].endswith('@JayTreeBooks')
           assert config['socials']['x'].endswith('/JayTreeBooks')
           assert config['socials']['tiktok'].endswith('/@jaytreebooks')
-          assert config['newsletter']['name'] == 'JayTree Case Files'
-          assert config['newsletter']['formAction'].startswith('https://formsubmit.co/')
-          assert config['newsletter']['thankYouUrl'].endswith('/case-files-thanks.html')
+          assert newsletter['name'] == 'JayTree Case Files'
+          assert provider in {'formsubmit', 'kit'}
+          assert newsletter['thankYouUrl'].endswith('/case-files-thanks.html')
+          if provider == 'formsubmit':
+              assert newsletter['formAction'].startswith('https://formsubmit.co/')
+          else:
+              assert newsletter['kit']['embedCode']
 
           for book in books:
               page = root / 'books' / f"{book['slug']}.html"
@@ -92,9 +101,12 @@ jobs:
           case_files = (root / 'case-files.html').read_text(encoding='utf-8')
           assert 'JayTree Case Files — Reader Email List' in case_files
           assert 'data-case-files-form' in case_files
-          assert 'name="consent"' in case_files
-          assert 'name="_honey"' in case_files
-          assert 'case-files-thanks.html' in case_files
+          if provider == 'formsubmit':
+              assert 'name="consent"' in case_files
+              assert 'name="_honey"' in case_files
+              assert 'case-files-thanks.html' in case_files
+          else:
+              assert 'case-files-kit-form' in case_files
 
           thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
           assert 'noindex,follow' in thanks
@@ -113,7 +125,7 @@ jobs:
           assert sitemap.count('<url>') >= 12
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print('Generated reader-growth site and Case Files funnel validated successfully.')
+          print(f'Generated reader-growth site and Case Files funnel validated with provider={provider}.')
           PY
 
       - name: Commit generated website assets
