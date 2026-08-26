@@ -101,26 +101,13 @@ def _replace_hero_fallback(text: str, book: dict) -> str:
     return text
 
 
-def _update_featured_fallback(slug: str) -> bool:
+def _update_featured_fallback(slug: str) -> None:
     text = CONFIG_PATH.read_text(encoding="utf-8")
-    updated = re.sub(
-        r'("featuredBook"\s*:\s*")[^"]+("")?',
-        lambda m: f'{m.group(1)}{slug}"',
-        text,
-        count=1,
-    )
-    if updated == text:
-        # Safer explicit fallback for the exact JSON property shape.
-        updated = re.sub(
-            r'("featuredBook"\s*:\s*")[^"]+("\s*,)',
-            lambda m: f'{m.group(1)}{slug}{m.group(2)}',
-            text,
-            count=1,
-        )
-    if updated == text:
+    pattern = re.compile(r'("featuredBook"\s*:\s*")[^"]+("\s*,)')
+    updated, count = pattern.subn(lambda m: f'{m.group(1)}{slug}{m.group(2)}', text, count=1)
+    if count != 1:
         raise SystemExit("Could not update featuredBook fallback in config.js.")
     CONFIG_PATH.write_text(updated, encoding="utf-8")
-    return True
 
 
 def main() -> int:
