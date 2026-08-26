@@ -22,11 +22,13 @@ jobs:
           http_code="$(curl -sS -o "$body_file" -w '%{http_code}' \
             -X POST \
             -H 'Accept: application/json' \
-            --data-urlencode 'email=casefiles-verification@example.com' \
+            --data-urlencode 'email=jaytreebooks@gmail.com' \
             --data-urlencode 'consent=Automated verification test' \
             --data-urlencode 'list=JayTree Case Files' \
             --data-urlencode 'source=assistant-smoke-test' \
             --data-urlencode '_subject=JayTree Case Files verification test' \
+            --data-urlencode '_template=table' \
+            --data-urlencode '_captcha=false' \
             https://formsubmit.co/ajax/jaytreebooks@gmail.com)"
           echo "HTTP status: $http_code"
           cat "$body_file"
