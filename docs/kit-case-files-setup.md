@@ -2,6 +2,8 @@
 
 Kit is the long-term newsletter backend for JayTree Case Files. Keep FormSubmit live until the Kit form is published and its embed code has been added to the website configuration.
 
+**Zero-downtime rule:** do not change `newsletter.provider` to `kit` until the Kit form is published and the complete embed code has been saved.
+
 ## Recommended Kit account structure
 
 - Plan: Newsletter
