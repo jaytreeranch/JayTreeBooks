@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>TikTok Authorization | JayTree Social Poster</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.callback-wrap{max-width:760px;margin:110px auto 80px;padding:28px;border:1px solid var(--line);background:rgba(7,12,16,.96)}
+.callback-wrap h1{margin-top:0}.callback-wrap code{display:block;overflow-wrap:anywhere;padding:14px;background:#05080a;border:1px solid rgba(200,161,90,.35)}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-inner"><a class="brand" href="index.html">JAYTREE BOOKS</a></div></header>
+<main class="callback-wrap">
+  <div class="eyebrow">JayTree Social Poster</div>
+  <h1>TikTok authorization received.</h1>
+  <p>You may return to the JayTree Social Poster setup. Keep the authorization details private.</p>
+  <p id="status">Checking authorization response…</p>
+  <code id="details"></code>
+</main>
+<script>
+(function(){
+  const p=new URLSearchParams(window.location.search);
+  const code=p.get('code');
+  const error=p.get('error');
+  const state=p.get('state');
+  const status=document.getElementById('status');
+  const details=document.getElementById('details');
+  if(error){status.textContent='TikTok returned an authorization error.';details.textContent='error='+error+(p.get('error_description')?' — '+p.get('error_description'):'');return;}
+  if(code){status.textContent='Authorization completed successfully. Copy the full browser URL only into your local authorization script when instructed.';details.textContent='Authorization code received'+(state?' with matching state parameter.':'.');return;}
+  status.textContent='No authorization code is present yet.';details.textContent='This page is used only as the TikTok OAuth redirect destination.';
+})();
+</script>
+</body>
+</html>
