@@ -1,0 +1,67 @@
+name: Sync Weekly Campaign Metadata
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Optional America/Chicago date (YYYY-MM-DD); leave blank for current week"
+        required: false
+        default: ""
+        type: string
+  schedule:
+    - cron: "0 8 * * 1"
+      timezone: "America/Chicago"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-campaign-metadata
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Synchronize featured-book metadata
+        shell: bash
+        env:
+          REQUESTED_DATE: ${{ inputs.date }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$REQUESTED_DATE" ]]; then
+            python scripts/update_campaign_metadata.py --date "$REQUESTED_DATE"
+          else
+            python scripts/update_campaign_metadata.py
+          fi
+
+      - name: Commit synchronized homepage metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html config.js
+          if git diff --cached --quiet; then
+            echo "Campaign metadata is already synchronized."
+            exit 0
+          fi
+          git commit -m "Sync weekly featured campaign metadata"
+          git push
+
+      - name: Summarize campaign metadata
+        shell: bash
+        run: |
+          {
+            echo "## Weekly website campaign metadata"
+            echo ""
+            echo "Homepage title, Open Graph tags, Twitter card tags, and static featured-book fallback were synchronized from data/campaign.json."
+            echo ""
+            echo "GitHub Pages will deploy the committed metadata automatically."
+          } >> "$GITHUB_STEP_SUMMARY"
