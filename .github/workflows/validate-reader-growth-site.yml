@@ -67,6 +67,8 @@ jobs:
           assert newsletter['kit']['sequenceName'] == 'JayTree Case Files Welcome'
           if provider == 'formsubmit':
               assert newsletter['formAction'].startswith('https://formsubmit.co/')
+          else:
+              assert newsletter['kit']['embedCode']
 
           for book in books:
               page = root / 'books' / f"{book['slug']}.html"
@@ -96,7 +98,11 @@ jobs:
           assert 'https://x.com/JayTreeBooks' in index
           assert 'https://www.tiktok.com/@jaytreebooks' in index
           assert 'JAYTREE_CASE_FILES_START' in index
-          assert 'Open the Case Files' in index
+          if provider == 'formsubmit':
+              assert 'Open the Case Files' in index
+          else:
+              assert 'case-files-kit-form' in index
+              assert newsletter['kit']['embedCode'] in index
 
           case_files = (root / 'case-files.html').read_text(encoding='utf-8')
           assert '<link rel="canonical" href="https://www.JayTreeBooks.com/case-files.html">' in case_files
@@ -108,10 +114,13 @@ jobs:
               assert 'name="_honey"' in case_files
           else:
               assert 'case-files-kit-form' in case_files
+              assert newsletter['kit']['embedCode'] in case_files
 
           thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in thanks
           assert 'case_files_signup_complete' in thanks
+          if provider == 'kit':
+              assert "{source:'kit'}" in thanks
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'href="books/${b.slug}.html"' in app
