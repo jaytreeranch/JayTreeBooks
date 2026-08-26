@@ -34,7 +34,7 @@ jobs:
       - name: Install image optimizer
         run: python -m pip install Pillow
 
-      - name: Build conversion pages, SEO pages, and optimized images
+      - name: Build conversion pages, SEO pages, optimized images, and Case Files signup
         run: |
           python scripts/build_reader_growth_site.py
           python scripts/finalize_reader_growth.py
@@ -57,6 +57,9 @@ jobs:
           assert config['socials']['youtube'].endswith('@JayTreeBooks')
           assert config['socials']['x'].endswith('/JayTreeBooks')
           assert config['socials']['tiktok'].endswith('/@jaytreebooks')
+          assert config['newsletter']['name'] == 'JayTree Case Files'
+          assert config['newsletter']['formAction'].startswith('https://formsubmit.co/')
+          assert config['newsletter']['thankYouUrl'].endswith('/case-files-thanks.html')
 
           for book in books:
               page = root / 'books' / f"{book['slug']}.html"
@@ -82,17 +85,35 @@ jobs:
           index = (root / 'index.html').read_text(encoding='utf-8')
           assert 'JAYTREE_ORG_SCHEMA_START' in index
           assert 'JAYTREE_SOCIAL_FOLLOW_START' in index
+          assert 'JAYTREE_CASE_FILES_START' in index
+          assert 'Open the Case Files' in index
+          assert 'href="#case-files">Case Files</a>' in index
+
+          case_files = (root / 'case-files.html').read_text(encoding='utf-8')
+          assert 'JayTree Case Files — Reader Email List' in case_files
+          assert 'data-case-files-form' in case_files
+          assert 'name="consent"' in case_files
+          assert 'name="_honey"' in case_files
+          assert 'case-files-thanks.html' in case_files
+
+          thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
+          assert 'noindex,follow' in thanks
+          assert 'case_files_signup_complete' in thanks
+
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'books/${b.slug}.html' in app
           assert 'books/${b.slug}.html#listen' in app
           assert 'loading="lazy"' in app
           assert 'track("social_visit"' in app
+          assert 'case_files_signup_submit' in app
+
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
-          assert sitemap.count('<url>') >= 11
+          assert sitemap.count('<url>') >= 12
+          assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print('Generated reader-growth site validated successfully.')
+          print('Generated reader-growth site and Case Files funnel validated successfully.')
           PY
 
       - name: Commit generated website assets
@@ -100,10 +121,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add config.js app.js index.html book.html styles.css chapters books sitemap.xml robots.txt images/optimized
+          git add config.js app.js index.html book.html case-files.html case-files-thanks.html styles.css chapters books sitemap.xml robots.txt images/optimized
           if git diff --cached --quiet; then
             echo "Reader-growth site is already current."
             exit 0
           fi
-          git commit -m "Build reader conversion and SEO pages"
+          git commit -m "Build JayTree Case Files signup funnel"
           git push

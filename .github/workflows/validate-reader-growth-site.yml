@@ -37,7 +37,7 @@ jobs:
           python scripts/build_reader_growth_site.py
           python scripts/finalize_reader_growth.py
 
-      - name: Validate conversion, SEO, social, and image outputs
+      - name: Validate conversion, SEO, social, image, and Case Files outputs
         shell: bash
         run: |
           python - <<'PY'
@@ -52,6 +52,8 @@ jobs:
           config = json.loads(match.group(1))
           books = config['books']
           assert len(books) == 5
+          assert config['newsletter']['name'] == 'JayTree Case Files'
+          assert config['newsletter']['formAction'].startswith('https://formsubmit.co/')
 
           for book in books:
               page = root / 'books' / f"{book['slug']}.html"
@@ -80,12 +82,29 @@ jobs:
           assert 'Follow JayTree Books' in index
           assert 'https://x.com/JayTreeBooks' in index
           assert 'https://www.tiktok.com/@jaytreebooks' in index
+          assert 'JAYTREE_CASE_FILES_START' in index
+          assert 'Open the Case Files' in index
+          assert 'name="consent"' in index
+
+          case_files = (root / 'case-files.html').read_text(encoding='utf-8')
+          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/case-files.html">' in case_files
+          assert 'Get the next mystery before the reveal.' in case_files
+          assert 'data-case-files-form' in case_files
+          assert 'name="_autoresponse"' in case_files
+          assert 'name="_honey"' in case_files
+          assert 'case_files_signup_view' in case_files
+
+          thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
+          assert 'name="robots" content="noindex,follow"' in thanks
+          assert 'case_files_signup_complete' in thanks
+          assert "You're in the Case Files." in thanks
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'href="books/${b.slug}.html"' in app
           assert 'books/${b.slug}.html#listen' in app
           assert 'loading="lazy" decoding="async"' in app
           assert 'track("social_visit"' in app
+          assert 'case_files_signup_submit' in app
 
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
@@ -94,6 +113,7 @@ jobs:
           for book in books:
               assert f'https://www.JayTreeBooks.com/books/{book["slug"]}.html' in sitemap
               assert f'https://www.JayTreeBooks.com/{book["chapter"]}' in sitemap
+          assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert 'Sitemap: https://www.JayTreeBooks.com/sitemap.xml' in (root / 'robots.txt').read_text(encoding='utf-8')
-          print('Reader growth validation passed.')
+          print('Reader growth and JayTree Case Files validation passed.')
           PY
