@@ -1,0 +1,99 @@
+name: Build Reader Growth Site
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/build_reader_growth_site.py"
+      - "config.js"
+      - "images/*.png"
+      - "chapters/*.html"
+      - ".github/workflows/build-reader-growth-site.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jaytree-reader-growth-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install image optimizer
+        run: python -m pip install Pillow
+
+      - name: Build conversion pages, SEO pages, and optimized images
+        run: python scripts/build_reader_growth_site.py
+
+      - name: Validate generated site
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path('.')
+          config_text = (root / 'config.js').read_text(encoding='utf-8')
+          match = re.search(r'window\.JT\s*=\s*(\{.*?\});\s*window\.JAYTREE_CONFIG', config_text, re.S)
+          assert match, 'config.js could not be parsed'
+          config = json.loads(match.group(1))
+          books = config['books']
+          assert len(books) == 5
+          assert config['socials']['youtube'].endswith('@JayTreeBooks')
+          assert config['socials']['x'].endswith('/JayTreeBooks')
+          assert config['socials']['tiktok'].endswith('/@jaytreebooks')
+
+          for book in books:
+              page = root / 'books' / f"{book['slug']}.html"
+              assert page.exists(), page
+              html = page.read_text(encoding='utf-8')
+              assert '<script type="application/ld+json">' in html
+              assert 'Read FREE with Kindle Unlimited' in html
+              assert f"/books/{book['slug']}.html" in html
+
+              chapter = root / book['chapter']
+              chapter_html = chapter.read_text(encoding='utf-8')
+              assert 'JAYTREE_READER_CONVERSION_START' in chapter_html
+              assert 'Continue FREE with Kindle Unlimited' in chapter_html
+
+              optimized = root / book['cover']
+              assert optimized.exists(), optimized
+              assert optimized.suffix == '.webp'
+              assert optimized.stat().st_size < 1_000_000, (optimized, optimized.stat().st_size)
+
+          index = (root / 'index.html').read_text(encoding='utf-8')
+          assert 'JAYTREE_ORG_SCHEMA_START' in index
+          assert 'JAYTREE_SOCIAL_FOLLOW_START' in index
+          app = (root / 'app.js').read_text(encoding='utf-8')
+          assert 'books/${b.slug}.html' in app
+          assert 'loading="lazy"' in app
+          sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
+          assert sitemap.count('<url>') >= 11
+          assert (root / 'robots.txt').exists()
+          print('Generated reader-growth site validated successfully.')
+          PY
+
+      - name: Commit generated website assets
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config.js app.js index.html styles.css chapters books sitemap.xml robots.txt images/optimized
+          if git diff --cached --quiet; then
+            echo "Reader-growth site is already current."
+            exit 0
+          fi
+          git commit -m "Build reader conversion and SEO pages"
+          git push
