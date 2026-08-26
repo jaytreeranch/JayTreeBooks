@@ -8,6 +8,12 @@ on:
         required: false
         default: ""
         type: string
+  push:
+    branches: ["main"]
+    paths:
+      - "data/campaign.json"
+      - "scripts/update_campaign_metadata.py"
+      - ".github/workflows/sync-campaign-metadata.yml"
   schedule:
     - cron: "0 8 * * 1"
       timezone: "America/Chicago"
