@@ -13,6 +13,7 @@ CASE_FILES_PATH = ROOT / "case-files.html"
 THANKS_PATH = ROOT / "case-files-thanks.html"
 CONFIG_RE = re.compile(r"window\.JT\s*=\s*(\{.*?\});\s*window\.JAYTREE_CONFIG\s*=\s*window\.JT;", re.S)
 FORM_RE = re.compile(r'<form class="case-files-form"[^>]*data-case-files-form[^>]*>.*?</form>', re.S)
+# The active newsletter backend is controlled by newsletter.provider in config.js.
 
 
 def load_config() -> dict:
