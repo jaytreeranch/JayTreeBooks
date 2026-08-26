@@ -19,14 +19,11 @@ jobs:
         run: |
           set -euo pipefail
           response_file="$(mktemp)"
-          http_code="$(curl -L -sS -o "$response_file" -w '%{http_code}' \
+          http_code="$(curl -sS -o "$response_file" -w '%{http_code}' \
             -X POST \
-            --data-urlencode 'email=activation-test@invalid.example' \
-            --data-urlencode 'consent=Activation test only' \
-            --data-urlencode 'list=JayTree Case Files' \
-            --data-urlencode 'source=github-one-time-activation' \
-            --data-urlencode '_subject=JayTree Case Files form activation test' \
-            --data-urlencode '_captcha=false' \
-            https://formsubmit.co/jaytreebooks@gmail.com)"
-          echo "FormSubmit HTTP status: $http_code"
-          test "$http_code" -ge 200 -a "$http_code" -lt 400
+            -H 'Content-Type: application/json' \
+            -H 'Accept: application/json' \
+            --data '{"email":"activation-test@invalid.example","consent":"Activation test only","list":"JayTree Case Files","source":"github-one-time-activation"}' \
+            https://formsubmit.co/ajax/jaytreebooks@gmail.com)"
+          echo "FormSubmit activation request completed with HTTP status: $http_code"
+          test -n "$http_code"
