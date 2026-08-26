@@ -1,0 +1,33 @@
+name: Case Files Signup Smoke Test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/case-files-smoke-test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit verification signup
+        shell: bash
+        run: |
+          set -euo pipefail
+          body_file="$(mktemp)"
+          http_code="$(curl -sS -o "$body_file" -w '%{http_code}' \
+            -X POST \
+            -H 'Accept: application/json' \
+            --data-urlencode 'email=casefiles-verification@example.com' \
+            --data-urlencode 'consent=Automated verification test' \
+            --data-urlencode 'list=JayTree Case Files' \
+            --data-urlencode 'source=assistant-smoke-test' \
+            --data-urlencode '_subject=JayTree Case Files verification test' \
+            https://formsubmit.co/ajax/jaytreebooks@gmail.com)"
+          echo "HTTP status: $http_code"
+          cat "$body_file"
+          test "$http_code" -ge 200 -a "$http_code" -lt 300
