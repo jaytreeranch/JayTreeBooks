@@ -83,17 +83,78 @@ function bindTracking() {
   if (toggle) toggle.addEventListener("click", () => document.querySelector(".nav")?.classList.toggle("open"));
 }
 
-function renderIndex() {
+let campaignConfigPromise = null;
+
+function dateKeyInTimeZone(timeZone) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+  const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function utcDayNumber(dateKey) {
+  const [year, month, day] = String(dateKey).split("-").map(Number);
+  if (!year || !month || !day) throw new Error(`Invalid campaign date: ${dateKey}`);
+  return Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+}
+
+function mondayDayNumber(dayNumber) {
+  const weekday = new Date(dayNumber * 86400000).getUTCDay();
+  return dayNumber - ((weekday + 6) % 7);
+}
+
+function featuredSlugFromCampaign(campaign) {
+  if (!campaign || !Array.isArray(campaign.rotation) || !campaign.rotation.length) {
+    throw new Error("Campaign rotation is missing or empty");
+  }
+  const timeZone = campaign.timezone || "America/Chicago";
+  const today = utcDayNumber(dateKeyInTimeZone(timeZone));
+  const anchor = utcDayNumber(campaign.rotation_anchor);
+  const weeks = Math.floor((mondayDayNumber(today) - mondayDayNumber(anchor)) / 7);
+  const index = ((weeks % campaign.rotation.length) + campaign.rotation.length) % campaign.rotation.length;
+  return campaign.rotation[index];
+}
+
+async function loadCampaignConfig() {
+  if (!campaignConfigPromise) {
+    const url = JT.campaignConfigUrl || "data/campaign.json";
+    campaignConfigPromise = fetch(url, { cache: "no-store" }).then(async response => {
+      if (!response.ok) throw new Error(`Campaign config returned HTTP ${response.status}`);
+      return response.json();
+    });
+  }
+  return campaignConfigPromise;
+}
+
+async function featuredBook() {
+  let slug = JT.featuredBook;
+  try {
+    const campaign = await loadCampaignConfig();
+    const campaignSlug = featuredSlugFromCampaign(campaign);
+    if (JT.books.some(book => book.slug === campaignSlug)) slug = campaignSlug;
+  } catch (error) {
+    console.warn("Using fallback featured book because campaign sync was unavailable.", error);
+  }
+  return JT.books.find(book => book.slug === slug) || JT.books[0];
+}
+
+async function renderIndex() {
   const bookGrid = document.getElementById("book-grid");
   const audioGrid = document.getElementById("audio-grid");
   if (bookGrid) bookGrid.innerHTML = JT.books.map(bookCard).join("");
   if (audioGrid) audioGrid.innerHTML = JT.books.map(audioCard).join("");
 
-  const featured = JT.books.find(b => b.slug === JT.featuredBook) || JT.books[0];
+  const featured = await featuredBook();
   const heroImage = document.querySelector(".hero-feature img");
+  const heroLabel = document.querySelector(".hero-feature span");
   const heroTitle = document.querySelector(".hero-feature strong");
   const heroSmall = document.querySelector(".hero-feature small");
   if (heroImage) { heroImage.src = featured.cover; heroImage.alt = featured.title + " book cover"; }
+  if (heroLabel) heroLabel.textContent = "THIS WEEK'S FEATURED MYSTERY";
   if (heroTitle) heroTitle.textContent = featured.title;
   if (heroSmall) heroSmall.textContent = featured.description;
 
@@ -119,9 +180,11 @@ function relatedCards(book) {
   return JT.books.filter(x => x.slug !== book.slug).slice(0, 3).map(bookCard).join("");
 }
 
-function renderBook() {
-  const slug = new URLSearchParams(location.search).get("book") || JT.featuredBook;
-  const b = JT.books.find(x => x.slug === slug) || JT.books[0];
+async function renderBook() {
+  const requestedSlug = new URLSearchParams(location.search).get("book");
+  const b = requestedSlug
+    ? (JT.books.find(x => x.slug === requestedSlug) || JT.books[0])
+    : await featuredBook();
   const page = document.getElementById("book-page");
   if (!page) return;
   document.title = `${b.title} | JayTree Books`;
@@ -177,5 +240,5 @@ function renderBook() {
   bindTracking();
 }
 
-if (document.getElementById("book-grid")) renderIndex();
-if (document.getElementById("book-page")) renderBook();
+if (document.getElementById("book-grid")) renderIndex().catch(error => console.error("Homepage render failed", error));
+if (document.getElementById("book-page")) renderBook().catch(error => console.error("Book page render failed", error));
