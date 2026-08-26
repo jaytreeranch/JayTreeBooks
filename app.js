@@ -68,7 +68,7 @@ function audioCard(b) {
     <div class="audio-icon">◉</div><div class="format">Audiobook</div><h3>${b.title}</h3><p>${b.description}</p>
     <div class="card-actions">
       <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Audio Sample</a>
-      <a class="audible" href="book.html?book=${b.slug}#audiobook" data-track="book_audio" data-book="${b.slug}">Audiobook & Reading</a>
+      <a class="audible" href="books/${b.slug}.html#listen" data-track="book_audio" data-book="${b.slug}">Audiobook & Reading</a>
     </div>
   </article>`;
 }
@@ -76,6 +76,9 @@ function audioCard(b) {
 function bindTracking() {
   document.querySelectorAll("[data-track]").forEach(el => {
     el.addEventListener("click", () => track(el.dataset.track, { book: el.dataset.book || "" }));
+  });
+  document.querySelectorAll("[data-social]").forEach(el => {
+    el.addEventListener("click", () => track("social_visit", { platform: el.dataset.social || "" }));
   });
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
