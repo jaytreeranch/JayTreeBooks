@@ -1,0 +1,42 @@
+name: Validate Campaign Automation
+
+on:
+  pull_request:
+    paths:
+      - "data/campaign.json"
+      - "config.js"
+      - "index.html"
+      - "scripts/update_campaign_metadata.py"
+      - ".github/workflows/sync-campaign-metadata.yml"
+      - ".github/workflows/validate-campaign-automation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile metadata automation
+        run: python -m py_compile scripts/update_campaign_metadata.py
+
+      - name: Verify current and next campaign metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/update_campaign_metadata.py --date 2026-08-26
+          grep -F 'The Hollow Bell — Read FREE with Kindle Unlimited | JayTree Books' index.html
+          grep -F '"featuredBook": "the-hollow-bell"' config.js
+
+          python scripts/update_campaign_metadata.py --date 2026-08-31
+          grep -F 'The Correction — Read FREE with Kindle Unlimited | JayTree Books' index.html
+          grep -F '"featuredBook": "the-correction"' config.js
+          grep -F 'property="og:image"' index.html
+          grep -F 'name="twitter:card" content="summary_large_image"' index.html
