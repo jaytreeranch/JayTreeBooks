@@ -96,13 +96,13 @@ window.JT = {
   },
   "newsletter": {
     "name": "JayTree Case Files",
-    "provider": "formsubmit",
+    "provider": "kit",
     "formAction": "https://formsubmit.co/jaytreebooks@gmail.com",
     "thankYouUrl": "https://www.JayTreeBooks.com/case-files-thanks.html",
     "kit": {
       "formName": "JayTree Case Files",
       "sequenceName": "JayTree Case Files Welcome",
-      "embedCode": "",
+      "embedCode": "<script async data-uid=\"45491fc29e\" src=\"https://jaytree-books.kit.com/45491fc29e/index.js\"></script>",
       "confirmationRedirect": "https://www.JayTreeBooks.com/case-files-thanks.html"
     }
   }
