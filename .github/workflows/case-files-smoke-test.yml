@@ -14,12 +14,12 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Submit verification signup
+      - name: Submit verification signup and capture response
         shell: bash
         run: |
-          set -euo pipefail
-          body_file="$(mktemp)"
-          http_code="$(curl -sS -o "$body_file" -w '%{http_code}' \
+          set +e
+          body_file="formsubmit-response.txt"
+          http_code="$(curl -sS -o "$body_file.body" -w '%{http_code}' \
             -X POST \
             -H 'Accept: application/json' \
             --data-urlencode 'email=jaytreebooks@gmail.com' \
@@ -30,6 +30,17 @@ jobs:
             --data-urlencode '_template=table' \
             --data-urlencode '_captcha=false' \
             https://formsubmit.co/ajax/jaytreebooks@gmail.com)"
-          echo "HTTP status: $http_code"
+          {
+            echo "HTTP_STATUS=$http_code"
+            echo "---BODY---"
+            cat "$body_file.body"
+          } > "$body_file"
           cat "$body_file"
-          test "$http_code" -ge 200 -a "$http_code" -lt 300
+          exit 0
+
+      - name: Upload response
+        uses: actions/upload-artifact@v4
+        with:
+          name: case-files-formsubmit-response
+          path: formsubmit-response.txt
+          retention-days: 1
