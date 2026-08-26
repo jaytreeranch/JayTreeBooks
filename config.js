@@ -3,7 +3,8 @@ window.JT = {
   "amazon": "https://www.amazon.com/stores/JayTree-Books/author/B0HG41STKM",
   "audible": "https://www.audible.com/",
   "ga4": "G-PHE2JVV5P6",
-  "featuredBook": "the-correction",
+  "featuredBook": "the-hollow-bell",
+  "campaignConfigUrl": "data/campaign.json",
   "books": [
     {
       "slug": "second-draft",
