@@ -93,6 +93,11 @@ window.JT = {
     "tiktok": "https://www.tiktok.com/@jaytreebooks",
     "instagram": "",
     "facebook": ""
+  },
+  "newsletter": {
+    "name": "JayTree Case Files",
+    "formAction": "https://formsubmit.co/jaytreebooks@gmail.com",
+    "thankYouUrl": "https://www.JayTreeBooks.com/case-files-thanks.html"
   }
 };
 window.JAYTREE_CONFIG = window.JT;

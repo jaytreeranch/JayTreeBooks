@@ -80,6 +80,9 @@ function bindTracking() {
   document.querySelectorAll("[data-social]").forEach(el => {
     el.addEventListener("click", () => track("social_visit", { platform: el.dataset.social || "" }));
   });
+  document.querySelectorAll("[data-case-files-form]").forEach(form => {
+    form.addEventListener("submit", () => track("case_files_signup_submit", { placement: form.dataset.placement || "unknown" }));
+  });
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
   const toggle = document.querySelector(".menu-toggle");
