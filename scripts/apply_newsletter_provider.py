@@ -63,12 +63,10 @@ def main() -> int:
     replace_one(INDEX_PATH, "homepage", embed_code)
     replace_one(CASE_FILES_PATH, "case-files-page", embed_code)
 
+    # The Kit confirmation link redirects here only after the subscriber has
+    # confirmed, so retain the normal "You're in" copy and just record Kit as
+    # the completion source in GA4.
     thanks = THANKS_PATH.read_text(encoding="utf-8")
-    thanks = thanks.replace("You're in the Case Files.", "Check your inbox to enter the Case Files.")
-    thanks = thanks.replace(
-        "Your signup was submitted. Watch your inbox for JayTree Books mysteries, clues, first chapters, trailers, book news, and reader promotions.",
-        "Your signup was submitted. Confirm your email from Kit, then you'll receive JayTree Books mysteries, clues, first chapters, trailers, book news, and reader promotions.",
-    )
     thanks = thanks.replace("{source:'formsubmit'}", "{source:'kit'}")
     THANKS_PATH.write_text(thanks, encoding="utf-8")
 
