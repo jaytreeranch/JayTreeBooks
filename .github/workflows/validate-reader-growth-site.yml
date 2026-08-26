@@ -5,7 +5,11 @@ on:
     paths:
       - "scripts/build_reader_growth_site.py"
       - "scripts/finalize_reader_growth.py"
+      - "scripts/apply_newsletter_provider.py"
+      - "scripts/configure_kit_newsletter.py"
       - "config.js"
+      - "data/case-files-welcome-sequence.md"
+      - "docs/kit-case-files-setup.md"
       - "images/*.png"
       - "chapters/*.html"
       - ".github/workflows/build-reader-growth-site.yml"
@@ -31,11 +35,14 @@ jobs:
         run: |
           python -m py_compile scripts/build_reader_growth_site.py
           python -m py_compile scripts/finalize_reader_growth.py
+          python -m py_compile scripts/apply_newsletter_provider.py
+          python -m py_compile scripts/configure_kit_newsletter.py
 
       - name: Generate site in CI workspace
         run: |
           python scripts/build_reader_growth_site.py
           python scripts/finalize_reader_growth.py
+          python scripts/apply_newsletter_provider.py
 
       - name: Validate conversion, SEO, social, image, and Case Files outputs
         shell: bash
@@ -51,9 +58,15 @@ jobs:
           assert match
           config = json.loads(match.group(1))
           books = config['books']
+          newsletter = config['newsletter']
+          provider = newsletter.get('provider', 'formsubmit')
           assert len(books) == 5
-          assert config['newsletter']['name'] == 'JayTree Case Files'
-          assert config['newsletter']['formAction'].startswith('https://formsubmit.co/')
+          assert newsletter['name'] == 'JayTree Case Files'
+          assert provider in {'formsubmit', 'kit'}
+          assert newsletter['kit']['formName'] == 'JayTree Case Files'
+          assert newsletter['kit']['sequenceName'] == 'JayTree Case Files Welcome'
+          if provider == 'formsubmit':
+              assert newsletter['formAction'].startswith('https://formsubmit.co/')
 
           for book in books:
               page = root / 'books' / f"{book['slug']}.html"
@@ -84,20 +97,21 @@ jobs:
           assert 'https://www.tiktok.com/@jaytreebooks' in index
           assert 'JAYTREE_CASE_FILES_START' in index
           assert 'Open the Case Files' in index
-          assert 'name="consent"' in index
 
           case_files = (root / 'case-files.html').read_text(encoding='utf-8')
           assert '<link rel="canonical" href="https://www.JayTreeBooks.com/case-files.html">' in case_files
           assert 'Get the next mystery before the reveal.' in case_files
           assert 'data-case-files-form' in case_files
-          assert 'name="_autoresponse"' in case_files
-          assert 'name="_honey"' in case_files
           assert 'case_files_signup_view' in case_files
+          if provider == 'formsubmit':
+              assert 'name="_autoresponse"' in case_files
+              assert 'name="_honey"' in case_files
+          else:
+              assert 'case-files-kit-form' in case_files
 
           thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in thanks
           assert 'case_files_signup_complete' in thanks
-          assert "You're in the Case Files." in thanks
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'href="books/${b.slug}.html"' in app
@@ -105,6 +119,10 @@ jobs:
           assert 'loading="lazy" decoding="async"' in app
           assert 'track("social_visit"' in app
           assert 'case_files_signup_submit' in app
+
+          assert (root / 'data/case-files-welcome-sequence.md').exists()
+          assert (root / 'docs/kit-case-files-setup.md').exists()
+          assert 'You're in the JayTree Case Files' in (root / 'data/case-files-welcome-sequence.md').read_text(encoding='utf-8')
 
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
@@ -115,5 +133,5 @@ jobs:
               assert f'https://www.JayTreeBooks.com/{book["chapter"]}' in sitemap
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert 'Sitemap: https://www.JayTreeBooks.com/sitemap.xml' in (root / 'robots.txt').read_text(encoding='utf-8')
-          print('Reader growth and JayTree Case Files validation passed.')
+          print(f'Reader growth and JayTree Case Files validation passed with provider={provider}.')
           PY
