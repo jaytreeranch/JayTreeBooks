@@ -51,13 +51,13 @@ function kindleUnlimitedCallout(b) {
 
 function bookCard(b) {
   return `<article class="card">
-    <a class="cover" href="book.html?book=${b.slug}" aria-label="Explore ${b.title}"><img src="${b.cover}" alt="${b.title} book cover"></a>
+    <a class="cover" href="books/${b.slug}.html" aria-label="Explore ${b.title}"><img src="${b.cover}" alt="${b.title} book cover" loading="lazy" decoding="async"></a>
     <div class="card-body">
       ${kindleUnlimitedBadge(b)}
       <div class="genre">${b.genre}</div><h3>${b.title}</h3><p>${b.description}</p>
       <div class="card-actions">
         <a class="read-sample" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read First Chapter</a>
-        <a class="buy" href="book.html?book=${b.slug}" data-track="book_page" data-book="${b.slug}">Explore Book</a>
+        <a class="buy" href="books/${b.slug}.html" data-track="book_page" data-book="${b.slug}">Explore Book</a>
       </div>
     </div>
   </article>`;

@@ -11,7 +11,7 @@ window.JT = {
       "title": "Second Draft",
       "genre": "A Psychological Mystery Thriller",
       "description": "Nobody tells the truth the first time. A dark mystery where memory, secrets, and second chances collide.",
-      "cover": "images/second-draft.png",
+      "cover": "images/optimized/second-draft.webp",
       "chapter": "chapters/book-1-first-chapter.html",
       "audio": "audio/book-1-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFYQ9KGV",
@@ -19,14 +19,15 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "https://youtu.be/IA_fL2IHkNs",
       "shortUrl": "https://youtube.com/shorts/_NLalSyI6GY",
-      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=GCNvXhv9Tto"
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=GCNvXhv9Tto",
+      "coverOriginal": "images/second-draft.png"
     },
     {
       "slug": "the-hollow-year",
       "title": "The Hollow Year",
       "genre": "A Psychological Mystery Thriller",
       "description": "In Amity Hollow, one person is erased from every living memory each October.",
-      "cover": "images/the-hollow-year.png",
+      "cover": "images/optimized/the-hollow-year.webp",
       "chapter": "chapters/book-2-first-chapter.html",
       "audio": "audio/book-2-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFXF8MTP",
@@ -34,14 +35,15 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "https://youtu.be/lxZLVmRnec0",
       "shortUrl": "https://youtube.com/shorts/BncunKlRZcs",
-      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=h1MynsN02dk"
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=h1MynsN02dk",
+      "coverOriginal": "images/the-hollow-year.png"
     },
     {
       "slug": "the-hollow-bell",
       "title": "The Hollow Bell",
       "genre": "A Psychological Mystery Thriller • Supernatural",
       "description": "Some secrets never stay buried. Some bells never stop ringing. A supernatural mystery set in Millbrook Falls.",
-      "cover": "images/the-hollow-bell.png",
+      "cover": "images/optimized/the-hollow-bell.webp",
       "chapter": "chapters/book-3-first-chapter.html",
       "audio": "audio/book-3-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HD5RH8X5",
@@ -49,14 +51,15 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
       "shortUrl": "https://www.youtube.com/shorts/M4VvgR2b0iw",
-      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=DGcA-ZA9Big"
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=DGcA-ZA9Big",
+      "coverOriginal": "images/the-hollow-bell.png"
     },
     {
       "slug": "the-absconding",
       "title": "The Absconding",
       "genre": "A Psychological Mystery Thriller",
       "description": "Some truths won't stay buried. Some hives never forget. A chilling mystery from JayTree Books.",
-      "cover": "images/the-absconding.png",
+      "cover": "images/optimized/the-absconding.webp",
       "chapter": "chapters/book-4-first-chapter.html",
       "audio": "audio/book-4-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFY538WC",
@@ -64,14 +67,15 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "https://youtu.be/b9mOYwmDhPY",
       "shortUrl": "https://youtube.com/shorts/-F5MyrNUnSo",
-      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=uLumOPgp_K0"
+      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=uLumOPgp_K0",
+      "coverOriginal": "images/the-absconding.png"
     },
     {
       "slug": "the-correction",
       "title": "The Correction",
       "genre": "A Psychological Mystery Thriller",
       "description": "Some records shouldn't be changed. Some truths shouldn't be forgotten.",
-      "cover": "images/the-correction.png",
+      "cover": "images/optimized/the-correction.webp",
       "chapter": "chapters/book-5-first-chapter.html",
       "audio": "audio/book-5-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFV8GG73",
@@ -79,8 +83,16 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "https://youtu.be/tRlHA4UKNGk",
       "shortUrl": "https://youtube.com/shorts/VBnmRhaZGl0",
-      "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc"
+      "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc",
+      "coverOriginal": "images/the-correction.png"
     }
-  ]
+  ],
+  "socials": {
+    "youtube": "https://www.youtube.com/@JayTreeBooks",
+    "x": "https://x.com/JayTreeBooks",
+    "tiktok": "https://www.tiktok.com/@jaytreebooks",
+    "instagram": "",
+    "facebook": ""
+  }
 };
 window.JAYTREE_CONFIG = window.JT;
