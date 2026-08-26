@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "scripts/build_reader_growth_site.py"
+      - "scripts/finalize_reader_growth.py"
       - "config.js"
       - "images/*.png"
       - "chapters/*.html"
@@ -26,11 +27,15 @@ jobs:
       - name: Install image optimizer
         run: python -m pip install Pillow
 
-      - name: Compile generator
-        run: python -m py_compile scripts/build_reader_growth_site.py
+      - name: Compile generators
+        run: |
+          python -m py_compile scripts/build_reader_growth_site.py
+          python -m py_compile scripts/finalize_reader_growth.py
 
       - name: Generate site in CI workspace
-        run: python scripts/build_reader_growth_site.py
+        run: |
+          python scripts/build_reader_growth_site.py
+          python scripts/finalize_reader_growth.py
 
       - name: Validate conversion, SEO, social, and image outputs
         shell: bash
@@ -55,6 +60,10 @@ jobs:
               assert '"@type":"Book"' in html
               assert 'Read FREE with Kindle Unlimited' in html
               assert book['amazonUrl'] in html
+              assert 'id="listen"' in html
+              original = book.get('coverOriginal') or book['cover']
+              assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
+              assert f'<meta name="twitter:image" content="https://www.JayTreeBooks.com/{original}">' in html
 
               chapter_html = (root / book['chapter']).read_text(encoding='utf-8')
               assert 'Continue FREE with Kindle Unlimited' in chapter_html
@@ -74,7 +83,12 @@ jobs:
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'href="books/${b.slug}.html"' in app
+          assert 'books/${b.slug}.html#listen' in app
           assert 'loading="lazy" decoding="async"' in app
+          assert 'track("social_visit"' in app
+
+          legacy = (root / 'book.html').read_text(encoding='utf-8')
+          assert 'name="robots" content="noindex,follow"' in legacy
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
           for book in books:
