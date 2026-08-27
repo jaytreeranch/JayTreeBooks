@@ -20,6 +20,9 @@ footer{padding:45px 24px;text-align:center;color:#777;border-top:1px solid var(-
 @media(max-width:850px){.case-files-layout{grid-template-columns:1fr;gap:34px}.case-files-panel{padding:24px}.case-files-input-row{grid-template-columns:1fr}.case-files-input-row button{width:100%}.case-files-page{padding-top:90px}}
 
 /* JAYTREE_CASE_FILES_HEADLINE_SIZE */
+.case-files-page{
+  padding-top:55px;
+}
 .case-files-page .case-files-copy h1{
   font-size:clamp(2.2rem,2.8vw,3rem);
   line-height:1.02;
@@ -29,6 +32,9 @@ footer{padding:45px 24px;text-align:center;color:#777;border-top:1px solid var(-
   margin:10px 0 22px;
 }
 @media(max-width:850px){
+  .case-files-page{
+    padding-top:35px;
+  }
   .case-files-page .case-files-copy h1{
     font-size:clamp(2rem,8vw,2.6rem);
     line-height:1.04;
