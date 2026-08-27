@@ -68,7 +68,7 @@ function audioCard(b) {
     <div class="audio-icon">◉</div><div class="format">Audiobook</div><h3>${b.title}</h3><p>${b.description}</p>
     <div class="card-actions">
       <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Audio Sample</a>
-      <a class="audible" href="books/${b.slug}.html#listen" data-track="book_audio" data-book="${b.slug}">Audiobook & Reading</a>
+      <a class="audible" href="books/${b.slug}.html#listen" data-track="book_audio" data-book="${b.slug}">Full Audiobook — Coming Soon</a>
     </div>
   </article>`;
 }
@@ -224,7 +224,6 @@ async function renderBook() {
           <a class="cta solid" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read Chapter One</a>
           <a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Play Audio Sample</a>
           ${externalButton(b.amazonUrl, "Buy on Amazon", "amazon", b.slug)}
-          ${externalButton(b.audibleUrl, "Listen on Audible", "audible", b.slug)}
         </div>
         <p><a class="back" href="index.html#books">← Back to the collection</a></p>
       </div>
@@ -235,10 +234,17 @@ async function renderBook() {
       <div class="eyebrow">Audiobook / Reading</div><h2>Listen to the story.</h2>
       <p class="section-copy">Play the website audio sample${b.audiobookYoutubeUrl ? " or watch the YouTube chapter reading" : ""}.</p>
       ${audiobookVideo}
+      <!-- JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON -->
+      <div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">
+        <div>
+          <span class="ku-kicker">Direct from JayTree Books</span>
+          <strong>Full Audiobook — Coming Soon</strong>
+          <small>Full audiobook editions will be available to purchase directly from JayTreeBooks.com.</small>
+        </div>
+      </div>
       <div class="book-actions">
         <a class="cta solid" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Play Website Audio Sample</a>
         ${externalButton(b.audiobookYoutubeUrl, "Open Reading on YouTube", "audiobook_youtube", b.slug)}
-        ${externalButton(b.audibleUrl, "Full Audiobook on Audible", "audible", b.slug)}
       </div>
     </section>
     <section class="book-section"><div class="eyebrow">Keep Reading</div><h2>More from JayTree Books.</h2><div class="grid">${relatedCards(b)}</div></section>`;
