@@ -23,16 +23,17 @@ CALLOUT = f'''<!-- {MARKER} -->
 
 HEADLINE_STYLE = f'''/* {HEADLINE_STYLE_MARKER} */
 .case-files-page .case-files-copy h1{{
-  font-size:clamp(2.75rem,4vw,4rem);
-  line-height:.96;
-  letter-spacing:.025em;
-  max-width:720px;
+  font-size:clamp(2.2rem,2.8vw,3rem);
+  line-height:1.02;
+  letter-spacing:.01em;
+  text-transform:none;
+  max-width:650px;
   margin:10px 0 22px;
 }}
 @media(max-width:850px){{
   .case-files-page .case-files-copy h1{{
-    font-size:clamp(2.5rem,10vw,3.5rem);
-    line-height:.98;
+    font-size:clamp(2rem,8vw,2.6rem);
+    line-height:1.04;
   }}
 }}'''
 
