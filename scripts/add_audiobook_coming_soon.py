@@ -25,6 +25,9 @@ HEADLINE_STYLE = f'''/* {HEADLINE_STYLE_MARKER} */
 .case-files-page{{
   padding-top:55px;
 }}
+.case-files-page > .case-files{{
+  padding-top:32px;
+}}
 .case-files-page .case-files-copy h1{{
   font-size:clamp(2.2rem,2.8vw,3rem);
   line-height:1.02;
@@ -36,6 +39,9 @@ HEADLINE_STYLE = f'''/* {HEADLINE_STYLE_MARKER} */
 @media(max-width:850px){{
   .case-files-page{{
     padding-top:35px;
+  }}
+  .case-files-page > .case-files{{
+    padding-top:28px;
   }}
   .case-files-page .case-files-copy h1{{
     font-size:clamp(2rem,8vw,2.6rem);
@@ -122,7 +128,7 @@ def patch_case_files_headline_styles() -> None:
     else:
         text = text.rstrip() + "\n\n" + HEADLINE_STYLE + "\n"
     STYLES_PATH.write_text(text, encoding="utf-8")
-    print("Reduced Case Files page headline size")
+    print("Reduced Case Files page headline size and top spacing")
 
 
 def main() -> None:
