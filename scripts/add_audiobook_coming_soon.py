@@ -14,9 +14,29 @@ CALLOUT = f'''<!-- {MARKER} -->
   <div>
     <span class="ku-kicker">Direct from JayTree Books</span>
     <strong>Full Audiobook — Coming Soon</strong>
-    <small>Full audiobook editions will be available to purchase directly from JayTreeBooks.com.</small>
+    <small>Join JayTree Case Files and we’ll let you know when full audiobook editions are available to purchase directly from JayTreeBooks.com.</small>
   </div>
+  <a class="cta solid ku-button" href="../case-files.html" data-track="audiobook_case_files">Join JayTree Case Files</a>
 </div>'''
+
+LEGACY_CALLOUT = f'''      <!-- {MARKER} -->
+      <div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">
+        <div>
+          <span class="ku-kicker">Direct from JayTree Books</span>
+          <strong>Full Audiobook — Coming Soon</strong>
+          <small>Join JayTree Case Files and we’ll let you know when full audiobook editions are available to purchase directly from JayTreeBooks.com.</small>
+        </div>
+        <a class="cta solid ku-button" href="case-files.html" data-track="audiobook_case_files" data-book="${{b.slug}}">Join JayTree Case Files</a>
+      </div>'''
+
+OLD_LEGACY_CALLOUT = f'''      <!-- {MARKER} -->
+      <div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">
+        <div>
+          <span class="ku-kicker">Direct from JayTree Books</span>
+          <strong>Full Audiobook — Coming Soon</strong>
+          <small>Full audiobook editions will be available to purchase directly from JayTreeBooks.com.</small>
+        </div>
+      </div>'''
 
 
 def patch_book_page(path: Path) -> None:
@@ -34,7 +54,7 @@ def patch_book_page(path: Path) -> None:
         if match:
             replacement = match.group(1).rstrip() + "\n" + CALLOUT + "\n" + match.group(2)
             path.write_text(text[:match.start()] + replacement + text[match.end():], encoding="utf-8")
-            print(f"Added direct audiobook coming-soon callout: {path.relative_to(ROOT)}")
+            print(f"Added direct audiobook coming-soon Case Files callout: {path.relative_to(ROOT)}")
             return
 
     raise RuntimeError(f"Could not find audiobook/listen section in {path.relative_to(ROOT)}")
@@ -59,15 +79,17 @@ def patch_app_js() -> None:
         text,
     )
 
-    if MARKER not in text:
+    if OLD_LEGACY_CALLOUT in text:
+        text = text.replace(OLD_LEGACY_CALLOUT, LEGACY_CALLOUT, 1)
+    elif MARKER not in text:
         needle = '''      <p class="section-copy">Play the website audio sample${b.audiobookYoutubeUrl ? " or watch the YouTube chapter reading" : ""}.</p>\n      ${audiobookVideo}'''
-        replacement = needle + f'''\n      <!-- {MARKER} -->\n      <div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">\n        <div>\n          <span class="ku-kicker">Direct from JayTree Books</span>\n          <strong>Full Audiobook — Coming Soon</strong>\n          <small>Full audiobook editions will be available to purchase directly from JayTreeBooks.com.</small>\n        </div>\n      </div>'''
+        replacement = needle + "\n" + LEGACY_CALLOUT
         if needle not in text:
             raise RuntimeError("Could not find legacy audiobook section in app.js")
         text = text.replace(needle, replacement, 1)
 
     APP_PATH.write_text(text, encoding="utf-8")
-    print("Updated legacy audiobook page messaging in app.js")
+    print("Updated legacy audiobook page with Case Files signup CTA in app.js")
 
 
 def main() -> None:
