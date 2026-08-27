@@ -51,7 +51,7 @@ window.JT = {
       "audibleUrl": "https://www.audible.com/",
       "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
       "shortUrl": "https://www.youtube.com/shorts/M4VvgR2b0iw",
-      "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=DGcA-ZA9Big",
+      "audiobookYoutubeUrl": "https://youtu.be/n0FxPOwlg3I",
       "coverOriginal": "images/the-hollow-bell.png"
     },
     {
