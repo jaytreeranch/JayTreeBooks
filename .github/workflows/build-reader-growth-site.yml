@@ -85,6 +85,9 @@ jobs:
               assert 'JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON' in html
               assert 'Full Audiobook — Coming Soon' in html
               assert 'Direct from JayTree Books' in html
+              assert 'Join JayTree Case Files' in html
+              assert 'href="../case-files.html"' in html
+              assert 'data-track="audiobook_case_files"' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
 
@@ -133,6 +136,9 @@ jobs:
           assert 'track("social_visit"' in app
           assert 'case_files_signup_submit' in app
           assert 'Full Audiobook — Coming Soon' in app
+          assert 'Join JayTree Case Files' in app
+          assert 'href="case-files.html"' in app
+          assert 'data-track="audiobook_case_files"' in app
           assert 'Listen on Audible' not in app
           assert 'Full Audiobook on Audible' not in app
 
@@ -142,7 +148,7 @@ jobs:
           assert sitemap.count('<url>') >= 12
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print(f'Generated reader-growth site, direct audiobook coming-soon messaging, and Case Files funnel validated with provider={provider}.')
+          print(f'Generated reader-growth site, direct audiobook Case Files signup, and Case Files funnel validated with provider={provider}.')
           PY
 
       - name: Commit generated website assets
