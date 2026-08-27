@@ -10,6 +10,7 @@ on:
       - "scripts/finalize_reader_growth.py"
       - "scripts/apply_newsletter_provider.py"
       - "scripts/configure_kit_newsletter.py"
+      - "scripts/add_audiobook_coming_soon.py"
       - "config.js"
       - "images/*.png"
       - "chapters/*.html"
@@ -41,6 +42,7 @@ jobs:
           python scripts/build_reader_growth_site.py
           python scripts/finalize_reader_growth.py
           python scripts/apply_newsletter_provider.py
+          python scripts/add_audiobook_coming_soon.py
 
       - name: Validate generated site
         shell: bash
@@ -62,6 +64,8 @@ jobs:
           assert config['socials']['youtube'].endswith('@JayTreeBooks')
           assert config['socials']['x'].endswith('/JayTreeBooks')
           assert config['socials']['tiktok'].endswith('/@jaytreebooks')
+          assert 'audible' not in config
+          assert all('audibleUrl' not in book for book in books)
           assert newsletter['name'] == 'JayTree Case Files'
           assert provider in {'formsubmit', 'kit'}
           assert newsletter['thankYouUrl'].endswith('/case-files-thanks.html')
@@ -78,6 +82,9 @@ jobs:
               assert 'Read FREE with Kindle Unlimited' in html
               assert f"/books/{book['slug']}.html" in html
               assert f'id="listen"' in html
+              assert 'JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON' in html
+              assert 'Full Audiobook — Coming Soon' in html
+              assert 'Direct from JayTree Books' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
 
@@ -125,6 +132,9 @@ jobs:
           assert 'loading="lazy"' in app
           assert 'track("social_visit"' in app
           assert 'case_files_signup_submit' in app
+          assert 'Full Audiobook — Coming Soon' in app
+          assert 'Listen on Audible' not in app
+          assert 'Full Audiobook on Audible' not in app
 
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
@@ -132,7 +142,7 @@ jobs:
           assert sitemap.count('<url>') >= 12
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print(f'Generated reader-growth site and Case Files funnel validated with provider={provider}.')
+          print(f'Generated reader-growth site, direct audiobook coming-soon messaging, and Case Files funnel validated with provider={provider}.')
           PY
 
       - name: Commit generated website assets
