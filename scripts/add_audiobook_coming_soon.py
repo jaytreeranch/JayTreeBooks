@@ -22,6 +22,9 @@ CALLOUT = f'''<!-- {MARKER} -->
 </div>'''
 
 HEADLINE_STYLE = f'''/* {HEADLINE_STYLE_MARKER} */
+.case-files-page{{
+  padding-top:55px;
+}}
 .case-files-page .case-files-copy h1{{
   font-size:clamp(2.2rem,2.8vw,3rem);
   line-height:1.02;
@@ -31,6 +34,9 @@ HEADLINE_STYLE = f'''/* {HEADLINE_STYLE_MARKER} */
   margin:10px 0 22px;
 }}
 @media(max-width:850px){{
+  .case-files-page{{
+    padding-top:35px;
+  }}
   .case-files-page .case-files-copy h1{{
     font-size:clamp(2rem,8vw,2.6rem);
     line-height:1.04;
