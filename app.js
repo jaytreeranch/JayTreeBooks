@@ -239,8 +239,9 @@ async function renderBook() {
         <div>
           <span class="ku-kicker">Direct from JayTree Books</span>
           <strong>Full Audiobook — Coming Soon</strong>
-          <small>Full audiobook editions will be available to purchase directly from JayTreeBooks.com.</small>
+          <small>Join JayTree Case Files and we’ll let you know when full audiobook editions are available to purchase directly from JayTreeBooks.com.</small>
         </div>
+        <a class="cta solid ku-button" href="case-files.html" data-track="audiobook_case_files" data-book="${b.slug}">Join JayTree Case Files</a>
       </div>
       <div class="book-actions">
         <a class="cta solid" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Play Website Audio Sample</a>
