@@ -24,6 +24,8 @@ Use the same weekly title rotation as the JayTree social campaign:
 
 ## Thursday, August 27, 2026 — Featured Mystery
 
+**Recommended send time:** 3:00 PM Central
+
 **Subject:** The bell rings again in Millbrook Falls 🔔
 
 **Preview:** A missing woman, an old legend, and a sound no one can explain.
@@ -39,18 +41,27 @@ When a woman disappears and an old local legend begins to feel much less like a 
 If you like small-town mysteries, buried history, and clues that make you question what is real, this is your case.
 
 **Read Chapter One:**  
-https://www.JayTreeBooks.com/chapters/book-3-first-chapter.html
+https://www.JayTreeBooks.com/chapters/book-3-first-chapter.html?utm_source=kit&utm_medium=email&utm_campaign=hollow_bell&utm_content=chapter_one
 
 **Watch the trailer:**  
 https://youtu.be/VRp1zXJ6ja4
 
 **Explore The Hollow Bell:**  
-https://www.JayTreeBooks.com/books/the-hollow-bell.html
+https://www.JayTreeBooks.com/books/the-hollow-bell.html?utm_source=kit&utm_medium=email&utm_campaign=hollow_bell&utm_content=book_page
 
 The Hollow Bell is available to read with Kindle Unlimited.
 
 — JayTree Books  
 *Stories That Stay.*
+
+### Tracking notes
+
+- Campaign: `hollow_bell`
+- Source: `kit`
+- Medium: `email`
+- Chapter CTA content: `chapter_one`
+- Book-page CTA content: `book_page`
+- The direct YouTube trailer link is intentionally left as the canonical YouTube URL because JayTreeBooks GA4 cannot measure a click after the visitor leaves the site unless an intermediate tracked redirect is added later.
 
 ## Saturday, August 29, 2026 — Weekend Case
 
