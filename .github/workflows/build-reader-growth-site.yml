@@ -11,6 +11,7 @@ on:
       - "scripts/apply_newsletter_provider.py"
       - "scripts/configure_kit_newsletter.py"
       - "scripts/add_audiobook_coming_soon.py"
+      - "scripts/apply_site_improvements.py"
       - "config.js"
       - "images/*.png"
       - "chapters/*.html"
@@ -43,6 +44,7 @@ jobs:
           python scripts/finalize_reader_growth.py
           python scripts/apply_newsletter_provider.py
           python scripts/add_audiobook_coming_soon.py
+          python scripts/apply_site_improvements.py
 
       - name: Validate generated site
         shell: bash
@@ -81,13 +83,17 @@ jobs:
               assert '<script type="application/ld+json">' in html
               assert 'Read FREE with Kindle Unlimited' in html
               assert f"/books/{book['slug']}.html" in html
-              assert f'id="listen"' in html
+              assert 'id="listen"' in html
               assert 'JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON' in html
               assert 'Full Audiobook — Coming Soon' in html
               assert 'Direct from JayTree Books' in html
               assert 'Join JayTree Case Files' in html
               assert 'href="../case-files.html"' in html
               assert 'data-track="audiobook_case_files"' in html
+              assert 'video-lite' in html
+              assert '../video-lite.js' in html
+              assert 'src="https://www.youtube-nocookie.com/embed/' not in html
+              assert '../privacy.html' in html and '../terms.html' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
 
@@ -95,6 +101,8 @@ jobs:
               chapter_html = chapter.read_text(encoding='utf-8')
               assert 'JAYTREE_READER_CONVERSION_START' in chapter_html
               assert 'Continue FREE with Kindle Unlimited' in chapter_html
+              assert 'JAYTREE_2026_READER_ACCESSIBILITY' in chapter_html
+              assert 'Jaytree Books' not in chapter_html
 
               optimized = root / book['cover']
               assert optimized.exists(), optimized
@@ -106,6 +114,13 @@ jobs:
           assert 'JAYTREE_SOCIAL_FOLLOW_START' in index
           assert 'JAYTREE_CASE_FILES_START' in index
           assert 'href="#case-files">Case Files</a>' in index
+          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in index
+          assert 'JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges' in index
+          assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
+          assert index.index('id="kindle-unlimited"') < index.index('id="books"')
+          assert 'continue the story on Audible' not in index
+          assert '<script src="video-lite.js"></script>' in index
+          assert 'privacy.html' in index and 'terms.html' in index
           if provider == 'formsubmit':
               assert 'Open the Case Files' in index
           else:
@@ -115,6 +130,7 @@ jobs:
           case_files = (root / 'case-files.html').read_text(encoding='utf-8')
           assert 'JayTree Case Files — Reader Email List' in case_files
           assert 'data-case-files-form' in case_files
+          assert 'privacy.html' in case_files and 'terms.html' in case_files
           if provider == 'formsubmit':
               assert 'name="consent"' in case_files
               assert 'name="_honey"' in case_files
@@ -132,8 +148,11 @@ jobs:
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'books/${b.slug}.html' in app
           assert 'books/${b.slug}.html#listen' in app
+          assert 'href="books/${featured.slug}.html"' in app
           assert 'loading="lazy"' in app
           assert 'track("social_visit"' in app
+          assert '[data-event]' in app
+          assert 'video-lite-inner' in app
           assert 'case_files_signup_submit' in app
           assert 'Full Audiobook — Coming Soon' in app
           assert 'Join JayTree Case Files' in app
@@ -142,13 +161,19 @@ jobs:
           assert 'Listen on Audible' not in app
           assert 'Full Audiobook on Audible' not in app
 
+          video_loader = (root / 'video-lite.js').read_text(encoding='utf-8')
+          assert 'video_play' in video_loader
+          assert 'video_youtube_fallback' in video_loader
+          assert 'aria-expanded' in video_loader
+
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
+          assert 'privacy.html' in legacy and 'terms.html' in legacy
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
           assert sitemap.count('<url>') >= 12
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print(f'Generated reader-growth site, direct audiobook Case Files signup, and Case Files funnel validated with provider={provider}.')
+          print(f'Generated reader-growth site and durable conversion improvements validated with provider={provider}.')
           PY
 
       - name: Commit generated website assets
@@ -156,7 +181,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add config.js app.js index.html book.html case-files.html case-files-thanks.html styles.css chapters books sitemap.xml robots.txt images/optimized
+          git add config.js app.js index.html book.html case-files.html case-files-thanks.html styles.css video-lite.js chapters books sitemap.xml robots.txt images/optimized
           if git diff --cached --quiet; then
             echo "Reader-growth site is already current."
             exit 0
