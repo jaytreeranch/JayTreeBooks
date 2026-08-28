@@ -1,0 +1,113 @@
+name: One-off wire homepage layout fix
+
+on:
+  push:
+    branches:
+      - fix-homepage-case-files-order
+
+permissions:
+  contents: write
+
+jobs:
+  wire-fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix-homepage-case-files-order
+          sparse-checkout: |
+            .github
+            scripts
+            data
+            docs
+            images
+            chapters
+            books
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Normalize current homepage and wire durable fix
+        shell: bash
+        run: |
+          python scripts/fix_homepage_layout.py
+          python - <<'PY'
+          from pathlib import Path
+
+          build = Path('.github/workflows/build-reader-growth-site.yml')
+          text = build.read_text(encoding='utf-8')
+          if '"scripts/fix_homepage_layout.py"' not in text:
+              text = text.replace(
+                  '      - "scripts/apply_site_improvements.py"\n',
+                  '      - "scripts/apply_site_improvements.py"\n      - "scripts/fix_homepage_layout.py"\n',
+                  1,
+              )
+          if 'python scripts/fix_homepage_layout.py' not in text:
+              text = text.replace(
+                  '          python scripts/apply_site_improvements.py\n',
+                  '          python scripts/apply_site_improvements.py\n          python scripts/fix_homepage_layout.py\n',
+                  1,
+              )
+          if 'sparse-checkout:' not in text.split('- uses: actions/setup-python@v5', 1)[0]:
+              text = text.replace(
+                  '      - uses: actions/checkout@v4\n\n      - uses: actions/setup-python@v5',
+                  '      - uses: actions/checkout@v4\n        with:\n          sparse-checkout: |\n            .github\n            scripts\n            data\n            docs\n            images\n            chapters\n            books\n\n      - uses: actions/setup-python@v5',
+                  1,
+              )
+          build.write_text(text, encoding='utf-8')
+
+          validate = Path('.github/workflows/validate-reader-growth-site.yml')
+          text = validate.read_text(encoding='utf-8')
+          if '"scripts/fix_homepage_layout.py"' not in text:
+              text = text.replace(
+                  '      - "scripts/apply_site_improvements.py"\n',
+                  '      - "scripts/apply_site_improvements.py"\n      - "scripts/fix_homepage_layout.py"\n',
+                  1,
+              )
+          if 'python -m py_compile scripts/fix_homepage_layout.py' not in text:
+              text = text.replace(
+                  '          python -m py_compile scripts/apply_site_improvements.py\n',
+                  '          python -m py_compile scripts/apply_site_improvements.py\n          python -m py_compile scripts/fix_homepage_layout.py\n',
+                  1,
+              )
+          if 'python scripts/fix_homepage_layout.py' not in text:
+              text = text.replace(
+                  '          python scripts/apply_site_improvements.py\n',
+                  '          python scripts/apply_site_improvements.py\n          python scripts/fix_homepage_layout.py\n',
+                  1,
+              )
+          if "assert index.count('id=\"case-files\"') == 1" not in text:
+              anchor = "          assert 'Five mysteries. Read them all with Kindle Unlimited.' in index\n"
+              addition = anchor + '''          assert index.count('id="case-files"') == 1
+          order_tokens = ['class="hero"','id="kindle-unlimited"','id="books"','class="intro"','id="challenge"','id="case-files"','id="audiobooks"','id="youtube"','id="follow"','id="about"']
+          order_positions = [index.index(token) for token in order_tokens]
+          assert order_positions == sorted(order_positions)
+'''
+              if anchor not in text:
+                  raise RuntimeError('Could not find homepage validation anchor')
+              text = text.replace(anchor, addition, 1)
+          validate.write_text(text, encoding='utf-8')
+
+          # Verify wiring and the corrected branch homepage.
+          build_text = build.read_text(encoding='utf-8')
+          validate_text = validate.read_text(encoding='utf-8')
+          index = Path('index.html').read_text(encoding='utf-8')
+          assert 'python scripts/fix_homepage_layout.py' in build_text
+          assert 'python scripts/fix_homepage_layout.py' in validate_text
+          assert index.count('id="case-files"') == 1
+          assert index.index('id="kindle-unlimited"') < index.index('id="books"') < index.index('id="challenge"') < index.index('id="case-files"')
+
+          Path('.github/workflows/one-off-wire-homepage-layout-fix.yml').unlink()
+          PY
+
+      - name: Commit homepage generator fix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Fix generated homepage Case Files placement"
+          git push origin HEAD:fix-homepage-case-files-order
