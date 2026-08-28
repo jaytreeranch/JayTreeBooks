@@ -1,0 +1,327 @@
+name: One-off JayTreeBooks website improvements
+
+on:
+  push:
+    branches:
+      - website-improvements-2026-08-28
+
+permissions:
+  contents: write
+
+jobs:
+  improve-site:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: website-improvements-2026-08-28
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply conversion, SEO, video, and accessibility improvements
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import html as htmlmod
+          import re
+
+          def sub_once(text, pattern, replacement, label, flags=0):
+              new_text, count = re.subn(pattern, replacement, text, count=1, flags=flags)
+              if count != 1:
+                  raise RuntimeError(f"Expected one replacement for {label}, got {count}")
+              return new_text
+
+          def lite_markup(video_id, title):
+              safe_title = htmlmod.escape(title, quote=True)
+              return (
+                  f'<div class="video-lite-inner">'
+                  f'<button class="video-lite" type="button" data-youtube-id="{video_id}" data-title="{safe_title}" '
+                  f'aria-label="Play {safe_title}">'
+                  f'<img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">'
+                  f'<span class="video-lite-play" aria-hidden="true">▶</span>'
+                  f'<span class="video-lite-label">Play video</span>'
+                  f'</button>'
+                  f'<a class="video-lite-fallback" href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">Open on YouTube ↗</a>'
+                  f'</div>'
+              )
+
+          iframe_pattern = re.compile(
+              r'<iframe(?=[^>]*\bsrc="https://www\.youtube-nocookie\.com/embed/([^"?]+)[^"]*")(?=[^>]*\btitle="([^"]+)")[^>]*>\s*</iframe>',
+              re.IGNORECASE,
+          )
+
+          def replace_youtube_iframes(text):
+              return iframe_pattern.sub(lambda m: lite_markup(m.group(1), m.group(2)), text)
+
+          def add_legal_footer(text, prefix=""):
+              match = re.search(r'<footer>.*?</footer>', text, flags=re.DOTALL)
+              if not match:
+                  return text
+              footer = match.group(0)
+              if f'{prefix}privacy.html' in footer:
+                  return text
+              legal = f'<a href="{prefix}privacy.html">Privacy</a> · <a href="{prefix}terms.html">Terms</a>'
+              if 'class="footer-links"' in footer:
+                  footer = re.sub(r'(<div class="footer-links">.*?)(</div>)', rf'\1 · {legal}\2', footer, count=1, flags=re.DOTALL)
+              elif re.search(r'<div>.*?</div><small>', footer, flags=re.DOTALL):
+                  footer = re.sub(r'(<div>.*?)(</div><small>)', rf'\1 · {legal}\2', footer, count=1, flags=re.DOTALL)
+              else:
+                  footer = footer.replace('</footer>', f'<div class="footer-links">{legal}</div></footer>')
+              return text[:match.start()] + footer + text[match.end():]
+
+          # Homepage: stable SEO identity, improved information hierarchy, KU banner, accurate audiobook copy.
+          index_path = Path('index.html')
+          index = index_path.read_text(encoding='utf-8')
+
+          title = 'JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges'
+          description = 'Discover JayTree Books mysteries and psychological thrillers. Read first chapters, watch trailers, solve Mystery Challenges, and find Kindle Unlimited reads.'
+          share_image = 'https://www.JayTreeBooks.com/images/jaytree-books-challenge.png'
+
+          index = sub_once(index, r'<title>.*?</title>', f'<title>{title}</title>', 'homepage title', re.DOTALL)
+          index = sub_once(index, r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{description}">', 'homepage description')
+          if '<link rel="canonical"' not in index:
+              index = index.replace(
+                  f'<meta name="description" content="{description}">',
+                  f'<meta name="description" content="{description}">\n<link rel="canonical" href="https://www.JayTreeBooks.com/">',
+                  1,
+              )
+          index = sub_once(index, r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{title}">', 'og title')
+          index = sub_once(index, r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{description}">', 'og description')
+          index = sub_once(index, r'<meta property="og:image" content="[^"]*">', f'<meta property="og:image" content="{share_image}">', 'og image')
+          index = sub_once(index, r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{title}">', 'twitter title')
+          index = sub_once(index, r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{description}">', 'twitter description')
+          index = sub_once(index, r'<meta name="twitter:image" content="[^"]*">', f'<meta name="twitter:image" content="{share_image}">', 'twitter image')
+          if '<meta property="og:site_name"' not in index:
+              index = index.replace('<meta property="og:type" content="website">', '<meta property="og:type" content="website">\n<meta property="og:site_name" content="JayTree Books">', 1)
+
+          nav = '''<nav class="nav-links">
+                <a href="#books">Books</a>
+                <a href="#challenge">Challenge</a>
+                <a href="#case-files">Case Files</a>
+                <a href="#audiobooks">Audiobooks</a>
+                <a href="#youtube">YouTube</a>
+                <a href="#about">About</a>
+                <a class="nav-cta" href="#books">Start Reading</a>
+            </nav>'''
+          index = sub_once(index, r'<nav class="nav-links">.*?</nav>', nav, 'homepage navigation', re.DOTALL)
+          index = index.replace('Preview the atmosphere, then continue the story on Audible.', 'Hear a sample or watch a chapter reading. Full audiobook editions are coming soon.')
+
+          main_match = re.search(r'<main>(.*?)</main>', index, flags=re.DOTALL)
+          if not main_match:
+              raise RuntimeError('Homepage <main> not found')
+          main_body = main_match.group(1)
+
+          def get_section(body, pattern, label):
+              match = re.search(pattern, body, flags=re.DOTALL)
+              if not match:
+                  raise RuntimeError(f'Missing homepage section: {label}')
+              return match.group(0).strip()
+
+          hero = get_section(main_body, r'<section class="hero">.*?</section>', 'hero')
+          books = get_section(main_body, r'<section class="books" id="books">.*?</section>', 'books')
+          intro = get_section(main_body, r'<section class="intro">.*?</section>', 'intro')
+          challenge = get_section(main_body, r'<section class="challenge challenge-launch" id="challenge">.*?</section>', 'challenge')
+          case_files = get_section(main_body, r'<section class="case-files" id="case-files">.*?</section>', 'case files')
+          audiobooks = get_section(main_body, r'<section class="audiobooks" id="audiobooks">.*?</section>', 'audiobooks')
+          youtube = get_section(main_body, r'<section class="dark-feature" id="youtube">.*?</section>', 'youtube')
+          follow = get_section(main_body, r'<section class="social-follow" id="follow">.*?</section>', 'follow')
+          about = get_section(main_body, r'<section class="about" id="about">.*?</section>', 'about')
+
+          ku_banner = '''<section class="ku-home-banner" id="kindle-unlimited">
+            <div class="wrap ku-home-inner">
+              <div>
+                <div class="eyebrow">Kindle Unlimited</div>
+                <h2>Five mysteries. Read them all with Kindle Unlimited.</h2>
+                <p>Every current JayTree Books title is available to Kindle Unlimited members at no additional cost. Choose a mystery, read Chapter One here, then continue on Kindle.</p>
+              </div>
+              <div class="ku-home-actions">
+                <a class="cta solid" href="#books" data-track="ku_home_choose">Choose Your Mystery</a>
+                <a class="cta" href="https://www.amazon.com/stores/JayTree-Books/author/B0HG41STKM" target="_blank" rel="noopener" data-track="ku_home_amazon">Browse JayTree Books on Amazon</a>
+              </div>
+            </div>
+          </section>'''
+
+          ordered_main = '\n\n'.join([hero, ku_banner, books, intro, challenge, case_files, audiobooks, youtube, follow, about])
+          index = index[:main_match.start()] + '<main>\n' + ordered_main + '\n</main>' + index[main_match.end():]
+          index = replace_youtube_iframes(index)
+          index = add_legal_footer(index, '')
+          index = index.replace('<button class="menu-toggle" aria-label="Menu">', '<button class="menu-toggle" aria-label="Menu" aria-expanded="false">')
+          if '<script src="video-lite.js"></script>' not in index:
+              index = index.replace('<script src="config.js"></script>', '<script src="video-lite.js"></script>\n\t<script src="config.js"></script>', 1)
+          index_path.write_text(index, encoding='utf-8')
+
+          # Shared dynamic rendering: dedicated SEO book URL and lightweight video placeholders.
+          app_path = Path('app.js')
+          app = app_path.read_text(encoding='utf-8')
+          youtube_embed_function = '''function youtubeEmbed(url, title) {
+            const id = youtubeIdFromUrl(url);
+            if (!id) return "";
+            const safeTitle = String(title || "YouTube video")
+              .replace(/&/g, "&amp;")
+              .replace(/"/g, "&quot;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+            return `<div class="video-lite-inner">
+              <button class="video-lite" type="button" data-youtube-id="${id}" data-title="${safeTitle}" aria-label="Play ${safeTitle}">
+                <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+                <span class="video-lite-play" aria-hidden="true">▶</span>
+                <span class="video-lite-label">Play video</span>
+              </button>
+              <a class="video-lite-fallback" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">Open on YouTube ↗</a>
+            </div>`;
+          }'''
+          app = sub_once(app, r'function youtubeEmbed\(url, title\) \{.*?\n\}', youtube_embed_function, 'youtubeEmbed function', re.DOTALL)
+          app = app.replace('href="book.html?book=${featured.slug}"', 'href="books/${featured.slug}.html"')
+          app_path.write_text(app, encoding='utf-8')
+
+          # Lightweight YouTube loader with a direct fallback link and accessible state handling.
+          video_js = '''(() => {
+            document.addEventListener("click", event => {
+              const toggle = event.target.closest(".menu-toggle");
+              if (toggle) {
+                requestAnimationFrame(() => {
+                  const nav = toggle.closest(".nav");
+                  toggle.setAttribute("aria-expanded", nav?.classList.contains("open") ? "true" : "false");
+                });
+              }
+
+              const button = event.target.closest(".video-lite");
+              if (!button) return;
+              const id = button.dataset.youtubeId;
+              if (!id) return;
+
+              const iframe = document.createElement("iframe");
+              iframe.src = `https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1&autoplay=1`;
+              iframe.title = button.dataset.title || "YouTube video";
+              iframe.loading = "lazy";
+              iframe.referrerPolicy = "strict-origin-when-cross-origin";
+              iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+              iframe.allowFullscreen = true;
+              iframe.setAttribute("frameborder", "0");
+              button.replaceWith(iframe);
+            });
+          })();
+          '''
+          Path('video-lite.js').write_text(video_js, encoding='utf-8')
+
+          # Shared visual polish and accessible focus states.
+          styles_path = Path('styles.css')
+          styles = styles_path.read_text(encoding='utf-8')
+          if 'JAYTREE_2026_CONVERSION_POLISH' not in styles:
+              styles += r'''
+
+          /* JAYTREE_2026_CONVERSION_POLISH */
+          .ku-home-banner{padding:42px 24px;background:linear-gradient(90deg,rgba(200,161,90,.13),rgba(12,20,26,.98),rgba(200,161,90,.08));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+          .ku-home-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:42px;align-items:center}
+          .ku-home-banner h2{font-size:clamp(2rem,4vw,3.35rem);margin:8px 0 12px}
+          .ku-home-banner p{max-width:760px;margin:0;color:var(--muted)}
+          .ku-home-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;max-width:390px}
+          .video-lite-inner{position:relative;width:100%;height:100%;min-height:inherit;background:#05080a;overflow:hidden}
+          .video-lite-inner>iframe{width:100%;height:100%;display:block;border:0}
+          .video-lite{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#05080a;color:var(--cream);cursor:pointer;overflow:hidden;font:inherit}
+          .video-lite img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:.8;transition:transform .3s ease,opacity .3s ease}
+          .video-lite:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.48))}
+          .video-lite:hover img{transform:scale(1.025);opacity:.92}
+          .video-lite-play{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:72px;height:72px;border:1px solid rgba(232,223,204,.72);border-radius:50%;background:rgba(8,13,18,.82);color:var(--gold);font-family:Arial,sans-serif;font-size:1.8rem;box-shadow:0 12px 38px rgba(0,0,0,.45)}
+          .video-lite-label{position:absolute;z-index:2;left:16px;bottom:15px;text-transform:uppercase;letter-spacing:.13em;font-size:.67rem;color:#f1eadc;text-shadow:0 2px 8px #000}
+          .video-lite-fallback{position:absolute;z-index:3;right:12px;bottom:10px;padding:7px 9px;background:rgba(8,13,18,.88);border:1px solid rgba(200,161,90,.48);color:var(--gold)!important;text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font-size:.58rem!important}
+          a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+          .cover:focus-visible,.related-book-link:focus-visible{outline-offset:6px}
+          @media(max-width:800px){.ku-home-inner{grid-template-columns:1fr;text-align:center;gap:24px}.ku-home-banner p{margin-left:auto;margin-right:auto}.ku-home-actions{justify-content:center;max-width:none}.video-lite-play{width:62px;height:62px;font-size:1.5rem}.video-lite-fallback{font-size:.53rem!important}}
+          '''
+          styles_path.write_text(styles, encoding='utf-8')
+
+          # Dedicated book pages: convert embeds to click-to-play and surface legal links.
+          book_pages = sorted(Path('books').glob('*.html'))
+          if len(book_pages) < 5:
+              raise RuntimeError(f'Expected at least five dedicated book pages, found {len(book_pages)}')
+          for path in book_pages:
+              text = path.read_text(encoding='utf-8')
+              text = replace_youtube_iframes(text)
+              text = add_legal_footer(text, '../')
+              text = text.replace('<button class="menu-toggle" aria-label="Open menu">', '<button class="menu-toggle" aria-label="Open menu" aria-expanded="false">')
+              if '<script src="../video-lite.js"></script>' not in text:
+                  text = text.replace('</footer>', '</footer>\n<script src="../video-lite.js"></script>', 1)
+              path.write_text(text, encoding='utf-8')
+
+          # Generic noindex book renderer still exists as a fallback; keep it aligned with the improved player/footer.
+          generic_path = Path('book.html')
+          generic = generic_path.read_text(encoding='utf-8')
+          generic = add_legal_footer(generic, '')
+          generic = generic.replace('<button class="menu-toggle" aria-label="Open menu">', '<button class="menu-toggle" aria-label="Open menu" aria-expanded="false">')
+          if '<script src="video-lite.js"></script>' not in generic:
+              generic = generic.replace('<script src="config.js"></script>', '<script src="video-lite.js"></script>\n  <script src="config.js"></script>', 1)
+          generic_path.write_text(generic, encoding='utf-8')
+
+          # Email pages should show privacy/terms links because they collect subscriber information.
+          for filename in ('case-files.html', 'case-files-thanks.html'):
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              text = add_legal_footer(text, '')
+              text = text.replace('<button class="menu-toggle" aria-label="Open menu">', '<button class="menu-toggle" aria-label="Open menu" aria-expanded="false">')
+              path.write_text(text, encoding='utf-8')
+
+          # Chapter reader polish: correct brand capitalization, gold drop caps, visible keyboard focus.
+          chapter_style = '''
+          /* JAYTREE_2026_READER_ACCESSIBILITY */
+          p:first-of-type::first-letter,.drop-cap::first-letter{color:#c8a15a}
+          a:focus-visible{outline:2px solid #c8a15a;outline-offset:4px}
+          '''
+          chapter_pages = sorted(Path('chapters').glob('book-*-first-chapter.html'))
+          if len(chapter_pages) < 5:
+              raise RuntimeError(f'Expected at least five chapter pages, found {len(chapter_pages)}')
+          for path in chapter_pages:
+              text = path.read_text(encoding='utf-8')
+              text = text.replace('Jaytree Books', 'JayTree Books')
+              if 'JAYTREE_2026_READER_ACCESSIBILITY' not in text:
+                  text = text.replace('</style>', chapter_style + '\n</style>', 1)
+              path.write_text(text, encoding='utf-8')
+
+          # Verification checks before committing.
+          index_check = index_path.read_text(encoding='utf-8')
+          expected_order = [
+              index_check.index('class="hero"'),
+              index_check.index('id="kindle-unlimited"'),
+              index_check.index('id="books"'),
+              index_check.index('class="intro"'),
+              index_check.index('id="challenge"'),
+              index_check.index('id="case-files"'),
+              index_check.index('id="audiobooks"'),
+              index_check.index('id="youtube"'),
+              index_check.index('id="follow"'),
+              index_check.index('id="about"'),
+          ]
+          assert expected_order == sorted(expected_order), 'Homepage section order is incorrect'
+          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in index_check
+          assert 'continue the story on Audible' not in index_check
+          assert 'Five mysteries. Read them all with Kindle Unlimited.' in index_check
+          assert 'book.html?book=${featured.slug}' not in app_path.read_text(encoding='utf-8')
+          assert 'href="books/${featured.slug}.html"' in app_path.read_text(encoding='utf-8')
+          for path in book_pages:
+              text = path.read_text(encoding='utf-8')
+              assert 'src="https://www.youtube-nocookie.com/embed/' not in text, f'Hardcoded YouTube iframe remains in {path}'
+              assert '../video-lite.js' in text, f'Video loader missing in {path}'
+              assert '../privacy.html' in text and '../terms.html' in text, f'Legal footer missing in {path}'
+          for path in chapter_pages:
+              text = path.read_text(encoding='utf-8')
+              assert 'Jaytree Books' not in text, f'Old brand capitalization remains in {path}'
+              assert 'JAYTREE_2026_READER_ACCESSIBILITY' in text, f'Accessibility polish missing in {path}'
+
+          # Remove this one-off workflow from the final branch commit.
+          Path('.github/workflows/one-off-website-improvements.yml').unlink()
+          PY
+
+      - name: Commit improved website
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Improve website conversion SEO video and accessibility"
+          git push origin HEAD:website-improvements-2026-08-28
