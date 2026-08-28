@@ -23,6 +23,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           index_path = Path('index.html')
           index = index_path.read_text(encoding='utf-8')
@@ -34,49 +35,49 @@ jobs:
 
           app_path = Path('app.js')
           app = app_path.read_text(encoding='utf-8')
-          marker = '''  document.querySelectorAll("[data-social]").forEach(el => {
-            el.addEventListener("click", () => track("social_visit", { platform: el.dataset.social || "" }));
-          });'''
-          addition = marker + '''
+          if '[data-event]' not in app:
+              pattern = re.compile(r'(\s*document\.querySelectorAll\("\[data-social\]"\)\.forEach\(el => \{\s*el\.addEventListener\("click", \(\) => track\("social_visit", \{ platform: el\.dataset\.social \|\| "" \}\)\);\s*\}\);)')
+              match = pattern.search(app)
+              if not match:
+                  raise RuntimeError('Could not find social tracking block in app.js')
+              event_block = '''
           document.querySelectorAll("[data-event]").forEach(el => {
             el.addEventListener("click", () => track(el.dataset.event, { book: el.dataset.book || "" }));
           });'''
-          if '[data-event]' not in app:
-              if marker not in app:
-                  raise RuntimeError('Could not find social tracking block in app.js')
-              app = app.replace(marker, addition, 1)
+              app = app[:match.end()] + event_block + app[match.end():]
           app_path.write_text(app, encoding='utf-8')
 
           video_path = Path('video-lite.js')
           video = video_path.read_text(encoding='utf-8')
-          video = video.replace('''    const button = event.target.closest(".video-lite");
-            if (!button) return;''', '''    const navLink = event.target.closest(".nav-links a");
-            if (navLink) {
-              const nav = navLink.closest(".nav");
-              nav?.classList.remove("open");
-              nav?.querySelector(".menu-toggle")?.setAttribute("aria-expanded", "false");
-            }
+          if 'video_youtube_fallback' not in video:
+              needle = '    const button = event.target.closest(".video-lite");'
+              if needle not in video:
+                  raise RuntimeError('Could not find video button handler')
+              inserted = '''    const navLink = event.target.closest(".nav-links a");
+              if (navLink) {
+                const nav = navLink.closest(".nav");
+                nav?.classList.remove("open");
+                nav?.querySelector(".menu-toggle")?.setAttribute("aria-expanded", "false");
+              }
 
-            const fallback = event.target.closest(".video-lite-fallback");
-            if (fallback && typeof gtag === "function") {
-              gtag("event", "video_youtube_fallback", { youtube_url: fallback.href });
-            }
+              const fallback = event.target.closest(".video-lite-fallback");
+              if (fallback && typeof gtag === "function") {
+                gtag("event", "video_youtube_fallback", { youtube_url: fallback.href });
+              }
 
-            const button = event.target.closest(".video-lite");
-            if (!button) return;''')
-          video = video.replace('''    const id = button.dataset.youtubeId;
-            if (!id) return;
-
-            const iframe = document.createElement("iframe");''', '''    const id = button.dataset.youtubeId;
-            if (!id) return;
-            if (typeof gtag === "function") {
-              gtag("event", "video_play", { youtube_id: id, video_title: button.dataset.title || "" });
-            }
-
-            const iframe = document.createElement("iframe");''')
+          ''' + needle
+              video = video.replace(needle, inserted, 1)
+          if 'video_title: button.dataset.title' not in video:
+              needle = '    if (!id) return;'
+              if needle not in video:
+                  raise RuntimeError('Could not find YouTube id guard')
+              inserted = needle + '''
+              if (typeof gtag === "function") {
+                gtag("event", "video_play", { youtube_id: id, video_title: button.dataset.title || "" });
+              }'''
+              video = video.replace(needle, inserted, 1)
           video_path.write_text(video, encoding='utf-8')
 
-          # Final checks.
           index = index_path.read_text(encoding='utf-8')
           app = app_path.read_text(encoding='utf-8')
           video = video_path.read_text(encoding='utf-8')
