@@ -46,8 +46,6 @@ footer{padding:45px 24px;text-align:center;color:#777;border-top:1px solid var(-
     line-height:1.04;
   }
 }
-
-
 /* JAYTREE_2026_CONVERSION_POLISH */
 .ku-home-banner{padding:42px 24px;background:linear-gradient(90deg,rgba(200,161,90,.13),rgba(12,20,26,.98),rgba(200,161,90,.08));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .ku-home-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:42px;align-items:center}
