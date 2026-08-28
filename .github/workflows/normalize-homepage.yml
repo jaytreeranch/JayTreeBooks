@@ -1,0 +1,66 @@
+name: Normalize Homepage
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jaytree-homepage-normalizer
+  cancel-in-progress: true
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            scripts
+            index.html
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Normalize homepage sections
+        run: python scripts/normalize_homepage.py
+
+      - name: Validate homepage output
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          assert text.count('id="case-files"') == 1
+          assert text.count('id="follow"') == 1
+          assert text.count('JAYTREE_CASE_FILES_START') == 1
+          assert text.count('JAYTREE_SOCIAL_FOLLOW_START') == 1
+          assert text.index('id="kindle-unlimited"') < text.index('id="books"')
+          assert text.index('id="books"') < text.index('id="challenge"')
+          assert text.index('id="challenge"') < text.index('id="case-files"')
+          assert text.index('id="case-files"') < text.index('id="audiobooks"')
+          assert text.index('id="audiobooks"') < text.index('id="youtube"')
+          assert text.index('id="youtube"') < text.index('id="follow"')
+          assert text.index('id="follow"') < text.index('id="about"')
+          print('Homepage duplication and order checks passed.')
+          PY
+
+      - name: Commit normalized homepage
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "Homepage is already normalized."
+            exit 0
+          fi
+          git commit -m "Normalize homepage sections"
+          git push
