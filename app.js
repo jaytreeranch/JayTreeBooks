@@ -92,6 +92,9 @@ function bindTracking() {
   document.querySelectorAll("[data-social]").forEach(el => {
     el.addEventListener("click", () => track("social_visit", { platform: el.dataset.social || "" }));
   });
+document.querySelectorAll("[data-event]").forEach(el => {
+  el.addEventListener("click", () => track(el.dataset.event, { book: el.dataset.book || "" }));
+});
   document.querySelectorAll("[data-case-files-form]").forEach(form => {
     form.addEventListener("submit", () => track("case_files_signup_submit", { placement: form.dataset.placement || "unknown" }));
   });
