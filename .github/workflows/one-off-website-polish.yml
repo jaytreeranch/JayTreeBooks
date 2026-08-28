@@ -1,0 +1,101 @@
+name: One-off JayTreeBooks website polish
+
+on:
+  push:
+    branches:
+      - website-improvements-2026-08-28
+
+permissions:
+  contents: write
+
+jobs:
+  polish-site:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: website-improvements-2026-08-28
+          fetch-depth: 1
+
+      - name: Apply final polish
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          index_path = Path('index.html')
+          index = index_path.read_text(encoding='utf-8')
+          index = index.replace('<meta property="og:image:alt" content="The Hollow Bell book cover">', '<meta property="og:image:alt" content="JayTree Books mystery challenge artwork">')
+          index = index.replace('Read the first chapter. Hear the audiobook. Watch the story', 'Read the first chapter. Hear a sample. Watch the story')
+          if '<meta name="twitter:image:alt"' not in index:
+              index = index.replace('<meta name="twitter:image" content="https://www.JayTreeBooks.com/images/jaytree-books-challenge.png">', '<meta name="twitter:image" content="https://www.JayTreeBooks.com/images/jaytree-books-challenge.png">\n<meta name="twitter:image:alt" content="JayTree Books mystery challenge artwork">', 1)
+          index_path.write_text(index, encoding='utf-8')
+
+          app_path = Path('app.js')
+          app = app_path.read_text(encoding='utf-8')
+          marker = '''  document.querySelectorAll("[data-social]").forEach(el => {
+            el.addEventListener("click", () => track("social_visit", { platform: el.dataset.social || "" }));
+          });'''
+          addition = marker + '''
+          document.querySelectorAll("[data-event]").forEach(el => {
+            el.addEventListener("click", () => track(el.dataset.event, { book: el.dataset.book || "" }));
+          });'''
+          if '[data-event]' not in app:
+              if marker not in app:
+                  raise RuntimeError('Could not find social tracking block in app.js')
+              app = app.replace(marker, addition, 1)
+          app_path.write_text(app, encoding='utf-8')
+
+          video_path = Path('video-lite.js')
+          video = video_path.read_text(encoding='utf-8')
+          video = video.replace('''    const button = event.target.closest(".video-lite");
+            if (!button) return;''', '''    const navLink = event.target.closest(".nav-links a");
+            if (navLink) {
+              const nav = navLink.closest(".nav");
+              nav?.classList.remove("open");
+              nav?.querySelector(".menu-toggle")?.setAttribute("aria-expanded", "false");
+            }
+
+            const fallback = event.target.closest(".video-lite-fallback");
+            if (fallback && typeof gtag === "function") {
+              gtag("event", "video_youtube_fallback", { youtube_url: fallback.href });
+            }
+
+            const button = event.target.closest(".video-lite");
+            if (!button) return;''')
+          video = video.replace('''    const id = button.dataset.youtubeId;
+            if (!id) return;
+
+            const iframe = document.createElement("iframe");''', '''    const id = button.dataset.youtubeId;
+            if (!id) return;
+            if (typeof gtag === "function") {
+              gtag("event", "video_play", { youtube_id: id, video_title: button.dataset.title || "" });
+            }
+
+            const iframe = document.createElement("iframe");''')
+          video_path.write_text(video, encoding='utf-8')
+
+          # Final checks.
+          index = index_path.read_text(encoding='utf-8')
+          app = app_path.read_text(encoding='utf-8')
+          video = video_path.read_text(encoding='utf-8')
+          assert 'The Hollow Bell book cover' not in index.split('</head>', 1)[0]
+          assert 'Hear the audiobook' not in index
+          assert 'twitter:image:alt' in index
+          assert '[data-event]' in app
+          assert 'video_play' in video and 'video_youtube_fallback' in video
+          assert 'nav?.classList.remove("open")' in video
+
+          Path('.github/workflows/one-off-website-polish.yml').unlink()
+          PY
+
+      - name: Commit final polish
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Polish website metadata tracking and mobile behavior"
+          git push origin HEAD:website-improvements-2026-08-28
