@@ -25,7 +25,19 @@ function youtubeIdFromUrl(value) {
 function youtubeEmbed(url, title) {
   const id = youtubeIdFromUrl(url);
   if (!id) return "";
-  return `<iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0" title="${title}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+  const safeTitle = String(title || "YouTube video")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  return `<div class="video-lite-inner">
+    <button class="video-lite" type="button" data-youtube-id="${id}" data-title="${safeTitle}" aria-label="Play ${safeTitle}">
+      <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+      <span class="video-lite-play" aria-hidden="true">▶</span>
+      <span class="video-lite-label">Play video</span>
+    </button>
+    <a class="video-lite-fallback" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">Open on YouTube ↗</a>
+  </div>`;
 }
 
 function externalButton(url, label, eventName, bookSlug, extraClass = "") {
@@ -170,7 +182,7 @@ async function renderIndex() {
       <a class="cta solid" href="${featured.chapter}" data-track="featured_chapter" data-book="${featured.slug}">Read Chapter One</a>
       ${featured.kindleUnlimited ? externalButton(featured.amazonUrl, "Read FREE with Kindle Unlimited", "featured_kindle_unlimited", featured.slug) : ""}
       ${featured.trailerUrl ? `<a class="cta" href="#youtube" data-track="featured_trailer" data-book="${featured.slug}">Watch Trailer</a>` : ""}
-      <a class="cta" href="book.html?book=${featured.slug}" data-track="featured_book" data-book="${featured.slug}">Explore ${featured.title}</a>`;
+      <a class="cta" href="books/${featured.slug}.html" data-track="featured_book" data-book="${featured.slug}">Explore ${featured.title}</a>`;
   }
 
   const youtubeCard = document.querySelector(".youtube-card");
