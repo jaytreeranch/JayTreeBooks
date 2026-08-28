@@ -7,7 +7,16 @@ on:
       - "scripts/finalize_reader_growth.py"
       - "scripts/apply_newsletter_provider.py"
       - "scripts/configure_kit_newsletter.py"
+      - "scripts/add_audiobook_coming_soon.py"
+      - "scripts/apply_site_improvements.py"
       - "config.js"
+      - "app.js"
+      - "index.html"
+      - "book.html"
+      - "books/*.html"
+      - "case-files*.html"
+      - "styles.css"
+      - "video-lite.js"
       - "data/case-files-welcome-sequence.md"
       - "docs/kit-case-files-setup.md"
       - "images/*.png"
@@ -23,6 +32,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+            scripts
+            data
+            docs
+            images
+            chapters
+            books
 
       - uses: actions/setup-python@v5
         with:
@@ -37,14 +55,18 @@ jobs:
           python -m py_compile scripts/finalize_reader_growth.py
           python -m py_compile scripts/apply_newsletter_provider.py
           python -m py_compile scripts/configure_kit_newsletter.py
+          python -m py_compile scripts/add_audiobook_coming_soon.py
+          python -m py_compile scripts/apply_site_improvements.py
 
       - name: Generate site in CI workspace
         run: |
           python scripts/build_reader_growth_site.py
           python scripts/finalize_reader_growth.py
           python scripts/apply_newsletter_provider.py
+          python scripts/add_audiobook_coming_soon.py
+          python scripts/apply_site_improvements.py
 
-      - name: Validate conversion, SEO, social, image, and Case Files outputs
+      - name: Validate conversion, SEO, social, image, video, and Case Files outputs
         shell: bash
         run: |
           python - <<'PY'
@@ -78,6 +100,11 @@ jobs:
               assert 'Read FREE with Kindle Unlimited' in html
               assert book['amazonUrl'] in html
               assert 'id="listen"' in html
+              assert 'Full Audiobook — Coming Soon' in html
+              assert 'video-lite' in html
+              assert '../video-lite.js' in html
+              assert 'src="https://www.youtube-nocookie.com/embed/' not in html
+              assert '../privacy.html' in html and '../terms.html' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
               assert f'<meta name="twitter:image" content="https://www.JayTreeBooks.com/{original}">' in html
@@ -86,6 +113,8 @@ jobs:
               assert 'Continue FREE with Kindle Unlimited' in chapter_html
               assert f'../books/{book["slug"]}.html' in chapter_html
               assert 'JAYTREE_CHAPTER_ANALYTICS_START' in chapter_html
+              assert 'JAYTREE_2026_READER_ACCESSIBILITY' in chapter_html
+              assert 'Jaytree Books' not in chapter_html
 
               cover = root / book['cover']
               assert cover.exists()
@@ -98,6 +127,14 @@ jobs:
           assert 'https://x.com/JayTreeBooks' in index
           assert 'https://www.tiktok.com/@jaytreebooks' in index
           assert 'JAYTREE_CASE_FILES_START' in index
+          assert 'JAYTREE_SOCIAL_FOLLOW_START' in index
+          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in index
+          assert 'JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges' in index
+          assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
+          assert index.index('id="kindle-unlimited"') < index.index('id="books"')
+          assert 'continue the story on Audible' not in index
+          assert '<script src="video-lite.js"></script>' in index
+          assert 'privacy.html' in index and 'terms.html' in index
           if provider == 'formsubmit':
               assert 'Open the Case Files' in index
           else:
@@ -109,6 +146,7 @@ jobs:
           assert 'Get the next mystery before the reveal.' in case_files
           assert 'data-case-files-form' in case_files
           assert 'case_files_signup_view' in case_files
+          assert 'privacy.html' in case_files and 'terms.html' in case_files
           if provider == 'formsubmit':
               assert 'name="_autoresponse"' in case_files
               assert 'name="_honey"' in case_files
@@ -125,16 +163,25 @@ jobs:
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'href="books/${b.slug}.html"' in app
           assert 'books/${b.slug}.html#listen' in app
+          assert 'href="books/${featured.slug}.html"' in app
           assert 'loading="lazy" decoding="async"' in app
           assert 'track("social_visit"' in app
+          assert '[data-event]' in app
+          assert 'video-lite-inner' in app
           assert 'case_files_signup_submit' in app
+
+          video_loader = (root / 'video-lite.js').read_text(encoding='utf-8')
+          assert 'video_play' in video_loader
+          assert 'video_youtube_fallback' in video_loader
+          assert 'aria-expanded' in video_loader
 
           assert (root / 'data/case-files-welcome-sequence.md').exists()
           assert (root / 'docs/kit-case-files-setup.md').exists()
-          assert 'You're in the JayTree Case Files' in (root / 'data/case-files-welcome-sequence.md').read_text(encoding='utf-8')
+          assert "You're in the JayTree Case Files" in (root / 'data/case-files-welcome-sequence.md').read_text(encoding='utf-8')
 
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
+          assert 'privacy.html' in legacy and 'terms.html' in legacy
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
           for book in books:
@@ -142,5 +189,5 @@ jobs:
               assert f'https://www.JayTreeBooks.com/{book["chapter"]}' in sitemap
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert 'Sitemap: https://www.JayTreeBooks.com/sitemap.xml' in (root / 'robots.txt').read_text(encoding='utf-8')
-          print(f'Reader growth and JayTree Case Files validation passed with provider={provider}.')
+          print(f'Reader growth and durable JayTree site improvements validation passed with provider={provider}.')
           PY
