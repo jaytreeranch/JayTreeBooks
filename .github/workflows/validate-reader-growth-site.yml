@@ -131,7 +131,7 @@ jobs:
 
           assert (root / 'data/case-files-welcome-sequence.md').exists()
           assert (root / 'docs/kit-case-files-setup.md').exists()
-          assert 'You're in the JayTree Case Files' in (root / 'data/case-files-welcome-sequence.md').read_text(encoding='utf-8')
+          assert "You're in the JayTree Case Files" in (root / 'data/case-files-welcome-sequence.md').read_text(encoding='utf-8')
 
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
