@@ -1,0 +1,32 @@
+name: Build X Native Video Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build 5-second JayTree Books test video
+        run: |
+          mkdir -p media
+          ffmpeg -y -loop 1 -i images/jaytree-social-card.png \
+            -vf "scale=1280:672,zoompan=z='min(zoom+0.00035,1.04)':d=150:s=1280x672:fps=30" \
+            -t 5 -c:v libx264 -preset veryfast -crf 27 -pix_fmt yuv420p -movflags +faststart \
+            media/x-native-video-test.mp4
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height,r_frame_rate -of default=nw=1 media/x-native-video-test.mp4
+      - name: Commit generated video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add media/x-native-video-test.mp4
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add X native video test asset"
+            git push
+          fi
