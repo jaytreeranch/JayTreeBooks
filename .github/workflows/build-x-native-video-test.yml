@@ -2,6 +2,9 @@ name: Build X Native Video Test
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-x-native-video-test.yml'
 
 permissions:
   contents: write
@@ -11,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
       - name: Build 5-second JayTree Books test video
         run: |
           mkdir -p media
