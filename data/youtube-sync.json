@@ -1,7 +1,76 @@
 {
   "schema_version": 1,
   "channel_handle": "@JayTreeBooks",
-  "channel_id": "",
-  "books": {},
-  "mystery_cases": {}
+  "channel_id": "UCQqP3qLWvwlU3QhJOZxS7tg",
+  "books": {
+    "the-hollow-bell": {
+      "video_id": "V8GWIIuTbx4",
+      "title": "She Disappeared. Then the Bell Rang… 🔔 | The Hollow Bell | FREE with Kindle Unlimited",
+      "url": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
+      "published": "2026-08-27T20:23:42+00:00"
+    },
+    "the-correction": {
+      "video_id": "tRlHA4UKNGk",
+      "title": "The Correction | Official Cinematic Book Trailer | Psychological Mystery Thriller",
+      "url": "https://www.youtube.com/watch?v=tRlHA4UKNGk",
+      "published": "2026-08-21T20:26:48+00:00"
+    },
+    "second-draft": {
+      "video_id": "NIFz71-JvI0",
+      "title": "SECOND DRAFT | What If Your Memories Were Lying to You?",
+      "url": "https://www.youtube.com/watch?v=NIFz71-JvI0",
+      "published": "2026-08-22T18:12:06+00:00"
+    },
+    "the-absconding": {
+      "video_id": "b9mOYwmDhPY",
+      "title": "The Absconding | Official Book Trailer | Psychological Mystery Thriller",
+      "url": "https://www.youtube.com/watch?v=b9mOYwmDhPY",
+      "published": "2026-08-24T17:56:45+00:00"
+    },
+    "the-hollow-year": {
+      "video_id": "lxZLVmRnec0",
+      "title": "The Hollow Year | Official Cinematic Book Trailer | Psychological Mystery Thriller",
+      "url": "https://www.youtube.com/watch?v=lxZLVmRnec0",
+      "published": "2026-08-24T21:42:56+00:00"
+    }
+  },
+  "mystery_cases": {
+    "001": {
+      "case": {
+        "video_id": "Tgx-WwU9RPk",
+        "title": "**Mystery Challenge Case #001 — 7 Clues. 3 Suspects. Can You Solve It? #jaytreebooks",
+        "url": "https://www.youtube.com/watch?v=Tgx-WwU9RPk",
+        "published": "2026-08-25T14:44:48+00:00"
+      },
+      "teaser": {
+        "video_id": "6u_Bo3Zu74U",
+        "title": "Mystery Challenge Case #001 Teaser #3 | Who Is Lying?",
+        "url": "https://www.youtube.com/watch?v=6u_Bo3Zu74U",
+        "published": "2026-08-26T13:47:51+00:00"
+      }
+    }
+  },
+  "latest_upload": {
+    "video_id": "V8GWIIuTbx4",
+    "title": "She Disappeared. Then the Bell Rang… 🔔 | The Hollow Bell | FREE with Kindle Unlimited",
+    "url": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
+    "published": "2026-08-27T20:23:42+00:00"
+  },
+  "latest_mystery_case": {
+    "case_number": "001",
+    "case": {
+      "video_id": "Tgx-WwU9RPk",
+      "title": "**Mystery Challenge Case #001 — 7 Clues. 3 Suspects. Can You Solve It? #jaytreebooks",
+      "url": "https://www.youtube.com/watch?v=Tgx-WwU9RPk",
+      "published": "2026-08-25T14:44:48+00:00"
+    },
+    "reveal": null,
+    "teaser": {
+      "video_id": "6u_Bo3Zu74U",
+      "title": "Mystery Challenge Case #001 Teaser #3 | Who Is Lying?",
+      "url": "https://www.youtube.com/watch?v=6u_Bo3Zu74U",
+      "published": "2026-08-26T13:47:51+00:00"
+    }
+  },
+  "last_synced": "2026-08-30T14:16:31Z"
 }
