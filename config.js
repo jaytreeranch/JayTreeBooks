@@ -15,7 +15,7 @@ window.JT = {
       "audio": "audio/book-1-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFYQ9KGV",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=NIFz71-JvI0",
+      "trailerUrl": "https://youtu.be/IA_fL2IHkNs",
       "shortUrl": "https://youtube.com/shorts/_NLalSyI6GY",
       "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=GCNvXhv9Tto",
       "coverOriginal": "images/second-draft.png"
@@ -30,7 +30,7 @@ window.JT = {
       "audio": "audio/book-2-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFXF8MTP",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=lxZLVmRnec0",
+      "trailerUrl": "https://youtu.be/lxZLVmRnec0",
       "shortUrl": "https://youtube.com/shorts/BncunKlRZcs",
       "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=h1MynsN02dk",
       "coverOriginal": "images/the-hollow-year.png"
@@ -45,7 +45,7 @@ window.JT = {
       "audio": "audio/book-3-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HD5RH8X5",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
+      "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
       "shortUrl": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
       "audiobookYoutubeUrl": "https://youtu.be/n0FxPOwlg3I",
       "coverOriginal": "images/the-hollow-bell.png"
@@ -60,7 +60,7 @@ window.JT = {
       "audio": "audio/book-4-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFY538WC",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=b9mOYwmDhPY",
+      "trailerUrl": "https://youtu.be/b9mOYwmDhPY",
       "shortUrl": "https://youtube.com/shorts/-F5MyrNUnSo",
       "audiobookYoutubeUrl": "https://www.youtube.com/watch?v=uLumOPgp_K0",
       "coverOriginal": "images/the-absconding.png"
@@ -75,7 +75,7 @@ window.JT = {
       "audio": "audio/book-5-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFV8GG73",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=tRlHA4UKNGk",
+      "trailerUrl": "https://youtu.be/tRlHA4UKNGk",
       "shortUrl": "https://youtube.com/shorts/VBnmRhaZGl0",
       "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc",
       "coverOriginal": "images/the-correction.png"
