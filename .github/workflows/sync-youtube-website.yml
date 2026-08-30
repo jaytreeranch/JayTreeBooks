@@ -1,0 +1,68 @@
+name: Sync YouTube Website
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: youtube-website-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate sync script
+        run: python -m py_compile scripts/sync_youtube_uploads.py
+
+      - name: Sync new YouTube uploads into website
+        run: python scripts/sync_youtube_uploads.py
+
+      - name: Validate registry
+        run: python -m json.tool data/youtube-sync.json > /dev/null
+
+      - name: Commit website video updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/youtube-sync.json config.js index.html
+
+          if git diff --cached --quiet; then
+            echo "No new YouTube website updates."
+            exit 0
+          fi
+
+          git commit -m "Sync latest YouTube videos to website"
+          git pull --rebase origin main
+          git push origin main
+
+      - name: Summarize
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## YouTube → Website Sync"
+            echo ""
+            echo "- Checks @JayTreeBooks every 15 minutes"
+            echo "- Long book features update the matching book trailer URL"
+            echo "- Shorts, teasers, readings, chapters, and audiobooks do not replace book trailers"
+            echo "- Mystery Case uploads automatically open the homepage challenge"
+            echo "- Mystery Reveal uploads automatically switch the homepage to the reveal"
+            echo "- No cross-repository token or manual URL copy is required"
+          } >> "$GITHUB_STEP_SUMMARY"
