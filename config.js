@@ -75,7 +75,7 @@ window.JT = {
       "audio": "audio/book-5-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFV8GG73",
       "kindleUnlimited": true,
-      "trailerUrl": "https://youtu.be/tRlHA4UKNGk",
+      "trailerUrl": "https://www.youtube.com/watch?v=aBCwXBy-fvQ",
       "shortUrl": "https://youtube.com/shorts/VBnmRhaZGl0",
       "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc",
       "coverOriginal": "images/the-correction.png"
