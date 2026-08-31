@@ -2,7 +2,7 @@ window.JT = {
   "youtube": "https://www.youtube.com/@JayTreeBooks",
   "amazon": "https://www.amazon.com/stores/JayTree-Books/author/B0HG41STKM",
   "ga4": "G-PHE2JVV5P6",
-  "featuredBook": "the-hollow-bell",
+  "featuredBook": "the-correction",
   "campaignConfigUrl": "data/campaign.json",
   "books": [
     {
