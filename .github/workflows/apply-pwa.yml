@@ -5,7 +5,6 @@ on:
     workflows:
       - "Build Reader Growth Site"
       - "Normalize Homepage"
-      - "Sync YouTube Website"
     types:
       - completed
   workflow_dispatch:
