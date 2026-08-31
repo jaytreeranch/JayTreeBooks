@@ -187,6 +187,16 @@ h1 {
   color: var(--ink);
 }
 </style>
+<!-- JAYTREE_PWA_HEAD_START -->
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#080d12">
+<meta name="application-name" content="JayTree Books">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JayTree Books">
+<link rel="stylesheet" href="/pwa.css">
+<!-- JAYTREE_PWA_HEAD_END -->
 </head>
 <body>
   <div class="container">
@@ -201,5 +211,8 @@ h1 {
     <a class="back" href="../index.html">← Back to Home</a>
   </div>
 
+<!-- JAYTREE_PWA_SCRIPT_START -->
+<script src="/pwa.js" defer></script>
+<!-- JAYTREE_PWA_SCRIPT_END -->
 </body>
 </html>

@@ -21,6 +21,16 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
 <link rel="stylesheet" href="../styles.css">
+<!-- JAYTREE_PWA_HEAD_START -->
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#080d12">
+<meta name="application-name" content="JayTree Books">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JayTree Books">
+<link rel="stylesheet" href="/pwa.css">
+<!-- JAYTREE_PWA_HEAD_END -->
 </head>
 <body>
 <header class="nav"><div class="nav-inner"><a class="brand" href="../index.html">JAYTREE BOOKS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><nav class="nav-links"><a href="../index.html#books">Books</a><a href="../index.html#challenge">Challenge</a><a href="#follow">Follow</a><a href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener">YouTube</a></nav></div></header>
@@ -62,5 +72,8 @@ document.querySelector('.menu-toggle')?.addEventListener('click',function(){docu
 document.querySelectorAll('[data-track]').forEach(function(el){el.addEventListener('click',function(){if(typeof gtag==='function')gtag('event',el.dataset.track,{book:'the-absconding'})})});
 document.querySelectorAll('[data-social]').forEach(function(el){el.addEventListener('click',function(){if(typeof gtag==='function')gtag('event','social_visit',{platform:el.dataset.social,book:'the-absconding'})})});
 </script>
+<!-- JAYTREE_PWA_SCRIPT_START -->
+<script src="/pwa.js" defer></script>
+<!-- JAYTREE_PWA_SCRIPT_END -->
 </body>
 </html>
