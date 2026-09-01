@@ -59,13 +59,31 @@ jobs:
           assert manifest["start_url"] == "/"
           assert manifest["scope"] == "/"
           assert manifest["display"] == "standalone"
-          sizes = {entry["sizes"] for entry in manifest["icons"]}
-          assert "192x192" in sizes and "512x512" in sizes
-          assert all("publisher-logo-2" in entry["src"] for entry in manifest["icons"])
+
+          icons = manifest["icons"]
+          assert any(
+              entry.get("sizes") == "192x192"
+              and entry.get("purpose") == "any"
+              and entry.get("src") == "/icons/icon-192.png?v=publisher-logo-3"
+              for entry in icons
+          )
+          assert any(
+              entry.get("sizes") == "512x512"
+              and entry.get("purpose") == "any"
+              and entry.get("src") == "/icons/icon-512.png?v=publisher-logo-3"
+              for entry in icons
+          )
+          assert any(
+              entry.get("sizes") == "512x512"
+              and entry.get("purpose") == "maskable"
+              and entry.get("src") == "/icons/icon-maskable-512.png?v=publisher-logo-3"
+              for entry in icons
+          )
 
           expected_icons = (
               ("icon-192.png", (192, 192), 4000),
               ("icon-512.png", (512, 512), 10000),
+              ("icon-maskable-512.png", (512, 512), 10000),
               ("apple-touch-icon.png", (180, 180), 3000),
           )
           for filename, expected_size, minimum_bytes in expected_icons:
@@ -76,8 +94,10 @@ jobs:
                   assert image.size == expected_size, (filename, image.size)
 
           service_worker = (root / "service-worker.js").read_text(encoding="utf-8")
-          assert 'jaytree-pwa-v3' in service_worker
-          assert 'publisher-logo-2' in service_worker
+          assert 'jaytree-pwa-v4' in service_worker
+          assert '/icons/icon-192.png?v=publisher-logo-3' in service_worker
+          assert '/icons/icon-512.png?v=publisher-logo-3' in service_worker
+          assert '/icons/icon-maskable-512.png?v=publisher-logo-3' in service_worker
           assert (root / "pwa.js").exists()
           assert (root / "pwa.css").exists()
 
@@ -92,9 +112,12 @@ jobs:
               html = path.read_text(encoding="utf-8")
               assert '<link rel="manifest" href="/manifest.webmanifest">' in html, path
               assert '<script src="/pwa.js" defer></script>' in html, path
-              assert '/icons/apple-touch-icon.png?v=publisher-logo-2' in html, path
+              assert '/icons/apple-touch-icon.png?v=publisher-logo-3' in html, path
 
-          print(f"Validated JayTree PWA across {len(targets)} HTML pages with optimized publisher logo icon.")
+          print(
+              f"Validated JayTree PWA across {len(targets)} HTML pages with "
+              "standard, Apple, and dedicated Android maskable icons."
+          )
           PY
 
       - name: Commit generated PWA assets
@@ -111,5 +134,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Update JayTree Books app icon"
+          git commit -m "Update JayTree Books Android app icon"
           git push origin main
