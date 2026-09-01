@@ -1,0 +1,37 @@
+name: Build and Publish Final Case 001 Master
+
+on:
+  push:
+    branches:
+      - case001-final-update-qc
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  master:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Fetch mastering runner
+        run: curl -L --fail --retry 3 -o case001_final_publish_master.py 'https://raw.githubusercontent.com/jaytreeranch/JayTreeBooks/case001-final-update-qc/tools/case001_final_publish_master.py'
+      - name: Build and verify final master
+        run: python3 case001_final_publish_master.py
+      - name: Publish final master to QC release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload mystery-case-001-qc Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 --clobber
+      - name: Upload verification report
+        uses: actions/upload-artifact@v4
+        with:
+          name: case001-final-master-verification
+          compression-level: 0
+          retention-days: 7
+          path: |
+            master_pass1.json
+            final_loudness.txt
+            final_ffprobe.json
+            final_sha256.txt
