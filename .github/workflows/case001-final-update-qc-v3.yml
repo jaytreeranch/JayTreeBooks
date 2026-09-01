@@ -1,0 +1,41 @@
+name: Case 001 Final Update QC v3
+
+on:
+  push:
+    branches:
+      - case001-final-update-qc
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Install QC tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg tesseract-ocr
+      - name: Fetch QC runner
+        run: curl -L --fail --retry 3 -o case001_final_update_qc.py 'https://raw.githubusercontent.com/jaytreeranch/JayTreeBooks/case001-final-update-qc/tools/case001_final_update_qc.py'
+      - name: Run QC and mastering
+        run: python3 case001_final_update_qc.py
+      - name: Upload QC package
+        uses: actions/upload-artifact@v4
+        with:
+          name: case001-final-update-qc-v3
+          compression-level: 0
+          retention-days: 7
+          path: |
+            source_sha256.txt
+            source_ffprobe.json
+            source_loudness.txt
+            full_contact_sheet.jpg
+            final_65s_contact_sheet.jpg
+            final_ocr.txt
+            Mystery_Case_001_QC_PROXY.mp4
+            loudnorm_measured.json
+            mastered_ffprobe.json
+            mastered_loudness.txt
+            mastered_sha256.txt
+            Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4
