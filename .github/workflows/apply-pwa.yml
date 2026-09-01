@@ -42,6 +42,7 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
           python scripts/apply_pwa.py
+          python scripts/apply_custom_pwa_icon.py
 
       - name: Validate PWA
         shell: bash
@@ -60,6 +61,7 @@ jobs:
           assert manifest["display"] == "standalone"
           sizes = {entry["sizes"] for entry in manifest["icons"]}
           assert "192x192" in sizes and "512x512" in sizes
+          assert all("publisher-logo-1" in entry["src"] for entry in manifest["icons"])
 
           for filename, expected in (
               ("icon-192.png", (192, 192)),
@@ -69,7 +71,9 @@ jobs:
               with Image.open(root / "icons" / filename) as image:
                   assert image.size == expected, (filename, image.size)
 
-          assert (root / "service-worker.js").exists()
+          service_worker = (root / "service-worker.js").read_text(encoding="utf-8")
+          assert 'jaytree-pwa-v2' in service_worker
+          assert 'publisher-logo-1' in service_worker
           assert (root / "pwa.js").exists()
           assert (root / "pwa.css").exists()
 
@@ -85,7 +89,7 @@ jobs:
               assert '<link rel="manifest" href="/manifest.webmanifest">' in html, path
               assert '<script src="/pwa.js" defer></script>' in html, path
 
-          print(f"Validated JayTree PWA across {len(targets)} HTML pages.")
+          print(f"Validated JayTree PWA across {len(targets)} HTML pages with the publisher logo icon.")
           PY
 
       - name: Commit generated PWA assets
@@ -102,5 +106,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Add installable JayTree Books PWA"
+          git commit -m "Update JayTree Books app icon"
           git push origin main
