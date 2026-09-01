@@ -1,11 +1,11 @@
-const CACHE_NAME = "jaytree-pwa-v2";
+const CACHE_NAME = "jaytree-pwa-v3";
 const CORE = [
   "/",
   "/manifest.webmanifest",
   "/pwa.css",
   "/pwa.js",
-  "/icons/icon-192.png?v=publisher-logo-1",
-  "/icons/icon-512.png?v=publisher-logo-1"
+  "/icons/icon-192.png?v=publisher-logo-2",
+  "/icons/icon-512.png?v=publisher-logo-2"
 ];
 
 self.addEventListener("install", event => {
