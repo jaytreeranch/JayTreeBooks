@@ -1,0 +1,140 @@
+name: Case 001 Final Update QC
+
+on:
+  push:
+    branches:
+      - case001-final-update-qc
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install QC tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg tesseract-ocr jq
+
+      - name: Download exact updated master
+        run: |
+          curl -L --fail --retry 3 --retry-delay 2 \
+            -o Mystery_Case_001_Final_Update.mp4 \
+            'https://github.com/jaytreeranch/JayTreeBooks/releases/download/mystery-case-001-qc/Mystery_Case_001_Final_Update.mp4'
+          sha256sum Mystery_Case_001_Final_Update.mp4 | tee source_sha256.txt
+          test "$(sha256sum Mystery_Case_001_Final_Update.mp4 | awk '{print $1}')" = "ff2c90c8ee38e93b296dc365c9021913cca6c893952e83f351504993c8c176e2"
+
+      - name: Probe source
+        run: |
+          ffprobe -v error \
+            -show_entries format=filename,duration,size,bit_rate:stream=index,codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,sample_rate,channels,channel_layout \
+            -of json Mystery_Case_001_Final_Update.mp4 > source_ffprobe.json
+
+      - name: Measure source loudness
+        run: |
+          ffmpeg -hide_banner -nostats -i Mystery_Case_001_Final_Update.mp4 \
+            -filter_complex ebur128=peak=true -f null - 2> source_loudness_full.txt || true
+          tail -n 30 source_loudness_full.txt > source_loudness.txt
+
+      - name: Build visual QC proxy and contact sheets
+        run: |
+          ffmpeg -y -i Mystery_Case_001_Final_Update.mp4 \
+            -vf "scale=960:-2" -c:v libx264 -preset veryfast -crf 30 -an \
+            Mystery_Case_001_QC_PROXY.mp4
+
+          ffmpeg -y -i Mystery_Case_001_Final_Update.mp4 \
+            -vf "fps=1/30,scale=480:-2,tile=4x3:padding=4:margin=4" \
+            -frames:v 1 full_contact_sheet.jpg
+
+          DUR=$(ffprobe -v error -show_entries format=duration -of default=nk=1:nw=1 Mystery_Case_001_Final_Update.mp4)
+          START=$(python3 - <<'PY'
+import subprocess
+p='Mystery_Case_001_Final_Update.mp4'
+d=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=nk=1:nw=1',p]).decode())
+print(max(0,d-65))
+PY
+)
+          ffmpeg -y -ss "$START" -i Mystery_Case_001_Final_Update.mp4 \
+            -vf "fps=1/5,scale=640:-2,tile=4x4:padding=4:margin=4" \
+            -frames:v 1 final_65s_contact_sheet.jpg
+
+          ffmpeg -y -ss "$START" -i Mystery_Case_001_Final_Update.mp4 \
+            -vf "fps=1/2,scale=960:-2" -q:v 3 endframe_%03d.jpg
+
+      - name: OCR final sequence
+        run: |
+          : > final_ocr.txt
+          for f in endframe_*.jpg; do
+            echo "===== $f =====" >> final_ocr.txt
+            tesseract "$f" stdout 2>/dev/null >> final_ocr.txt || true
+            echo >> final_ocr.txt
+          done
+
+      - name: Analyze compressed mix for two-pass mastering
+        run: |
+          ffmpeg -hide_banner -nostats -i Mystery_Case_001_Final_Update.mp4 \
+            -vn -af "acompressor=threshold=-18dB:ratio=2:attack=20:release=250,loudnorm=I=-16:TP=-1:LRA=11:print_format=json" \
+            -f null - 2> loudnorm_pass1.txt || true
+          python3 - <<'PY'
+import json,re
+s=open('loudnorm_pass1.txt',encoding='utf-8',errors='ignore').read()
+blocks=re.findall(r'\{\s*"input_i".*?\}',s,re.S)
+if not blocks:
+    raise SystemExit('Could not parse loudnorm pass 1 JSON')
+d=json.loads(blocks[-1])
+open('loudnorm_measured.json','w').write(json.dumps(d,indent=2))
+print(json.dumps(d,indent=2))
+PY
+
+      - name: Build mastered final without re-encoding video
+        run: |
+          python3 - <<'PY' > master_filter.txt
+import json
+m=json.load(open('loudnorm_measured.json'))
+print('acompressor=threshold=-18dB:ratio=2:attack=20:release=250,' +
+      'loudnorm=I=-16:TP=-1:LRA=11:' +
+      f'measured_I={m["input_i"]}:measured_LRA={m["input_lra"]}:' +
+      f'measured_TP={m["input_tp"]}:measured_thresh={m["input_thresh"]}:' +
+      f'offset={m["target_offset"]}:linear=true:print_format=summary')
+PY
+          FILTER=$(cat master_filter.txt)
+          ffmpeg -y -i Mystery_Case_001_Final_Update.mp4 \
+            -map 0:v:0 -map 0:a:0 -c:v copy \
+            -af "$FILTER" -c:a aac -b:a 320k \
+            -movflags +faststart \
+            Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4
+
+      - name: Verify mastered output
+        run: |
+          ffprobe -v error \
+            -show_entries format=filename,duration,size,bit_rate:stream=index,codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,sample_rate,channels,channel_layout \
+            -of json Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 > mastered_ffprobe.json
+          ffmpeg -hide_banner -nostats -i Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 \
+            -filter_complex ebur128=peak=true -f null - 2> mastered_loudness_full.txt || true
+          tail -n 30 mastered_loudness_full.txt > mastered_loudness.txt
+          sha256sum Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 > mastered_sha256.txt
+
+      - name: Upload QC package
+        uses: actions/upload-artifact@v4
+        with:
+          name: case001-final-update-qc
+          compression-level: 0
+          retention-days: 7
+          path: |
+            source_sha256.txt
+            source_ffprobe.json
+            source_loudness.txt
+            full_contact_sheet.jpg
+            final_65s_contact_sheet.jpg
+            final_ocr.txt
+            Mystery_Case_001_QC_PROXY.mp4
+            loudnorm_measured.json
+            mastered_ffprobe.json
+            mastered_loudness.txt
+            mastered_sha256.txt
+            Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4
