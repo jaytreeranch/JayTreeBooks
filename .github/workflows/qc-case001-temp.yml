@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   master:
@@ -77,7 +77,16 @@ jobs:
           tail -n 50 mastered_ebur128.txt > mastered_loudness.txt
           sha256sum MysteryCase001-PRODUCTION-LOCKED-MASTER.mp4 > mastered_sha256.txt
 
-      - name: Upload mastered video
+      - name: Publish mastered MP4 to QC release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload mystery-case-001-qc \
+            MysteryCase001-PRODUCTION-LOCKED-MASTER.mp4 \
+            --repo jaytreeranch/JayTreeBooks \
+            --clobber
+
+      - name: Upload mastered video artifact
         uses: actions/upload-artifact@v4
         with:
           name: mystery-case-001-production-locked-master
