@@ -1,13 +1,5 @@
-# Jaytree Books Website
+This website is configured for JayTreeBooks.com.
 
-Added:
-- Read First Chapter buttons for all five books
-- Preview Sample buttons for all five audiobooks
-- Amazon and Audible placeholder links
-- YouTube @JayTreeBooks link
+Primary content is maintained in the repository root and supporting folders.
 
-To use first chapters, replace the placeholder text in the `chapters` folder with your actual first chapters.
-
-To use audio previews, place the sample MP3 files in `audio/` using the names in `audio/README.txt`.
-
-Replace Amazon/Audible placeholder URLs in `index.html` with your direct links.
+PWA app icon source is stored at icons/app-icon-source.jpg and applied by scripts/apply_custom_pwa_icon.py.
