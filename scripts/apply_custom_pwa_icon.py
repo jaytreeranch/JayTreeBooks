@@ -1,36 +1,52 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
 import re
+from io import BytesIO
 from pathlib import Path
 
-from PIL import Image, ImageFile
-
-# GitHub's binary upload path can leave a harmless incomplete JPEG tail.
-# Pillow can still decode the full visible image when truncated streams are allowed.
-ImageFile.LOAD_TRUNCATED_IMAGES = True
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ICONS = ROOT / "icons"
-SOURCE = ICONS / "app-icon-source.jpg"
+CHUNK_FILES = [ICONS / f"app-icon-source.b64.{index}" for index in range(4)]
+EXPECTED_SOURCE_BYTES = 7488
+EXPECTED_SOURCE_SHA256 = "479419fa1dd597799d44eba21cc0efba7986080b625a64a4f8425ef6ac74e042"
 ICON_VERSION = "publisher-logo-2"
 CACHE_NAME = "jaytree-pwa-v3"
 
 
+def load_source() -> Image.Image:
+    missing = [path for path in CHUNK_FILES if not path.exists()]
+    if missing:
+        raise FileNotFoundError(", ".join(str(path) for path in missing))
+
+    encoded = "".join(path.read_text(encoding="ascii").strip() for path in CHUNK_FILES)
+    raw = base64.b64decode(encoded, validate=True)
+    if len(raw) != EXPECTED_SOURCE_BYTES:
+        raise ValueError(f"Unexpected icon source size: {len(raw)} bytes")
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest != EXPECTED_SOURCE_SHA256:
+        raise ValueError(f"Unexpected icon source SHA256: {digest}")
+
+    with Image.open(BytesIO(raw)) as source_image:
+        source_image.load()
+        return source_image.convert("RGB")
+
+
 def write_icons() -> None:
-    if not SOURCE.exists():
-        raise FileNotFoundError(SOURCE)
-    with Image.open(SOURCE) as source_image:
-        source = source_image.convert("RGB")
-        icon512 = source.resize((512, 512), Image.Resampling.LANCZOS)
-        icon512.save(ICONS / "icon-512.png", "PNG", optimize=True)
-        icon512.resize((192, 192), Image.Resampling.LANCZOS).save(
-            ICONS / "icon-192.png", "PNG", optimize=True
-        )
-        icon512.resize((180, 180), Image.Resampling.LANCZOS).save(
-            ICONS / "apple-touch-icon.png", "PNG", optimize=True
-        )
+    source = load_source()
+    icon512 = source.resize((512, 512), Image.Resampling.LANCZOS)
+    icon512.save(ICONS / "icon-512.png", "PNG", optimize=True)
+    source.resize((192, 192), Image.Resampling.LANCZOS).save(
+        ICONS / "icon-192.png", "PNG", optimize=True
+    )
+    source.resize((180, 180), Image.Resampling.LANCZOS).save(
+        ICONS / "apple-touch-icon.png", "PNG", optimize=True
+    )
 
 
 def patch_manifest() -> None:
