@@ -5,7 +5,11 @@ import json
 import re
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageFile
+
+# GitHub's binary upload path can leave a harmless incomplete JPEG tail.
+# Pillow can still decode the full visible image when truncated streams are allowed.
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[1]
 ICONS = ROOT / "icons"
