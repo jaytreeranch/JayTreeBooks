@@ -1,4 +1,4 @@
-name: Mystery Case 001 Updated Final QC
+name: Mystery Case 001 Updated Final Master
 
 on:
   push:
@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  qc:
+  master:
     runs-on: ubuntu-latest
     steps:
       - name: Install ffmpeg
@@ -19,38 +19,73 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg >/dev/null
 
-      - name: Download updated final release video
+      - name: Download updated CapCut final
         run: |
           curl -L --fail --retry 3 \
             'https://github.com/jaytreeranch/JayTreeBooks/releases/download/mystery-case-001-qc/MysteryCase001-FINAL-Updated.mp4' \
             -o MysteryCase001-FINAL-Updated.mp4
           sha256sum MysteryCase001-FINAL-Updated.mp4 > source_sha256.txt
-          ls -lh MysteryCase001-FINAL-Updated.mp4
 
-      - name: Measure export and loudness
+      - name: Analyze compressed mix for two-pass mastering
         run: |
-          ffprobe -v error -show_entries format=filename,duration,size,bit_rate,format_name:stream=index,codec_name,codec_type,width,height,r_frame_rate,avg_frame_rate,sample_rate,channels,channel_layout -of json MysteryCase001-FINAL-Updated.mp4 > ffprobe.json
-          ffmpeg -hide_banner -nostats -i MysteryCase001-FINAL-Updated.mp4 -filter_complex ebur128=peak=true -f null - 2> ebur128.txt || true
-          tail -n 50 ebur128.txt > loudness_tail.txt
+          ffmpeg -hide_banner -nostats -i MysteryCase001-FINAL-Updated.mp4 \
+            -map 0:a:0 \
+            -af "acompressor=threshold=0.125:ratio=2:attack=20:release=250,loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json" \
+            -f null - 2> pass1.log || true
+          python3 - <<'PY'
+          import re, pathlib
+          text = pathlib.Path('pass1.log').read_text(errors='ignore')
+          matches = re.findall(r'\{\s*"input_i".*?\}', text, re.S)
+          if not matches:
+              raise SystemExit('Could not find loudnorm JSON')
+          vals = dict(re.findall(r'"([^"]+)"\s*:\s*"([^"]+)"', matches[-1]))
+          pathlib.Path('loudnorm.env').write_text(
+              f"INPUT_I={vals['input_i']}\n"
+              f"INPUT_TP={vals['input_tp']}\n"
+              f"INPUT_LRA={vals['input_lra']}\n"
+              f"INPUT_THRESH={vals['input_thresh']}\n"
+              f"TARGET_OFFSET={vals['target_offset']}\n"
+          )
+          PY
 
-      - name: Generate final-scene visual QC
+      - name: Create production-locked final without re-encoding video
         run: |
-          mkdir -p sheets
-          ffmpeg -y -ss 330 -i MysteryCase001-FINAL-Updated.mp4 -t 31 \
-            -vf "fps=1/2,scale=640:-2,tile=4x4" -frames:v 1 sheets/final_scene_pushin.jpg
-          ffmpeg -y -ss 340 -i MysteryCase001-FINAL-Updated.mp4 -t 21 \
-            -vf "fps=1,scale=640:-2,tile=4x6" -frames:v 1 sheets/end_board_detail.jpg
-          ffmpeg -y -ss 330 -i MysteryCase001-FINAL-Updated.mp4 -t 31 \
-            -vf "scale=960:-2,fps=12" -c:v libx264 -preset veryfast -crf 28 -an sheets/final_scene_proxy.mp4
+          source loudnorm.env
+          FILTER="acompressor=threshold=0.125:ratio=2:attack=20:release=250,loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=${INPUT_I}:measured_TP=${INPUT_TP}:measured_LRA=${INPUT_LRA}:measured_thresh=${INPUT_THRESH}:offset=${TARGET_OFFSET}:linear=false:print_format=summary"
+          ffmpeg -y -i MysteryCase001-FINAL-Updated.mp4 \
+            -map 0:v:0 -map 0:a:0 -map_metadata 0 \
+            -c:v copy \
+            -af "$FILTER" \
+            -c:a aac -b:a 256k \
+            -movflags +faststart \
+            MysteryCase001-PRODUCTION-LOCKED-FINAL.mp4
 
-      - name: Upload updated final QC package
+      - name: Verify final master
+        run: |
+          ffprobe -v error -show_entries format=filename,duration,size,bit_rate:stream=index,codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json MysteryCase001-PRODUCTION-LOCKED-FINAL.mp4 > final_ffprobe.json
+          ffmpeg -hide_banner -nostats -i MysteryCase001-PRODUCTION-LOCKED-FINAL.mp4 -filter_complex ebur128=peak=true -f null - 2> final_ebur128.txt || true
+          tail -n 50 final_ebur128.txt > final_loudness.txt
+          sha256sum MysteryCase001-PRODUCTION-LOCKED-FINAL.mp4 > final_sha256.txt
+
+      - name: Publish production-locked final to QC release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload mystery-case-001-qc \
+            MysteryCase001-PRODUCTION-LOCKED-FINAL.mp4 \
+            --repo jaytreeranch/JayTreeBooks \
+            --clobber
+
+      - name: Upload final master artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mystery-case-001-updated-final-qc
+          name: mystery-case-001-production-locked-final
           path: |
-            ffprobe.json
-            loudness_tail.txt
+            MysteryCase001-PRODUCTION-LOCKED-FINAL.mp4
+            final_ffprobe.json
+            final_loudness.txt
+            final_sha256.txt
             source_sha256.txt
-            sheets/*
+            pass1.log
           compression-level: 0
           retention-days: 3
