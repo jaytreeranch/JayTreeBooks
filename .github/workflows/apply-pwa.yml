@@ -61,7 +61,7 @@ jobs:
           assert manifest["display"] == "standalone"
           sizes = {entry["sizes"] for entry in manifest["icons"]}
           assert "192x192" in sizes and "512x512" in sizes
-          assert all("publisher-logo-1" in entry["src"] for entry in manifest["icons"])
+          assert all("publisher-logo-2" in entry["src"] for entry in manifest["icons"])
 
           for filename, expected in (
               ("icon-192.png", (192, 192)),
@@ -72,8 +72,8 @@ jobs:
                   assert image.size == expected, (filename, image.size)
 
           service_worker = (root / "service-worker.js").read_text(encoding="utf-8")
-          assert 'jaytree-pwa-v2' in service_worker
-          assert 'publisher-logo-1' in service_worker
+          assert 'jaytree-pwa-v3' in service_worker
+          assert 'publisher-logo-2' in service_worker
           assert (root / "pwa.js").exists()
           assert (root / "pwa.css").exists()
 
@@ -88,8 +88,9 @@ jobs:
               html = path.read_text(encoding="utf-8")
               assert '<link rel="manifest" href="/manifest.webmanifest">' in html, path
               assert '<script src="/pwa.js" defer></script>' in html, path
+              assert '/icons/apple-touch-icon.png?v=publisher-logo-2' in html, path
 
-          print(f"Validated JayTree PWA across {len(targets)} HTML pages with the publisher logo icon.")
+          print(f"Validated JayTree PWA across {len(targets)} HTML pages with optimized publisher logo icon.")
           PY
 
       - name: Commit generated PWA assets
