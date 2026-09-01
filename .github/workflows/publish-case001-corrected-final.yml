@@ -1,0 +1,66 @@
+name: Publish corrected Case 001 final
+
+on:
+  push:
+    branches:
+      - case001-final-update-qc
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Download mastered QC artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir qc
+          gh run download 33548553704 -n case001-final-update-qc-v2 --dir qc
+          find qc -maxdepth 2 -type f -printf '%p\n'
+          test -f qc/Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4
+
+      - name: Apply final safety trim
+        run: |
+          ffmpeg -y -i qc/Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 \
+            -map 0:v:0 -map 0:a:0 -c:v copy \
+            -af "volume=-0.5dB" -c:a aac -b:a 320k \
+            -movflags +faststart \
+            Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4
+
+      - name: Verify final loudness
+        run: |
+          ffprobe -v error -show_entries format=duration,size:stream=codec_name,codec_type,width,height,r_frame_rate,sample_rate,channels -of json Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 | tee final_ffprobe.json
+          ffmpeg -hide_banner -nostats -i Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 \
+            -filter_complex ebur128=peak=true -f null - 2> final_loudness_full.txt || true
+          tail -n 30 final_loudness_full.txt | tee final_loudness.txt
+          sha256sum Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 | tee final_sha256.txt
+
+      - name: Publish to existing QC release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload mystery-case-001-qc \
+            Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 \
+            --clobber
+
+      - name: Upload verification report
+        uses: actions/upload-artifact@v4
+        with:
+          name: case001-corrected-final-verification
+          retention-days: 7
+          path: |
+            final_ffprobe.json
+            final_loudness.txt
+            final_sha256.txt
