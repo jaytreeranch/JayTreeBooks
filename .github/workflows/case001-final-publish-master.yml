@@ -23,7 +23,7 @@ jobs:
       - name: Publish final master to QC release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload mystery-case-001-qc Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 --clobber
+        run: gh release upload mystery-case-001-qc Mystery_Case_001_PRODUCTION_LOCKED_FINAL.mp4 --clobber --repo jaytreeranch/JayTreeBooks
       - name: Upload verification report
         uses: actions/upload-artifact@v4
         with:
