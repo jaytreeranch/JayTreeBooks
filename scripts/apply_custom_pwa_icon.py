@@ -13,10 +13,26 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 ICONS = ROOT / "icons"
 CHUNK_FILES = [ICONS / f"app-icon-source.b64.{index}" for index in range(4)]
+MASKABLE_SOURCE = ICONS / "icon-maskable-512.b64"
 EXPECTED_SOURCE_BYTES = 7488
 EXPECTED_SOURCE_SHA256 = "479419fa1dd597799d44eba21cc0efba7986080b625a64a4f8425ef6ac74e042"
-ICON_VERSION = "publisher-logo-2"
-CACHE_NAME = "jaytree-pwa-v3"
+EXPECTED_MASKABLE_BYTES = 10008
+EXPECTED_MASKABLE_SHA256 = "ef20920b9509b0c9068d31fc857ec4f952c13f1704c634551e826bd5fd35d3fb"
+ICON_VERSION = "publisher-logo-3"
+CACHE_NAME = "jaytree-pwa-v4"
+
+
+def decode_image(encoded: str, expected_bytes: int, expected_sha256: str, label: str) -> Image.Image:
+    raw = base64.b64decode(encoded, validate=True)
+    if len(raw) != expected_bytes:
+        raise ValueError(f"Unexpected {label} source size: {len(raw)} bytes")
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest != expected_sha256:
+        raise ValueError(f"Unexpected {label} source SHA256: {digest}")
+
+    with Image.open(BytesIO(raw)) as source_image:
+        source_image.load()
+        return source_image.convert("RGB")
 
 
 def load_source() -> Image.Image:
@@ -25,16 +41,14 @@ def load_source() -> Image.Image:
         raise FileNotFoundError(", ".join(str(path) for path in missing))
 
     encoded = "".join(path.read_text(encoding="ascii").strip() for path in CHUNK_FILES)
-    raw = base64.b64decode(encoded, validate=True)
-    if len(raw) != EXPECTED_SOURCE_BYTES:
-        raise ValueError(f"Unexpected icon source size: {len(raw)} bytes")
-    digest = hashlib.sha256(raw).hexdigest()
-    if digest != EXPECTED_SOURCE_SHA256:
-        raise ValueError(f"Unexpected icon source SHA256: {digest}")
+    return decode_image(encoded, EXPECTED_SOURCE_BYTES, EXPECTED_SOURCE_SHA256, "standard icon")
 
-    with Image.open(BytesIO(raw)) as source_image:
-        source_image.load()
-        return source_image.convert("RGB")
+
+def load_maskable_source() -> Image.Image:
+    if not MASKABLE_SOURCE.exists():
+        raise FileNotFoundError(str(MASKABLE_SOURCE))
+    encoded = MASKABLE_SOURCE.read_text(encoding="ascii").strip()
+    return decode_image(encoded, EXPECTED_MASKABLE_BYTES, EXPECTED_MASKABLE_SHA256, "maskable icon")
 
 
 def write_icons() -> None:
@@ -48,13 +62,22 @@ def write_icons() -> None:
         ICONS / "apple-touch-icon.png", "PNG", optimize=True
     )
 
+    maskable = load_maskable_source().resize((512, 512), Image.Resampling.LANCZOS)
+    maskable.save(ICONS / "icon-maskable-512.png", "PNG", optimize=True)
+
 
 def patch_manifest() -> None:
     path = ROOT / "manifest.webmanifest"
     manifest = json.loads(path.read_text(encoding="utf-8"))
     for icon in manifest.get("icons", []):
         sizes = icon.get("sizes")
-        if sizes == "192x192":
+        purposes = set(str(icon.get("purpose", "any")).split())
+        if "maskable" in purposes:
+            icon["src"] = f"/icons/icon-maskable-512.png?v={ICON_VERSION}"
+            icon["sizes"] = "512x512"
+            icon["type"] = "image/png"
+            icon["purpose"] = "maskable"
+        elif sizes == "192x192":
             icon["src"] = f"/icons/icon-192.png?v={ICON_VERSION}"
         elif sizes == "512x512":
             icon["src"] = f"/icons/icon-512.png?v={ICON_VERSION}"
@@ -79,6 +102,18 @@ def patch_service_worker() -> None:
         f'"/icons/icon-512.png?v={ICON_VERSION}"',
         text,
     )
+    text = re.sub(
+        r'"/icons/icon-maskable-512\.png(?:\?v=[^"]+)?"',
+        f'"/icons/icon-maskable-512.png?v={ICON_VERSION}"',
+        text,
+    )
+
+    maskable_entry = f'  "/icons/icon-maskable-512.png?v={ICON_VERSION}"'
+    if "/icons/icon-maskable-512.png" not in text:
+        marker = f'  "/icons/icon-512.png?v={ICON_VERSION}"'
+        if marker in text:
+            text = text.replace(marker, marker + ",\n" + maskable_entry, 1)
+
     path.write_text(text, encoding="utf-8")
 
 
@@ -109,7 +144,7 @@ def main() -> None:
     patch_service_worker()
     html_changed = patch_html()
     print(
-        f"Applied optimized JayTree publisher logo as the PWA app icon; "
+        f"Applied JayTree standard icons plus dedicated Android maskable icon; "
         f"updated {html_changed} Apple icon reference(s)."
     )
 
