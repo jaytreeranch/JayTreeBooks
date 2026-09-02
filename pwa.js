@@ -8,9 +8,20 @@
     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   const track = (eventName, params = {}) => {
-    if (typeof window.gtag === "function") {
-      window.gtag("event", eventName, params);
-    }
+    if (typeof window.gtag === "function") window.gtag("event", eventName, params);
+  };
+
+  const chicagoNowKey = () => {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Chicago",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      hour12: false
+    }).formatToParts(new Date());
+    const values = Object.fromEntries(parts.map(part => [part.type, part.value]));
+    return `${values.year}-${values.month}-${values.day}T${values.hour}`;
   };
 
   const updateMysteryCaseLaunch = () => {
@@ -19,9 +30,25 @@
     const launchLabel = challenge.querySelector(".coming-soon");
     const heading = challenge.querySelector(".challenge-copy h2");
     const note = challenge.querySelector(".challenge-note");
-    if (launchLabel) launchLabel.textContent = "Case #001 Premieres Sunday, September 6 • 7 PM CT";
-    if (heading) heading.textContent = "Mystery Case #001 opens this Sunday.";
-    if (note) note.textContent = "The full Case File #001 challenge premieres Sunday, September 6 at 7 PM CT. Watch Teaser #3 now and be ready to lock in your theory before the reveal.";
+    const primary = challenge.querySelector(".challenge-copy .hero-actions .cta.solid");
+    const launched = chicagoNowKey() >= "2026-09-06T19";
+
+    if (launched) {
+      if (launchLabel) launchLabel.textContent = "Case #001 Is Now Open";
+      if (heading) heading.textContent = "Can you solve Mystery Case #001 before the reveal?";
+      if (note) note.textContent = "The full Case File #001 is now live. Study the evidence, choose your suspect, and lock in your theory before the reveal.";
+      if (primary) {
+        primary.textContent = "Watch Case #001";
+        primary.href = "https://www.youtube.com/@JayTreeBooks";
+        primary.target = "_blank";
+        primary.rel = "noopener";
+        primary.dataset.event = "challenge_case_001_youtube";
+      }
+    } else {
+      if (launchLabel) launchLabel.textContent = "Case #001 Premieres Sunday, September 6 • 7 PM CT";
+      if (heading) heading.textContent = "Mystery Case #001 opens this Sunday.";
+      if (note) note.textContent = "The full Case File #001 challenge premieres Sunday, September 6 at 7 PM CT. Watch Teaser #3 now and be ready to lock in your theory before the reveal.";
+    }
   };
 
   if ("serviceWorker" in navigator) {
