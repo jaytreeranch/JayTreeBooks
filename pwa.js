@@ -13,14 +13,23 @@
     }
   };
 
+  const updateMysteryCaseLaunch = () => {
+    const challenge = document.getElementById("challenge");
+    if (!challenge) return;
+    const launchLabel = challenge.querySelector(".coming-soon");
+    const heading = challenge.querySelector(".challenge-copy h2");
+    const note = challenge.querySelector(".challenge-note");
+    if (launchLabel) launchLabel.textContent = "Case #001 Premieres Sunday, September 6 • 7 PM CT";
+    if (heading) heading.textContent = "Mystery Case #001 opens this Sunday.";
+    if (note) note.textContent = "The full Case File #001 challenge premieres Sunday, September 6 at 7 PM CT. Watch Teaser #3 now and be ready to lock in your theory before the reveal.";
+  };
+
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("/service-worker.js", { scope: "/" })
         .catch(error => console.warn("JayTree PWA service worker registration failed:", error));
     });
   }
-
-  if (standalone()) return;
 
   let deferredPrompt = null;
   let installButton = null;
@@ -96,6 +105,7 @@
   });
 
   const ready = () => {
+    updateMysteryCaseLaunch();
     if (isIOS() && !standalone()) ensureButton();
   };
 
