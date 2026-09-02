@@ -1,4 +1,4 @@
-const CACHE_NAME = "jaytree-pwa-v5";
+const CACHE_NAME = "jaytree-pwa-v4";
 const CORE = [
   "/",
   "/manifest.webmanifest",
