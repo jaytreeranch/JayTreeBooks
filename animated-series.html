@@ -26,9 +26,18 @@
 @media(max-width:850px){.series-grid,.series-trailer-card{grid-template-columns:1fr}.series-copy{text-align:center}.series-copy p{margin-left:auto;margin-right:auto}.series-copy .hero-actions,.series-facts{justify-content:center}.series-poster{max-width:360px}.series-hero{padding-top:115px}}
 </style>
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
 <meta name="theme-color" content="#080d12">
 <link rel="stylesheet" href="/pwa.css">
+<!-- JAYTREE_PWA_HEAD_START -->
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
+<meta name="theme-color" content="#080d12">
+<meta name="application-name" content="JayTree Books">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JayTree Books">
+<link rel="stylesheet" href="/pwa.css">
+<!-- JAYTREE_PWA_HEAD_END -->
 </head>
 <body>
 <header class="nav"><div class="nav-inner"><a class="brand" href="index.html">JAYTREE BOOKS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><nav class="nav-links"><a href="index.html#books">Books</a><a href="animated-series.html">Mini-Series</a><a href="index.html#challenge">Challenge</a><a href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener">YouTube</a><a class="nav-cta" href="books/the-hollow-bell.html">Read the Novel</a></nav></div></header>
@@ -92,5 +101,8 @@ document.querySelector('.menu-toggle')?.addEventListener('click',function(){docu
 document.querySelectorAll('[data-track]').forEach(function(el){el.addEventListener('click',function(){if(typeof gtag==='function')gtag('event',el.dataset.track,{campaign:'the-hollow-bell-animated-series'})})});
 </script>
 <script src="/pwa.js" defer></script>
+<!-- JAYTREE_PWA_SCRIPT_START -->
+<script src="/pwa.js" defer></script>
+<!-- JAYTREE_PWA_SCRIPT_END -->
 </body>
 </html>
