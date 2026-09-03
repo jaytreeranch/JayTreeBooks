@@ -85,6 +85,48 @@ function audioCard(b) {
   </article>`;
 }
 
+function renderAnimatedSeriesHome() {
+  const intro = document.querySelector(".intro");
+  if (!intro || document.getElementById("animated-series")) return;
+
+  const section = document.createElement("section");
+  section.className = "challenge challenge-launch";
+  section.id = "animated-series";
+  section.setAttribute("aria-label", "The Hollow Bell animated mini-series");
+  section.innerHTML = `
+    <div class="wrap">
+      <div class="challenge-teaser">
+        <div class="challenge-art" style="max-width:390px;margin:auto">
+          <img src="media/social/images/the-hollow-bell/sneak-peek-1-vertical-cover.jpg" alt="The Hollow Bell animated mini-series poster featuring Sheriff Del Hutchins and Claire Renner" loading="lazy" decoding="async" style="aspect-ratio:9/16;object-fit:cover">
+          <div class="case-stamp">NEW ANIMATED MINI-SERIES</div>
+        </div>
+        <div class="challenge-copy">
+          <div class="eyebrow">A New JayTree Books Animated Series</div>
+          <div class="coming-soon">8-Episode Mini-Series • Coming Soon</div>
+          <h2>The Hollow Bell is coming to life.</h2>
+          <p class="challenge-lead">Millbrook Falls. Claire Renner. Sheriff Del Hutchins. And a bell that should not be ringing.</p>
+          <p><strong>The Hollow Bell</strong> is being adapted into a new 8-episode animated mystery mini-series based on the novel. Production is underway now, with sneak peeks and a 2+ minute cinematic trailer on the way.</p>
+          <div class="hero-actions">
+            <a class="cta solid" href="animated-series.html" data-track="animated_series_home">Explore the Mini-Series</a>
+            <a class="cta" href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener" data-track="animated_series_youtube">Follow on YouTube</a>
+          </div>
+          <small class="challenge-note">The official cinematic trailer will be embedded on JayTreeBooks.com after its YouTube premiere.</small>
+        </div>
+      </div>
+    </div>`;
+
+  intro.insertAdjacentElement("afterend", section);
+
+  const nav = document.querySelector(".nav-links");
+  if (nav && !nav.querySelector('a[href="#animated-series"]')) {
+    const link = document.createElement("a");
+    link.href = "#animated-series";
+    link.textContent = "Mini-Series";
+    const challengeLink = nav.querySelector('a[href="#challenge"]');
+    nav.insertBefore(link, challengeLink || nav.firstChild);
+  }
+}
+
 function bindTracking() {
   document.querySelectorAll("[data-track]").forEach(el => {
     el.addEventListener("click", () => track(el.dataset.track, { book: el.dataset.book || "" }));
@@ -194,6 +236,7 @@ async function renderIndex() {
     youtubeCard.innerHTML = youtubeEmbed(featured.trailerUrl, `${featured.title} official book trailer`);
   }
 
+  renderAnimatedSeriesHome();
   bindTracking();
 }
 
