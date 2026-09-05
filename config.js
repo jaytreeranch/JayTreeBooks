@@ -45,7 +45,7 @@ window.JT = {
       "audio": "audio/book-3-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HD5RH8X5",
       "kindleUnlimited": true,
-      "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
+      "trailerUrl": "https://www.youtube.com/watch?v=MNgJV_OdTiU",
       "shortUrl": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
       "audiobookYoutubeUrl": "https://youtu.be/n0FxPOwlg3I",
       "coverOriginal": "images/the-hollow-bell.png"

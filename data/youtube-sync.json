@@ -10,15 +10,22 @@
       "url": "https://www.youtube.com/watch?v=aBCwXBy-fvQ",
       "published": "2026-08-31T00:16:33+00:00",
       "duration_seconds": 0
+    },
+    "the-hollow-bell": {
+      "video_id": "MNgJV_OdTiU",
+      "title": "The Hollow Bell | Official Trailer | Animated Mini-Series",
+      "url": "https://www.youtube.com/watch?v=MNgJV_OdTiU",
+      "published": "2026-09-05T14:10:21+00:00",
+      "duration_seconds": 0
     }
   },
   "mystery_cases": {},
-  "last_checked": "2026-09-05T12:57:41Z",
+  "last_checked": "2026-09-05T15:56:58Z",
   "latest_upload": {
-    "video_id": "cNohSOxv5F4",
-    "title": "The Hollow Bell | Animated Mini-Series Sneak Peek #Shorts",
-    "url": "https://www.youtube.com/watch?v=cNohSOxv5F4",
-    "published": "2026-09-05T00:32:45+00:00"
+    "video_id": "MNgJV_OdTiU",
+    "title": "The Hollow Bell | Official Trailer | Animated Mini-Series",
+    "url": "https://www.youtube.com/watch?v=MNgJV_OdTiU",
+    "published": "2026-09-05T14:10:21+00:00"
   },
-  "last_synced": "2026-09-05T00:50:58Z"
+  "last_synced": "2026-09-05T15:56:58Z"
 }
