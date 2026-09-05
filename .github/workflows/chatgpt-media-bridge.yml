@@ -1,0 +1,61 @@
+name: ChatGPT Media Bridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "triggers/chatgpt-media-bridge.json"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-media:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download staged media
+        shell: python
+        run: |
+          import json
+          import pathlib
+          import urllib.request
+
+          trigger = json.loads(pathlib.Path("triggers/chatgpt-media-bridge.json").read_text(encoding="utf-8"))
+          for item in trigger["files"]:
+              dest = pathlib.Path(item["path"])
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              req = urllib.request.Request(item["url"], headers={"User-Agent": "JayTreeBooks-Media-Bridge/1.0"})
+              with urllib.request.urlopen(req, timeout=120) as src, dest.open("wb") as out:
+                  while True:
+                      chunk = src.read(1024 * 1024)
+                      if not chunk:
+                          break
+                      out.write(chunk)
+              expected = int(item.get("size", 0))
+              actual = dest.stat().st_size
+              if expected and actual != expected:
+                  raise RuntimeError(f"Size mismatch for {dest}: expected {expected}, got {actual}")
+              print(f"Installed {dest} ({actual} bytes)")
+
+      - name: Commit media
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          data = json.loads(Path('triggers/chatgpt-media-bridge.json').read_text(encoding='utf-8'))
+          subprocess.run(['git','add', *[f['path'] for f in data['files']]], check=True)
+          PY
+          if git diff --cached --quiet; then
+            echo "No media changes to commit."
+            exit 0
+          fi
+          git commit -m "Install Second Draft Sep 10 Short 6 media"
+          git push origin HEAD:main
