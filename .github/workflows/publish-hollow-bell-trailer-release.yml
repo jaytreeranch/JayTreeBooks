@@ -1,0 +1,57 @@
+name: Publish Hollow Bell Trailer Release
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'triggers/hollow-bell-trailer-release.json'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-release-asset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository and LFS media
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 1
+
+      - name: Verify trailer binary
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILE='media/social/video/the-hollow-bell/official-trailer-mastered.mp4'
+          test -f "$FILE"
+          SIZE=$(stat -c%s "$FILE")
+          echo "Trailer bytes: $SIZE"
+          if [ "$SIZE" -lt 100000000 ]; then
+            echo "Trailer did not hydrate from Git LFS; refusing to publish release asset."
+            exit 1
+          fi
+
+      - name: Create or update GitHub Release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG='hollow-bell-official-trailer'
+          FILE='media/social/video/the-hollow-bell/official-trailer-mastered.mp4'
+          TITLE='The Hollow Bell Official Trailer - Production Locked'
+          NOTES='Production-locked official trailer for The Hollow Bell animated mini-series.'
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$FILE#official-trailer-mastered.mp4" --clobber
+          else
+            gh release create "$TAG" "$FILE#official-trailer-mastered.mp4" \
+              --target main \
+              --title "$TITLE" \
+              --notes "$NOTES"
+          fi
+
+      - name: Print durable media URL
+        run: |
+          echo 'https://github.com/jaytreeranch/JayTreeBooks/releases/download/hollow-bell-official-trailer/official-trailer-mastered.mp4'
