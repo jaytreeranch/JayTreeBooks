@@ -29,8 +29,13 @@ jobs:
       - name: Validate sync script
         run: python -m py_compile scripts/sync_youtube_uploads.py
 
-      - name: Sync new YouTube uploads into website
+      - name: Sync new YouTube uploads into website registry
         run: python scripts/sync_youtube_uploads.py
+
+      - name: Keep book trailer URLs controlled by website config
+        shell: bash
+        run: |
+          git restore config.js
 
       - name: Validate registry
         run: python -m json.tool data/youtube-sync.json > /dev/null
@@ -41,14 +46,14 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/youtube-sync.json config.js index.html
+          git add data/youtube-sync.json index.html
 
           if git diff --cached --quiet; then
             echo "No new YouTube website updates."
             exit 0
           fi
 
-          git commit -m "Sync latest YouTube videos to website"
+          git commit -m "Sync latest YouTube registry and Mystery Challenge"
           git pull --rebase origin main
           git push origin main
 
@@ -60,9 +65,9 @@ jobs:
             echo "## YouTube → Website Sync"
             echo ""
             echo "- Checks @JayTreeBooks every 15 minutes"
-            echo "- Long book features update the matching book trailer URL"
-            echo "- Shorts, teasers, readings, chapters, and audiobooks do not replace book trailers"
-            echo "- Mystery Case uploads automatically open the homepage challenge"
-            echo "- Mystery Reveal uploads automatically switch the homepage to the reveal"
-            echo "- No cross-repository token or manual URL copy is required"
+            echo "- Records matching uploads in the YouTube registry"
+            echo "- Does not overwrite curated book trailer URLs in config.js"
+            echo "- Animated-series trailers remain separate from book trailers"
+            echo "- Mystery Case uploads can update the homepage challenge"
+            echo "- Mystery Reveal uploads can switch the homepage to the reveal"
           } >> "$GITHUB_STEP_SUMMARY"

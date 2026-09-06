@@ -12,7 +12,7 @@ on:
     branches: ["main"]
     paths:
       - "data/campaign.json"
-      - "scripts/update_campaign_metadata.py"
+      - "scripts/update_campaign_featured.py"
       - ".github/workflows/sync-campaign-metadata.yml"
   schedule:
     - cron: "0 8 * * 1"
@@ -35,19 +35,31 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Synchronize featured-book metadata
+      - name: Synchronize weekly featured-book fallback
         shell: bash
         env:
           REQUESTED_DATE: ${{ inputs.date }}
         run: |
           set -euo pipefail
           if [[ -n "$REQUESTED_DATE" ]]; then
-            python scripts/update_campaign_metadata.py --date "$REQUESTED_DATE"
+            python scripts/update_campaign_featured.py --date "$REQUESTED_DATE"
           else
-            python scripts/update_campaign_metadata.py
+            python scripts/update_campaign_featured.py
           fi
 
-      - name: Commit synchronized homepage metadata
+      - name: Validate publisher-focused homepage SEO
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          assert '<title>JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges</title>' in text
+          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in text
+          assert "THIS WEEK'S FEATURED MYSTERY" in text
+          print('Weekly fallback updated without replacing publisher SEO metadata.')
+          PY
+
+      - name: Commit synchronized homepage fallback
         shell: bash
         run: |
           set -euo pipefail
@@ -55,19 +67,19 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html config.js
           if git diff --cached --quiet; then
-            echo "Campaign metadata is already synchronized."
+            echo "Campaign featured fallback is already synchronized."
             exit 0
           fi
-          git commit -m "Sync weekly featured campaign metadata"
+          git commit -m "Sync weekly featured book fallback"
+          git pull --rebase origin main
           git push
 
       - name: Summarize campaign metadata
         shell: bash
         run: |
           {
-            echo "## Weekly website campaign metadata"
+            echo "## Weekly website campaign feature"
             echo ""
-            echo "Homepage title, Open Graph tags, Twitter card tags, and static featured-book fallback were synchronized from data/campaign.json."
-            echo ""
-            echo "GitHub Pages will deploy the committed metadata automatically."
+            echo "The homepage featured-book fallback and config were synchronized from data/campaign.json."
+            echo "Publisher-focused homepage SEO title and social metadata remain stable."
           } >> "$GITHUB_STEP_SUMMARY"

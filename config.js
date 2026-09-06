@@ -4,6 +4,12 @@ window.JT = {
   "ga4": "G-PHE2JVV5P6",
   "featuredBook": "the-correction",
   "campaignConfigUrl": "data/campaign.json",
+  "animatedSeries": {
+    "slug": "the-hollow-bell",
+    "title": "The Hollow Bell",
+    "page": "animated-series.html",
+    "trailerUrl": "https://www.youtube.com/watch?v=PmGQoyjYTDs"
+  },
   "books": [
     {
       "slug": "second-draft",
@@ -45,7 +51,7 @@ window.JT = {
       "audio": "audio/book-3-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HD5RH8X5",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=MNgJV_OdTiU",
+      "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
       "shortUrl": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
       "audiobookYoutubeUrl": "https://youtu.be/n0FxPOwlg3I",
       "coverOriginal": "images/the-hollow-bell.png"
@@ -75,7 +81,7 @@ window.JT = {
       "audio": "audio/book-5-sample.html",
       "amazonUrl": "https://www.amazon.com/dp/B0HFV8GG73",
       "kindleUnlimited": true,
-      "trailerUrl": "https://www.youtube.com/watch?v=aBCwXBy-fvQ",
+      "trailerUrl": "https://youtu.be/tRlHA4UKNGk",
       "shortUrl": "https://youtube.com/shorts/VBnmRhaZGl0",
       "audiobookYoutubeUrl": "https://youtu.be/2DuEvMLMlqc",
       "coverOriginal": "images/the-correction.png"

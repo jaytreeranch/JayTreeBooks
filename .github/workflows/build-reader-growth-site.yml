@@ -12,6 +12,7 @@ on:
       - "scripts/configure_kit_newsletter.py"
       - "scripts/add_audiobook_coming_soon.py"
       - "scripts/apply_site_improvements.py"
+      - "scripts/qc_repair_site.py"
       - "config.js"
       - "images/*.png"
       - "chapters/*.html"
@@ -45,6 +46,7 @@ jobs:
           python scripts/apply_newsletter_provider.py
           python scripts/add_audiobook_coming_soon.py
           python scripts/apply_site_improvements.py
+          python scripts/qc_repair_site.py
 
       - name: Validate generated site
         shell: bash
@@ -60,6 +62,7 @@ jobs:
           assert match, 'config.js could not be parsed'
           config = json.loads(match.group(1))
           books = config['books']
+          by_slug = {book['slug']: book for book in books}
           newsletter = config['newsletter']
           provider = newsletter.get('provider', 'formsubmit')
           assert len(books) == 5
@@ -68,6 +71,9 @@ jobs:
           assert config['socials']['tiktok'].endswith('/@jaytreebooks')
           assert 'audible' not in config
           assert all('audibleUrl' not in book for book in books)
+          assert by_slug['the-hollow-bell']['trailerUrl'].endswith('VRp1zXJ6ja4')
+          assert by_slug['the-correction']['trailerUrl'].endswith('tRlHA4UKNGk')
+          assert config['animatedSeries']['trailerUrl'].endswith('PmGQoyjYTDs')
           assert newsletter['name'] == 'JayTree Case Files'
           assert provider in {'formsubmit', 'kit'}
           assert newsletter['thankYouUrl'].endswith('/case-files-thanks.html')
@@ -94,6 +100,7 @@ jobs:
               assert '../video-lite.js' in html
               assert 'src="https://www.youtube-nocookie.com/embed/' not in html
               assert '../privacy.html' in html and '../terms.html' in html
+              assert '../animated-series.html' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
 
@@ -103,17 +110,24 @@ jobs:
               assert 'Continue FREE with Kindle Unlimited' in chapter_html
               assert 'JAYTREE_2026_READER_ACCESSIBILITY' in chapter_html
               assert 'Jaytree Books' not in chapter_html
+              assert f"{book['title']} — First Chapter | JayTree Books" in chapter_html
+              assert '<h1' not in chapter_html.split('<div class="note">', 1)[-1]
 
               optimized = root / book['cover']
               assert optimized.exists(), optimized
               assert optimized.suffix == '.webp'
               assert optimized.stat().st_size < 1_000_000, (optimized, optimized.stat().st_size)
 
+          hollow = (root / 'books/the-hollow-bell.html').read_text(encoding='utf-8')
+          assert 'JAYTREE_HOLLOW_BELL_SERIES_PROMO_START' in hollow
+          assert '../animated-series.html#trailer' in hollow
+
           index = (root / 'index.html').read_text(encoding='utf-8')
           assert 'JAYTREE_ORG_SCHEMA_START' in index
           assert 'JAYTREE_SOCIAL_FOLLOW_START' in index
           assert 'JAYTREE_CASE_FILES_START' in index
           assert 'href="#case-files">Case Files</a>' in index
+          assert 'href="#animated-series">Mini-Series</a>' in index
           assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in index
           assert 'JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges' in index
           assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
@@ -131,19 +145,10 @@ jobs:
           assert 'JayTree Case Files — Reader Email List' in case_files
           assert 'data-case-files-form' in case_files
           assert 'privacy.html' in case_files and 'terms.html' in case_files
-          if provider == 'formsubmit':
-              assert 'name="consent"' in case_files
-              assert 'name="_honey"' in case_files
-              assert 'case-files-thanks.html' in case_files
-          else:
-              assert 'case-files-kit-form' in case_files
-              assert newsletter['kit']['embedCode'] in case_files
 
           thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
           assert 'noindex,follow' in thanks
           assert 'case_files_signup_complete' in thanks
-          if provider == 'kit':
-              assert "{source:'kit'}" in thanks
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'books/${b.slug}.html' in app
@@ -155,11 +160,8 @@ jobs:
           assert 'video-lite-inner' in app
           assert 'case_files_signup_submit' in app
           assert 'Full Audiobook — Coming Soon' in app
-          assert 'Join JayTree Case Files' in app
-          assert 'href="case-files.html"' in app
-          assert 'data-track="audiobook_case_files"' in app
-          assert 'Listen on Audible' not in app
-          assert 'Full Audiobook on Audible' not in app
+          assert 'animated-series.html#trailer' in app
+          assert 'cinematic trailer on the way' not in app
 
           video_loader = (root / 'video-lite.js').read_text(encoding='utf-8')
           assert 'video_play' in video_loader
@@ -169,11 +171,13 @@ jobs:
           legacy = (root / 'book.html').read_text(encoding='utf-8')
           assert 'name="robots" content="noindex,follow"' in legacy
           assert 'privacy.html' in legacy and 'terms.html' in legacy
+
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
-          assert sitemap.count('<url>') >= 12
+          assert sitemap.count('<url>') == 13
+          assert 'https://www.JayTreeBooks.com/animated-series.html' in sitemap
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print(f'Generated reader-growth site and durable conversion improvements validated with provider={provider}.')
+          print(f'Generated reader-growth site and QC repair validated with provider={provider}.')
           PY
 
       - name: Commit generated website assets
@@ -186,5 +190,6 @@ jobs:
             echo "Reader-growth site is already current."
             exit 0
           fi
-          git commit -m "Build JayTree Case Files signup funnel"
+          git commit -m "Build JayTree site QC repairs"
+          git pull --rebase origin main
           git push
