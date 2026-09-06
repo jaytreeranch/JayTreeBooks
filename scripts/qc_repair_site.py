@@ -19,6 +19,17 @@ CONFIG_RE = re.compile(
     re.DOTALL,
 )
 
+SOCIALS = (
+    ("youtube", "YouTube", "https://www.youtube.com/@JayTreeBooks"),
+    ("instagram", "Instagram", "https://www.instagram.com/jaytreebooks/"),
+    ("facebook", "Facebook", "https://www.facebook.com/profile.php?id=61593984832182"),
+    ("tiktok", "TikTok", "https://www.tiktok.com/@jaytreebooks"),
+    ("x", "X", "https://x.com/JayTreeBooks"),
+    ("bluesky", "Bluesky", "https://bsky.app/profile/jaytreebooks.com"),
+)
+SOCIAL_START = "<!-- JAYTREE_SOCIAL_FOLLOW_START -->"
+SOCIAL_END = "<!-- JAYTREE_SOCIAL_FOLLOW_END -->"
+
 
 def load_config() -> dict:
     text = CONFIG_PATH.read_text(encoding="utf-8")
@@ -45,6 +56,24 @@ def youtube_id(value: str) -> str:
                 if i + 1 < len(parts):
                     return parts[i + 1]
     return ""
+
+
+def social_follow_block() -> str:
+    links = "".join(
+        f'<a class="social-pill" href="{escape(url, quote=True)}" target="_blank" rel="noopener" '
+        f'data-social="{key}">{label}</a>'
+        for key, label, url in SOCIALS
+    )
+    return f'''{SOCIAL_START}
+<section class="social-follow" id="follow">
+  <div class="wrap narrow">
+    <div class="eyebrow">Follow JayTree Books</div>
+    <h2>Stay inside the mystery.</h2>
+    <p>Follow for cinematic trailers, Mystery Challenge clues, polls, audiobook previews, book news, and new releases.</p>
+    <div class="social-pills">{links}</div>
+  </div>
+</section>
+{SOCIAL_END}'''
 
 
 def patch_app(config: dict) -> None:
@@ -128,9 +157,22 @@ def patch_index(config: dict) -> None:
                 )
                 text = text[: hero_block.start()] + block + text[hero_block.end() :]
 
+    social = social_follow_block()
+    social_pattern = re.compile(
+        re.escape(SOCIAL_START) + r".*?" + re.escape(SOCIAL_END),
+        re.DOTALL,
+    )
+    if social_pattern.search(text):
+        text = social_pattern.sub(lambda _: social, text, count=1)
+    else:
+        about = re.search(r'<section class="about"\b', text)
+        if not about:
+            raise RuntimeError("Could not locate homepage About section for social links")
+        text = text[: about.start()] + social + "\n\n" + text[about.start() :]
+
     if text != original:
         INDEX_PATH.write_text(text, encoding="utf-8")
-        print("QC: normalized homepage navigation and featured fallback")
+        print("QC: normalized homepage navigation, featured fallback, and six social links")
 
 
 def patch_book_pages(config: dict) -> None:
@@ -219,6 +261,17 @@ def write_sitemap(config: dict) -> None:
 def validate(config: dict) -> None:
     index = INDEX_PATH.read_text(encoding="utf-8")
     assert 'href="#animated-series">Mini-Series</a>' in index
+    assert SOCIAL_START in index and SOCIAL_END in index
+    social_section = index.split(SOCIAL_START, 1)[1].split(SOCIAL_END, 1)[0]
+    for key, label, url in SOCIALS:
+        assert f'data-social="{key}"' in social_section, key
+        assert f'href="{url}"' in social_section, key
+        assert f">{label}</a>" in social_section, key
+    assert social_section.count('class="social-pill"') == len(SOCIALS)
+
+    config_socials = config.get("socials") or {}
+    assert config_socials.get("bluesky") == "https://bsky.app/profile/jaytreebooks.com"
+
     app = APP_PATH.read_text(encoding="utf-8")
     assert "cinematic trailer on the way" not in app
     assert "will be embedded on JayTreeBooks.com after its YouTube premiere" not in app
@@ -257,6 +310,7 @@ def validate_static_pages(config: dict) -> None:
     assert animated.count('<script src="/pwa.js" defer></script>') == 1
     assert 'data-youtube-id="PmGQoyjYTDs"' in animated
     assert '<link rel="canonical" href="https://www.JayTreeBooks.com/animated-series.html">' in animated
+    assert "https://bsky.app/profile/jaytreebooks.com" in animated
 
     for book in config["books"]:
         audio = (ROOT / book["audio"]).read_text(encoding="utf-8")
