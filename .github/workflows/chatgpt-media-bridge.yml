@@ -17,29 +17,88 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install video tools when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('triggers/chatgpt-media-bridge.json').read_text(encoding='utf-8'))
+          raise SystemExit(0 if any(bool(x.get('transcode_video')) for x in data.get('files', [])) else 1)
+          PY
+          then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          else
+            echo "No video transcode requested."
+          fi
+
       - name: Download staged media
         shell: python
         run: |
           import json
           import pathlib
+          import subprocess
           import urllib.request
 
           trigger = json.loads(pathlib.Path("triggers/chatgpt-media-bridge.json").read_text(encoding="utf-8"))
           for item in trigger["files"]:
               dest = pathlib.Path(item["path"])
               dest.parent.mkdir(parents=True, exist_ok=True)
+              transcode_video = bool(item.get("transcode_video"))
+              download_dest = dest.with_name(dest.name + ".source.mp4") if transcode_video else dest
+
               req = urllib.request.Request(item["url"], headers={"User-Agent": "JayTreeBooks-Media-Bridge/1.0"})
-              with urllib.request.urlopen(req, timeout=120) as src, dest.open("wb") as out:
+              with urllib.request.urlopen(req, timeout=240) as src, download_dest.open("wb") as out:
                   while True:
                       chunk = src.read(1024 * 1024)
                       if not chunk:
                           break
                       out.write(chunk)
+
               expected = int(item.get("size", 0))
-              actual = dest.stat().st_size
+              actual = download_dest.stat().st_size
               if expected and actual != expected:
-                  raise RuntimeError(f"Size mismatch for {dest}: expected {expected}, got {actual}")
-              print(f"Installed {dest} ({actual} bytes)")
+                  raise RuntimeError(f"Size mismatch for {download_dest}: expected {expected}, got {actual}")
+
+              if transcode_video:
+                  probe = subprocess.run(
+                      ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=nw=1:nk=1", str(download_dest)],
+                      check=True, capture_output=True, text=True,
+                  )
+                  duration = float(probe.stdout.strip())
+                  target_bytes = int(item.get("target_size_bytes", 94_000_000))
+                  audio_bps = 160_000
+                  # Reserve 3% for MP4 container overhead and bitrate variance.
+                  video_bps = max(750_000, int((target_bytes * 8 / duration - audio_bps) * 0.97))
+                  bitrate = str(video_bps)
+                  passlog = str(dest) + ".passlog"
+
+                  common = [
+                      "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+                      "-i", str(download_dest),
+                      "-map", "0:v:0", "-c:v", "libx264", "-preset", "medium",
+                      "-b:v", bitrate, "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+                  ]
+                  subprocess.run(common + ["-pass", "1", "-passlogfile", passlog, "-an", "-f", "mp4", "/dev/null"], check=True)
+                  subprocess.run(
+                      common + [
+                          "-pass", "2", "-passlogfile", passlog,
+                          "-map", "0:a:0?", "-c:a", "aac", "-b:a", "160k", "-ar", "48000",
+                          str(dest),
+                      ],
+                      check=True,
+                  )
+                  download_dest.unlink(missing_ok=True)
+                  for suffix in ("-0.log", "-0.log.mbtree"):
+                      pathlib.Path(passlog + suffix).unlink(missing_ok=True)
+                  final_size = dest.stat().st_size
+                  if final_size >= 100_000_000:
+                      raise RuntimeError(f"Distribution encode still exceeds GitHub 100 MB limit: {final_size} bytes")
+                  print(f"Installed distribution encode {dest} ({final_size} bytes; source {actual} bytes; duration {duration:.2f}s)")
+              else:
+                  print(f"Installed {dest} ({actual} bytes)")
 
       - name: Commit media
         shell: bash
@@ -57,5 +116,5 @@ jobs:
             echo "No media changes to commit."
             exit 0
           fi
-          git commit -m "Install Second Draft Sep 10 Short 6 media"
+          git commit -m "Install ChatGPT staged media"
           git push origin HEAD:main
