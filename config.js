@@ -92,7 +92,8 @@ window.JT = {
     "x": "https://x.com/JayTreeBooks",
     "tiktok": "https://www.tiktok.com/@jaytreebooks",
     "instagram": "https://www.instagram.com/jaytreebooks/",
-    "facebook": "https://www.facebook.com/profile.php?id=61593984832182"
+    "facebook": "https://www.facebook.com/profile.php?id=61593984832182",
+    "bluesky": "https://bsky.app/profile/jaytreebooks.com"
   },
   "newsletter": {
     "name": "JayTree Case Files",
