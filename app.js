@@ -102,15 +102,15 @@ function renderAnimatedSeriesHome() {
         </div>
         <div class="challenge-copy">
           <div class="eyebrow">A New JayTree Books Animated Series</div>
-          <div class="coming-soon">8-Episode Mini-Series • Coming Soon</div>
+          <div class="coming-soon">8-Episode Mini-Series • Official Trailer Live</div>
           <h2>The Hollow Bell is coming to life.</h2>
           <p class="challenge-lead">Millbrook Falls. Claire Renner. Sheriff Del Hutchins. And a bell that should not be ringing.</p>
-          <p><strong>The Hollow Bell</strong> is being adapted into a new 8-episode animated mystery mini-series based on the novel. Production is underway now, with sneak peeks and a 2+ minute cinematic trailer on the way.</p>
+          <p><strong>The Hollow Bell</strong> is being adapted into a new 8-episode animated mystery mini-series based on the novel. Production is underway now, and the official cinematic trailer is live.</p>
           <div class="hero-actions">
-            <a class="cta solid" href="animated-series.html" data-track="animated_series_home">Explore the Mini-Series</a>
-            <a class="cta" href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener" data-track="animated_series_youtube">Follow on YouTube</a>
+            <a class="cta solid" href="animated-series.html#trailer" data-track="animated_series_trailer">Watch Official Trailer</a>
+            <a class="cta" href="animated-series.html" data-track="animated_series_home">Explore the Mini-Series</a>
           </div>
-          <small class="challenge-note">The official cinematic trailer will be embedded on JayTreeBooks.com after its YouTube premiere.</small>
+          <small class="challenge-note">The official cinematic trailer is live now on JayTreeBooks.com.</small>
         </div>
       </div>
     </div>`;

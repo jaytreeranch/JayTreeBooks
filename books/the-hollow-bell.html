@@ -21,19 +21,9 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
 <link rel="stylesheet" href="../styles.css">
-<!-- JAYTREE_PWA_HEAD_START -->
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
-<meta name="theme-color" content="#080d12">
-<meta name="application-name" content="JayTree Books">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="JayTree Books">
-<link rel="stylesheet" href="/pwa.css">
-<!-- JAYTREE_PWA_HEAD_END -->
 </head>
 <body>
-<header class="nav"><div class="nav-inner"><a class="brand" href="../index.html">JAYTREE BOOKS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><nav class="nav-links"><a href="../index.html#books">Books</a><a href="../index.html#challenge">Challenge</a><a href="#follow">Follow</a><a href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener">YouTube</a></nav></div></header>
+<header class="nav"><div class="nav-inner"><a class="brand" href="../index.html">JAYTREE BOOKS</a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><nav class="nav-links"><a href="../index.html#books">Books</a><a href="../animated-series.html">Mini-Series</a><a href="../index.html#challenge">Challenge</a><a href="#follow">Follow</a><a href="https://www.youtube.com/@JayTreeBooks" target="_blank" rel="noopener">YouTube</a></nav></div></header>
 <main>
 <section class="book-hero seo-book-hero">
   <div class="book-cover-large"><img src="../images/optimized/the-hollow-bell.webp" alt="The Hollow Bell book cover" decoding="async" fetchpriority="high"></div>
@@ -50,6 +40,18 @@
     </div>
   </div>
 </section>
+<!-- JAYTREE_HOLLOW_BELL_SERIES_PROMO_START -->
+<section class="book-section" id="animated-mini-series">
+  <div class="eyebrow">Animated Mini-Series</div>
+  <h2>The Hollow Bell is coming to life.</h2>
+  <p class="section-copy">The novel is being adapted into an 8-episode animated mystery mini-series. Watch the official cinematic trailer and follow production from Millbrook Falls.</p>
+  <div class="hero-actions">
+    <a class="cta solid" href="../animated-series.html#trailer" data-track="animated_series_trailer">Watch the Animated Trailer</a>
+    <a class="cta" href="../animated-series.html" data-track="animated_series_page">Explore the Mini-Series</a>
+  </div>
+</section>
+<!-- JAYTREE_HOLLOW_BELL_SERIES_PROMO_END -->
+
 <section class="book-section"><div class="eyebrow">Official Book Trailer</div><h2>Watch the mystery begin.</h2><p class="section-copy">Get a cinematic introduction to The Hollow Bell.</p><div class="book-video"><div class="video-lite-inner"><button class="video-lite" type="button" data-youtube-id="VRp1zXJ6ja4" data-title="The Hollow Bell official book trailer" aria-label="Play The Hollow Bell official book trailer"><img src="https://i.ytimg.com/vi/VRp1zXJ6ja4/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-lite-play" aria-hidden="true">▶</span><span class="video-lite-label">Play video</span></button><a class="video-lite-fallback" href="https://www.youtube.com/watch?v=VRp1zXJ6ja4" target="_blank" rel="noopener">Open on YouTube ↗</a></div></div></section><section class="book-section"><div class="eyebrow">YouTube Short</div><h2>A quick taste of the story.</h2><div class="short-wrap"><div class="book-video short-video"><div class="video-lite-inner"><button class="video-lite" type="button" data-youtube-id="V8GWIIuTbx4" data-title="The Hollow Bell YouTube Short" aria-label="Play The Hollow Bell YouTube Short"><img src="https://i.ytimg.com/vi/V8GWIIuTbx4/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-lite-play" aria-hidden="true">▶</span><span class="video-lite-label">Play video</span></button><a class="video-lite-fallback" href="https://www.youtube.com/watch?v=V8GWIIuTbx4" target="_blank" rel="noopener">Open on YouTube ↗</a></div></div></div></section><section class="book-section" id="listen"><div class="eyebrow">Listen</div><h2>Hear the story.</h2><p class="section-copy">Preview the atmosphere with the JayTree Books reading.</p><div class="book-video"><div class="video-lite-inner"><button class="video-lite" type="button" data-youtube-id="n0FxPOwlg3I" data-title="The Hollow Bell audiobook reading" aria-label="Play The Hollow Bell audiobook reading"><img src="https://i.ytimg.com/vi/n0FxPOwlg3I/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-lite-play" aria-hidden="true">▶</span><span class="video-lite-label">Play video</span></button><a class="video-lite-fallback" href="https://www.youtube.com/watch?v=n0FxPOwlg3I" target="_blank" rel="noopener">Open on YouTube ↗</a></div></div>
 <!-- JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON -->
 <div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">
@@ -72,8 +74,5 @@ document.querySelector('.menu-toggle')?.addEventListener('click',function(){docu
 document.querySelectorAll('[data-track]').forEach(function(el){el.addEventListener('click',function(){if(typeof gtag==='function')gtag('event',el.dataset.track,{book:'the-hollow-bell'})})});
 document.querySelectorAll('[data-social]').forEach(function(el){el.addEventListener('click',function(){if(typeof gtag==='function')gtag('event','social_visit',{platform:el.dataset.social,book:'the-hollow-bell'})})});
 </script>
-<!-- JAYTREE_PWA_SCRIPT_START -->
-<script src="/pwa.js" defer></script>
-<!-- JAYTREE_PWA_SCRIPT_END -->
 </body>
 </html>
