@@ -2,8 +2,10 @@
   "files": [
     {
       "path": "media/social/video/mystery-case-001/2026-09-13-reveal.mp4",
-      "url": "https://ucab883411a9740cec3975a3e9aa.dl.dropboxusercontent.com/cd/0/get/DHnVEkTSZWKGjHIFlj4RYjcuBSkTAAS7qjNz5BW-wnzeuIJjgq0EEITG9qpd98VLV8Lp_-tGryT3wEBrD6bF7661Y_h6_SLeimVIe7zyCl36T6KhJt_LUg6V2oyGHrHJrhRJ8_jFdjw5Sp4XC5qJEBcbFyddTcmUAFfkhIgp4vUS5g/file?c_luid=b7c2f533",
-      "size": 220374223
+      "url": "https://uc958e6837b4087a00645a1c88d3.dl.dropboxusercontent.com/cd/0/get/DHlWzWKAHkWxciF25hYKYoMucSey0v5MwLMRJ6QsrI6gC5r7O99quZQyQ51EjuwiyjhE1PoYY-V2UXgMT5MHoM6WtZva2ik3qvaxw5upOjuYS5zfP8Oleldo7VzuZDA7LltBvofJ3LMxFEl1FVxvW78kEVoN3zQ5VDfk7k8jJjRnSA/file?c_luid=b7c2f533",
+      "size": 220374223,
+      "transcode_video": true,
+      "target_size_bytes": 94000000
     }
   ]
 }
