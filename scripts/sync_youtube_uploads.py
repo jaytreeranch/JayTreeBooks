@@ -17,7 +17,7 @@ CHANNEL_HANDLE = "@JayTreeBooks"
 CHANNEL_URL = f"https://www.youtube.com/{CHANNEL_HANDLE}"
 FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
 WATCH_URL = "https://www.youtube.com/watch?v={video_id}"
-USER_AGENT = "Mozilla/5.0 (compatible; JayTreeBooksYouTubeSync/2.0; +https://www.JayTreeBooks.com)"
+USER_AGENT = "Mozilla/5.0 (compatible; JayTreeBooksYouTubeSync/2.1; +https://www.JayTreeBooks.com)"
 
 BOOKS = {
     "second-draft": "Second Draft",
@@ -111,6 +111,40 @@ def _case_number(title: str) -> str | None:
     return f"{int(match.group(1)):03d}" if match else None
 
 
+def _case_kind(title: str, duration: int) -> str:
+    """Classify Mystery Challenge uploads without trusting duration alone.
+
+    YouTube watch pages can temporarily omit lengthSeconds immediately after an
+    upload. In that situation duration becomes 0, so title intent must win over
+    the short-duration fallback.
+    """
+    lowered = title.casefold()
+
+    if any(term in lowered for term in ("reveal", "solution", "solved", "case closed")):
+        return "reveal"
+
+    full_case_markers = (
+        "full case",
+        "full mystery",
+        "the midnight caller",
+        "can you solve mystery case",
+        "can you solve case",
+        "mystery challenge case",
+    )
+    teaser_markers = ("teaser", "#shorts", " short", "short #", "sneak peek")
+
+    if any(marker in lowered for marker in full_case_markers) and not any(marker in lowered for marker in teaser_markers):
+        return "case"
+    if any(marker in lowered for marker in teaser_markers):
+        return "teaser"
+    if duration >= 180:
+        return "case"
+    if 0 < duration < 120:
+        return "teaser"
+
+    return "unknown"
+
+
 def _update_registry(registry: dict, entries: list[dict]) -> bool:
     before = json.dumps(registry, sort_keys=True, ensure_ascii=False)
     eligible = [entry for entry in entries if _is_after_cutoff(entry, registry)]
@@ -122,7 +156,6 @@ def _update_registry(registry: dict, entries: list[dict]) -> bool:
 
     for entry in reversed(eligible):
         title = entry["title"]
-        lowered = title.casefold()
         for slug, book_title in BOOKS.items():
             if _is_book_feature(entry, book_title):
                 entry_with_duration = dict(entry)
@@ -132,17 +165,14 @@ def _update_registry(registry: dict, entries: list[dict]) -> bool:
         number = _case_number(title)
         if not number:
             continue
+
         record = cases.setdefault(number, {})
         duration = _duration_seconds(entry["video_id"])
         entry_with_duration = dict(entry)
         entry_with_duration["duration_seconds"] = duration
-        if "reveal" in lowered or "solution" in lowered or "solved" in lowered:
-            if duration >= 90 or "reveal" in lowered:
-                record["reveal"] = entry_with_duration
-        elif "teaser" in lowered or "short" in lowered or duration < 120:
-            record["teaser"] = entry_with_duration
-        elif duration >= 180 or "full case" in lowered or "can you solve it" in lowered:
-            record["case"] = entry_with_duration
+        kind = _case_kind(title, duration)
+        if kind in {"case", "reveal", "teaser"}:
+            record[kind] = entry_with_duration
 
     latest_number = None
     latest_stamp = ""
