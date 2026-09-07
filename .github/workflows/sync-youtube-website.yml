@@ -2,6 +2,11 @@ name: Sync YouTube Website
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/sync_youtube_uploads.py"
+      - "scripts/reconcile_mystery_cases.py"
+      - ".github/workflows/sync-youtube-website.yml"
   schedule:
     - cron: "*/15 * * * *"
 
@@ -45,6 +50,27 @@ jobs:
       - name: Validate registry
         run: python -m json.tool data/youtube-sync.json > /dev/null
 
+      - name: Verify full Mystery Case updates homepage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry = json.loads(Path('data/youtube-sync.json').read_text(encoding='utf-8'))
+          latest = registry.get('latest_mystery_case') or {}
+          case = latest.get('case') or {}
+          if case:
+              html = Path('index.html').read_text(encoding='utf-8')
+              video_id = str(case.get('video_id') or '')
+              number = str(latest.get('case_number') or '')
+              if f'CASE #{number} OPEN NOW' not in html and not latest.get('reveal'):
+                  raise SystemExit('Full Mystery Case is registered but homepage is not OPEN NOW')
+              if video_id and video_id not in html and not latest.get('reveal'):
+                  raise SystemExit('Full Mystery Case is registered but its video is not embedded on homepage')
+          PY
+
       - name: Commit website video updates
         shell: bash
         run: |
@@ -70,10 +96,10 @@ jobs:
             echo "## YouTube → Website Sync"
             echo ""
             echo "- Checks @JayTreeBooks every 15 minutes"
+            echo "- Also runs immediately when sync logic changes"
             echo "- Records matching uploads in the YouTube registry"
             echo "- Reconciles full Mystery Case, teaser, and reveal classification"
+            echo "- Verifies registered full cases switch homepage to OPEN NOW and embed the video"
             echo "- Does not overwrite curated book trailer URLs in config.js"
-            echo "- Animated-series trailers remain separate from book trailers"
-            echo "- Mystery Case uploads update the homepage challenge automatically"
             echo "- Mystery Reveal uploads can switch the homepage to the reveal"
           } >> "$GITHUB_STEP_SUMMARY"
