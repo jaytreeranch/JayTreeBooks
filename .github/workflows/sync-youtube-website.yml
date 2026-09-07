@@ -26,11 +26,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Validate sync script
-        run: python -m py_compile scripts/sync_youtube_uploads.py
+      - name: Validate sync scripts
+        run: |
+          python -m py_compile scripts/sync_youtube_uploads.py
+          python -m py_compile scripts/reconcile_mystery_cases.py
 
       - name: Sync new YouTube uploads into website registry
         run: python scripts/sync_youtube_uploads.py
+
+      - name: Reconcile Mystery Case classification and homepage
+        run: python scripts/reconcile_mystery_cases.py
 
       - name: Keep book trailer URLs controlled by website config
         shell: bash
@@ -66,8 +71,9 @@ jobs:
             echo ""
             echo "- Checks @JayTreeBooks every 15 minutes"
             echo "- Records matching uploads in the YouTube registry"
+            echo "- Reconciles full Mystery Case, teaser, and reveal classification"
             echo "- Does not overwrite curated book trailer URLs in config.js"
             echo "- Animated-series trailers remain separate from book trailers"
-            echo "- Mystery Case uploads can update the homepage challenge"
+            echo "- Mystery Case uploads update the homepage challenge automatically"
             echo "- Mystery Reveal uploads can switch the homepage to the reveal"
           } >> "$GITHUB_STEP_SUMMARY"
