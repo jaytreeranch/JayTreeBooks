@@ -1,6 +1,6 @@
 window.JT = {
   "youtube": "https://www.youtube.com/@JayTreeBooks",
-  "amazon": "https://www.amazon.com/stores/JayTree-Books/author/B0HG41STKM",
+  "amazon": "https://www.amazon.com/stores/author/B0HG41STKM",
   "ga4": "G-PHE2JVV5P6",
   "featuredBook": "second-draft",
   "campaignConfigUrl": "data/campaign.json",
@@ -89,6 +89,7 @@ window.JT = {
   ],
   "socials": {
     "youtube": "https://www.youtube.com/@JayTreeBooks",
+    "amazon": "https://www.amazon.com/stores/author/B0HG41STKM",
     "x": "https://x.com/JayTreeBooks",
     "tiktok": "https://www.tiktok.com/@jaytreebooks",
     "instagram": "https://www.instagram.com/jaytreebooks/",
