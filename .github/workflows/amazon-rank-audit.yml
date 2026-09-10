@@ -1,0 +1,74 @@
+name: Amazon Rank Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: "Maximum Amazon result pages to scan per keyword"
+        required: false
+        default: "1"
+      keywords:
+        description: "Optional | separated keyword list (blank = default 10)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "17 14 1,15 * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: amazon-rank-audit
+  cancel-in-progress: false
+
+jobs:
+  rank-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CANOPY_API_KEY: ${{ secrets.CANOPY_API_KEY }}
+      TARGET_ASIN: B0HD52HGGZ
+      AMAZON_COUNTRY: US
+      MAX_PAGES: ${{ github.event.inputs.max_pages || '1' }}
+      KEYWORDS: ${{ github.event.inputs.keywords || '' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Amazon keyword rank audit
+        run: python scripts/amazon_rank_tracker.py
+
+      - name: Show latest report
+        if: always()
+        run: |
+          if [ -f reports/amazon-rank/latest.md ]; then
+            cat reports/amazon-rank/latest.md
+          fi
+
+      - name: Upload rank report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: amazon-rank-report-${{ github.run_number }}
+          path: reports/amazon-rank/
+          if-no-files-found: warn
+          retention-days: 90
+
+      - name: Commit report history
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/amazon-rank/
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+          else
+            git commit -m "Update Amazon keyword rank report"
+            git push
+          fi
