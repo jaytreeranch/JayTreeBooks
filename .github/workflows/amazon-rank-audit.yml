@@ -11,11 +11,6 @@ on:
         description: "Optional | separated keyword list (blank = default 22 portfolio phrases)"
         required: false
         default: ""
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/amazon-rank-audit.yml"
   schedule:
     - cron: "17 14 1,15 * *"
 
