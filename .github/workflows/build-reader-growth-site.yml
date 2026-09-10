@@ -48,6 +48,21 @@ jobs:
           python scripts/apply_site_improvements.py
           python scripts/qc_repair_site.py
 
+      - name: Preserve mystery books discovery hub in sitemap
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('sitemap.xml')
+          text = path.read_text(encoding='utf-8')
+          url = 'https://www.JayTreeBooks.com/mystery-books.html'
+          if url not in text:
+              entry = f'  <url><loc>{url}</loc></url>\n'
+              text = text.replace('</urlset>', entry + '</urlset>')
+              path.write_text(text, encoding='utf-8')
+          PY
+
       - name: Validate generated site
         shell: bash
         run: |
@@ -174,6 +189,7 @@ jobs:
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
           assert sitemap.count('<url>') == 14
+          assert 'https://www.JayTreeBooks.com/mystery-books.html' in sitemap
           assert 'https://www.JayTreeBooks.com/animated-series.html' in sitemap
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
