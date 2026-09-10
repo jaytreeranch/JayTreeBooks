@@ -32,7 +32,7 @@ function youtubeEmbed(url, title) {
     .replace(/>/g, "&gt;");
   return `<div class="video-lite-inner">
     <button class="video-lite" type="button" data-youtube-id="${id}" data-title="${safeTitle}" aria-label="Play ${safeTitle}">
-      <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+      <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${safeTitle} thumbnail" loading="lazy" decoding="async">
       <span class="video-lite-play" aria-hidden="true">▶</span>
       <span class="video-lite-label">Play video</span>
     </button>

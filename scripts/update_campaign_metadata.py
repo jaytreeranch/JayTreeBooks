@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CAMPAIGN_PATH = ROOT / "data" / "campaign.json"
 CONFIG_PATH = ROOT / "config.js"
 INDEX_PATH = ROOT / "index.html"
-SITE_URL = "https://www.JayTreeBooks.com/"
+SITE_URL = "https://jaytreebooks.com/"
 
 
 def _load_campaign() -> dict:

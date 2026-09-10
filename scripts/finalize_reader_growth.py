@@ -16,7 +16,7 @@ LEGACY_BOOK_PATH = ROOT / "book.html"
 BOOKS_DIR = ROOT / "books"
 CASE_FILES_PATH = ROOT / "case-files.html"
 CASE_FILES_THANKS_PATH = ROOT / "case-files-thanks.html"
-SITE = "https://www.JayTreeBooks.com"
+SITE = "https://jaytreebooks.com"
 
 CONFIG_RE = re.compile(
     r"window\.JT\s*=\s*(\{.*?\});\s*window\.JAYTREE_CONFIG\s*=\s*window\.JT;",

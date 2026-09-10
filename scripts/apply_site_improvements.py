@@ -11,12 +11,12 @@ APP = ROOT / "app.js"
 STYLES = ROOT / "styles.css"
 VIDEO_JS = ROOT / "video-lite.js"
 
-TITLE = "JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges"
+TITLE = "JayTree Books | Mystery & Psychological Thrillers"
 DESCRIPTION = (
     "Discover JayTree Books mysteries and psychological thrillers. Read first chapters, "
     "watch trailers, solve Mystery Challenges, and find Kindle Unlimited reads."
 )
-SHARE_IMAGE = "https://www.JayTreeBooks.com/images/jaytree-books-challenge.png"
+SHARE_IMAGE = "https://jaytreebooks.com/images/jaytree-books-challenge.png"
 POLISH_MARKER = "/* JAYTREE_2026_CONVERSION_POLISH */"
 CHAPTER_MARKER = "/* JAYTREE_2026_READER_ACCESSIBILITY */"
 CASE_START = "<!-- JAYTREE_CASE_FILES_START -->"
@@ -36,7 +36,7 @@ def lite_markup(video_id: str, title: str) -> str:
         '<div class="video-lite-inner">'
         f'<button class="video-lite" type="button" data-youtube-id="{video_id}" '
         f'data-title="{safe}" aria-label="Play {safe}">'
-        f'<img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">'
+        f'<img src="https://i.ytimg.com/vi/{video_id}/hqdefault.jpg" alt="{safe} thumbnail" loading="lazy" decoding="async">'
         '<span class="video-lite-play" aria-hidden="true">▶</span>'
         '<span class="video-lite-label">Play video</span>'
         '</button>'
@@ -104,10 +104,10 @@ def patch_index() -> None:
         r'<meta name="description" content="[^"]*">',
         f'<meta name="description" content="{DESCRIPTION}">',
     )
-    if '<link rel="canonical" href="https://www.JayTreeBooks.com/">' not in text:
+    if '<link rel="canonical" href="https://jaytreebooks.com/">' not in text:
         text = text.replace(
             f'<meta name="description" content="{DESCRIPTION}">',
-            f'<meta name="description" content="{DESCRIPTION}">\n<link rel="canonical" href="https://www.JayTreeBooks.com/">',
+            f'<meta name="description" content="{DESCRIPTION}">\n<link rel="canonical" href="https://jaytreebooks.com/">',
             1,
         )
     text = replace_first(text, r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{TITLE}">')
@@ -187,7 +187,7 @@ def patch_app() -> None:
     .replace(/>/g, "&gt;");
   return `<div class="video-lite-inner">
     <button class="video-lite" type="button" data-youtube-id="${id}" data-title="${safeTitle}" aria-label="Play ${safeTitle}">
-      <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+      <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="${safeTitle} thumbnail" loading="lazy" decoding="async">
       <span class="video-lite-play" aria-hidden="true">▶</span>
       <span class="video-lite-label">Play video</span>
     </button>
@@ -315,7 +315,7 @@ def verify() -> None:
     index = INDEX.read_text(encoding="utf-8")
     app = APP.read_text(encoding="utf-8")
     assert TITLE in index
-    assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in index
+    assert '<link rel="canonical" href="https://jaytreebooks.com/">' in index
     assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
     assert index.index('id="kindle-unlimited"') < index.index('id="books"')
     assert 'continue the story on Audible' not in index

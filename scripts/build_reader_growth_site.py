@@ -17,7 +17,7 @@ INDEX_PATH = ROOT / "index.html"
 STYLES_PATH = ROOT / "styles.css"
 BOOKS_DIR = ROOT / "books"
 OPTIMIZED_DIR = ROOT / "images" / "optimized"
-SITE = "https://www.JayTreeBooks.com"
+SITE = "https://jaytreebooks.com"
 
 CONFIG_RE = re.compile(
     r"window\.JT\s*=\s*(\{.*?\});\s*window\.JAYTREE_CONFIG\s*=\s*window\.JT;",
@@ -265,6 +265,7 @@ def book_schema(book: dict) -> dict:
             "@type": "Organization",
             "name": "JayTree Books",
             "url": SITE,
+            "logo": f"{SITE}/icons/icon-512.png",
         },
         "offers": {
             "@type": "Offer",
@@ -403,7 +404,8 @@ def org_schema(config: dict) -> str:
         "@type": "Organization",
         "name": "JayTree Books",
         "url": SITE,
-        "sameAs": same_as,
+        "logo": f"{SITE}/icons/icon-512.png",
+        "sameAs": list(dict.fromkeys(same_as)),
     }
     return f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(",", ":"))}</script>'
 

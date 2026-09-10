@@ -12,7 +12,7 @@ CONFIG_PATH = ROOT / "config.js"
 INDEX_PATH = ROOT / "index.html"
 APP_PATH = ROOT / "app.js"
 SITEMAP_PATH = ROOT / "sitemap.xml"
-SITE = "https://www.JayTreeBooks.com"
+SITE = "https://jaytreebooks.com"
 
 CONFIG_RE = re.compile(
     r"window\.JT\s*=\s*(\{.*?\});\s*window\.JAYTREE_CONFIG\s*=\s*window\.JT;",
@@ -309,7 +309,7 @@ def validate_static_pages(config: dict) -> None:
     assert animated.count('<link rel="manifest" href="/manifest.webmanifest">') == 1
     assert animated.count('<script src="/pwa.js" defer></script>') == 1
     assert 'data-youtube-id="PmGQoyjYTDs"' in animated
-    assert '<link rel="canonical" href="https://www.JayTreeBooks.com/animated-series.html">' in animated
+    assert '<link rel="canonical" href="https://jaytreebooks.com/animated-series.html">' in animated
     assert "https://bsky.app/profile/jaytreebooks.com" in animated
 
     for book in config["books"]:

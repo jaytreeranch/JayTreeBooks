@@ -47,13 +47,13 @@ def main() -> int:
     newsletter = config.setdefault("newsletter", {})
     newsletter.setdefault("name", "JayTree Case Files")
     newsletter.setdefault("formAction", "https://formsubmit.co/jaytreebooks@gmail.com")
-    newsletter.setdefault("thankYouUrl", "https://www.JayTreeBooks.com/case-files-thanks.html")
+    newsletter.setdefault("thankYouUrl", "https://jaytreebooks.com/case-files-thanks.html")
     newsletter["provider"] = "kit"
     newsletter["kit"] = {
         "formName": "JayTree Case Files",
         "sequenceName": "JayTree Case Files Welcome",
         "embedCode": embed_code,
-        "confirmationRedirect": "https://www.JayTreeBooks.com/case-files-thanks.html",
+        "confirmationRedirect": "https://jaytreebooks.com/case-files-thanks.html",
     }
     save_config(config)
     print("Configured Kit for JayTree Case Files. Run the website build workflow to deploy it.")

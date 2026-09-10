@@ -17,7 +17,7 @@ CHANNEL_HANDLE = "@JayTreeBooks"
 CHANNEL_URL = f"https://www.youtube.com/{CHANNEL_HANDLE}"
 FEED_URL = "https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
 WATCH_URL = "https://www.youtube.com/watch?v={video_id}"
-USER_AGENT = "Mozilla/5.0 (compatible; JayTreeBooksYouTubeSync/2.1; +https://www.JayTreeBooks.com)"
+USER_AGENT = "Mozilla/5.0 (compatible; JayTreeBooksYouTubeSync/2.1; +https://jaytreebooks.com)"
 
 BOOKS = {
     "second-draft": "Second Draft",
