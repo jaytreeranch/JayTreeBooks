@@ -6,11 +6,16 @@ on:
       max_pages:
         description: "Maximum Amazon result pages to scan per keyword"
         required: false
-        default: "1"
+        default: "3"
       keywords:
         description: "Optional | separated keyword list (blank = default 10)"
         required: false
         default: ""
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/amazon-rank-audit.yml"
   schedule:
     - cron: "17 14 1,15 * *"
 
@@ -29,7 +34,8 @@ jobs:
       CANOPY_API_KEY: ${{ secrets.CANOPY_API_KEY }}
       TARGET_ASIN: B0HD52HGGZ
       AMAZON_COUNTRY: US
-      MAX_PAGES: ${{ github.event.inputs.max_pages || '1' }}
+      AMAZON_SEARCH_INDEX: KindleStore
+      MAX_PAGES: ${{ github.event.inputs.max_pages || '3' }}
       KEYWORDS: ${{ github.event.inputs.keywords || '' }}
 
     steps:
