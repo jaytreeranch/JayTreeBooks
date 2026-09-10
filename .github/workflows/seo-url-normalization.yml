@@ -1,0 +1,130 @@
+name: Normalize JayTree Canonical URLs
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jaytree-seo-url-normalization
+  cancel-in-progress: true
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Normalize JayTree Books URLs
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+
+          allowed_suffixes = {
+              '.html', '.htm', '.xml', '.js', '.json', '.css', '.md', '.txt',
+              '.webmanifest', '.yml', '.yaml'
+          }
+          canonical_host = 'https://jaytreebooks.com'
+          host_pattern = re.compile(r'https?://(?:www\.)?jaytreebooks\.com', re.I)
+
+          tracked = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
+          changed = []
+
+          for name in tracked:
+              path = Path(name)
+              if path.suffix.lower() not in allowed_suffixes:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except (UnicodeDecodeError, OSError):
+                  continue
+              normalized = host_pattern.sub(canonical_host, text)
+              if normalized != text:
+                  path.write_text(normalized, encoding='utf-8')
+                  changed.append(name)
+
+          print(f'Normalized {len(changed)} file(s).')
+          for name in changed:
+              print(f'  {name}')
+          PY
+
+      - name: Validate canonical host consistency
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          import xml.etree.ElementTree as ET
+
+          allowed_suffixes = {
+              '.html', '.htm', '.xml', '.js', '.json', '.css', '.md', '.txt',
+              '.webmanifest', '.yml', '.yaml'
+          }
+          tracked = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
+          bad = []
+          www_pattern = re.compile(r'https?://www\.jaytreebooks\.com', re.I)
+
+          for name in tracked:
+              path = Path(name)
+              if path.suffix.lower() not in allowed_suffixes:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except (UnicodeDecodeError, OSError):
+                  continue
+              if www_pattern.search(text):
+                  bad.append(name)
+
+          if bad:
+              raise SystemExit('WWW JayTree URLs remain in: ' + ', '.join(bad))
+
+          cname = Path('CNAME').read_text(encoding='utf-8').strip().lower()
+          assert cname == 'jaytreebooks.com', f'Unexpected CNAME: {cname}'
+
+          sitemap = ET.parse('sitemap.xml').getroot()
+          ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          locs = [el.text.strip() for el in sitemap.findall('sm:url/sm:loc', ns) if el.text]
+          assert locs, 'No sitemap URLs found.'
+          wrong_locs = [url for url in locs if not url.lower().startswith('https://jaytreebooks.com/')]
+          assert not wrong_locs, 'Non-canonical sitemap URLs: ' + ', '.join(wrong_locs)
+
+          canonical_re = re.compile(r'<link\s+[^>]*rel=["\']canonical["\'][^>]*href=["\']([^"\']+)', re.I)
+          wrong_canonicals = []
+          for name in tracked:
+              path = Path(name)
+              if path.suffix.lower() not in {'.html', '.htm'}:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except (UnicodeDecodeError, OSError):
+                  continue
+              for url in canonical_re.findall(text):
+                  if 'jaytreebooks.com' in url.lower() and not url.lower().startswith('https://jaytreebooks.com'):
+                      wrong_canonicals.append(f'{name}: {url}')
+          assert not wrong_canonicals, 'Wrong canonical tags: ' + '; '.join(wrong_canonicals)
+
+          print(f'Canonical URL validation passed for {len(locs)} sitemap URLs.')
+          PY
+
+      - name: Commit normalized URLs
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "All JayTree URLs are already normalized."
+            exit 0
+          fi
+          git commit -m "Normalize JayTree canonical URLs"
+          git push
