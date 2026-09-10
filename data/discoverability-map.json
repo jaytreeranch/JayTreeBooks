@@ -1,0 +1,146 @@
+{
+  "version": "2026-09-10",
+  "brand": "JayTree Books",
+  "strategy": {
+    "google_role": "Discover readers through useful genre and story-intent pages, then send them to book pages, first chapters, and Amazon.",
+    "amazon_role": "Convert high-intent mystery shoppers using accurate backend keywords, categories, descriptions, A+ Content, and ads.",
+    "shared_rule": "Use the same reader language across Google, Amazon, YouTube, and campaigns, but give each title a distinct primary search identity to reduce cannibalization."
+  },
+  "site_topics": [
+    "mystery books",
+    "psychological mystery thrillers",
+    "supernatural mystery books",
+    "small town mystery books",
+    "cold case mystery books",
+    "Kindle Unlimited mystery books",
+    "atmospheric mystery books",
+    "dark mystery books"
+  ],
+  "books": [
+    {
+      "slug": "the-hollow-bell",
+      "title": "The Hollow Bell",
+      "primary_identity": "small-town supernatural cold-case mystery",
+      "google_primary": "small town supernatural mystery",
+      "google_secondary": [
+        "cold case mystery book",
+        "missing sister mystery",
+        "atmospheric winter mystery",
+        "Maine mystery book",
+        "investigative journalist mystery",
+        "sheriff mystery",
+        "supernatural small town mystery"
+      ],
+      "amazon_backend_candidates": [
+        "small town secrets",
+        "cold case disappearance",
+        "missing sister mystery",
+        "investigative journalist",
+        "sheriff investigation",
+        "supernatural bell legend",
+        "winter atmospheric suspense"
+      ],
+      "avoid_as_primary": ["psychological mystery thriller", "memory mystery", "archive conspiracy mystery"]
+    },
+    {
+      "slug": "the-hollow-year",
+      "title": "The Hollow Year",
+      "primary_identity": "supernatural erased-memory disappearance mystery",
+      "google_primary": "supernatural memory mystery",
+      "google_secondary": [
+        "erased memory mystery",
+        "forgotten person mystery",
+        "supernatural disappearance mystery",
+        "Maine supernatural mystery",
+        "reality bending mystery",
+        "eerie small town mystery",
+        "October mystery book"
+      ],
+      "amazon_backend_candidates": [
+        "erased memory mystery",
+        "forgotten person suspense",
+        "supernatural disappearance",
+        "Maine small town mystery",
+        "reality bending suspense",
+        "October supernatural mystery",
+        "family memory mystery"
+      ],
+      "avoid_as_primary": ["cold case mystery", "archive conspiracy mystery", "family secrets mystery"]
+    },
+    {
+      "slug": "second-draft",
+      "title": "Second Draft",
+      "primary_identity": "psychological reality-bending memory mystery",
+      "google_primary": "psychological reality bending thriller",
+      "google_secondary": [
+        "psychological mystery about memory",
+        "unreliable reality thriller",
+        "mind bending mystery book",
+        "identity and memory thriller",
+        "slow burn psychological mystery",
+        "reality changing mystery",
+        "psychological suspense book"
+      ],
+      "amazon_backend_candidates": [
+        "unreliable reality thriller",
+        "memory identity mystery",
+        "mind bending suspense",
+        "psychological slow burn",
+        "reality changing mystery",
+        "confession rehearsal mystery",
+        "dark psychological suspense"
+      ],
+      "avoid_as_primary": ["small town cold case", "supernatural bell mystery", "archive mystery"]
+    },
+    {
+      "slug": "the-correction",
+      "title": "The Correction",
+      "primary_identity": "archival altered-record conspiracy mystery",
+      "google_primary": "archive conspiracy mystery",
+      "google_secondary": [
+        "altered records mystery",
+        "small town conspiracy thriller",
+        "historical records mystery",
+        "library archive mystery",
+        "official record conspiracy",
+        "psychological mystery about truth",
+        "hidden documents mystery"
+      ],
+      "amazon_backend_candidates": [
+        "altered records mystery",
+        "archive conspiracy thriller",
+        "small town hidden records",
+        "official record mystery",
+        "library archive suspense",
+        "historical documents mystery",
+        "buried town secrets"
+      ],
+      "avoid_as_primary": ["memory disappearance mystery", "cold case sheriff mystery", "family beekeeping mystery"]
+    },
+    {
+      "slug": "the-absconding",
+      "title": "The Absconding",
+      "primary_identity": "family-secrets homecoming mystery with archival clues",
+      "google_primary": "family secrets mystery thriller",
+      "google_secondary": [
+        "suspicious death mystery",
+        "homecoming mystery thriller",
+        "beekeeping mystery",
+        "rural psychological mystery",
+        "buried family secrets thriller",
+        "archive clues mystery",
+        "mother death mystery"
+      ],
+      "amazon_backend_candidates": [
+        "family secrets mystery",
+        "suspicious death suspense",
+        "homecoming mystery thriller",
+        "beekeeping mystery",
+        "rural psychological suspense",
+        "archive clues mystery",
+        "buried family history"
+      ],
+      "avoid_as_primary": ["supernatural memory mystery", "cold case journalist mystery", "altered records conspiracy"]
+    }
+  ]
+}
