@@ -4,18 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       max_pages:
-        description: "Maximum Amazon result pages to scan per keyword (1-5, 40 results/page)"
+        description: "Maximum Amazon result pages to scan per keyword (1-5)"
         required: false
         default: "5"
       keywords:
         description: "Optional | separated keyword list (blank = default 10)"
         required: false
         default: ""
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/amazon-rank-audit.yml"
   schedule:
     - cron: "17 14 1,15 * *"
 
@@ -38,8 +33,13 @@ jobs:
       KEYWORDS: ${{ github.event.inputs.keywords || '' }}
 
     steps:
-      - name: Check out repository
+      - name: Check out tracker files
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            scripts
+            reports
+          sparse-checkout-cone-mode: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
