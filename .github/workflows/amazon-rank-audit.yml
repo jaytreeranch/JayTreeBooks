@@ -8,9 +8,14 @@ on:
         required: false
         default: "5"
       keywords:
-        description: "Optional | separated keyword list (blank = default 10)"
+        description: "Optional | separated keyword list (blank = default 22 portfolio phrases)"
         required: false
         default: ""
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/amazon-rank-audit.yml"
   schedule:
     - cron: "17 14 1,15 * *"
 
@@ -24,10 +29,9 @@ concurrency:
 jobs:
   rank-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       CANOPY_API_KEY: ${{ secrets.CANOPY_API_KEY }}
-      TARGET_ASIN: B0HD52HGGZ
       AMAZON_COUNTRY: US
       MAX_PAGES: ${{ github.event.inputs.max_pages || '5' }}
       KEYWORDS: ${{ github.event.inputs.keywords || '' }}
@@ -46,7 +50,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run Amazon keyword rank audit
+      - name: Run Amazon portfolio keyword rank audit
         run: python scripts/amazon_rank_tracker.py
 
       - name: Show latest report
@@ -74,6 +78,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No report changes to commit."
           else
-            git commit -m "Update Amazon keyword rank report"
+            git commit -m "Update Amazon portfolio rank report"
             git push
           fi
