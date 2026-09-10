@@ -80,6 +80,27 @@
     document.body.appendChild(installButton);
   };
 
+  const addAmazonAuthorLink = () => {
+    const authorUrl = "https://www.amazon.com/stores/author/B0HG41STKM";
+
+    document.querySelectorAll('a[href="https://www.amazon.com/stores/JayTree-Books/author/B0HG41STKM"]').forEach(link => {
+      link.href = authorUrl;
+    });
+
+    const socialPills = document.querySelector(".social-pills");
+    if (!socialPills || socialPills.querySelector('[data-social="amazon"]')) return;
+
+    const amazonLink = document.createElement("a");
+    amazonLink.className = "social-pill";
+    amazonLink.href = authorUrl;
+    amazonLink.target = "_blank";
+    amazonLink.rel = "noopener";
+    amazonLink.dataset.social = "amazon";
+    amazonLink.textContent = "Amazon Author Page";
+    amazonLink.addEventListener("click", () => track("social_visit", { platform: "amazon" }));
+    socialPills.appendChild(amazonLink);
+  };
+
   window.addEventListener("beforeinstallprompt", event => {
     event.preventDefault();
     deferredPrompt = event;
@@ -96,6 +117,7 @@
   });
 
   const ready = () => {
+    addAmazonAuthorLink();
     if (isIOS() && !standalone()) ensureButton();
   };
 
