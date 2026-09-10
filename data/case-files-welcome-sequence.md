@@ -10,9 +10,9 @@ You're now on the JayTree Books reader list for new Mystery Challenge cases, clu
 
 Start here:
 
-**Enter the current mystery:** https://www.JayTreeBooks.com/#challenge
+**Enter the current mystery:** https://jaytreebooks.com/#challenge
 
-**Explore all JayTree Books mysteries:** https://www.JayTreeBooks.com/#books
+**Explore all JayTree Books mysteries:** https://jaytreebooks.com/#books
 
 One thing to know: I want these emails to feel like part of the mystery—not a stream of ads. Expect clues, questions, new cases, story previews, and occasional book offers when they're genuinely useful.
 
@@ -37,11 +37,11 @@ Keep that answer in mind when the next JayTree Mystery Challenge case drops.
 
 You can watch the current Case File teaser here:
 
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 And if you want a full mystery while you wait, all five JayTree Books titles are available to read with Kindle Unlimited:
 
-https://www.JayTreeBooks.com/#books
+https://jaytreebooks.com/#books
 
 — JayTree Books
 
@@ -65,7 +65,7 @@ Five mysteries. Five different ways for the truth to go wrong.
 
 Choose your next case here:
 
-https://www.JayTreeBooks.com/#books
+https://jaytreebooks.com/#books
 
 Every title includes a Chapter One preview, trailer, and Kindle Unlimited link on JayTreeBooks.com.
 

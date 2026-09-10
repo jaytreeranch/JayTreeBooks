@@ -100,12 +100,12 @@ window.JT = {
     "name": "JayTree Case Files",
     "provider": "kit",
     "formAction": "https://formsubmit.co/jaytreebooks@gmail.com",
-    "thankYouUrl": "https://www.JayTreeBooks.com/case-files-thanks.html",
+    "thankYouUrl": "https://jaytreebooks.com/case-files-thanks.html",
     "kit": {
       "formName": "JayTree Case Files",
       "sequenceName": "JayTree Case Files Welcome",
       "embedCode": "<script async data-uid=\"45491fc29e\" src=\"https://jaytree-books.kit.com/45491fc29e/index.js\"></script>",
-      "confirmationRedirect": "https://www.JayTreeBooks.com/case-files-thanks.html"
+      "confirmationRedirect": "https://jaytreebooks.com/case-files-thanks.html"
     }
   }
 };

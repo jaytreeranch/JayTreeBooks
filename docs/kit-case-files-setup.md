@@ -12,7 +12,7 @@ Kit is the long-term newsletter backend for JayTree Case Files. Keep FormSubmit 
 - Fields: Email only
 - Sequence: `JayTree Case Files Welcome`
 - Confirmation: Double opt-in recommended
-- Confirmation redirect: `https://www.JayTreeBooks.com/case-files-thanks.html`
+- Confirmation redirect: `https://jaytreebooks.com/case-files-thanks.html`
 - Sender name: `JayTree Books`
 - Reply-to: `jaytreebooks@gmail.com`
 
@@ -24,7 +24,7 @@ Kit is the long-term newsletter backend for JayTree Case Files. Keep FormSubmit 
 4. Keep only the email field.
 5. Use CTA copy such as `Open the Case Files`.
 6. Set the confirmation email subject to `Confirm your JayTree Case Files access`.
-7. Set the redirect to `https://www.JayTreeBooks.com/case-files-thanks.html`.
+7. Set the redirect to `https://jaytreebooks.com/case-files-thanks.html`.
 8. Save and publish.
 9. Click **Embed → JavaScript** and copy the complete embed line.
 

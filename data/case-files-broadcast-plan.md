@@ -41,13 +41,13 @@ When a woman disappears and an old local legend begins to feel much less like a 
 If you like small-town mysteries, buried history, and clues that make you question what is real, this is your case.
 
 **Read Chapter One:**  
-https://www.JayTreeBooks.com/chapters/book-3-first-chapter.html?utm_source=kit&utm_medium=email&utm_campaign=hollow_bell&utm_content=chapter_one
+https://jaytreebooks.com/chapters/book-3-first-chapter.html?utm_source=kit&utm_medium=email&utm_campaign=hollow_bell&utm_content=chapter_one
 
 **Watch the trailer:**  
 https://youtu.be/VRp1zXJ6ja4
 
 **Explore The Hollow Bell:**  
-https://www.JayTreeBooks.com/books/the-hollow-bell.html?utm_source=kit&utm_medium=email&utm_campaign=hollow_bell&utm_content=book_page
+https://jaytreebooks.com/books/the-hollow-bell.html?utm_source=kit&utm_medium=email&utm_campaign=hollow_bell&utm_content=book_page
 
 The Hollow Bell is available to read with Kindle Unlimited.
 
@@ -84,11 +84,11 @@ When those three disagree, which one do you trust first?
 Keep your answer in mind when you enter the current JayTree Mystery Challenge.
 
 **Enter the current case:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 And if you want a full mystery for the weekend, all five JayTree Books titles are available with Kindle Unlimited:
 
-https://www.JayTreeBooks.com/#books
+https://jaytreebooks.com/#books
 
 — JayTree Books
 
@@ -113,7 +113,7 @@ That is the kind of question at the center of **The Correction**.
 Sometimes the most dangerous clue is the one everyone else accepts as fact.
 
 **Enter the current Mystery Challenge:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 — JayTree Books
 
@@ -134,13 +134,13 @@ In **The Correction**, altered documents, missing details, and an increasingly u
 Who gets to decide which version becomes history?
 
 **Read Chapter One:**  
-https://www.JayTreeBooks.com/chapters/book-5-first-chapter.html
+https://jaytreebooks.com/chapters/book-5-first-chapter.html
 
 **Watch the trailer:**  
 https://youtu.be/tRlHA4UKNGk
 
 **Explore The Correction:**  
-https://www.JayTreeBooks.com/books/the-correction.html
+https://jaytreebooks.com/books/the-correction.html
 
 Available to read with Kindle Unlimited.
 
@@ -164,11 +164,11 @@ Suppose it doesn't.
 If you want a psychological mystery for the weekend, start **The Correction** with Chapter One or read the full novel with Kindle Unlimited.
 
 **Start reading:**  
-https://www.JayTreeBooks.com/books/the-correction.html
+https://jaytreebooks.com/books/the-correction.html
 
 Then test your detective instincts on the latest Mystery Challenge:
 
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 — JayTree Books
 
@@ -197,7 +197,7 @@ Does that make the new version more truthful—or more suspicious?
 **Second Draft** lives in the space between competing memories, revised stories, and the details people decide to leave out.
 
 **Enter the current case:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 — JayTree Books
 
@@ -218,13 +218,13 @@ The question is not simply who is lying.
 It is why the story keeps changing.
 
 **Read Chapter One:**  
-https://www.JayTreeBooks.com/chapters/book-1-first-chapter.html
+https://jaytreebooks.com/chapters/book-1-first-chapter.html
 
 **Watch the trailer:**  
 https://youtu.be/IA_fL2IHkNs
 
 **Explore Second Draft:**  
-https://www.JayTreeBooks.com/books/second-draft.html
+https://jaytreebooks.com/books/second-draft.html
 
 Available to read with Kindle Unlimited.
 
@@ -246,11 +246,11 @@ When someone's story changes, do you focus on what they added—or what they rem
 That difference can turn an ordinary contradiction into the clue that solves the case.
 
 **Try the latest Mystery Challenge:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 Or start **Second Draft** here:
 
-https://www.JayTreeBooks.com/books/second-draft.html
+https://jaytreebooks.com/books/second-draft.html
 
 — JayTree Books
 
@@ -279,7 +279,7 @@ Would you call that evidence?
 Sometimes the absence of a clue is the clue.
 
 **Enter the current Mystery Challenge:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 — JayTree Books
 
@@ -300,13 +300,13 @@ Others disappear because someone worked very hard to bury them.
 If you like mysteries where seemingly small details grow more threatening with every discovery, start here.
 
 **Read Chapter One:**  
-https://www.JayTreeBooks.com/chapters/book-4-first-chapter.html
+https://jaytreebooks.com/chapters/book-4-first-chapter.html
 
 **Watch the trailer:**  
 https://youtu.be/b9mOYwmDhPY
 
 **Explore The Absconding:**  
-https://www.JayTreeBooks.com/books/the-absconding.html
+https://jaytreebooks.com/books/the-absconding.html
 
 Available to read with Kindle Unlimited.
 
@@ -328,11 +328,11 @@ Never ignore the clue someone went out of their way to hide.
 That may be the one detail capable of changing the entire case.
 
 **Enter the latest Mystery Challenge:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 Or spend the weekend with **The Absconding**:
 
-https://www.JayTreeBooks.com/books/the-absconding.html
+https://jaytreebooks.com/books/the-absconding.html
 
 — JayTree Books
 
@@ -363,7 +363,7 @@ Or would those things disappear from memory too?
 That impossible question sits at the heart of **The Hollow Year**.
 
 **Enter the current Mystery Challenge:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 — JayTree Books
 
@@ -384,13 +384,13 @@ Forgotten.
 **The Hollow Year** asks what remains when a person disappears not only from a town—but from the minds of everyone who knew them.
 
 **Read Chapter One:**  
-https://www.JayTreeBooks.com/chapters/book-2-first-chapter.html
+https://jaytreebooks.com/chapters/book-2-first-chapter.html
 
 **Watch the trailer:**  
 https://youtu.be/lxZLVmRnec0
 
 **Explore The Hollow Year:**  
-https://www.JayTreeBooks.com/books/the-hollow-year.html
+https://jaytreebooks.com/books/the-hollow-year.html
 
 Available to read with Kindle Unlimited.
 
@@ -412,11 +412,11 @@ Would you trust everyone around you?
 Or would you trust the feeling that the world had changed?
 
 **Enter the latest JayTree Mystery Challenge:**  
-https://www.JayTreeBooks.com/#challenge
+https://jaytreebooks.com/#challenge
 
 Or start **The Hollow Year**:
 
-https://www.JayTreeBooks.com/books/the-hollow-year.html
+https://jaytreebooks.com/books/the-hollow-year.html
 
 — JayTree Books
 
