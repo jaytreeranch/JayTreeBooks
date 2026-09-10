@@ -49,7 +49,7 @@ window.JT = {
       "cover": "images/optimized/the-hollow-bell.webp",
       "chapter": "chapters/book-3-first-chapter.html",
       "audio": "audio/book-3-sample.html",
-      "amazonUrl": "https://www.amazon.com/dp/B0HD5RH8X5",
+      "amazonUrl": "https://www.amazon.com/dp/B0HD52HGGZ",
       "kindleUnlimited": true,
       "trailerUrl": "https://youtu.be/VRp1zXJ6ja4",
       "shortUrl": "https://www.youtube.com/watch?v=V8GWIIuTbx4",
