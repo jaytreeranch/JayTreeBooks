@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -39,6 +41,20 @@ jobs:
       - name: Install image optimizer
         run: python -m pip install Pillow
 
+      - name: Preserve hand-tuned SEO book pages
+        shell: bash
+        run: |
+          mkdir -p /tmp/jaytree-seo-books
+          baseline="d13774d6288e363444980ea028545a3fc165cdda"
+          for file in books/*.html; do
+            name="$(basename "$file")"
+            if grep -q 'id="about"' "$file"; then
+              cp "$file" "/tmp/jaytree-seo-books/$name"
+            else
+              git show "$baseline:$file" > "/tmp/jaytree-seo-books/$name"
+            fi
+          done
+
       - name: Build conversion pages, SEO pages, optimized images, and Case Files signup
         run: |
           python scripts/build_reader_growth_site.py
@@ -46,6 +62,31 @@ jobs:
           python scripts/apply_newsletter_provider.py
           python scripts/add_audiobook_coming_soon.py
           python scripts/apply_site_improvements.py
+
+      - name: Restore SEO book pages and sync Kindle links
+        shell: bash
+        run: |
+          cp /tmp/jaytree-seo-books/*.html books/
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          config_text = Path('config.js').read_text(encoding='utf-8')
+          match = re.search(r'window\.JT\s*=\s*(\{.*?\});\s*window\.JAYTREE_CONFIG', config_text, re.S)
+          assert match, 'config.js could not be parsed'
+          config = json.loads(match.group(1))
+
+          for book in config['books']:
+              path = Path('books') / f"{book['slug']}.html"
+              text = path.read_text(encoding='utf-8')
+              text = re.sub(r'https://www\.amazon\.com/dp/B0[A-Z0-9]+', book['amazonUrl'], text)
+              marker = '<!-- JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON -->'
+              needle = '<div class="ku-callout audiobook-coming-soon"'
+              if marker not in text and needle in text:
+                  text = text.replace(needle, marker + '\n' + needle, 1)
+              path.write_text(text, encoding='utf-8')
+          PY
           python scripts/qc_repair_site.py
 
       - name: Preserve mystery books discovery hub in sitemap
@@ -104,6 +145,9 @@ jobs:
               assert '<script type="application/ld+json">' in html
               assert 'Read FREE with Kindle Unlimited' in html
               assert f"/books/{book['slug']}.html" in html
+              assert 'id="about"' in html
+              assert '../mystery-books.html' in html
+              assert book['amazonUrl'] in html
               assert 'id="listen"' in html
               assert 'JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON' in html
               assert 'Full Audiobook — Coming Soon' in html
@@ -123,6 +167,7 @@ jobs:
               chapter_html = chapter.read_text(encoding='utf-8')
               assert 'JAYTREE_READER_CONVERSION_START' in chapter_html
               assert 'Continue FREE with Kindle Unlimited' in chapter_html
+              assert book['amazonUrl'] in chapter_html
               assert 'JAYTREE_2026_READER_ACCESSIBILITY' in chapter_html
               assert 'Jaytree Books' not in chapter_html
               assert f"{book['title']} — First Chapter | JayTree Books" in chapter_html
@@ -193,7 +238,7 @@ jobs:
           assert 'https://www.JayTreeBooks.com/animated-series.html' in sitemap
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
-          print(f'Generated reader-growth site and QC repair validated with provider={provider}.')
+          print(f'Generated reader-growth site and SEO preservation validated with provider={provider}.')
           PY
 
       - name: Commit generated website assets
