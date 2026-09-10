@@ -110,4 +110,4 @@ window.JT = {
   }
 };
 window.JAYTREE_CONFIG = window.JT;
-// Kindle ASIN link rebuild trigger: 2026-09-10
+// Kindle ASIN link rebuild trigger: 2026-09-10 v2
