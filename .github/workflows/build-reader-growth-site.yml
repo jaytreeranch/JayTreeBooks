@@ -173,7 +173,7 @@ jobs:
           assert 'privacy.html' in legacy and 'terms.html' in legacy
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
-          assert sitemap.count('<url>') == 13
+          assert sitemap.count('<url>') == 14
           assert 'https://www.JayTreeBooks.com/animated-series.html' in sitemap
           assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
           assert (root / 'robots.txt').exists()
