@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Normalize JayTree Books URLs
         shell: bash
@@ -31,7 +31,7 @@ jobs:
 
           allowed_suffixes = {
               '.html', '.htm', '.xml', '.js', '.json', '.css', '.md', '.txt',
-              '.webmanifest', '.yml', '.yaml'
+              '.webmanifest'
           }
           canonical_host = 'https://jaytreebooks.com'
           host_pattern = re.compile(r'https?://(?:www\.)?jaytreebooks\.com', re.I)
@@ -40,6 +40,8 @@ jobs:
           changed = []
 
           for name in tracked:
+              if name.startswith('.github/workflows/'):
+                  continue
               path = Path(name)
               if path.suffix.lower() not in allowed_suffixes:
                   continue
@@ -52,7 +54,7 @@ jobs:
                   path.write_text(normalized, encoding='utf-8')
                   changed.append(name)
 
-          print(f'Normalized {len(changed)} file(s).')
+          print(f'Normalized {len(changed)} site-content file(s).')
           for name in changed:
               print(f'  {name}')
           PY
@@ -68,13 +70,15 @@ jobs:
 
           allowed_suffixes = {
               '.html', '.htm', '.xml', '.js', '.json', '.css', '.md', '.txt',
-              '.webmanifest', '.yml', '.yaml'
+              '.webmanifest'
           }
           tracked = subprocess.check_output(['git', 'ls-files'], text=True).splitlines()
           bad = []
           www_pattern = re.compile(r'https?://www\.jaytreebooks\.com', re.I)
 
           for name in tracked:
+              if name.startswith('.github/workflows/'):
+                  continue
               path = Path(name)
               if path.suffix.lower() not in allowed_suffixes:
                   continue
@@ -86,7 +90,7 @@ jobs:
                   bad.append(name)
 
           if bad:
-              raise SystemExit('WWW JayTree URLs remain in: ' + ', '.join(bad))
+              raise SystemExit('WWW JayTree URLs remain in site content: ' + ', '.join(bad))
 
           cname = Path('CNAME').read_text(encoding='utf-8').strip().lower()
           assert cname == 'jaytreebooks.com', f'Unexpected CNAME: {cname}'
@@ -123,7 +127,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "All JayTree URLs are already normalized."
+            echo "All JayTree site URLs are already normalized."
             exit 0
           fi
           git commit -m "Normalize JayTree canonical URLs"
