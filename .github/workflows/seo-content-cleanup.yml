@@ -1,0 +1,45 @@
+name: JayTree SEO Content Cleanup
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/seo_content_cleanup.py"
+      - ".github/workflows/seo-content-cleanup.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: jaytree-seo-content-cleanup
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply SEO cleanup
+        run: python scripts/seo_content_cleanup.py
+
+      - name: Validate SEO cleanup
+        run: python scripts/seo_content_cleanup.py
+
+      - name: Commit SEO cleanup
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "SEO cleanup is already current."
+            exit 0
+          fi
+          git commit -m "Clean up JayTree SEO metadata and schema"
+          git pull --rebase origin main
+          git push
