@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       max_pages:
-        description: "Maximum Amazon result pages to scan per keyword"
+        description: "Maximum Amazon result pages to scan per keyword (1-5, 40 results/page)"
         required: false
-        default: "3"
+        default: "5"
       keywords:
         description: "Optional | separated keyword list (blank = default 10)"
         required: false
@@ -34,8 +34,7 @@ jobs:
       CANOPY_API_KEY: ${{ secrets.CANOPY_API_KEY }}
       TARGET_ASIN: B0HD52HGGZ
       AMAZON_COUNTRY: US
-      AMAZON_SEARCH_INDEX: KindleStore
-      MAX_PAGES: ${{ github.event.inputs.max_pages || '3' }}
+      MAX_PAGES: ${{ github.event.inputs.max_pages || '5' }}
       KEYWORDS: ${{ github.event.inputs.keywords || '' }}
 
     steps:
