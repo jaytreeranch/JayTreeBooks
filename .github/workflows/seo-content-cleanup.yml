@@ -30,12 +30,25 @@ jobs:
       - name: Validate SEO cleanup
         run: python scripts/seo_content_cleanup.py
 
+      - name: Verify workflow files untouched
+        shell: bash
+        run: |
+          if ! git diff --quiet -- .github/workflows; then
+            echo "::error::SEO cleanup must never modify .github/workflows/."
+            git diff -- .github/workflows
+            exit 1
+          fi
+
       - name: Commit SEO cleanup
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add -A -- . ':(exclude).github/workflows/**'
+          if ! git diff --cached --quiet -- .github/workflows; then
+            echo "::error::SEO cleanup attempted to stage .github/workflows/."
+            exit 1
+          fi
           if git diff --cached --quiet; then
             echo "SEO cleanup is already current."
             exit 0

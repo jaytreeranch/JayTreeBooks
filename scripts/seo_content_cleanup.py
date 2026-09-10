@@ -145,20 +145,21 @@ def patch_all_html_schema_and_video_alt() -> None:
 
 
 def patch_durable_sources() -> None:
-    # Prevent future site rebuilds from re-introducing the former WWW host.
-    for base in (ROOT / "scripts", ROOT / ".github" / "workflows"):
-        for path in base.rglob("*"):
-            if not path.is_file() or path.suffix.lower() not in {".py", ".yml", ".yaml"}:
-                continue
-            if path.name == "seo_content_cleanup.py":
-                continue
-            text = path.read_text(encoding="utf-8")
-            text = text.replace("https://www.JayTreeBooks.com", SITE)
-            text = text.replace(
-                "JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges",
-                SEO["index.html"]["title"],
-            )
-            write_if_changed(path, text)
+    # Workflow definitions are deliberately out of scope. This cleanup may update
+    # source generators under scripts/, but it must never edit .github/workflows/.
+    base = ROOT / "scripts"
+    for path in base.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in {".py", ".yml", ".yaml"}:
+            continue
+        if path.name == "seo_content_cleanup.py":
+            continue
+        text = path.read_text(encoding="utf-8")
+        text = text.replace("https://www.JayTreeBooks.com", SITE)
+        text = text.replace(
+            "JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges",
+            SEO["index.html"]["title"],
+        )
+        write_if_changed(path, text)
 
     builder = ROOT / "scripts" / "build_reader_growth_site.py"
     text = builder.read_text(encoding="utf-8")
@@ -224,14 +225,16 @@ def validate() -> None:
     if sitemap.count("<url>") != 14:
         problems.append(f"sitemap.xml: expected 14 URLs, found {sitemap.count('<url>')}")
 
-    for base in (ROOT / "scripts", ROOT / ".github" / "workflows"):
-        for path in base.rglob("*"):
-            if not path.is_file() or path.suffix.lower() not in {".py", ".yml", ".yaml"}:
-                continue
-            if path.name == "seo_content_cleanup.py":
-                continue
-            if "https://www.JayTreeBooks.com" in path.read_text(encoding="utf-8"):
-                problems.append(f"{path.relative_to(ROOT)}: legacy WWW host remains")
+    # Durable SEO-source checks are limited to scripts/. Workflow definitions are
+    # intentionally read-only for this job and are guarded separately by Actions.
+    base = ROOT / "scripts"
+    for path in base.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in {".py", ".yml", ".yaml"}:
+            continue
+        if path.name == "seo_content_cleanup.py":
+            continue
+        if "https://www.JayTreeBooks.com" in path.read_text(encoding="utf-8"):
+            problems.append(f"{path.relative_to(ROOT)}: legacy WWW host remains")
 
     builder = (ROOT / "scripts" / "build_reader_growth_site.py").read_text(encoding="utf-8")
     if builder.count('"logo": f"{SITE}/icons/icon-512.png"') < 2:
