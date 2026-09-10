@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """JayTree Books Amazon keyword rank tracker using the Canopy API.
 
-The script queries Amazon search results for configured keywords and records the
-organic position of the target ASIN. It is designed for GitHub Actions and keeps
-API usage conservative for Canopy's Hobby plan.
+Queries Canopy's Amazon Search API and records where a target ASIN appears for
+selected shopper searches. The defaults are intentionally conservative so the
+workflow stays well within Canopy Hobby's 100-request monthly allowance.
 """
 
 from __future__ import annotations
@@ -16,14 +16,15 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
-from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 API_KEY = os.environ.get("CANOPY_API_KEY", "").strip()
 TARGET_ASIN = os.environ.get("TARGET_ASIN", "B0HD52HGGZ").strip()
 COUNTRY = os.environ.get("AMAZON_COUNTRY", "US").strip()
-MAX_PAGES = int(os.environ.get("MAX_PAGES", "5"))
+SEARCH_INDEX = os.environ.get("AMAZON_SEARCH_INDEX", "KindleStore").strip()
+MAX_PAGES = int(os.environ.get("MAX_PAGES", "1"))
 
 DEFAULT_KEYWORDS = [
     "cold case mystery",
@@ -40,33 +41,37 @@ DEFAULT_KEYWORDS = [
 
 
 def canopy_search(keyword: str, page: int) -> dict[str, Any]:
-    """Query Canopy's REST search endpoint.
+    """Query Canopy's current REST Amazon Search endpoint."""
+    params = {
+        "searchTerm": keyword,
+        "domain": COUNTRY,
+        "page": str(page),
+    }
+    if SEARCH_INDEX:
+        params["searchIndex"] = SEARCH_INDEX
 
-    Canopy documents a REST Search API at /api/search with query, page and domain
-    parameters and API-key authentication via the Authorization header.
-    """
-    base = "https://rest.canopyapi.co/api/search"
-    url = f"{base}?query={quote(keyword)}&page={page}&domain={COUNTRY}"
+    url = "https://rest.canopyapi.co/v1/amazon/search?" + urlencode(params)
     req = Request(
         url,
         headers={
             "Authorization": f"Bearer {API_KEY}",
             "Accept": "application/json",
-            "User-Agent": "JayTreeBooks-AmazonRankTracker/1.0",
+            "User-Agent": "JayTreeBooks-AmazonRankTracker/1.1",
         },
     )
-    with urlopen(req, timeout=30) as resp:
+    with urlopen(req, timeout=45) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
 def extract_results(payload: dict[str, Any]) -> list[dict[str, Any]]:
-    """Handle the common result shapes used by Canopy Search API responses."""
+    """Handle known and legacy Canopy search response shapes."""
+    data = payload.get("data") if isinstance(payload.get("data"), dict) else {}
     candidates = [
         payload.get("searchResults"),
         payload.get("results"),
         payload.get("organicResults"),
-        payload.get("data", {}).get("searchResults") if isinstance(payload.get("data"), dict) else None,
-        payload.get("data", {}).get("results") if isinstance(payload.get("data"), dict) else None,
+        data.get("searchResults"),
+        data.get("results"),
     ]
     for value in candidates:
         if isinstance(value, list):
@@ -88,26 +93,18 @@ def normalize_asin(item: dict[str, Any]) -> str:
 
 
 def is_sponsored(item: dict[str, Any]) -> bool:
-    for key in ("sponsored", "isSponsored", "is_sponsored"):
+    for key in ("sponsored", "isSponsored", "is_sponsored", "sponsoredAd", "isAd"):
         if key in item:
-            return bool(item[key])
+            value = item[key]
+            if isinstance(value, str):
+                return value.lower() in {"true", "1", "yes", "sponsored"}
+            return bool(value)
     return False
-
-
-def title_of(item: dict[str, Any]) -> str:
-    for key in ("title", "name", "productTitle"):
-        value = item.get(key)
-        if value:
-            return str(value)
-    product = item.get("product")
-    if isinstance(product, dict):
-        return str(product.get("title", ""))
-    return ""
 
 
 def rank_keyword(keyword: str) -> dict[str, Any]:
     organic_seen = 0
-    sponsored_matches: list[dict[str, Any]] = []
+    sponsored_seen = False
 
     for page in range(1, MAX_PAGES + 1):
         payload = canopy_search(keyword, page)
@@ -119,7 +116,7 @@ def rank_keyword(keyword: str) -> dict[str, Any]:
                 "found": False,
                 "organic_rank": None,
                 "page": None,
-                "sponsored_seen": bool(sponsored_matches),
+                "sponsored_seen": sponsored_seen,
                 "status": "no_results_or_unrecognized_response",
             }
 
@@ -128,7 +125,7 @@ def rank_keyword(keyword: str) -> dict[str, Any]:
             sponsored = is_sponsored(item)
             if sponsored:
                 if asin.upper() == TARGET_ASIN.upper():
-                    sponsored_matches.append({"page": page, "title": title_of(item)})
+                    sponsored_seen = True
                 continue
 
             organic_seen += 1
@@ -138,7 +135,7 @@ def rank_keyword(keyword: str) -> dict[str, Any]:
                     "found": True,
                     "organic_rank": organic_seen,
                     "page": page,
-                    "sponsored_seen": bool(sponsored_matches),
+                    "sponsored_seen": sponsored_seen,
                     "status": "found",
                 }
 
@@ -149,7 +146,7 @@ def rank_keyword(keyword: str) -> dict[str, Any]:
         "found": False,
         "organic_rank": None,
         "page": None,
-        "sponsored_seen": bool(sponsored_matches),
+        "sponsored_seen": sponsored_seen,
         "status": f"not_found_first_{MAX_PAGES}_pages",
     }
 
@@ -174,6 +171,7 @@ def write_outputs(rows: list[dict[str, Any]]) -> None:
         "",
         f"- ASIN: `{TARGET_ASIN}`",
         f"- Marketplace: `{COUNTRY}`",
+        f"- Search index: `{SEARCH_INDEX or 'All'}`",
         f"- Checked: `{datetime.now(timezone.utc).isoformat()}`",
         f"- Max pages per keyword: `{MAX_PAGES}`",
         "",
@@ -194,8 +192,22 @@ def main() -> int:
         print("ERROR: CANOPY_API_KEY is not set", file=sys.stderr)
         return 2
 
+    if MAX_PAGES < 1 or MAX_PAGES > 10:
+        print("ERROR: MAX_PAGES must be between 1 and 10", file=sys.stderr)
+        return 2
+
     keywords_env = os.environ.get("KEYWORDS", "").strip()
     keywords = [k.strip() for k in keywords_env.split("|") if k.strip()] if keywords_env else DEFAULT_KEYWORDS
+
+    estimated_requests = len(keywords) * MAX_PAGES
+    print(f"Target ASIN: {TARGET_ASIN}")
+    print(f"Search index: {SEARCH_INDEX}")
+    print(f"Keywords: {len(keywords)}")
+    print(f"Maximum possible API requests this run: {estimated_requests}")
+
+    if estimated_requests > 50:
+        print("ERROR: Refusing a run that could consume more than 50 Canopy requests.", file=sys.stderr)
+        return 2
 
     rows: list[dict[str, Any]] = []
     for keyword in keywords:
@@ -203,6 +215,8 @@ def main() -> int:
         try:
             row = rank_keyword(keyword)
         except HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")[:500]
+            print(f"HTTP {exc.code}: {body}", file=sys.stderr)
             row = {
                 "keyword": keyword,
                 "found": False,
@@ -212,6 +226,7 @@ def main() -> int:
                 "status": f"http_error_{exc.code}",
             }
         except (URLError, TimeoutError, json.JSONDecodeError) as exc:
+            print(f"Request error: {exc}", file=sys.stderr)
             row = {
                 "keyword": keyword,
                 "found": False,
@@ -224,6 +239,11 @@ def main() -> int:
         print(row)
 
     write_outputs(rows)
+
+    if all(row["status"].startswith(("http_error_", "error_", "no_results")) for row in rows):
+        print("ERROR: All keyword checks failed; inspect the API response before trusting the report.", file=sys.stderr)
+        return 1
+
     return 0
 
 
