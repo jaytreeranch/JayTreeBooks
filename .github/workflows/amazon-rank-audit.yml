@@ -8,9 +8,15 @@ on:
         required: false
         default: "5"
       keywords:
-        description: "Optional | separated keyword list (blank = default 22 portfolio phrases)"
+        description: "Optional | separated keyword list (blank = default 25 five-novel phrases)"
         required: false
         default: ""
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/amazon_rank_tracker.py"
+      - ".github/workflows/amazon-rank-audit.yml"
   schedule:
     - cron: "17 14 1,15 * *"
 
@@ -45,7 +51,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run Amazon portfolio keyword rank audit
+      - name: Run Amazon five-novel keyword rank audit
         run: python scripts/amazon_rank_tracker.py
 
       - name: Show latest report
@@ -73,6 +79,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No report changes to commit."
           else
-            git commit -m "Update Amazon portfolio rank report"
+            git commit -m "Update Amazon five-novel rank report"
             git push
           fi
