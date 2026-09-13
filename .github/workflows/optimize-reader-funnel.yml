@@ -1,0 +1,44 @@
+name: Optimize Reader Funnel
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/optimize_reader_funnel.py"
+      - ".github/workflows/optimize-reader-funnel.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: optimize-reader-funnel
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Optimize five-book conversion funnel
+        run: python scripts/optimize_reader_funnel.py
+
+      - name: Commit optimized book pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add books/the-hollow-bell.html books/second-draft.html books/the-hollow-year.html books/the-absconding.html books/the-correction.html
+          if git diff --cached --quiet; then
+            echo "No reader-funnel changes to commit."
+          else
+            git commit -m "Optimize five-book reader conversion funnel"
+            git push
+          fi
