@@ -11,12 +11,6 @@ on:
         description: "Optional | separated keyword list (blank = default 25 five-novel phrases)"
         required: false
         default: ""
-  push:
-    branches:
-      - main
-    paths:
-      - "scripts/amazon_rank_tracker.py"
-      - ".github/workflows/amazon-rank-audit.yml"
   schedule:
     - cron: "17 14 1,15 * *"
 
@@ -74,7 +68,7 @@ jobs:
         if: success()
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "4189821+github-actions[bot]@users.noreply.github.com"
           git add reports/amazon-rank/
           if git diff --cached --quiet; then
             echo "No report changes to commit."
