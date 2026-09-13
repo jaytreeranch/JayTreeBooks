@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""JayTree Books six-title Amazon keyword rank tracker using Canopy GraphQL.
+"""JayTree Books five-novel Amazon keyword rank tracker using Canopy GraphQL.
 
-One Canopy request is sent per keyword. Each response is scanned once for all
-six JayTree Kindle ASINs, so portfolio tracking does not multiply API usage by
-book count. The report also records Canopy rate-limit headers when available so
-we can verify the exact credit cost of each run.
+One Canopy HTTP request is sent per keyword. Each response is scanned once for
+all five JayTree Kindle ASINs, so portfolio tracking does not multiply API
+usage by book count. The report records the exact search scope and Canopy
+rate-limit headers when available.
 """
 
 from __future__ import annotations
@@ -22,8 +22,9 @@ from urllib.request import Request, urlopen
 API_KEY = os.environ.get("CANOPY_API_KEY", "").strip()
 COUNTRY = os.environ.get("AMAZON_COUNTRY", "US").strip()
 MAX_PAGES = int(os.environ.get("MAX_PAGES", "5"))
-PAGE_SIZE = 40
+PAGE_SIZE = 20
 GRAPHQL_URL = "https://graphql.canopyapi.co/"
+SEARCH_SCOPE = "Amazon US featured search via Canopy (no categoryId filter)"
 
 BOOKS = [
     {"name": "The Hollow Bell — Full Novel", "asin": "B0HD52HGGZ"},
@@ -31,12 +32,14 @@ BOOKS = [
     {"name": "The Hollow Year", "asin": "B0HFXF8MTP"},
     {"name": "The Absconding", "asin": "B0HDWRVSXQ"},
     {"name": "The Correction", "asin": "B0HFV8KCVL"},
-    {"name": "The Hollow Bell — Novella", "asin": "B0HD2H8586"},
 ]
 BOOK_BY_ASIN = {book["asin"].upper(): book for book in BOOKS}
 
-# 22 phrases: broad enough to compare the catalog, but focused enough to be
-# actionable for KDP metadata and Amazon Ads. One phrase = one Canopy request.
+# 25 portfolio phrases chosen after the September 2026 KDP metadata/A+ refresh.
+# Each phrase costs one Canopy HTTP request, while every response checks all
+# five novels at once. The twice-monthly scheduled run therefore uses at most
+# 50 requests/month, leaving room inside the 100-request Hobby allowance for
+# manual validation runs.
 DEFAULT_KEYWORDS = [
     "small town mystery",
     "psychological mystery",
@@ -46,51 +49,51 @@ DEFAULT_KEYWORDS = [
     "cold case mystery",
     "small town cold case mystery",
     "missing sister mystery",
-    "missing person mystery",
     "police procedural mystery",
     "women sleuth mystery",
-    "winter mystery",
-    "memory mystery",
+    "missing woman mystery",
+    "haunted house psychological mystery",
     "reality bending mystery",
-    "supernatural disappearance mystery",
-    "rural mystery",
-    "homecoming mystery",
+    "memory mystery",
+    "small town supernatural mystery",
+    "memory erasure mystery",
+    "missing brother supernatural mystery",
+    "small town Vermont mystery",
+    "New England folklore mystery",
+    "beekeeping small town mystery",
+    "environmental conspiracy mystery",
     "archive mystery",
-    "conspiracy mystery",
-    "altered records mystery",
-    "mystery novella",
-    "supernatural mystery novella",
+    "archive conspiracy mystery",
+    "altered records psychological mystery",
+    "memory manipulation mystery",
 ]
 
-# Phrases we consider strategically relevant to each book. All six ASINs are
-# still checked against every phrase, so unexpected rankings are also captured.
+# Strategically relevant phrases per novel. Every ASIN is still checked against
+# every portfolio phrase so unexpected cross-title rankings are preserved.
 RELEVANT_KEYWORDS = {
     "B0HD52HGGZ": {
         "small town mystery", "supernatural mystery", "atmospheric mystery",
         "cold case mystery", "small town cold case mystery", "missing sister mystery",
-        "missing person mystery", "police procedural mystery", "women sleuth mystery",
-        "winter mystery",
+        "police procedural mystery", "women sleuth mystery",
     },
     "B0HFYQ9KGV": {
-        "psychological mystery", "atmospheric mystery", "memory mystery",
-        "reality bending mystery",
+        "psychological mystery", "atmospheric mystery", "missing woman mystery",
+        "haunted house psychological mystery", "reality bending mystery", "memory mystery",
     },
     "B0HFXF8MTP": {
         "small town mystery", "psychological mystery", "supernatural mystery",
-        "atmospheric mystery", "memory mystery", "reality bending mystery",
-        "supernatural disappearance mystery",
+        "atmospheric mystery", "memory mystery", "small town supernatural mystery",
+        "memory erasure mystery", "missing brother supernatural mystery",
     },
     "B0HDWRVSXQ": {
         "psychological mystery", "atmospheric mystery", "family secrets mystery",
-        "rural mystery", "homecoming mystery",
+        "small town Vermont mystery", "New England folklore mystery",
+        "beekeeping small town mystery", "environmental conspiracy mystery",
     },
     "B0HFV8KCVL": {
         "small town mystery", "psychological mystery", "atmospheric mystery",
-        "archive mystery", "conspiracy mystery", "altered records mystery",
-    },
-    "B0HD2H8586": {
-        "small town mystery", "supernatural mystery", "atmospheric mystery",
-        "mystery novella", "supernatural mystery novella",
+        "archive mystery", "archive conspiracy mystery",
+        "altered records psychological mystery", "memory manipulation mystery",
     },
 }
 
@@ -145,7 +148,7 @@ def canopy_search(keyword: str) -> dict[str, Any]:
             "Authorization": f"Bearer {API_KEY}",
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "JayTreeBooks-AmazonPortfolioRankTracker/3.0",
+            "User-Agent": "JayTreeBooks-AmazonPortfolioRankTracker/4.0",
         },
     )
     REQUEST_COUNT += 1
@@ -239,12 +242,13 @@ def failure_rows(keyword: str, status: str) -> list[dict[str, Any]]:
 
 
 def usage_summary() -> dict[str, Any]:
-    # Canopy documents each API call as one request/credit. Where the API
-    # returns X-RateLimit-Remaining, use the header delta as an independent
-    # cross-check of the run's exact cost.
     header_start = RATE_LIMIT_REMAINING[0] + 1 if RATE_LIMIT_REMAINING else None
     header_end = RATE_LIMIT_REMAINING[-1] if RATE_LIMIT_REMAINING else None
-    header_used = (header_start - header_end) if header_start is not None and header_end is not None else None
+    header_used = (
+        header_start - header_end
+        if header_start is not None and header_end is not None
+        else None
+    )
     return {
         "requests_sent": REQUEST_COUNT,
         "header_limit": RATE_LIMIT_LIMIT[-1] if RATE_LIMIT_LIMIT else None,
@@ -273,10 +277,11 @@ def write_outputs(rows: list[dict[str, Any]], keywords: list[str]) -> None:
 
     md_path = out_dir / "latest.md"
     lines = [
-        "# JayTree Books Amazon Search Portfolio Baseline",
+        "# JayTree Books Amazon Search Post-Optimization Baseline",
         "",
         f"- Marketplace: `{COUNTRY}`",
         "- API: `Canopy GraphQL`",
+        f"- Search scope: `{SEARCH_SCOPE}`",
         f"- Checked: `{now}`",
         f"- Books checked: `{len(BOOKS)}`",
         f"- Unique keywords checked: `{len(keywords)}`",
@@ -287,21 +292,39 @@ def write_outputs(rows: list[dict[str, Any]], keywords: list[str]) -> None:
     if usage["header_end"] is not None:
         lines.append(f"- Canopy credits remaining after run: `{usage['header_end']}`")
     if usage["header_used"] is not None:
-        lines.append(f"- Canopy credits consumed this run (rate-limit header delta): `{usage['header_used']}`")
-    lines.extend(["", "## Portfolio summary", "", "| Book | ASIN | Best Organic Rank Found | Best Keyword | Relevant Phrases Found |", "|---|---|---:|---|---:|"])
+        lines.append(
+            f"- Canopy credits consumed this run (rate-limit header delta): `{usage['header_used']}`"
+        )
+    lines.extend([
+        "",
+        "## Portfolio summary",
+        "",
+        "| Book | ASIN | Best Organic Rank Found | Best Keyword | Relevant Phrases Found |",
+        "|---|---|---:|---|---:|",
+    ])
 
     for book in BOOKS:
-        book_rows = [r for r in rows if r["asin"] == book["asin"] and r["status"] == "found"]
+        book_rows = [
+            r for r in rows
+            if r["asin"] == book["asin"] and r["status"] == "found"
+        ]
         relevant_found = [r for r in book_rows if r["relevant"]]
         best = min(book_rows, key=lambda r: r["organic_rank"]) if book_rows else None
         lines.append(
             f"| {book['name']} | `{book['asin']}` | "
-            f"{best['organic_rank'] if best else '—'} | {best['keyword'] if best else '—'} | {len(relevant_found)} |"
+            f"{best['organic_rank'] if best else '—'} | "
+            f"{best['keyword'] if best else '—'} | {len(relevant_found)} |"
         )
 
     for book in BOOKS:
         asin = book["asin"]
-        lines.extend(["", f"## {book['name']}", "", "| Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |", "|---|---:|---:|---:|:---:|---|"])
+        lines.extend([
+            "",
+            f"## {book['name']}",
+            "",
+            "| Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |",
+            "|---|---:|---:|---:|:---:|---|",
+        ])
         book_rows = [r for r in rows if r["asin"] == asin and r["relevant"]]
         for row in book_rows:
             rank = row["organic_rank"] if row["organic_rank"] is not None else "—"
@@ -314,16 +337,24 @@ def write_outputs(rows: list[dict[str, Any]], keywords: list[str]) -> None:
     unexpected = [r for r in rows if r["found"] and not r["relevant"]]
     lines.extend(["", "## Unexpected cross-title rankings", ""])
     if unexpected:
-        lines.extend(["| Book | Keyword | Organic Rank | Page |", "|---|---|---:|---:|"])
+        lines.extend([
+            "| Book | Keyword | Organic Rank | Page |",
+            "|---|---|---:|---:|",
+        ])
         for row in sorted(unexpected, key=lambda r: (r["organic_rank"], r["book"])):
-            lines.append(f"| {row['book']} | {row['keyword']} | {row['organic_rank']} | {row['page']} |")
+            lines.append(
+                f"| {row['book']} | {row['keyword']} | {row['organic_rank']} | {row['page']} |"
+            )
     else:
         lines.append("None found in this baseline.")
 
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     usage_path = out_dir / "usage-latest.json"
-    usage_path.write_text(json.dumps({"checked": now, "keywords": len(keywords), **usage}, indent=2) + "\n", encoding="utf-8")
+    usage_path.write_text(
+        json.dumps({"checked": now, "keywords": len(keywords), **usage}, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def main() -> int:
@@ -335,10 +366,15 @@ def main() -> int:
         return 2
 
     keywords_env = os.environ.get("KEYWORDS", "").strip()
-    keywords = [k.strip() for k in keywords_env.split("|") if k.strip()] if keywords_env else DEFAULT_KEYWORDS
+    keywords = (
+        [k.strip() for k in keywords_env.split("|") if k.strip()]
+        if keywords_env
+        else DEFAULT_KEYWORDS
+    )
 
-    print(f"JayTree titles: {len(BOOKS)}")
+    print(f"JayTree full novels: {len(BOOKS)}")
     print(f"Marketplace: {COUNTRY}")
+    print(f"Search scope: {SEARCH_SCOPE}")
     print(f"Unique keywords: {len(keywords)}")
     print(f"Pages requested per keyword: {MAX_PAGES} x {PAGE_SIZE}")
     print(f"Maximum Canopy API requests this run: {len(keywords)}")
@@ -370,7 +406,9 @@ def main() -> int:
 
         hits = [r for r in keyword_rows if r["found"]]
         if hits:
-            print("  Found: " + ", ".join(f"{r['book']} #{r['organic_rank']}" for r in hits))
+            print("  Found: " + ", ".join(
+                f"{r['book']} #{r['organic_rank']}" for r in hits
+            ))
         else:
             scanned = max((r["results_scanned"] for r in keyword_rows), default=0)
             print(f"  No JayTree ASIN found; organic results scanned: {scanned}")
