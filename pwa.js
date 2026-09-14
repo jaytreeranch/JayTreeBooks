@@ -13,6 +13,68 @@
     }
   };
 
+  const makeLink = (href, text, className = "") => {
+    const link = document.createElement("a");
+    link.href = href;
+    link.textContent = text;
+    if (className) link.className = className;
+    return link;
+  };
+
+  const ensureSeoLinks = () => {
+    const path = window.location.pathname.toLowerCase();
+    const isHome = path === "/" || path.endsWith("/index.html");
+
+    if (isHome) {
+      const collectionLinks = document.querySelector(".books .section-head > div:last-child");
+      if (collectionLinks && !collectionLinks.querySelector('[href="kindle-unlimited-mystery-books.html"]')) {
+        collectionLinks.appendChild(document.createElement("br"));
+        const link = makeLink("kindle-unlimited-mystery-books.html", "Kindle Unlimited mystery books →", "case-files-detail-link");
+        link.dataset.track = "kindle_unlimited_mystery_books";
+        collectionLinks.appendChild(link);
+      }
+
+      const kuActions = document.querySelector(".ku-home-actions");
+      if (kuActions && !kuActions.querySelector('[href="kindle-unlimited-mystery-books.html"]')) {
+        const link = makeLink("kindle-unlimited-mystery-books.html", "Browse KU Mysteries", "cta");
+        link.dataset.track = "ku_mystery_guide";
+        kuActions.insertBefore(link, kuActions.firstChild);
+      }
+    }
+
+    if (path.endsWith("/mystery-books.html")) {
+      const topicLinks = document.querySelector(".topic-links");
+      if (topicLinks && !topicLinks.querySelector('[href="kindle-unlimited-mystery-books.html"]')) {
+        topicLinks.appendChild(makeLink("kindle-unlimited-mystery-books.html", "Kindle Unlimited mystery books"));
+      }
+
+      const kuActions = document.querySelector("#kindle-unlimited-mysteries .hero-actions");
+      if (kuActions && !kuActions.querySelector('[href="kindle-unlimited-mystery-books.html"]')) {
+        kuActions.insertBefore(makeLink("kindle-unlimited-mystery-books.html", "Browse KU Mysteries", "cta solid"), kuActions.firstChild);
+      }
+    }
+
+    if (path.endsWith("/psychological-mystery-books.html")) {
+      const nav = document.querySelector(".nav-links");
+      if (nav && !nav.querySelector('[href="kindle-unlimited-mystery-books.html"]')) {
+        const allBooks = nav.querySelector('[href="index.html#books"]');
+        nav.insertBefore(makeLink("kindle-unlimited-mystery-books.html", "Kindle Unlimited"), allBooks || null);
+      }
+
+      const footerLinks = document.querySelector(".footer-links");
+      if (footerLinks && !footerLinks.querySelector('[href="kindle-unlimited-mystery-books.html"]')) {
+        footerLinks.append(" · ");
+        footerLinks.appendChild(makeLink("kindle-unlimited-mystery-books.html", "Kindle Unlimited Mystery Books"));
+      }
+    }
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ensureSeoLinks, { once: true });
+  } else {
+    ensureSeoLinks();
+  }
+
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("/service-worker.js", { scope: "/" })
