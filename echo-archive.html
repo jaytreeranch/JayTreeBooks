@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#020506">
+<title>Echo Archive | JayTree Interactive</title>
+<meta name="description" content="A hidden Hollow Bell Echo Resonance development fragment inside JayTree Interactive.">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+<link rel="stylesheet" href="/echo-archive.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
+</head>
+<body>
+<header class="topbar"><div class="wrap"><a class="back" href="interactive.html">← Return to recovered fragments</a><span class="status">SIGNAL 02 // ECHO ARCHIVE</span></div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="eyebrow">Restricted development fragment</div><h1>Listen for what the snow remembers.</h1><p>This scene does not respond to ordinary sight. Echo Resonance exposes traces the physical world has stopped admitting are there.</p><div class="instruction">Desktop: hold SHIFT &nbsp; // &nbsp; Touch: press and hold ECHO</div></div></section>
+<div class="wrap game-shell" data-echo-game>
+<div class="game-head"><b>Hollow Bell // Echo Resonance study</b><span class="counter" data-counter>0 / 3 traces recovered</span></div>
+<div class="scene" data-scene>
+<img class="base" src="images/interactive/HB_PT04_Normal_Traversal_Approach.webp" alt="Snow-covered Millbrook approach concept art">
+<img class="echo-layer" src="images/interactive/HB_PT01_Echo_Route_Reveal.webp" alt="" aria-hidden="true">
+<button class="clue clue-a" type="button" data-clue="memory" aria-label="Resonant trace near the marked tree"></button>
+<button class="clue clue-b" type="button" data-clue="route" aria-label="Resonant trace near the fallen log"></button>
+<button class="clue clue-c" type="button" data-clue="signal" aria-label="Resonant trace toward Millbrook"></button>
+</div>
+<div class="echo-controls"><div class="hint">Hold the resonance long enough to see what the world is hiding.</div><button class="echo-button" type="button" data-echo-button>Hold Echo</button><div class="hint">Find all three traces while Echo is active.</div></div>
+<div class="clue-log">
+<div class="log-item" data-log="memory"><b>Trace 01 // unresolved</b><span>Memory residue near a marked tree.</span></div>
+<div class="log-item" data-log="route"><b>Trace 02 // unresolved</b><span>Traversal state hidden in plain sight.</span></div>
+<div class="log-item" data-log="signal"><b>Trace 03 // unresolved</b><span>A distant response pointing toward Millbrook.</span></div>
+</div>
+</div>
+<section class="wrap reward" data-reward aria-live="polite">
+<div class="reward-image"><img src="images/interactive/HB_PT03_Bell_Ruin_Investigation.webp" alt="The Hollow Bell concept art showing the Bell Ruin investigation"></div>
+<div class="reward-copy"><div class="eyebrow">Signal recovered // Bell Ruin</div><h2>The bell remembers.</h2><p>You recovered the three resonance traces. The route does not end at Millbrook. It leads toward a place where silence has been preserved too carefully.</p><p>This is a development concept for <em>The Hollow Bell: Echoes of Millbrook</em> — a cinematic 2D/2.5D mystery adventure being built so its locations and systems can later expand into a free-roaming 3D world.</p><p class="dev-note">Prototype study // Echo Resonance // concept art, not final gameplay footage</p><a class="return-link" href="interactive.html#concept-art">Return to the archive →</a></div>
+</section>
+</main>
+<footer>JayTree Interactive // Echo Archive // access found, not advertised</footer>
+<script>
+(function(){
+var scene=document.querySelector('[data-scene]'),button=document.querySelector('[data-echo-button]'),counter=document.querySelector('[data-counter]'),reward=document.querySelector('[data-reward]'),found=new Set(),echo=false,audio=null,completed=false;
+try{if(sessionStorage.getItem('jt-echo-enter')==='1'){sessionStorage.removeItem('jt-echo-enter');if(typeof gtag==='function')gtag('event','echo_archive_arrival',{source:'second_easter_egg',transport_type:'beacon'})}}catch(_){}
+function ctx(){if(!audio){var A=window.AudioContext||window.webkitAudioContext;if(A)audio=new A()}return audio}
+function tone(freq,dur,gain,type){try{var c=ctx();if(!c)return;var o=c.createOscillator(),g=c.createGain(),n=c.currentTime;o.type=type||'sine';o.frequency.setValueAtTime(freq,n);g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(gain||.06,n+.02);g.gain.exponentialRampToValueAtTime(.0001,n+dur);o.connect(g);g.connect(c.destination);o.start(n);o.stop(n+dur+.04)}catch(_){}}
+function setEcho(on,source){if(echo===on)return;echo=on;scene.classList.toggle('echo-on',on);button.classList.toggle('active',on);button.textContent=on?'Echo Active':'Hold Echo';if(on){tone(146.83,.48,.045,'sine');if(typeof gtag==='function')gtag('event','echo_resonance_activate',{source:source||'unknown',transport_type:'beacon'})}}
+function finish(){if(completed)return;completed=true;reward.classList.add('unlocked');tone(220,.75,.06,'sine');setTimeout(function(){tone(329.63,.8,.045,'triangle')},130);if(typeof gtag==='function')gtag('event','echo_archive_complete',{traces:3,transport_type:'beacon'});setTimeout(function(){reward.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'})},350)}
+document.querySelectorAll('[data-clue]').forEach(function(el){el.addEventListener('click',function(){if(!echo)return;var id=el.getAttribute('data-clue');if(found.has(id))return;found.add(id);el.classList.add('found');var log=document.querySelector('[data-log="'+id+'"]');if(log){log.classList.add('found');log.querySelector('b').textContent=log.querySelector('b').textContent.replace('unresolved','recovered')}counter.textContent=found.size+' / 3 traces recovered';tone(220+found.size*74,.36,.055,'triangle');if(typeof gtag==='function')gtag('event','echo_clue_found',{clue_id:id,clue_count:found.size,transport_type:'beacon'});if(found.size===3)finish()})});
+window.addEventListener('keydown',function(e){if(e.key==='Shift'&&!e.repeat){e.preventDefault();setEcho(true,'shift_key')}});
+window.addEventListener('keyup',function(e){if(e.key==='Shift')setEcho(false,'shift_key')});
+window.addEventListener('blur',function(){setEcho(false,'blur')});
+button.addEventListener('pointerdown',function(e){e.preventDefault();button.setPointerCapture&&button.setPointerCapture(e.pointerId);setEcho(true,'hold_button')});
+['pointerup','pointercancel','pointerleave'].forEach(function(n){button.addEventListener(n,function(){setEcho(false,'hold_button')})});
+button.addEventListener('keydown',function(e){if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();setEcho(true,'keyboard_button')}});button.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')setEcho(false,'keyboard_button')});
+})();
+</script>
+</body>
+</html>

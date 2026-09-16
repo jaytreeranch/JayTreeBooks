@@ -64,3 +64,13 @@
   .fragment-vault>summary{position:relative;padding-right:46px}
   .fragment-vault>summary:after{position:absolute;right:18px;top:16px}
 }
+
+/* SECOND EASTER EGG // ECHO ARCHIVE */
+.trace-line strong{color:#8f2d29;font-weight:600;letter-spacing:.18em}
+.secret-signal{border:0;background:transparent;padding:0;cursor:default;border-radius:50%}
+.secret-signal:focus-visible{outline:1px solid rgba(199,68,61,.55);outline-offset:6px}
+.secret-signal.is-denied{animation:signal-denied .42s ease}
+.secret-signal.is-unlocking img{animation:signal-unlock .5s ease forwards}
+@keyframes signal-denied{0%,100%{transform:translateX(0)}35%{transform:translateX(-2px)}65%{transform:translateX(2px)}}
+@keyframes signal-unlock{0%{filter:drop-shadow(0 0 18px rgba(179,25,24,.48));transform:scale(1)}55%{filter:drop-shadow(0 0 28px rgba(78,216,235,.9));transform:scale(1.18)}100%{filter:drop-shadow(0 0 34px rgba(179,25,24,.95));transform:scale(.92)}}
+@media(prefers-reduced-motion:reduce){.secret-signal.is-denied,.secret-signal.is-unlocking img{animation:none!important}}
