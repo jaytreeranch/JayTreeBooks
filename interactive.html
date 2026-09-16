@@ -36,6 +36,7 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 @media(max-width:520px){html,body{width:100%;max-width:100%;overflow-x:hidden}.hero-shell{width:100%;max-width:100%;min-width:0;overflow:hidden}.hero-card{width:calc(100% - 32px);max-width:calc(100% - 32px)}.hero-copy{width:calc(100% - 32px);max-width:calc(100% - 32px);min-width:0}.hero-copy h1{max-width:100%;overflow-wrap:break-word}.archive-fragment{width:100%;max-width:100%;overflow:hidden}.trace-line{white-space:normal;text-align:center;line-height:1.5;justify-content:center;gap:6px}.trace-line:before,.trace-line:after{display:none}.trace-line span{white-space:nowrap}.archive-fragment strong{font-size:.78rem;letter-spacing:.06em}section{padding:66px 0}.hero{padding:86px 0 46px;min-height:auto}.hero-copy{margin-top:23px;padding:0 18px}.hero-copy h1{font-size:clamp(2rem,9vw,2.55rem);letter-spacing:.012em}.hero-copy>p{font-size:.94rem;line-height:1.55;max-width:350px}.archive-fragment{padding:17px 18px}.found{font-size:.57rem;letter-spacing:.1em}.project{min-height:430px}.project-copy{padding:24px}.signal-grid{grid-template-columns:1fr}.topbar .wrap{padding-left:16px;padding-right:16px}.access{display:none}.trace{padding:0 16px}.trace-line{font-size:.55rem;letter-spacing:.1em}.glyph{width:58px;height:58px}.glyph img{width:50px;height:50px}}
 @media(prefers-reduced-motion:reduce){.arrival-dissolve,.secret-arrival .hero-card,.secret-arrival .hero-copy,.project img{transition:none!important}}
 </style>
+<link rel="stylesheet" href="/interactive-fragments.css">
 <!-- JAYTREE_PWA_HEAD_START -->
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
@@ -62,7 +63,7 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
     </div>
   </div>
 </section>
-<div class="trace"><div class="trace-line"><span>TRACE 01</span> The first door was never locked. It was overlooked.</div></div>
+<div class="trace"><button class="trace-line trace-trigger" type="button" data-open-fragments aria-controls="fragment-vault"><span>TRACE 01</span> The first door was never locked. It was overlooked.</button></div>
 <section id="work">
   <div class="wrap">
     <div class="section-head"><div><div class="eyebrow">Projects in the dark</div><h2>What is taking shape below the surface.</h2></div><p>These are not release promises. They are signals from active development — worlds, systems, atmospheres, and investigative ideas becoming playable form.</p></div>
@@ -70,6 +71,47 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
       <article class="project"><img src="images/interactive/interactive-blood-moon-emblem.webp" alt="JayTree Interactive tree and controller emblem" loading="lazy"><div class="project-copy"><span class="status">In development</span><h3>The Hollow Bell</h3><p>A narrative mystery game rooted in Millbrook Falls: atmosphere, clues, environmental storytelling, and a world designed to reward looking closer.</p><div class="project-meta">CURRENT PATH // cinematic 2.5D exploration · modular game-ready assets · future 3D expansion in mind</div></div></article>
       <article class="project"><img src="images/interactive/interactive-controller-emblem.webp" alt="JayTree Interactive controller emblem" loading="lazy"><div class="project-copy"><span class="status">Prototype track</span><h3>Mystery Challenge</h3><p>The case-file idea is being pushed toward interactive play: evidence, contradictions, choices, and the pressure of deciding what matters before the truth is revealed.</p><div class="project-meta">CURRENT PATH // investigation systems · clue presentation · replayable case structure</div></div></article>
     </div>
+  </div>
+</section>
+<section class="concept-vault" id="concept-art">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">Recovered development fragments</div><h2>The Hollow Bell: a world taking shape.</h2></div>
+      <p><strong>Concept art and presentation targets</strong> for the current cinematic 2D/2.5D game — built to preserve the same locations, systems, and landmarks when the world expands into full 3D.</p>
+    </div>
+    <span class="vault-disclaimer">Concept art // development target // not final gameplay footage</span>
+    <details class="fragment-vault" id="fragment-vault" data-fragment-vault>
+      <summary><span>Open recovered fragments</span><small>4 files // Hollow Bell // unlisted development archive</small></summary>
+      <div class="fragment-intro"><strong>Recovered sequence:</strong> The images below are arranged in intended playable order, not file-number order. They define atmosphere, traversal, Echo Resonance, world scale, and the Bell Ruin investigation while keeping future 3D expansion in view.</div>
+      <div class="fragment-grid">
+        <article class="fragment-card">
+          <figure><img src="images/interactive/HB_PT04_Normal_Traversal_Approach.webp" alt="The Hollow Bell concept art showing Claire approaching Millbrook through a snowy forest trail" loading="lazy" decoding="async"></figure>
+          <div class="fragment-body"><div class="fragment-label"><span>Recovered fragment // PT-04</span><span>Normal traversal</span></div><h3>Millbrook Approach</h3><p>The trail is never as direct as it first appears. Quiet traversal establishes Claire, the winter wilderness, natural obstacles, and Millbrook as a real destination beyond the playable lane.</p><div class="fragment-system">2.5D now // 3D later: route junction, climb/cross interaction, optional exploration path</div></div>
+        </article>
+        <article class="fragment-card echo">
+          <figure><img src="images/interactive/HB_PT01_Echo_Route_Reveal.webp" alt="The Hollow Bell concept art showing Echo Resonance illuminating a hidden route through the snowy forest" loading="lazy" decoding="async"></figure>
+          <div class="fragment-body"><div class="fragment-label"><span>System trace // PT-01</span><span>Echo Resonance</span></div><h3>Echo Path</h3><p>Some things leave a path. Some things leave a memory. Echo reveals what the world has not finished saying — hidden routes, symbols, remnants, and evidence made briefly legible.</p><div class="fragment-system">2.5D now // 3D later: world-space resonance trails, clues, memory silhouettes</div></div>
+        </article>
+        <article class="fragment-card">
+          <figure><img src="images/interactive/HB_PT02_Millbrook_River_Overlook.webp" alt="The Hollow Bell concept art showing Millbrook across a snowy river valley with bridge and waterfalls" loading="lazy" decoding="async"></figure>
+          <div class="fragment-body"><div class="fragment-label"><span>Recovered fragment // PT-02</span><span>World scale</span></div><h3>Millbrook Overlook</h3><p>The town is visible long before it is understood. Distance promises answers; arrival complicates them. The overlook establishes the bridge, river, waterfalls, church, cliffs, and valley as connected geography.</p><div class="fragment-system">2.5D now // 3D later: explorable overlook, streamed vista junction, route orientation hub</div></div>
+        </article>
+        <article class="fragment-card">
+          <figure><img src="images/interactive/HB_PT03_Bell_Ruin_Investigation.webp" alt="The Hollow Bell concept art showing Claire investigating a large bell inside a snow-covered gothic ruin" loading="lazy" decoding="async"></figure>
+          <div class="fragment-body"><div class="fragment-label"><span>Recovered fragment // PT-03</span><span>Investigation landmark</span></div><h3>The Bell Ruin</h3><p>A place of silence, ritual, and unanswered history. The bell does not simply wait to be found. It waits to matter — turning traversal into an authored investigation and story-state change.</p><div class="fragment-system">2.5D now // 3D later: explorable ruin hub, evidence space, graveyard/crypt expansion</div></div>
+        </article>
+      </div>
+      <div class="progression-map">
+        <span class="micro">VS01 intended playable order</span>
+        <div class="progression-rail">
+          <div class="progression-node"><b>PT-04</b><small>Normal traversal</small></div><div class="progression-arrow">→</div>
+          <div class="progression-node"><b>PT-01</b><small>Echo reveal</small></div><div class="progression-arrow">→</div>
+          <div class="progression-node"><b>PT-02</b><small>Millbrook vista</small></div><div class="progression-arrow">→</div>
+          <div class="progression-node"><b>PT-03</b><small>Bell investigation</small></div>
+        </div>
+      </div>
+      <div class="fragment-footnote"><strong>Transmission note:</strong> these are concept-art targets for a current 2D/2.5D game world designed so its landmarks, systems, and modular Unreal assets can later support a free-roaming 3D version.</div>
+    </details>
   </div>
 </section>
 <div class="trace"><div class="trace-line"><span>TRACE 02</span> Listen for what repeats. Look for what should not be there.</div></div>
@@ -105,6 +147,13 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 </footer>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
+(function(){
+  var trigger=document.querySelector('[data-open-fragments]'),vault=document.querySelector('[data-fragment-vault]');
+  if(!trigger||!vault)return;
+  function openVault(source){vault.open=true;vault.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});if(typeof window.gtag==='function')gtag('event','concept_vault_open',{secret_id:'jaytree_interactive',source:source,transport_type:'beacon'});}
+  trigger.addEventListener('click',function(){openVault('trace_01')});
+  vault.addEventListener('toggle',function(){if(vault.open&&typeof window.gtag==='function')gtag('event','concept_vault_toggle',{secret_id:'jaytree_interactive',state:'open',transport_type:'beacon'});});
+})();
 (function(){
   var root=document.documentElement, arrived=false;
   try{arrived=sessionStorage.getItem('jt-secret-enter')==='1'}catch(_){}
