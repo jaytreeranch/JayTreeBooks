@@ -114,7 +114,7 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
     </details>
   </div>
 </section>
-<div class="trace"><div class="trace-line"><span>TRACE 02</span> Listen for what repeats. Look for what should not be there.</div></div>
+<div class="trace"><div class="trace-line"><span>TRACE 02</span> Some records only answer when their state is <strong>SHIFTED</strong>.</div></div>
 <section class="signals" id="signals">
   <div class="wrap">
     <div class="section-head"><div><div class="eyebrow">Build signals</div><h2>Fragments from development.</h2></div><p>Nothing here is a roadmap with dates. Think of it as a signal leaking out of the workshop.</p></div>
@@ -130,11 +130,11 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 <section>
   <div class="wrap transmission">
     <div class="eyebrow">Transmission incomplete</div>
-    <div class="glyph" aria-hidden="true"><img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt=""></div>
+    <button class="glyph secret-signal" type="button" data-second-secret aria-label="A hidden signal mark" title="The mark ignores an ordinary click."><img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt=""></button>
     <h2>The deeper you go, the less the story behaves like a book.</h2>
     <p>This page will change as the games become real enough to show.</p>
     <p>New fragments may appear here before they appear anywhere else.</p>
-    <p class="secret-note">The mark appears where <span>roots, records, and choices</span> meet. That may matter later.</p>
+    <p class="secret-note">The mark appears where <span>roots, records, and choices</span> meet. An ordinary click changes nothing. Hold the change before you choose.</p>
     <a class="back" href="index.html" data-secret-return="close_path">Close the hidden path →</a>
   </div>
 </section>
@@ -147,6 +147,15 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 </footer>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
+(function(){
+  var mark=document.querySelector('[data-second-secret]'),timer=0,opened=false;
+  if(!mark)return;
+  function enter(method){if(opened)return;opened=true;try{sessionStorage.setItem('jt-echo-enter','1')}catch(_){};if(typeof window.gtag==='function')gtag('event','easter_egg_2_activate',{secret_id:'hollow_bell_echo_archive',method:method,transport_type:'beacon'});mark.classList.add('is-unlocking');setTimeout(function(){location.href='echo-archive.html'},520)}
+  mark.addEventListener('click',function(e){if(e.shiftKey){e.preventDefault();enter('shift_click')}else{mark.classList.remove('is-denied');void mark.offsetWidth;mark.classList.add('is-denied')}});
+  mark.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.shiftKey){e.preventDefault();enter('shift_enter')}});
+  mark.addEventListener('pointerdown',function(){timer=setTimeout(function(){enter('long_press')},1800)});
+  ['pointerup','pointercancel','pointerleave'].forEach(function(n){mark.addEventListener(n,function(){clearTimeout(timer)})});
+})();
 (function(){
   var trigger=document.querySelector('[data-open-fragments]'),vault=document.querySelector('[data-fragment-vault]');
   if(!trigger||!vault)return;
