@@ -35,6 +35,7 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 @media(max-width:850px){.section-head,.projects{grid-template-columns:1fr}.section-head{gap:16px}.project{min-height:470px}.signal-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){html,body{width:100%;max-width:100%;overflow-x:hidden}.hero-shell{width:100%;max-width:100%;min-width:0;overflow:hidden}.hero-card{width:calc(100% - 32px);max-width:calc(100% - 32px)}.hero-copy{width:calc(100% - 32px);max-width:calc(100% - 32px);min-width:0}.hero-copy h1{max-width:100%;overflow-wrap:break-word}.archive-fragment{width:100%;max-width:100%;overflow:hidden}.trace-line{white-space:normal;text-align:center;line-height:1.5;justify-content:center;gap:6px}.trace-line:before,.trace-line:after{display:none}.trace-line span{white-space:nowrap}.archive-fragment strong{font-size:.78rem;letter-spacing:.06em}section{padding:66px 0}.hero{padding:86px 0 46px;min-height:auto}.hero-copy{margin-top:23px;padding:0 18px}.hero-copy h1{font-size:clamp(2rem,9vw,2.55rem);letter-spacing:.012em}.hero-copy>p{font-size:.94rem;line-height:1.55;max-width:350px}.archive-fragment{padding:17px 18px}.found{font-size:.57rem;letter-spacing:.1em}.project{min-height:430px}.project-copy{padding:24px}.signal-grid{grid-template-columns:1fr}.topbar .wrap{padding-left:16px;padding-right:16px}.access{display:none}.trace{padding:0 16px}.trace-line{font-size:.55rem;letter-spacing:.1em}.glyph{width:58px;height:58px}.glyph img{width:50px;height:50px}}
 @media(prefers-reduced-motion:reduce){.arrival-dissolve,.secret-arrival .hero-card,.secret-arrival .hero-copy,.project img{transition:none!important}}
+.secret-signal,.secret-signal img{-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important;-webkit-user-drag:none!important;touch-action:none!important}
 </style>
 <link rel="stylesheet" href="/interactive-fragments.css">
 <!-- JAYTREE_PWA_HEAD_START -->
@@ -130,7 +131,7 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 <section>
   <div class="wrap transmission">
     <div class="eyebrow">Transmission incomplete</div>
-    <button class="glyph secret-signal" type="button" data-second-secret aria-label="A hidden signal mark" title="The mark ignores an ordinary click."><img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt=""></button>
+    <button class="glyph secret-signal" type="button" data-second-secret aria-label="A hidden signal mark" title="The mark ignores an ordinary click."><img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt="" draggable="false"></button>
     <h2>The deeper you go, the less the story behaves like a book.</h2>
     <p>This page will change as the games become real enough to show.</p>
     <p>New fragments may appear here before they appear anywhere else.</p>
@@ -148,13 +149,19 @@ section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 (function(){
-  var mark=document.querySelector('[data-second-secret]'),timer=0,opened=false;
+  var mark=document.querySelector('[data-second-secret]'),timer=0,opened=false,secretAudioCtx=null;
   if(!mark)return;
-  function enter(method){if(opened)return;opened=true;try{sessionStorage.setItem('jt-echo-enter','1')}catch(_){};if(typeof window.gtag==='function')gtag('event','easter_egg_2_activate',{secret_id:'hollow_bell_echo_archive',method:method,transport_type:'beacon'});mark.classList.add('is-unlocking');setTimeout(function(){location.href='echo-archive.html'},520)}
-  mark.addEventListener('click',function(e){if(e.shiftKey){e.preventDefault();enter('shift_click')}else{mark.classList.remove('is-denied');void mark.offsetWidth;mark.classList.add('is-denied')}});
+  function prepareSecretAudio(){try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;if(!secretAudioCtx)secretAudioCtx=new AC();if(secretAudioCtx.state==='suspended')secretAudioCtx.resume();return secretAudioCtx}catch(_){return null}}
+  function playEchoUnlock(){try{var ctx=prepareSecretAudio();if(!ctx)return;var now=ctx.currentTime+.01,master=ctx.createGain(),delay=ctx.createDelay(1),wet=ctx.createGain();master.gain.setValueAtTime(.0001,now);master.gain.exponentialRampToValueAtTime(.3,now+.025);master.gain.exponentialRampToValueAtTime(.0001,now+1.05);master.connect(ctx.destination);delay.delayTime.setValueAtTime(.16,now);wet.gain.setValueAtTime(.32,now);delay.connect(wet);wet.connect(master);[[329.63,0,.78,.24],[493.88,.06,.86,.22],[659.25,.13,.7,.18],[987.77,.2,.52,.11]].forEach(function(v){var o=ctx.createOscillator(),g=ctx.createGain();o.type=v[1]===0?'sine':'triangle';o.frequency.setValueAtTime(v[0],now+v[1]);o.frequency.exponentialRampToValueAtTime(v[0]*1.035,now+v[1]+v[2]);g.gain.setValueAtTime(.0001,now+v[1]);g.gain.exponentialRampToValueAtTime(v[3],now+v[1]+.012);g.gain.exponentialRampToValueAtTime(.0001,now+v[1]+v[2]);o.connect(g);g.connect(master);g.connect(delay);o.start(now+v[1]);o.stop(now+v[1]+v[2]+.04)});var lo=ctx.createOscillator(),lg=ctx.createGain();lo.type='sine';lo.frequency.setValueAtTime(92,now);lo.frequency.exponentialRampToValueAtTime(70,now+.72);lg.gain.setValueAtTime(.0001,now);lg.gain.exponentialRampToValueAtTime(.24,now+.025);lg.gain.exponentialRampToValueAtTime(.0001,now+.78);lo.connect(lg);lg.connect(master);lo.start(now);lo.stop(now+.82)}catch(_){}}
+  function enter(method){if(opened)return;opened=true;try{sessionStorage.setItem('jt-echo-enter','1')}catch(_){};if(typeof window.gtag==='function')gtag('event','easter_egg_2_activate',{secret_id:'hollow_bell_echo_archive',method:method,transport_type:'beacon'});playEchoUnlock();mark.classList.add('is-unlocking');setTimeout(function(){location.href='echo-archive.html'},1100)}
+  mark.addEventListener('click',function(e){if(e.shiftKey){e.preventDefault();prepareSecretAudio();enter('shift_click')}else{mark.classList.remove('is-denied');void mark.offsetWidth;mark.classList.add('is-denied')}});
   mark.addEventListener('keydown',function(e){if(e.key==='Enter'&&e.shiftKey){e.preventDefault();enter('shift_enter')}});
-  mark.addEventListener('pointerdown',function(){timer=setTimeout(function(){enter('long_press')},1800)});
-  ['pointerup','pointercancel','pointerleave'].forEach(function(n){mark.addEventListener(n,function(){clearTimeout(timer)})});
+  function armLongPress(e){clearTimeout(timer);if(e&&e.cancelable)e.preventDefault();prepareSecretAudio();timer=setTimeout(function(){enter('long_press')},1250)}
+  function cancelLongPress(){clearTimeout(timer)}
+  mark.addEventListener('contextmenu',function(e){e.preventDefault()});
+  mark.addEventListener('dragstart',function(e){e.preventDefault()});
+  if(window.PointerEvent){mark.addEventListener('pointerdown',armLongPress);['pointerup','pointercancel','pointerleave'].forEach(function(n){mark.addEventListener(n,cancelLongPress)})}
+  else{mark.addEventListener('touchstart',armLongPress,{passive:false});['touchend','touchcancel'].forEach(function(n){mark.addEventListener(n,cancelLongPress)})}
 })();
 (function(){
   var trigger=document.querySelector('[data-open-fragments]'),vault=document.querySelector('[data-fragment-vault]');
