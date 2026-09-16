@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="/echo-archive.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
+<!-- JAYTREE_PWA_HEAD_START -->
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
+<meta name="theme-color" content="#080d12">
+<meta name="application-name" content="JayTree Books">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JayTree Books">
+<link rel="stylesheet" href="/pwa.css">
+<!-- JAYTREE_PWA_HEAD_END -->
 </head>
 <body>
 <header class="topbar"><div class="wrap"><a class="back" href="interactive.html">← Return to recovered fragments</a><span class="status">SIGNAL 02 // ECHO ARCHIVE</span></div></header>
@@ -55,5 +65,8 @@ button.addEventListener('pointerdown',function(e){e.preventDefault();button.setP
 button.addEventListener('keydown',function(e){if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();setEcho(true,'keyboard_button')}});button.addEventListener('keyup',function(e){if(e.key===' '||e.key==='Enter')setEcho(false,'keyboard_button')});
 })();
 </script>
+<!-- JAYTREE_PWA_SCRIPT_START -->
+<script src="/pwa.js" defer></script>
+<!-- JAYTREE_PWA_SCRIPT_END -->
 </body>
 </html>
