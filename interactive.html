@@ -7,36 +7,38 @@
 <meta name="theme-color" content="#070303">
 <title>JayTree Interactive | Hidden Access</title>
 <meta name="description" content="A hidden look inside JayTree Interactive — new mystery games, experiments, and worlds in development.">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon.webp">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
 <script>try{if(sessionStorage.getItem('jt-secret-enter')==='1'){document.documentElement.classList.add('secret-arrival')}}catch(_){}</script>
 <style>
-:root{--black:#050303;--panel:#0c0808;--red:#b31918;--red2:#5d0b0b;--bone:#e3d8c7;--muted:#90847d;--line:rgba(179,25,24,.32);--max:1180px}
+:root{--black:#040202;--panel:#0b0707;--red:#b31918;--red2:#65100f;--red3:#d7473f;--bone:#e7ddd0;--muted:#9b8f88;--line:rgba(189,36,31,.3);--max:1180px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--black);color:var(--bone);font-family:Georgia,"Times New Roman",serif;line-height:1.6;overflow-x:hidden}a{color:inherit}
-body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 50% 7%,rgba(179,25,24,.18),transparent 28%),radial-gradient(circle at 10% 58%,rgba(93,11,11,.12),transparent 26%),linear-gradient(#050303,#080404 45%,#030202)}
-body:after{content:"";position:fixed;inset:0;z-index:-1;opacity:.08;background-image:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.025) 4px);pointer-events:none}
-.wrap{max-width:var(--max);margin:auto;padding-left:24px;padding-right:24px}.eyebrow{font-family:Arial,sans-serif;color:#d8473e;letter-spacing:.28em;text-transform:uppercase;font-size:.68rem}.red{color:#d8473e}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(5,3,3,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(179,25,24,.22)}
-.topbar .wrap{height:62px;display:flex;align-items:center;justify-content:space-between}.topbar a{text-decoration:none}.back{font-family:Arial,sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#8f8580}.back:hover{color:#d8473e}.access{font-family:Consolas,monospace;font-size:.68rem;letter-spacing:.15em;color:#7e1917}
-.hero{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr);place-items:center;padding:96px 0 50px;position:relative}.hero>div{width:100%;min-width:0}.hero-card{width:min(1120px,calc(100vw - 32px));position:relative;border:1px solid rgba(179,25,24,.26);background:#060303;box-shadow:0 34px 100px #000;overflow:hidden}.hero-card img{width:100%;display:block;opacity:.92}.hero-card:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 90px 25px rgba(0,0,0,.52);pointer-events:none}
-.hero-copy{width:min(820px,calc(100vw - 32px));max-width:820px;text-align:center;margin:34px auto 0;padding:0 24px}.hero-copy h1{margin:8px 0 16px;font-weight:400;font-size:clamp(2.2rem,5vw,4.5rem);line-height:1;letter-spacing:.04em}.hero-copy p{color:#aaa09a;font-size:1.05rem;max-width:760px;margin:0 auto}.found{display:inline-flex;gap:12px;align-items:center;padding:8px 12px;border:1px solid var(--line);background:rgba(93,11,11,.09);font-family:Consolas,monospace;color:#c84b45;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase}
-section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr;gap:50px;align-items:end;margin-bottom:34px}.section-head h2{font-size:clamp(2.2rem,4.8vw,4rem);font-weight:400;line-height:1.02;margin:8px 0}.section-head p{margin:0;color:var(--muted)}
-.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.project{position:relative;min-height:520px;border:1px solid var(--line);background:#090505;overflow:hidden;display:flex;align-items:flex-end;box-shadow:0 24px 64px rgba(0,0,0,.3)}
-.project img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.27;filter:saturate(.78) contrast(1.08);transition:.45s}.project:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(5,3,3,.38) 45%,#050303 94%)}.project:hover img{transform:scale(1.025);opacity:.34}
-.project-copy{position:relative;z-index:2;padding:32px}.status{display:inline-block;margin-bottom:14px;padding:5px 9px;border:1px solid rgba(216,71,62,.38);font-family:Arial,sans-serif;color:#d8473e;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}.project h3{font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.02;margin:0 0 14px}.project p{color:#9f9690;margin:0}.project-meta{margin-top:22px;padding-top:16px;border-top:1px solid rgba(179,25,24,.25);font-family:Consolas,monospace;color:#766d68;font-size:.72rem;letter-spacing:.05em}
+body:before{content:"";position:fixed;inset:0;z-index:-3;background:linear-gradient(rgba(3,2,2,.72),rgba(3,2,2,.91)),url("images/interactive/JayTree_Interactive_Mystery_Background.webp") center/cover no-repeat}
+body:after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(circle at 50% 8%,rgba(179,25,24,.17),transparent 28%),linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.34));box-shadow:inset 0 0 180px rgba(0,0,0,.72)}
+.wrap{max-width:var(--max);margin:auto;padding:0 24px}.eyebrow{font-family:Arial,sans-serif;color:var(--red3);letter-spacing:.28em;text-transform:uppercase;font-size:.68rem}.micro{font-family:Consolas,monospace;letter-spacing:.12em;text-transform:uppercase}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(4,2,2,.83);backdrop-filter:blur(14px);border-bottom:1px solid rgba(179,25,24,.22)}.topbar .wrap{height:62px;display:flex;align-items:center;justify-content:space-between}.topbar a{text-decoration:none}.back{font-family:Arial,sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#8f8580;text-decoration:none}.back:hover{color:var(--red3)}.access{font-family:Consolas,monospace;font-size:.65rem;letter-spacing:.16em;color:#8c201d}
+.hero{position:relative;padding:104px 0 72px;min-height:100vh;display:grid;place-items:center}.hero-shell{width:100%}.hero-card{width:min(1120px,calc(100vw - 32px));margin:auto;position:relative;border:1px solid rgba(204,46,39,.34);background:#060303;box-shadow:0 38px 110px rgba(0,0,0,.7);overflow:hidden}.hero-card img{width:100%;display:block}.hero-card:after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 110px 24px rgba(0,0,0,.56);background:linear-gradient(180deg,transparent 63%,rgba(3,1,1,.34))}
+.hero-copy{width:min(840px,calc(100vw - 34px));margin:32px auto 0;text-align:center;padding:0 22px}.found{display:inline-flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);background:rgba(74,10,9,.24);font-family:Consolas,monospace;color:#c84b45;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase}.found img{width:16px;height:16px;object-fit:contain}.hero-copy h1{font-size:clamp(2.55rem,5.6vw,5rem);font-weight:400;line-height:.98;letter-spacing:.025em;margin:14px 0 18px}.hero-copy>p{max-width:720px;margin:0 auto;color:#aaa09a;font-size:1.05rem}
+.archive-fragment{position:relative;max-width:760px;margin:30px auto 0;padding:20px 22px;text-align:left;border:1px solid rgba(179,25,24,.22);background:linear-gradient(145deg,rgba(12,6,6,.83),rgba(5,3,3,.78));box-shadow:0 18px 46px rgba(0,0,0,.34)}.archive-fragment:before{content:"01";position:absolute;right:14px;top:10px;color:rgba(179,25,24,.22);font:700 2.1rem Consolas,monospace}.archive-fragment strong{display:block;margin-bottom:6px;color:#d7cbc0;font-weight:400;letter-spacing:.09em}.archive-fragment p{margin:0;color:#958a84;font-size:.93rem}
 </style>
 <style>
-.signals{border-top:1px solid rgba(179,25,24,.18);border-bottom:1px solid rgba(179,25,24,.18);background:rgba(10,5,5,.72)}.signal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(179,25,24,.18);border:1px solid rgba(179,25,24,.18)}.signal{background:#080404;padding:24px}.signal b{display:block;color:#d8cdc1;font-size:.95rem;font-weight:400;margin-bottom:7px}.signal span{display:block;font-family:Consolas,monospace;color:#746b66;font-size:.69rem;letter-spacing:.05em}.signal .live{color:#a62a25}
-.transmission{max-width:820px;margin:auto;text-align:center}.transmission h2{font-size:clamp(2.3rem,5vw,4.3rem);font-weight:400;line-height:1.02;margin:10px 0 18px}.transmission p{color:#958b85;max-width:680px;margin:0 auto 26px}.glyph{display:inline-grid;place-items:center;width:54px;height:54px;border:1px solid rgba(179,25,24,.4);transform:rotate(45deg);margin:20px}.glyph span{width:8px;height:8px;background:#b31918;box-shadow:0 0 18px rgba(179,25,24,.8)}
-footer{position:relative;padding:42px 24px 55px;text-align:center;border-top:1px solid rgba(179,25,24,.18);color:#514a47}.footer-mark{letter-spacing:.24em;color:#7e1917}.footer-note{font-family:Consolas,monospace;font-size:.64rem;letter-spacing:.12em;margin-top:8px}.footer-return{display:inline-block;margin-top:16px;text-decoration:none;color:#716762;font-size:.72rem}.footer-return:hover{color:#d8473e}
+section{padding:90px 0}.section-head{display:grid;grid-template-columns:1fr .9fr;gap:50px;align-items:end;margin-bottom:34px}.section-head h2{font-size:clamp(2.3rem,4.9vw,4.2rem);font-weight:400;line-height:1.01;margin:8px 0}.section-head p{margin:0;color:var(--muted)}
+.trace{max-width:var(--max);margin:0 auto;padding:0 24px}.trace-line{display:flex;align-items:center;gap:14px;color:#594f4b;font:600 .62rem Consolas,monospace;letter-spacing:.16em;text-transform:uppercase}.trace-line:before,.trace-line:after{content:"";height:1px;background:linear-gradient(90deg,transparent,rgba(179,25,24,.28));flex:1}.trace-line:after{background:linear-gradient(90deg,rgba(179,25,24,.28),transparent)}.trace-line span{color:#86211e}
+.projects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.project{position:relative;min-height:540px;border:1px solid var(--line);background:#090505;overflow:hidden;display:flex;align-items:flex-end;box-shadow:0 24px 64px rgba(0,0,0,.38)}.project img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.31;filter:saturate(.72) contrast(1.12);transition:.5s}.project:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(5,3,3,.34) 42%,#050303 94%)}.project:hover img{transform:scale(1.025);opacity:.39}.project-copy{position:relative;z-index:2;padding:34px}.status{display:inline-block;margin-bottom:14px;padding:5px 9px;border:1px solid rgba(216,71,62,.38);font-family:Arial,sans-serif;color:var(--red3);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}.project h3{font-size:clamp(2.1rem,4vw,3.15rem);font-weight:400;line-height:1.02;margin:0 0 14px}.project p{color:#a09791;margin:0}.project-meta{margin-top:22px;padding-top:16px;border-top:1px solid rgba(179,25,24,.25);font-family:Consolas,monospace;color:#756b66;font-size:.7rem;letter-spacing:.05em}
+.signals{border-top:1px solid rgba(179,25,24,.18);border-bottom:1px solid rgba(179,25,24,.18);background:linear-gradient(180deg,rgba(9,4,4,.82),rgba(5,3,3,.88))}.signal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(179,25,24,.16);border:1px solid rgba(179,25,24,.18)}.signal{background:rgba(7,4,4,.93);padding:24px}.signal b{display:block;color:#d8cdc1;font-size:.95rem;font-weight:400;margin-bottom:7px}.signal span{display:block;font-family:Consolas,monospace;color:#746b66;font-size:.68rem;letter-spacing:.05em}.signal .live{color:#a62a25;margin-bottom:2px}
+.transmission{max-width:850px;margin:auto;text-align:center}.transmission h2{font-size:clamp(2.35rem,5vw,4.45rem);font-weight:400;line-height:1.01;margin:10px 0 18px}.transmission p{color:#958b85;max-width:690px;margin:0 auto 14px}.glyph{display:inline-grid;place-items:center;width:68px;height:68px;margin:20px}.glyph img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 0 18px rgba(179,25,24,.48))}
+.secret-note{margin:28px auto 0;max-width:610px;color:#665a56!important;font:italic .86rem Georgia,serif!important}.secret-note span{color:#8e2925}.footer-mark{letter-spacing:.24em;color:#8a221f}.footer-note{font-family:Consolas,monospace;font-size:.62rem;letter-spacing:.12em;margin-top:8px}.footer-return{display:inline-block;margin-top:16px;text-decoration:none;color:#716762;font-size:.72rem}.footer-return:hover{color:var(--red3)}footer{position:relative;padding:42px 24px 55px;text-align:center;border-top:1px solid rgba(179,25,24,.18);background:rgba(3,2,2,.78);color:#514a47}
+.arrival-dissolve{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 48%,rgba(144,20,18,.28),rgba(5,2,2,.95) 56%,#020101 100%);backdrop-filter:blur(12px);transition:opacity .95s ease,backdrop-filter .95s ease}.arrival-dissolve:before{content:"";position:absolute;left:50%;top:50%;width:70px;height:70px;transform:translate(-50%,-50%) scale(.8);background:url("images/interactive/JayTree_Interactive_Hidden_Glyph.webp") center/contain no-repeat;filter:drop-shadow(0 0 28px rgba(179,25,24,.95))}.secret-arrival .arrival-dissolve{opacity:1}.secret-arrival.secret-arrival-reveal .arrival-dissolve{opacity:0;backdrop-filter:blur(0)}.secret-arrival .hero-card,.secret-arrival .hero-copy{filter:blur(8px);transform:scale(.985);opacity:.5;transition:filter .95s ease,transform .95s ease,opacity .95s ease}.secret-arrival.secret-arrival-reveal .hero-card,.secret-arrival.secret-arrival-reveal .hero-copy{filter:blur(0);transform:scale(1);opacity:1}
+</style>
+<style>
 @media(max-width:850px){.section-head,.projects{grid-template-columns:1fr}.section-head{gap:16px}.project{min-height:470px}.signal-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){section{padding:68px 0}.hero{padding-top:82px}.hero-copy{margin-top:24px;padding:0 18px;max-width:100vw}.hero-copy h1{font-size:clamp(1.9rem,9vw,2.35rem);letter-spacing:.015em}.hero-copy p{font-size:.94rem;line-height:1.55;max-width:350px}.found{font-size:.58rem;letter-spacing:.1em}.project{min-height:430px}.project-copy{padding:24px}.signal-grid{grid-template-columns:1fr}.topbar .wrap{padding-left:16px;padding-right:16px}.access{display:none}}
-.arrival-dissolve{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 48%,rgba(144,20,18,.26),rgba(5,2,2,.94) 56%,#020101 100%);backdrop-filter:blur(12px);transition:opacity .95s ease,backdrop-filter .95s ease}.arrival-dissolve:before{content:"◆";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(45deg);color:#a8221e;font-size:1.2rem;text-shadow:0 0 28px rgba(179,25,24,.95)}.secret-arrival .arrival-dissolve{opacity:1}.secret-arrival.secret-arrival-reveal .arrival-dissolve{opacity:0;backdrop-filter:blur(0)}.secret-arrival .hero-card,.secret-arrival .hero-copy{filter:blur(8px);transform:scale(.985);opacity:.55;transition:filter .95s ease,transform .95s ease,opacity .95s ease}.secret-arrival.secret-arrival-reveal .hero-card,.secret-arrival.secret-arrival-reveal .hero-copy{filter:blur(0);transform:scale(1);opacity:1}@media(prefers-reduced-motion:reduce){.arrival-dissolve,.secret-arrival .hero-card,.secret-arrival .hero-copy{transition:none!important}}
+@media(max-width:520px){html,body{width:100%;max-width:100%;overflow-x:hidden}.hero-shell{width:100%;max-width:100%;min-width:0;overflow:hidden}.hero-card{width:calc(100% - 32px);max-width:calc(100% - 32px)}.hero-copy{width:calc(100% - 32px);max-width:calc(100% - 32px);min-width:0}.hero-copy h1{max-width:100%;overflow-wrap:break-word}.archive-fragment{width:100%;max-width:100%;overflow:hidden}.trace-line{white-space:normal;text-align:center;line-height:1.5;justify-content:center;gap:6px}.trace-line:before,.trace-line:after{display:none}.trace-line span{white-space:nowrap}.archive-fragment strong{font-size:.78rem;letter-spacing:.06em}section{padding:66px 0}.hero{padding:86px 0 46px;min-height:auto}.hero-copy{margin-top:23px;padding:0 18px}.hero-copy h1{font-size:clamp(2rem,9vw,2.55rem);letter-spacing:.012em}.hero-copy>p{font-size:.94rem;line-height:1.55;max-width:350px}.archive-fragment{padding:17px 18px}.found{font-size:.57rem;letter-spacing:.1em}.project{min-height:430px}.project-copy{padding:24px}.signal-grid{grid-template-columns:1fr}.topbar .wrap{padding-left:16px;padding-right:16px}.access{display:none}.trace{padding:0 16px}.trace-line{font-size:.55rem;letter-spacing:.1em}.glyph{width:58px;height:58px}.glyph img{width:50px;height:50px}}
+@media(prefers-reduced-motion:reduce){.arrival-dissolve,.secret-arrival .hero-card,.secret-arrival .hero-copy,.project img{transition:none!important}}
 </style>
 <!-- JAYTREE_PWA_HEAD_START -->
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.webp?v=publisher-logo-3">
 <meta name="theme-color" content="#080d12">
 <meta name="application-name" content="JayTree Books">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,33 +49,30 @@ footer{position:relative;padding:42px 24px 55px;text-align:center;border-top:1px
 </head>
 <body>
 <div class="arrival-dissolve" aria-hidden="true"></div>
-<header class="topbar"><div class="wrap"><a class="back" href="index.html" data-secret-return="topbar">← Return to the books</a><span class="access">JT // HIDDEN ACCESS</span></div></header>
+<header class="topbar"><div class="wrap"><a class="back" href="index.html" data-secret-return="topbar">&larr; Return to the books</a><span class="access">JT // HIDDEN ACCESS // SIGNAL 01</span></div></header>
 <main>
 <section class="hero">
-  <div>
-    <div class="hero-card"><img src="images/interactive/interactive-title-card.webp" alt="JayTree Interactive — Games for Deeper Minds"></div>
+  <div class="hero-shell">
+    <div class="hero-card"><img src="images/interactive/JayTree_Interactive_Hidden_Page_Hero.webp" alt="JayTree Interactive — Games for Deeper Minds"></div>
     <div class="hero-copy">
-      <div class="found"><span>◆</span><span>Hidden path discovered</span></div>
+      <div class="found"><img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt=""><span>Hidden path discovered</span></div>
       <h1>You found the root beneath the stories.</h1>
-      <p>JayTree Interactive is where the mysteries stop sitting still. This page is a quiet look at games, systems, and worlds currently being built behind the books.</p>
+      <p>JayTree Interactive is where the mysteries leave the page behind. What begins as story becomes place, atmosphere, evidence, and world.</p>
+      <div class="archive-fragment"><strong class="micro">Archive fragment // recovered</strong><p>You were not supposed to arrive here by accident. This page tracks early game-world fragments, experiments, atmospheres, and interactive mysteries still taking shape beneath JayTree Books.</p></div>
     </div>
   </div>
 </section>
+<div class="trace"><div class="trace-line"><span>TRACE 01</span> The first door was never locked. It was overlooked.</div></div>
 <section id="work">
   <div class="wrap">
-    <div class="section-head"><div><div class="eyebrow">Projects in the dark</div><h2>What is taking shape.</h2></div><p>These are active development experiments, not release promises. The goal is to turn JayTree’s darker mysteries into places you can enter, investigate, and eventually explore.</p></div>
+    <div class="section-head"><div><div class="eyebrow">Projects in the dark</div><h2>What is taking shape below the surface.</h2></div><p>These are not release promises. They are signals from active development — worlds, systems, atmospheres, and investigative ideas becoming playable form.</p></div>
     <div class="projects">
-      <article class="project">
-        <img src="images/interactive/interactive-blood-moon-emblem.webp" alt="JayTree Interactive tree and controller emblem" loading="lazy">
-        <div class="project-copy"><span class="status">In development</span><h3>The Hollow Bell</h3><p>A narrative mystery game rooted in Millbrook Falls: atmosphere, clues, environmental storytelling, and a world designed to reward looking closer.</p><div class="project-meta">CURRENT PATH // cinematic 2.5D exploration · modular game-ready assets · future 3D expansion in mind</div></div>
-      </article>
-      <article class="project">
-        <img src="images/interactive/interactive-controller-emblem.webp" alt="JayTree Interactive controller emblem" loading="lazy">
-        <div class="project-copy"><span class="status">Prototype track</span><h3>Mystery Challenge</h3><p>The case-file idea is being pushed toward interactive play: evidence, contradictions, choices, and the pressure of deciding what matters before the truth is revealed.</p><div class="project-meta">CURRENT PATH // investigation systems · clue presentation · replayable case structure</div></div>
-      </article>
+      <article class="project"><img src="images/interactive/interactive-blood-moon-emblem.webp" alt="JayTree Interactive tree and controller emblem" loading="lazy"><div class="project-copy"><span class="status">In development</span><h3>The Hollow Bell</h3><p>A narrative mystery game rooted in Millbrook Falls: atmosphere, clues, environmental storytelling, and a world designed to reward looking closer.</p><div class="project-meta">CURRENT PATH // cinematic 2.5D exploration · modular game-ready assets · future 3D expansion in mind</div></div></article>
+      <article class="project"><img src="images/interactive/interactive-controller-emblem.webp" alt="JayTree Interactive controller emblem" loading="lazy"><div class="project-copy"><span class="status">Prototype track</span><h3>Mystery Challenge</h3><p>The case-file idea is being pushed toward interactive play: evidence, contradictions, choices, and the pressure of deciding what matters before the truth is revealed.</p><div class="project-meta">CURRENT PATH // investigation systems · clue presentation · replayable case structure</div></div></article>
     </div>
   </div>
 </section>
+<div class="trace"><div class="trace-line"><span>TRACE 02</span> Listen for what repeats. Look for what should not be there.</div></div>
 <section class="signals" id="signals">
   <div class="wrap">
     <div class="section-head"><div><div class="eyebrow">Build signals</div><h2>Fragments from development.</h2></div><p>Nothing here is a roadmap with dates. Think of it as a signal leaking out of the workshop.</p></div>
@@ -85,12 +84,15 @@ footer{position:relative;padding:42px 24px 55px;text-align:center;border-top:1px
     </div>
   </div>
 </section>
+<div class="trace"><div class="trace-line"><span>TRACE 03</span> Some evidence is meant to be found before it is explained.</div></div>
 <section>
   <div class="wrap transmission">
     <div class="eyebrow">Transmission incomplete</div>
-    <div class="glyph" aria-hidden="true"><span></span></div>
+    <div class="glyph" aria-hidden="true"><img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt=""></div>
     <h2>The deeper you go, the less the story behaves like a book.</h2>
-    <p>This page will change as the games become real enough to show. New fragments may appear without being announced anywhere else.</p>
+    <p>This page will change as the games become real enough to show.</p>
+    <p>New fragments may appear here before they appear anywhere else.</p>
+    <p class="secret-note">The mark appears where <span>roots, records, and choices</span> meet. That may matter later.</p>
     <a class="back" href="index.html" data-secret-return="close_path">Close the hidden path →</a>
   </div>
 </section>
