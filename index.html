@@ -271,9 +271,11 @@
 	      setTimeout(function(){ctx.close()},1200);
 	    }catch(_){}
 	  }
+	  var activated=false;
 	  link.addEventListener('click',function(e){
-	    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button>0) return;
-	    e.preventDefault();
+	    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button>0||activated) return;
+	    e.preventDefault(); activated=true;
+	    if(typeof window.gtag==='function') gtag('event','easter_egg_activate',{secret_id:'jaytree_interactive',trigger_location:'homepage_footer_root',reduced_motion:window.matchMedia('(prefers-reduced-motion: reduce)').matches,transport_type:'beacon'});
 	    playSecretTone();
 	    try{sessionStorage.setItem('jt-secret-enter','1')}catch(_){}
 	    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){window.location.href=link.href;return;}

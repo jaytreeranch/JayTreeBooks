@@ -47,7 +47,7 @@ footer{position:relative;padding:42px 24px 55px;text-align:center;border-top:1px
 </head>
 <body>
 <div class="arrival-dissolve" aria-hidden="true"></div>
-<header class="topbar"><div class="wrap"><a class="back" href="index.html">← Return to the books</a><span class="access">JT // HIDDEN ACCESS</span></div></header>
+<header class="topbar"><div class="wrap"><a class="back" href="index.html" data-secret-return="topbar">← Return to the books</a><span class="access">JT // HIDDEN ACCESS</span></div></header>
 <main>
 <section class="hero">
   <div>
@@ -91,20 +91,23 @@ footer{position:relative;padding:42px 24px 55px;text-align:center;border-top:1px
     <div class="glyph" aria-hidden="true"><span></span></div>
     <h2>The deeper you go, the less the story behaves like a book.</h2>
     <p>This page will change as the games become real enough to show. New fragments may appear without being announced anywhere else.</p>
-    <a class="back" href="index.html">Close the hidden path →</a>
+    <a class="back" href="index.html" data-secret-return="close_path">Close the hidden path →</a>
   </div>
 </section>
 </main>
 <footer>
   <div class="footer-mark">JAYTREE INTERACTIVE</div>
   <div class="footer-note">GAMES FOR DEEPER MINDS // ACCESS FOUND, NOT ADVERTISED</div>
-  <a class="footer-return" href="index.html">jaytreebooks.com</a>
+  <a class="footer-return" href="index.html" data-secret-return="footer">jaytreebooks.com</a>
   <div>© <span id="year"></span> JayTree Interactive</div>
 </footer>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 (function(){
-  var root=document.documentElement;
+  var root=document.documentElement, arrived=false;
+  try{arrived=sessionStorage.getItem('jt-secret-enter')==='1'}catch(_){}
+  if(arrived&&typeof window.gtag==='function') gtag('event','easter_egg_arrival',{secret_id:'jaytree_interactive',arrival_page:'interactive',transport_type:'beacon'});
+  document.querySelectorAll('[data-secret-return]').forEach(function(a){a.addEventListener('click',function(){if(typeof window.gtag==='function') gtag('event','easter_egg_return',{secret_id:'jaytree_interactive',return_location:a.getAttribute('data-secret-return'),transport_type:'beacon'});});});
   if(!root.classList.contains('secret-arrival')) return;
   try{sessionStorage.removeItem('jt-secret-enter')}catch(_){}
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){root.classList.remove('secret-arrival');return;}
