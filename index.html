@@ -238,6 +238,7 @@
 						thrillers, and supernatural stories built around questions that
 						refuse to disappear.</p>
 					<p>Start with a first chapter, listen to a sample, or browse the collection by mystery style.</p>
+					<p class="root-clue" aria-hidden="true">Some roots run deeper than the page.</p>
 					<a class="cta" href="mystery-books.html">Find Your Next Mystery →</a>
 				</div>
 			</div>
@@ -245,7 +246,7 @@
 </main>
 	<footer>
 		<div class="footer-brand">JAYTREE BOOKS</div>
-		<p>Stories That Stay.</p>
+		<p>Stories That Stay. <a class="hidden-root" href="interactive.html" data-secret-path aria-label="Discover a hidden JayTree path" title="Follow the root">◆</a></p>
 		<div>
 			<a href="mystery-books.html">Mystery Books</a><span> · </span><a href="psychological-mystery-books.html">Psychological Mystery Books</a><span> · </span><a href="#books">Books</a><span> · </span><a href="#audiobooks">Audiobooks</a><span>
 				· </span><a href="#challenge">Challenge</a><span> · </span><a
@@ -255,6 +256,33 @@
 			reserved.
 		</small>
 	<div class="footer-links"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></div></footer>
+	<div class="secret-dissolve" aria-hidden="true"><div class="secret-dissolve-core">◆</div></div>
+	<script>
+	(function(){
+	  var link=document.querySelector('[data-secret-path]'), veil=document.querySelector('.secret-dissolve');
+	  if(!link||!veil) return;
+	  function playSecretTone(){
+	    try{
+	      var AC=window.AudioContext||window.webkitAudioContext,ctx=new AC(),now=ctx.currentTime;
+	      var master=ctx.createGain(); master.gain.setValueAtTime(.0001,now); master.gain.exponentialRampToValueAtTime(.13,now+.025); master.gain.exponentialRampToValueAtTime(.0001,now+.9); master.connect(ctx.destination);
+	      [[78,'sine',0,.82],[156,'triangle',.04,.56],[493.88,'sine',.18,.42]].forEach(function(v){
+	        var o=ctx.createOscillator(),g=ctx.createGain(); o.type=v[1]; o.frequency.setValueAtTime(v[0],now+v[2]); g.gain.setValueAtTime(.0001,now+v[2]); g.gain.exponentialRampToValueAtTime(v[0] < 100 ? .55 : .16,now+v[2]+.025); g.gain.exponentialRampToValueAtTime(.0001,now+v[2]+v[3]); o.connect(g); g.connect(master); o.start(now+v[2]); o.stop(now+v[2]+v[3]+.05);
+	      });
+	      setTimeout(function(){ctx.close()},1200);
+	    }catch(_){}
+	  }
+	  link.addEventListener('click',function(e){
+	    if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button>0) return;
+	    e.preventDefault();
+	    playSecretTone();
+	    try{sessionStorage.setItem('jt-secret-enter','1')}catch(_){}
+	    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){window.location.href=link.href;return;}
+	    veil.classList.add('is-entering');
+	    document.documentElement.classList.add('secret-path-open');
+	    setTimeout(function(){window.location.href=link.href},900);
+	  });
+	})();
+	</script>
 	<script src="video-lite.js"></script>
 	<script src="config.js"></script>
 	<script src="app.js"></script>
