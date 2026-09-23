@@ -3,7 +3,7 @@
 - Marketplace: `US`
 - API: `Canopy GraphQL`
 - Search scope: `Amazon US featured search via Canopy (no categoryId filter)`
-- Checked: `2026-09-17T22:05:37.033740+00:00`
+- Checked: `2026-09-23T12:33:48.929618+00:00`
 - Books checked: `5`
 - Unique keywords checked: `5`
 - Maximum pages requested per keyword: `5`
@@ -24,7 +24,7 @@
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| cold case mystery | — | — | 70 | No | not_found_after_5_pages_70_organic_results |
+| cold case mystery | — | — | 57 | No | not_found_after_5_pages_57_organic_results |
 
 ## Second Draft
 
@@ -36,7 +36,7 @@
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| memory erasure mystery | — | — | 48 | No | not_found_after_3_pages_48_organic_results |
+| memory erasure mystery | — | — | 54 | No | not_found_after_4_pages_54_organic_results |
 
 ## The Absconding
 
@@ -48,7 +48,7 @@
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| archive conspiracy mystery | — | — | 64 | No | not_found_after_4_pages_64_organic_results |
+| archive conspiracy mystery | — | — | 65 | No | not_found_after_5_pages_65_organic_results |
 
 ## Unexpected cross-title rankings
 
