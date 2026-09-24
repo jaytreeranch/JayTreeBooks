@@ -8,6 +8,7 @@ on:
     paths:
       - "scripts/seo_content_cleanup.py"
       - "scripts/apply_entity_seo.py"
+      - "scripts/apply_audio_seo.py"
       - "scripts/build_reader_growth_site.py"
       - "scripts/finalize_reader_growth.py"
       - "scripts/apply_site_improvements.py"
@@ -15,6 +16,7 @@ on:
       - "about.html"
       - "books/*.html"
       - "chapters/*.html"
+      - "audio/*.html"
       - "mystery-books.html"
       - "psychological-mystery-books.html"
       - "kindle-unlimited-mystery-books.html"
@@ -43,10 +45,13 @@ jobs:
           fetch-depth: 0
 
       - name: Compile SEO maintenance
-        run: python -m py_compile scripts/apply_entity_seo.py scripts/seo_content_cleanup.py
+        run: python -m py_compile scripts/apply_entity_seo.py scripts/apply_audio_seo.py scripts/seo_content_cleanup.py
 
       - name: Apply entity SEO
         run: python scripts/apply_entity_seo.py
+
+      - name: Apply audio SEO
+        run: python scripts/apply_audio_seo.py
 
       - name: Apply SEO cleanup and sitemap refresh
         run: python scripts/seo_content_cleanup.py
@@ -54,6 +59,7 @@ jobs:
       - name: Validate idempotent SEO output
         run: |
           python scripts/apply_entity_seo.py
+          python scripts/apply_audio_seo.py
           python scripts/seo_content_cleanup.py
 
       - name: Verify workflow files untouched
