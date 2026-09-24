@@ -7,6 +7,17 @@
   <meta name="description" content="Explore a JayTree Books mystery.">
   <meta name="robots" content="noindex,follow">
   <title>JayTree Books</title>
+  <!-- JAYTREE_LEGACY_BOOK_REDIRECT -->
+  <script>
+  (function(){
+    var slug=new URLSearchParams(location.search).get('book')||'';
+    var allowed=new Set(['second-draft','the-hollow-year','the-hollow-bell','the-absconding','the-correction']);
+    if(allowed.has(slug)){
+      var hash=location.hash==='#audiobook'?'#listen':location.hash;
+      location.replace('books/'+slug+'.html'+hash);
+    }
+  })();
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
