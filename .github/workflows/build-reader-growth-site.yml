@@ -131,6 +131,8 @@ jobs:
           assert by_slug['the-correction']['trailerUrl'].endswith('tRlHA4UKNGk')
           assert config['animatedSeries']['trailerUrl'].endswith('PmGQoyjYTDs')
           assert newsletter['name'] == 'JayTree Case Files'
+          assert config['socials']['threads'] == 'https://www.threads.com/@jaytreebooks'
+          assert config['socials']['bluesky'] == 'https://bsky.app/profile/jaytreebooks.com'
           assert provider in {'formsubmit', 'kit'}
           assert newsletter['thankYouUrl'].endswith('/case-files-thanks.html')
           if provider == 'formsubmit':
@@ -159,6 +161,8 @@ jobs:
               assert '../video-lite.js' in html
               assert 'src="https://www.youtube-nocookie.com/embed/' not in html
               assert '../privacy.html' in html and '../terms.html' in html
+              assert 'data-social="threads"' in html
+              assert 'data-social="bluesky"' in html
               assert '../animated-series.html' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://jaytreebooks.com/{original}">' in html
@@ -209,6 +213,13 @@ jobs:
           thanks = (root / 'case-files-thanks.html').read_text(encoding='utf-8')
           assert 'noindex,follow' in thanks
           assert 'case_files_signup_complete' in thanks
+
+          social_poster = (root / 'social-poster.html').read_text(encoding='utf-8')
+          assert 'name="robots" content="noindex,follow"' in social_poster
+
+          legacy = (root / 'book.html').read_text(encoding='utf-8')
+          assert 'JAYTREE_LEGACY_BOOK_REDIRECT' in legacy
+          assert 'name="robots" content="noindex,follow"' in legacy
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'books/${b.slug}.html' in app
