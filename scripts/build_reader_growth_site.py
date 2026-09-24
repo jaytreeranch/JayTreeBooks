@@ -277,6 +277,7 @@ def book_schema(book: dict) -> dict:
             "@id": f"{SITE}/#publisher",
             "name": "JayTree Books",
             "url": SITE,
+            "logo": f"{SITE}/icons/icon-512.png",
         },
         "offers": {
             "@type": "Offer",
