@@ -285,5 +285,11 @@ jobs:
             exit 0
           fi
           git commit -m "Build JayTree site QC repairs"
+          # seo_content_cleanup.py may normalize durable source scripts while producing
+          # the generated site. Those source edits are intentionally owned by the SEO
+          # cleanup workflow, not this generated-assets commit. Remove only those
+          # unstaged source edits before rebasing so concurrent cleanup commits do not
+          # make this job fail after a successful site validation.
+          git restore --worktree -- scripts
           git pull --rebase origin main
           git push
