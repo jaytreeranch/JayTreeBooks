@@ -1,0 +1,168 @@
+{
+  "generated_at": "2026-09-24",
+  "search_console": {
+    "property": "sc-domain:jaytreebooks.com",
+    "period": {
+      "from": "2026-08-25",
+      "to": "2026-09-21"
+    },
+    "totals": {
+      "clicks": 16,
+      "impressions": 80,
+      "ctr": 0.2,
+      "average_position": 5.475
+    },
+    "previous_period": {
+      "from": "2026-07-28",
+      "to": "2026-08-24",
+      "available": false
+    },
+    "visible_queries": [
+      {
+        "query": "jaytree",
+        "clicks": 0,
+        "impressions": 22,
+        "ctr": 0,
+        "position": 7.8182
+      },
+      {
+        "query": "the hollow bell",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 7.25
+      },
+      {
+        "query": "the hollow tree book",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 66
+      }
+    ],
+    "priority_pages": [
+      {
+        "page": "https://jaytreebooks.com/",
+        "clicks": 14,
+        "impressions": 67,
+        "ctr": 0.209,
+        "position": 2.4776,
+        "action": "preserve; use as authority hub"
+      },
+      {
+        "page": "https://jaytreebooks.com/books/the-correction.html",
+        "clicks": 2,
+        "impressions": 3,
+        "ctr": 0.6667,
+        "position": 2.6667,
+        "action": "benchmark; avoid unnecessary title/meta churn"
+      },
+      {
+        "page": "https://jaytreebooks.com/books/second-draft.html",
+        "clicks": 0,
+        "impressions": 4,
+        "ctr": 0,
+        "position": 8,
+        "action": "page-one CTR/relevance candidate"
+      },
+      {
+        "page": "https://jaytreebooks.com/books/the-hollow-bell.html",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 19.1667,
+        "action": "internal-link/content support candidate; exact-title query already 7.25"
+      },
+      {
+        "page": "https://jaytreebooks.com/books/the-hollow-year.html",
+        "clicks": 0,
+        "impressions": 5,
+        "ctr": 0,
+        "position": 17.6,
+        "action": "internal-link/content support candidate"
+      },
+      {
+        "page": "https://jaytreebooks.com/audio/book-5-sample.html",
+        "clicks": 0,
+        "impressions": 1,
+        "ctr": 0,
+        "position": 3,
+        "action": "expand audio entity strategy across all five books"
+      },
+      {
+        "page": "https://jaytreebooks.com/social-poster.html",
+        "clicks": 0,
+        "impressions": 6,
+        "ctr": 0,
+        "position": 7,
+        "action": "noindex applied 2026-09-24; monitor disappearance"
+      }
+    ]
+  },
+  "ga4": {
+    "property": "JayTreeBooks",
+    "period": {
+      "from": "2026-08-27",
+      "to": "2026-09-23"
+    },
+    "totals": {
+      "sessions": 165,
+      "total_users": 87,
+      "engaged_sessions": 102,
+      "engagement_rate": 0.6182
+    },
+    "organic_search": {
+      "sessions": 30,
+      "share_of_sessions": 0.1818,
+      "engaged_sessions": 13,
+      "engagement_rate": 0.4333,
+      "tracked_reader_actions": 17
+    },
+    "top_landing_pages": [
+      {
+        "path": "/",
+        "sessions": 151,
+        "engaged_sessions": 94,
+        "engagement_rate": 0.6225
+      },
+      {
+        "path": "/index.html",
+        "sessions": 6,
+        "engaged_sessions": 5,
+        "engagement_rate": 0.8333
+      },
+      {
+        "path": "/books/second-draft.html",
+        "sessions": 2,
+        "engaged_sessions": 0,
+        "engagement_rate": 0
+      },
+      {
+        "path": "/book.html",
+        "sessions": 1,
+        "engaged_sessions": 1,
+        "engagement_rate": 1
+      },
+      {
+        "path": "/books/the-correction.html",
+        "sessions": 1,
+        "engaged_sessions": 0,
+        "engagement_rate": 0
+      },
+      {
+        "path": "/chapters/book-3-first-chapter.html",
+        "sessions": 1,
+        "engaged_sessions": 1,
+        "engagement_rate": 1
+      }
+    ]
+  },
+  "decision_rules": {
+    "protect_winners": "Do not aggressively rewrite pages at positions 1-4 with healthy CTR unless evidence shows decline.",
+    "ctr_opportunity": "For pages/queries with position 1-10, meaningful impressions, and weak CTR, test title/meta/search-intent alignment before adding more content.",
+    "page_one_push": "For pages/queries at positions 5-20, strengthen internal links, unique mechanism copy, supporting hubs, audio/chapter/video entities, and snippet clarity.",
+    "deeper_relevance": "For positions worse than 20, improve relevance/content architecture before chasing CTR.",
+    "technical_cleanup": "Noindex private utility pages and retire legacy landing paths; verify disappearance in Search Console.",
+    "evidence_window": "Prefer 28-day complete windows and compare to the previous 28 days when available; avoid reacting to tiny one-week samples."
+  }
+}
