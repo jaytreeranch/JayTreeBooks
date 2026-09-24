@@ -10,6 +10,7 @@ on:
       - "scripts/add_audiobook_coming_soon.py"
       - "scripts/apply_site_improvements.py"
       - "scripts/apply_entity_seo.py"
+      - "scripts/apply_audio_seo.py"
       - "scripts/seo_content_cleanup.py"
       - "config.js"
       - "app.js"
@@ -32,6 +33,7 @@ on:
       - "docs/kit-case-files-setup.md"
       - "images/*.png"
       - "chapters/*.html"
+      - "audio/*.html"
       - ".github/workflows/build-reader-growth-site.yml"
       - ".github/workflows/validate-reader-growth-site.yml"
 
@@ -51,6 +53,7 @@ jobs:
             docs
             images
             chapters
+            audio
             books
 
       - uses: actions/setup-python@v5
@@ -69,6 +72,7 @@ jobs:
           python -m py_compile scripts/add_audiobook_coming_soon.py
           python -m py_compile scripts/apply_site_improvements.py
           python -m py_compile scripts/apply_entity_seo.py
+          python -m py_compile scripts/apply_audio_seo.py
           python -m py_compile scripts/seo_content_cleanup.py
 
       - name: Generate site in CI workspace
@@ -79,6 +83,7 @@ jobs:
           python scripts/add_audiobook_coming_soon.py
           python scripts/apply_site_improvements.py
           python scripts/apply_entity_seo.py
+          python scripts/apply_audio_seo.py
           python scripts/seo_content_cleanup.py
 
       - name: Validate conversion, SEO, social, image, video, and Case Files outputs
@@ -114,6 +119,7 @@ jobs:
               html = page.read_text(encoding='utf-8')
               assert f'<link rel="canonical" href="https://jaytreebooks.com/books/{book["slug"]}.html">' in html
               assert '"@type":"Book"' in html
+              assert '"author":{"@type":"Organization","@id":"https://jaytreebooks.com/#publisher","name":"JayTree Books"' in html
               assert 'Read FREE with Kindle Unlimited' in html
               assert book['amazonUrl'] in html
               assert 'id="listen"' in html
@@ -139,6 +145,12 @@ jobs:
               assert 'class="seo-breadcrumbs"' in html
               assert 'JAYTREE_CHAPTER_SCHEMA_START' in chapter_html
               assert 'class="reader-breadcrumbs"' in chapter_html
+
+              audio_html = (root / book['audio']).read_text(encoding='utf-8')
+              assert '"@type":"AudioObject"' in audio_html
+              assert 'class="audio-breadcrumbs"' in audio_html
+              assert 'audio_sample_play' in audio_html
+              assert f'https://jaytreebooks.com/books/{book["slug"]}.html#book' in audio_html
 
               cover = root / book['cover']
               assert cover.exists()
@@ -168,6 +180,7 @@ jobs:
           about = (root / 'about.html').read_text(encoding='utf-8')
           assert '"@type":"ProfilePage"' in about, 'publisher profile schema missing'
           assert 'https://jaytreebooks.com/#publisher' in about
+          assert 'author and independent publisher byline' in about
           if provider == 'formsubmit':
               assert 'Open the Case Files' in index
           else:
@@ -229,8 +242,10 @@ jobs:
               assert f'https://jaytreebooks.com/{book["chapter"]}' in sitemap
           assert 'https://jaytreebooks.com/case-files.html' in sitemap
           assert 'https://jaytreebooks.com/about.html' in sitemap
-          assert sitemap.count('<url>') == 20
-          assert sitemap.count('<lastmod>') == 20
+          for book in books:
+              assert f'https://jaytreebooks.com/{book["audio"]}' in sitemap
+          assert sitemap.count('<url>') == 25
+          assert sitemap.count('<lastmod>') == 25
           assert 'Sitemap: https://jaytreebooks.com/sitemap.xml' in (root / 'robots.txt').read_text(encoding='utf-8')
           print(f'Reader growth and durable JayTree site improvements validation passed with provider={provider}.')
           PY

@@ -267,9 +267,16 @@ def book_schema(book: dict) -> dict:
         "url": f"{SITE}/books/{book['slug']}.html",
         "publisher": {
             "@type": "Organization",
+            "@id": f"{SITE}/#publisher",
             "name": "JayTree Books",
             "url": SITE,
             "logo": f"{SITE}/icons/icon-512.png",
+        },
+        "author": {
+            "@type": "Organization",
+            "@id": f"{SITE}/#publisher",
+            "name": "JayTree Books",
+            "url": SITE,
         },
         "offers": {
             "@type": "Offer",
