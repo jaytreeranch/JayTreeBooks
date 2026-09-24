@@ -9,10 +9,21 @@ on:
       - "scripts/configure_kit_newsletter.py"
       - "scripts/add_audiobook_coming_soon.py"
       - "scripts/apply_site_improvements.py"
+      - "scripts/apply_entity_seo.py"
+      - "scripts/seo_content_cleanup.py"
       - "config.js"
       - "app.js"
       - "index.html"
+      - "about.html"
       - "book.html"
+      - "mystery-books.html"
+      - "psychological-mystery-books.html"
+      - "kindle-unlimited-mystery-books.html"
+      - "supernatural-mystery-books.html"
+      - "small-town-mystery-books.html"
+      - "cold-case-mystery-books.html"
+      - "animated-series.html"
+      - "sitemap.xml"
       - "books/*.html"
       - "case-files*.html"
       - "styles.css"
@@ -57,6 +68,8 @@ jobs:
           python -m py_compile scripts/configure_kit_newsletter.py
           python -m py_compile scripts/add_audiobook_coming_soon.py
           python -m py_compile scripts/apply_site_improvements.py
+          python -m py_compile scripts/apply_entity_seo.py
+          python -m py_compile scripts/seo_content_cleanup.py
 
       - name: Generate site in CI workspace
         run: |
@@ -65,6 +78,8 @@ jobs:
           python scripts/apply_newsletter_provider.py
           python scripts/add_audiobook_coming_soon.py
           python scripts/apply_site_improvements.py
+          python scripts/apply_entity_seo.py
+          python scripts/seo_content_cleanup.py
 
       - name: Validate conversion, SEO, social, image, video, and Case Files outputs
         shell: bash
@@ -95,7 +110,7 @@ jobs:
           for book in books:
               page = root / 'books' / f"{book['slug']}.html"
               html = page.read_text(encoding='utf-8')
-              assert f'<link rel="canonical" href="https://www.JayTreeBooks.com/books/{book["slug"]}.html">' in html
+              assert f'<link rel="canonical" href="https://jaytreebooks.com/books/{book["slug"]}.html">' in html
               assert '"@type":"Book"' in html
               assert 'Read FREE with Kindle Unlimited' in html
               assert book['amazonUrl'] in html
@@ -106,8 +121,8 @@ jobs:
               assert 'src="https://www.youtube-nocookie.com/embed/' not in html
               assert '../privacy.html' in html and '../terms.html' in html
               original = book.get('coverOriginal') or book['cover']
-              assert f'<meta property="og:image" content="https://www.JayTreeBooks.com/{original}">' in html
-              assert f'<meta name="twitter:image" content="https://www.JayTreeBooks.com/{original}">' in html
+              assert f'<meta property="og:image" content="https://jaytreebooks.com/{original}">' in html
+              assert f'<meta name="twitter:image" content="https://jaytreebooks.com/{original}">' in html
 
               chapter_html = (root / book['chapter']).read_text(encoding='utf-8')
               assert 'Continue FREE with Kindle Unlimited' in chapter_html
@@ -115,6 +130,11 @@ jobs:
               assert 'JAYTREE_CHAPTER_ANALYTICS_START' in chapter_html
               assert 'JAYTREE_2026_READER_ACCESSIBILITY' in chapter_html
               assert 'Jaytree Books' not in chapter_html
+              assert 'JAYTREE_ENTITY_GRAPH_START' in html
+              assert '"@type":"VideoObject"' in html
+              assert 'class="seo-breadcrumbs"' in html
+              assert 'JAYTREE_CHAPTER_SCHEMA_START' in chapter_html
+              assert 'class="reader-breadcrumbs"' in chapter_html
 
               cover = root / book['cover']
               assert cover.exists()
@@ -128,13 +148,19 @@ jobs:
           assert 'https://www.tiktok.com/@jaytreebooks' in index
           assert 'JAYTREE_CASE_FILES_START' in index
           assert 'JAYTREE_SOCIAL_FOLLOW_START' in index
-          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/">' in index
-          assert 'JayTree Books | Mystery Thrillers, Kindle Unlimited & Mystery Challenges' in index
+          assert '<link rel="canonical" href="https://jaytreebooks.com/">' in index
+          assert 'JayTree Books | Mystery & Psychological Thrillers' in index
           assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
           assert index.index('id="kindle-unlimited"') < index.index('id="books"')
           assert 'continue the story on Audible' not in index
           assert '<script src="video-lite.js"></script>' in index
           assert 'privacy.html' in index and 'terms.html' in index
+          assert 'JAYTREE_WEBSITE_SCHEMA_START' in index
+          assert 'href="about.html"' in index
+
+          about = (root / 'about.html').read_text(encoding='utf-8')
+          assert '"@type":"ProfilePage"' in about, 'publisher profile schema missing'
+          assert 'https://jaytreebooks.com/#publisher' in about
           if provider == 'formsubmit':
               assert 'Open the Case Files' in index
           else:
@@ -142,7 +168,7 @@ jobs:
               assert newsletter['kit']['embedCode'] in index
 
           case_files = (root / 'case-files.html').read_text(encoding='utf-8')
-          assert '<link rel="canonical" href="https://www.JayTreeBooks.com/case-files.html">' in case_files
+          assert '<link rel="canonical" href="https://jaytreebooks.com/case-files.html">' in case_files
           assert 'Get the next mystery before the reveal.' in case_files
           assert 'data-case-files-form' in case_files
           assert 'case_files_signup_view' in case_files
@@ -185,9 +211,12 @@ jobs:
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
           for book in books:
-              assert f'https://www.JayTreeBooks.com/books/{book["slug"]}.html' in sitemap
-              assert f'https://www.JayTreeBooks.com/{book["chapter"]}' in sitemap
-          assert 'https://www.JayTreeBooks.com/case-files.html' in sitemap
-          assert 'Sitemap: https://www.JayTreeBooks.com/sitemap.xml' in (root / 'robots.txt').read_text(encoding='utf-8')
+              assert f'https://jaytreebooks.com/books/{book["slug"]}.html' in sitemap
+              assert f'https://jaytreebooks.com/{book["chapter"]}' in sitemap
+          assert 'https://jaytreebooks.com/case-files.html' in sitemap
+          assert 'https://jaytreebooks.com/about.html' in sitemap
+          assert sitemap.count('<url>') == 20
+          assert sitemap.count('<lastmod>') == 20
+          assert 'Sitemap: https://jaytreebooks.com/sitemap.xml' in (root / 'robots.txt').read_text(encoding='utf-8')
           print(f'Reader growth and durable JayTree site improvements validation passed with provider={provider}.')
           PY

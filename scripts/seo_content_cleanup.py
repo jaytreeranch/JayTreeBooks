@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,32 +19,37 @@ SEO = {
     },
     "books/second-draft.html": {
         "title": "Second Draft | Psychological Mystery | JayTree Books",
-        "description": "A psychological mystery where rehearsed conversations begin changing reality. Read Chapter One, watch the trailer, and continue with Kindle Unlimited.",
+        "description": "Nora helps people rehearse impossible conversations—until the rehearsals start changing reality. Read Chapter One and continue with Kindle Unlimited.",
         "video_alt": "Second Draft video preview thumbnail",
     },
     "books/the-hollow-year.html": {
         "title": "The Hollow Year | Supernatural Mystery | JayTree Books",
-        "description": "In a Maine town, one person is erased from every living memory each October. Follow Enid as traces of her missing brother challenge reality.",
+        "description": "In Amity Hollow, one person is erased from every living memory each October—and one woman still remembers. Read Chapter One and continue with Kindle Unlimited.",
         "video_alt": "The Hollow Year video preview thumbnail",
     },
     "books/the-hollow-bell.html": {
         "title": "The Hollow Bell | Cold-Case Mystery | JayTree Books",
-        "description": "A body beneath the ice reopens a twenty-year disappearance in Millbrook Falls. Enter an atmospheric cold-case mystery with supernatural secrets.",
+        "description": "Twenty years after Marnie Renner vanished, her remains surface beneath the ice in Millbrook Falls. Read Chapter One and continue with Kindle Unlimited.",
         "video_alt": "The Hollow Bell video preview thumbnail",
     },
     "books/the-absconding.html": {
         "title": "The Absconding | Family Secrets Mystery | JayTree Books",
-        "description": "A death beside the family beehives brings Del home to old history, archival clues, and buried truths. Read Chapter One and continue with Kindle Unlimited.",
+        "description": "Del returns home after her mother dies beside the family beehives. A silent hive and old ritual suggest the story is wrong. Read Chapter One.",
         "video_alt": "The Absconding video preview thumbnail",
     },
     "books/the-correction.html": {
         "title": "The Correction | Archive Conspiracy Mystery | JayTree Books",
-        "description": "Altered records and correction slips expose a deeper conspiracy in a town that decides what counts as true. Read Chapter One and continue with Kindle Unlimited.",
+        "description": "A correction slip changes more than the official record—it changes what Averill Falls remembers. Read Chapter One and continue with Kindle Unlimited.",
         "video_alt": "The Correction video preview thumbnail",
     },
+    "about.html": {
+        "title": "About JayTree Books | Independent Mystery Publisher",
+        "description": "About JayTree Books, an independent publisher of psychological thrillers, supernatural mysteries, cold cases, cinematic trailers, and Mystery Challenges.",
+        "video_alt": "JayTree Books publisher artwork",
+    },
     "mystery-books.html": {
-        "title": "Mystery Books & Psychological Thrillers | JayTree Books",
-        "description": "Discover dark mystery books from JayTree Books: cold cases, supernatural mysteries, psychological thrillers, family secrets, and Kindle Unlimited reads.",
+        "title": "New Mystery Books & Psychological Thrillers | JayTree Books",
+        "description": "Discover new mystery books from JayTree Books: psychological thrillers, supernatural mysteries, cold cases, family secrets, and Kindle Unlimited reads.",
         "video_alt": "JayTree Books mystery video thumbnail",
     },
 }
@@ -51,6 +58,29 @@ JSONLD_RE = re.compile(
     r'(<script\s+type=["\']application/ld\+json["\']\s*>)(.*?)(</script>)',
     re.IGNORECASE | re.DOTALL,
 )
+SITEMAP_PATHS = [
+    ("", "index.html"),
+    ("about.html", "about.html"),
+    ("animated-series.html", "animated-series.html"),
+    ("case-files.html", "case-files.html"),
+    ("books/second-draft.html", "books/second-draft.html"),
+    ("books/the-hollow-year.html", "books/the-hollow-year.html"),
+    ("books/the-hollow-bell.html", "books/the-hollow-bell.html"),
+    ("books/the-absconding.html", "books/the-absconding.html"),
+    ("books/the-correction.html", "books/the-correction.html"),
+    ("chapters/book-1-first-chapter.html", "chapters/book-1-first-chapter.html"),
+    ("chapters/book-2-first-chapter.html", "chapters/book-2-first-chapter.html"),
+    ("chapters/book-3-first-chapter.html", "chapters/book-3-first-chapter.html"),
+    ("chapters/book-4-first-chapter.html", "chapters/book-4-first-chapter.html"),
+    ("chapters/book-5-first-chapter.html", "chapters/book-5-first-chapter.html"),
+    ("mystery-books.html", "mystery-books.html"),
+    ("psychological-mystery-books.html", "psychological-mystery-books.html"),
+    ("kindle-unlimited-mystery-books.html", "kindle-unlimited-mystery-books.html"),
+    ("supernatural-mystery-books.html", "supernatural-mystery-books.html"),
+    ("small-town-mystery-books.html", "small-town-mystery-books.html"),
+    ("cold-case-mystery-books.html", "cold-case-mystery-books.html"),
+]
+
 YT_EMPTY_ALT_RE = re.compile(
     r'(<img\s+src="https://i\.ytimg\.com/vi/[^\"]+/hqdefault\.jpg")\s+alt=""',
     re.IGNORECASE,
@@ -69,8 +99,13 @@ def write_if_changed(path: Path, text: str) -> bool:
 def add_org_logo(value):
     if isinstance(value, dict):
         if value.get("@type") == "Organization" and value.get("name") == "JayTree Books":
+            value["@id"] = f"{SITE}/#publisher"
             value["url"] = SITE
-            value["logo"] = LOGO
+            logo = value.get("logo")
+            if not logo:
+                value["logo"] = {"@type": "ImageObject", "url": LOGO}
+            elif isinstance(logo, str):
+                value["logo"] = {"@type": "ImageObject", "url": logo}
             same_as = value.get("sameAs")
             if isinstance(same_as, list):
                 value["sameAs"] = list(dict.fromkeys(same_as))
@@ -195,6 +230,40 @@ def patch_durable_sources() -> None:
         write_if_changed(app, text)
 
 
+
+def _git_output(*args: str) -> str:
+    try:
+        result = subprocess.run(
+            ["git", *args],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        return result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return ""
+
+
+def _lastmod(rel: str) -> str:
+    # If the cleanup itself changed the file, today's date is the accurate
+    # last-modified date for the commit this workflow is about to create.
+    if _git_output("status", "--porcelain", "--", rel):
+        return date.today().isoformat()
+    committed = _git_output("log", "-1", "--format=%cs", "--", rel)
+    return committed or date.today().isoformat()
+
+
+def refresh_sitemap() -> None:
+    rows = ['<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for url_path, file_path in SITEMAP_PATHS:
+        loc = f"{SITE}/" + url_path
+        rows.append(f"  <url><loc>{loc}</loc><lastmod>{_lastmod(file_path)}</lastmod></url>")
+    rows.append("</urlset>")
+    rows.append("")
+    write_if_changed(ROOT / "sitemap.xml", "\n".join(rows))
+
 def validate() -> None:
     problems: list[str] = []
 
@@ -216,14 +285,20 @@ def validate() -> None:
             problems.append(f"{rel}: canonical is not on {SITE}")
         if YT_EMPTY_ALT_RE.search(text):
             problems.append(f"{rel}: YouTube thumbnail still has empty alt")
-        if '"@type":"Organization"' in text and f'"logo":"{LOGO}"' not in text:
+        if '"@type":"Organization"' in text and LOGO not in text:
             problems.append(f"{rel}: Organization schema logo missing")
 
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     if "https://www.JayTreeBooks.com" in sitemap:
         problems.append("sitemap.xml: WWW host remains")
-    if sitemap.count("<url>") != 14:
-        problems.append(f"sitemap.xml: expected 14 URLs, found {sitemap.count('<url>')}")
+    if sitemap.count("<url>") != len(SITEMAP_PATHS):
+        problems.append(
+            f"sitemap.xml: expected {len(SITEMAP_PATHS)} URLs, found {sitemap.count('<url>')}"
+        )
+    if sitemap.count("<lastmod>") != sitemap.count("<url>"):
+        problems.append("sitemap.xml: every URL must have lastmod")
+    if f"{SITE}/about.html" not in sitemap:
+        problems.append("sitemap.xml: about.html missing")
 
     # Durable SEO-source checks are limited to scripts/. Workflow definitions are
     # intentionally read-only for this job and are guarded separately by Actions.
@@ -250,6 +325,7 @@ def main() -> int:
     patch_all_html_schema_and_video_alt()
     for rel, spec in SEO.items():
         patch_page(rel, spec)
+    refresh_sitemap()
     validate()
     return 0
 
