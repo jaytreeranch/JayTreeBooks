@@ -150,6 +150,7 @@ def update_book_page(spec: dict[str, str]) -> None:
         data["mainEntityOfPage"] = {"@id": f"{canonical}#webpage"}
         data["inLanguage"] = "en"
         data["publisher"] = PUBLISHER
+        data["author"] = {"@type": "Organization", "@id": PUBLISHER_ID, "name": "JayTree Books", "url": SITE}
         data["isPartOf"] = {"@type": "WebSite", "@id": WEBSITE_ID, "name": "JayTree Books", "url": SITE}
         return match.group(1) + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + match.group(3)
 
@@ -380,6 +381,8 @@ def validate() -> None:
                 problems.append(f'{spec["path"]}: invalid JSON-LD: {exc}')
         if f'{SITE}/books/{spec["slug"]}.html#book' not in book:
             problems.append(f'{spec["path"]}: Book @id missing')
+        if '"author":{"@type":"Organization","@id":"https://jaytreebooks.com/#publisher","name":"JayTree Books"' not in book:
+            problems.append(f'{spec["path"]}: Book author entity missing')
         if "JAYTREE_ENTITY_GRAPH_START" not in book or '"@type":"VideoObject"' not in book:
             problems.append(f'{spec["path"]}: entity graph/video missing')
         if 'class="seo-breadcrumbs"' not in book:
