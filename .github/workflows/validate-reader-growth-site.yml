@@ -99,6 +99,8 @@ jobs:
           provider = newsletter.get('provider', 'formsubmit')
           assert len(books) == 5
           assert newsletter['name'] == 'JayTree Case Files'
+          assert config['socials']['threads'] == 'https://www.threads.com/@jaytreebooks'
+          assert config['socials']['bluesky'] == 'https://bsky.app/profile/jaytreebooks.com'
           assert provider in {'formsubmit', 'kit'}
           assert newsletter['kit']['formName'] == 'JayTree Case Files'
           assert newsletter['kit']['sequenceName'] == 'JayTree Case Files Welcome'
@@ -120,6 +122,8 @@ jobs:
               assert '../video-lite.js' in html
               assert 'src="https://www.youtube-nocookie.com/embed/' not in html
               assert '../privacy.html' in html and '../terms.html' in html
+              assert 'data-social="threads"' in html
+              assert 'data-social="bluesky"' in html
               original = book.get('coverOriginal') or book['cover']
               assert f'<meta property="og:image" content="https://jaytreebooks.com/{original}">' in html
               assert f'<meta name="twitter:image" content="https://jaytreebooks.com/{original}">' in html
@@ -156,6 +160,9 @@ jobs:
           assert '<script src="video-lite.js"></script>' in index
           assert 'privacy.html' in index and 'terms.html' in index
           assert 'JAYTREE_WEBSITE_SCHEMA_START' in index
+          assert 'data-social="threads"' in index
+          assert 'data-social="bluesky"' in index
+          assert 'rehearsals begin changing reality' in index
           assert 'href="about.html"' in index
 
           about = (root / 'about.html').read_text(encoding='utf-8')
@@ -185,6 +192,13 @@ jobs:
           assert 'case_files_signup_complete' in thanks
           if provider == 'kit':
               assert "{source:'kit'}" in thanks
+
+          social_poster = (root / 'social-poster.html').read_text(encoding='utf-8')
+          assert 'name="robots" content="noindex,follow"' in social_poster
+
+          legacy = (root / 'book.html').read_text(encoding='utf-8')
+          assert 'JAYTREE_LEGACY_BOOK_REDIRECT' in legacy
+          assert 'name="robots" content="noindex,follow"' in legacy
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'href="books/${b.slug}.html"' in app
