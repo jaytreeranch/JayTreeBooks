@@ -92,3 +92,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .secret-dissolve-core{width:42px;height:42px;font-size:0!important;background:url("images/interactive/JayTree_Interactive_Hidden_Glyph.webp") center/contain no-repeat;filter:drop-shadow(0 0 0 rgba(179,25,24,0));transform:scale(.45)!important}
 .secret-dissolve.is-entering .secret-dissolve-core{transform:scale(1.08)!important;filter:drop-shadow(0 0 24px rgba(179,25,24,.95))}
 @media(max-width:800px){.root-clue{font-size:.74rem!important}.root-clue-sub{font-size:.67rem!important}.root-clue-subtle{font-size:.63rem!important}.hidden-root{opacity:.34}}
+
+
+/* JAYTREE_SEO_BREADCRUMBS */
+.seo-breadcrumbs{max-width:1180px;margin:0 auto;padding:20px 24px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--muted);font-size:.82rem;letter-spacing:.02em}.seo-breadcrumbs a{color:var(--gold);text-decoration:none}.seo-breadcrumbs a:hover{text-decoration:underline}.seo-breadcrumbs span[aria-current="page"]{color:#c9c5bb}
