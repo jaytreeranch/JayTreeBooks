@@ -153,20 +153,23 @@ def patch_page(spec: dict, description: str) -> None:
         text = text.replace("</style>", css + "</style>", 1)
 
     text = re.sub(r"<audio\s+controls", '<audio data-audio-sample controls', text, count=1, flags=re.IGNORECASE)
-    text = text.replace(
-        f'href="../books/{spec["slug"]}.html"',
+    text = re.sub(
+        rf'href="{re.escape("../books/" + spec["slug"] + ".html")}"(?!\s+data-track=)',
         f'href="../books/{spec["slug"]}.html" data-track="audio_book_page"',
-        1,
+        text,
+        count=1,
     )
-    text = text.replace(
-        f'href="../chapters/book-{spec["chapter"]}-first-chapter.html"',
+    text = re.sub(
+        rf'href="{re.escape("../chapters/book-" + str(spec["chapter"]) + "-first-chapter.html")}"(?!\s+data-track=)',
         f'href="../chapters/book-{spec["chapter"]}-first-chapter.html" data-track="audio_chapter"',
-        1,
+        text,
+        count=1,
     )
-    text = text.replace(
-        f'href="{spec["amazon"]}"',
+    text = re.sub(
+        rf'href="{re.escape(spec["amazon"])}"(?!\s+data-track=)',
         f'href="{spec["amazon"]}" data-track="audio_kindle_unlimited"',
-        1,
+        text,
+        count=1,
     )
 
     tracking = f"""<script>
