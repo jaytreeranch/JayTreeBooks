@@ -29,7 +29,9 @@ KNOWN_SOCIALS = {
     "x": "https://x.com/JayTreeBooks",
     "tiktok": "https://www.tiktok.com/@jaytreebooks",
     "instagram": "",
+    "threads": "https://www.threads.com/@jaytreebooks",
     "facebook": "",
+    "bluesky": "https://bsky.app/profile/jaytreebooks.com",
 }
 
 CHAPTER_STYLE_MARKER = "/* JAYTREE_READER_CONVERSION */"
@@ -121,10 +123,12 @@ def social_links(config: dict, *, prefix: str = "") -> str:
         "instagram": "Instagram",
         "facebook": "Facebook",
         "tiktok": "TikTok",
+        "threads": "Threads",
         "x": "X",
+        "bluesky": "Bluesky",
     }
     links = []
-    for key in ("youtube", "instagram", "facebook", "tiktok", "x"):
+    for key in ("youtube", "instagram", "facebook", "tiktok", "threads", "x", "bluesky"):
         url = str((config.get("socials") or {}).get(key) or "").strip()
         if url:
             links.append(
