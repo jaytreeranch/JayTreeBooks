@@ -7,6 +7,24 @@ on:
       - main
     paths:
       - "scripts/seo_content_cleanup.py"
+      - "scripts/apply_entity_seo.py"
+      - "scripts/build_reader_growth_site.py"
+      - "scripts/finalize_reader_growth.py"
+      - "scripts/apply_site_improvements.py"
+      - "index.html"
+      - "about.html"
+      - "books/*.html"
+      - "chapters/*.html"
+      - "mystery-books.html"
+      - "psychological-mystery-books.html"
+      - "kindle-unlimited-mystery-books.html"
+      - "supernatural-mystery-books.html"
+      - "small-town-mystery-books.html"
+      - "cold-case-mystery-books.html"
+      - "case-files.html"
+      - "animated-series.html"
+      - "styles.css"
+      - "sitemap.xml"
       - ".github/workflows/seo-content-cleanup.yml"
 
 permissions:
@@ -24,11 +42,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Apply SEO cleanup
+      - name: Compile SEO maintenance
+        run: python -m py_compile scripts/apply_entity_seo.py scripts/seo_content_cleanup.py
+
+      - name: Apply entity SEO
+        run: python scripts/apply_entity_seo.py
+
+      - name: Apply SEO cleanup and sitemap refresh
         run: python scripts/seo_content_cleanup.py
 
-      - name: Validate SEO cleanup
-        run: python scripts/seo_content_cleanup.py
+      - name: Validate idempotent SEO output
+        run: |
+          python scripts/apply_entity_seo.py
+          python scripts/seo_content_cleanup.py
 
       - name: Verify workflow files untouched
         shell: bash
