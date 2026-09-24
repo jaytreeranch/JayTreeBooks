@@ -34,7 +34,7 @@ SEO = {
     },
     "books/the-absconding.html": {
         "title": "The Absconding | Family Secrets Mystery | JayTree Books",
-        "description": "After Del's mother dies beside the family beehives, the hives fall silent—and an old family ritual suggests the story she's been told is wrong. Read Chapter One and continue with Kindle Unlimited.",
+        "description": "Del returns home after her mother dies beside the family beehives. A silent hive and old ritual suggest the story is wrong. Read Chapter One.",
         "video_alt": "The Absconding video preview thumbnail",
     },
     "books/the-correction.html": {
@@ -44,7 +44,7 @@ SEO = {
     },
     "about.html": {
         "title": "About JayTree Books | Independent Mystery Publisher",
-        "description": "About JayTree Books, an independent mystery publisher creating psychological thrillers, supernatural mysteries, cold cases, first-chapter previews, trailers, and Mystery Challenges.",
+        "description": "About JayTree Books, an independent publisher of psychological thrillers, supernatural mysteries, cold cases, cinematic trailers, and Mystery Challenges.",
         "video_alt": "JayTree Books publisher artwork",
     },
     "mystery-books.html": {
