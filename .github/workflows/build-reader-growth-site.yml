@@ -12,10 +12,17 @@ on:
       - "scripts/configure_kit_newsletter.py"
       - "scripts/add_audiobook_coming_soon.py"
       - "scripts/apply_site_improvements.py"
+      - "scripts/apply_entity_seo.py"
+      - "scripts/apply_audio_seo.py"
+      - "scripts/seo_content_cleanup.py"
       - "scripts/qc_repair_site.py"
       - "config.js"
       - "images/*.png"
       - "chapters/*.html"
+      - "audio/*.html"
+      - "about.html"
+      - "books/*.html"
+      - "sitemap.xml"
       - ".github/workflows/build-reader-growth-site.yml"
 
 permissions:
@@ -88,6 +95,9 @@ jobs:
               path.write_text(text, encoding='utf-8')
           PY
           python scripts/qc_repair_site.py
+          python scripts/apply_entity_seo.py
+          python scripts/apply_audio_seo.py
+          python scripts/seo_content_cleanup.py
 
       - name: Preserve mystery books discovery hub in sitemap
         shell: bash
@@ -145,6 +155,7 @@ jobs:
               assert page.exists(), page
               html = page.read_text(encoding='utf-8')
               assert '<script type="application/ld+json">' in html
+              assert '"author":{"@type":"Organization","@id":"https://jaytreebooks.com/#publisher","name":"JayTree Books"' in html
               assert 'Read FREE with Kindle Unlimited' in html
               assert f"/books/{book['slug']}.html" in html
               assert 'id="about"' in html
@@ -176,6 +187,13 @@ jobs:
               assert 'Jaytree Books' not in chapter_html
               assert f"{book['title']} — First Chapter | JayTree Books" in chapter_html
               assert '<h1' not in chapter_html.split('<div class="note">', 1)[-1]
+
+              audio_path = root / book['audio']
+              audio_html = audio_path.read_text(encoding='utf-8')
+              assert '"@type":"AudioObject"' in audio_html
+              assert 'class="audio-breadcrumbs"' in audio_html
+              assert 'audio_sample_play' in audio_html
+              assert f'https://jaytreebooks.com/books/{book["slug"]}.html#book' in audio_html
 
               optimized = root / book['cover']
               assert optimized.exists(), optimized
@@ -244,12 +262,14 @@ jobs:
           assert 'privacy.html' in legacy and 'terms.html' in legacy
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
-          assert sitemap.count('<url>') == 20
-          assert sitemap.count('<lastmod>') == 20
+          assert sitemap.count('<url>') == 25
+          assert sitemap.count('<lastmod>') == 25
           assert 'https://jaytreebooks.com/about.html' in sitemap
           assert 'https://jaytreebooks.com/mystery-books.html' in sitemap
           assert 'https://jaytreebooks.com/animated-series.html' in sitemap
           assert 'https://jaytreebooks.com/case-files.html' in sitemap
+          for book in books:
+              assert f'https://jaytreebooks.com/{book["audio"]}' in sitemap
           assert (root / 'robots.txt').exists()
           print(f'Generated reader-growth site and SEO preservation validated with provider={provider}.')
           PY
@@ -259,7 +279,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add config.js app.js index.html book.html case-files.html case-files-thanks.html styles.css video-lite.js chapters books sitemap.xml robots.txt images/optimized
+          git add config.js app.js index.html about.html book.html case-files.html case-files-thanks.html styles.css video-lite.js chapters audio books sitemap.xml robots.txt images/optimized
           if git diff --cached --quiet; then
             echo "Reader-growth site is already current."
             exit 0
