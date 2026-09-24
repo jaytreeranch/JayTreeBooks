@@ -94,6 +94,21 @@ def patch_legacy_book_page() -> None:
             '<meta name="description" content="Explore a JayTree Books mystery.">\n  <meta name="robots" content="noindex,follow">',
             1,
         )
+    marker = "JAYTREE_LEGACY_BOOK_REDIRECT"
+    if marker not in text:
+        redirect = """  <!-- JAYTREE_LEGACY_BOOK_REDIRECT -->
+  <script>
+  (function(){
+    var slug=new URLSearchParams(location.search).get('book')||'';
+    var allowed=new Set(['second-draft','the-hollow-year','the-hollow-bell','the-absconding','the-correction']);
+    if(allowed.has(slug)){
+      var hash=location.hash==='#audiobook'?'#listen':location.hash;
+      location.replace('books/'+slug+'.html'+hash);
+    }
+  })();
+  </script>
+"""
+        text = text.replace('  <title>JayTree Books</title>\n', '  <title>JayTree Books</title>\n' + redirect, 1)
     LEGACY_BOOK_PATH.write_text(text, encoding="utf-8")
 
 
