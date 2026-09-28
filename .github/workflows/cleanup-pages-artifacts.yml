@@ -1,0 +1,44 @@
+name: Cleanup stale Pages artifacts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_config.yml"
+      - ".github/workflows/cleanup-pages-artifacts.yml"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete stale github-pages artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cutoff="$(date -u -d '1 hour ago' +%s)"
+          deleted=0
+          freed=0
+
+          while IFS=$'\t' read -r id created size; do
+            [ -n "$id" ] || continue
+            created_epoch="$(date -u -d "$created" +%s)"
+            if [ "$created_epoch" -lt "$cutoff" ]; then
+              echo "Deleting stale github-pages artifact id=$id created=$created size=$size"
+              gh api --method DELETE "repos/$REPO/actions/artifacts/$id"
+              deleted=$((deleted + 1))
+              freed=$((freed + size))
+            fi
+          done < <(
+            gh api --paginate "repos/$REPO/actions/artifacts?per_page=100" \
+              --jq '.artifacts[] | select(.name == "github-pages") | [.id, .created_at, .size_in_bytes] | @tsv'
+          )
+
+          echo "Deleted $deleted stale Pages artifact(s), freeing $freed bytes of current artifact storage."
