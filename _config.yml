@@ -1,0 +1,5 @@
+exclude:
+  # Production/social MP4 archive is kept in GitHub for campaign history,
+  # but it is not part of the public website and should never be packaged
+  # into the GitHub Pages deployment artifact.
+  - media/social/video
