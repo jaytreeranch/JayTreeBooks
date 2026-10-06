@@ -32,6 +32,10 @@ for page_name, slug in BOOKS.items():
         errors.append(f"{page_name}: missing Recommended Narrator badge")
     if "Immersive Experience" not in text or "Coming Soon" not in text:
         errors.append(f"{page_name}: missing Immersive Experience coming-soon card")
+    if text.count('<script src="/pwa.js" defer></script>') != 1:
+        errors.append(f"{page_name}: expected exactly one pwa.js script")
+    if text.count("JAYTREE_PWA_HEAD_START") != 1 or text.count("JAYTREE_PWA_SCRIPT_START") != 1:
+        errors.append(f"{page_name}: missing or duplicated standard PWA markers")
     if "Opening credits • Chapter One • Closing credits" not in text:
         errors.append(f"{page_name}: missing preview sequence disclosure")
 

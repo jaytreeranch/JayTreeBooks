@@ -47,8 +47,17 @@ for b in books:
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="website"><meta property="og:title" content="{b['title']} — Choose Your Narrator"><meta property="og:description" content="Four narrator choices. Listen to Chapter One before you choose."><meta property="og:image" content="https://jaytreebooks.com/images/optimized/{b['cover']}">
 <link rel="icon" type="image/png" href="/favicon.png">
-<link rel="manifest" href="/manifest.webmanifest"><link rel="stylesheet" href="/pwa.css"><link rel="stylesheet" href="audiobook-experience.css">
-<meta name="theme-color" content="#070b0f">
+<link rel="stylesheet" href="audiobook-experience.css">
+<!-- JAYTREE_PWA_HEAD_START -->
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=publisher-logo-3">
+<meta name="theme-color" content="#080d12">
+<meta name="application-name" content="JayTree Books">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="JayTree Books">
+<link rel="stylesheet" href="/pwa.css">
+<!-- JAYTREE_PWA_HEAD_END -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
 <script type="application/ld+json">{schema}</script>
 </head>
@@ -84,7 +93,10 @@ for b in books:
   <div class="actions"><a class="cta primary" href="{b['book']}" data-track="audio_book_page">Explore the Book</a><a class="cta" href="{b['chapter']}" data-track="audio_chapter">Read Chapter One</a><a class="cta" href="{b['amazon']}" target="_blank" rel="noopener" data-track="audio_kindle_unlimited">Continue on Amazon</a></div>
   <p class="site-note"><strong>Audiobook editions are in production.</strong> These listening previews let you compare narrator choices before the full Classic and Immersive editions are released.</p>
 </main>
-<script src="audiobook-experience.js"></script><script src="/pwa.js" defer></script>
+<script src="audiobook-experience.js"></script>
+<!-- JAYTREE_PWA_SCRIPT_START -->
+<script src="/pwa.js" defer></script>
+<!-- JAYTREE_PWA_SCRIPT_END -->
 </body></html>'''
     html = "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
     (ROOT/"audio"/b["page"]).write_text(html,encoding="utf-8")
