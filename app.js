@@ -77,10 +77,10 @@ function bookCard(b) {
 
 function audioCard(b) {
   return `<article class="audio-card">
-    <div class="audio-icon">◉</div><div class="format">Audiobook</div><h3>${b.title}</h3><p>${b.description}</p>
+    <div class="audio-icon">◉</div><div class="format">Choose Your Narrator</div><h3>${b.title}</h3><p>${b.description}</p>
     <div class="card-actions">
-      <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Audio Sample</a>
-      <a class="audible" href="books/${b.slug}.html#listen" data-track="book_audio" data-book="${b.slug}">Full Audiobook — Coming Soon</a>
+      <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Compare 4 Narrators</a>
+      <a class="audible" href="${b.audio}#immersive-title" data-track="book_audio" data-book="${b.slug}">Immersive — Coming Soon</a>
     </div>
   </article>`;
 }
@@ -280,7 +280,7 @@ async function renderBook() {
         ${kindleUnlimitedCallout(b)}
         <div class="book-actions">
           <a class="cta solid" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read Chapter One</a>
-          <a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Play Audio Sample</a>
+          <a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Choose Narrator & Listen</a>
           ${externalButton(b.amazonUrl, "Buy on Amazon", "amazon", b.slug)}
         </div>
         <p><a class="back" href="index.html#books">← Back to the collection</a></p>
