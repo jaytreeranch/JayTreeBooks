@@ -122,3 +122,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 :where(a,button,input,select,textarea):focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 @media(max-width:700px){.reader-next-step{margin:16px 16px;padding:18px}.reader-next-actions{flex-direction:column;align-items:stretch}.reader-next-actions a{width:100%;text-align:center}.guides-main{padding:90px 18px 50px}.guides-grid{grid-template-columns:1fr}.guides-card{padding:18px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* JT_MOBILE_LAYOUT_STABILITY_20261022: reserve cover space and improve tap targets */
+.hero-feature img,.book-cover-large img{aspect-ratio:2 / 3;height:auto;object-fit:contain}
+@media(max-width:800px){.nav-links a{display:flex;align-items:center;min-height:44px}.card-actions a,.book-actions a,.audio-card .card-actions a{display:flex;align-items:center;justify-content:center;min-height:44px}.menu-toggle{min-width:44px;min-height:44px;cursor:pointer}}
