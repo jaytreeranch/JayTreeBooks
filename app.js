@@ -208,7 +208,7 @@ async function featuredBook() {
 async function renderIndex() {
   const bookGrid = document.getElementById("book-grid");
   const audioGrid = document.getElementById("audio-grid");
-  if (bookGrid) bookGrid.innerHTML = JT.books.map(bookCard).join("");
+  // Preserve crawlable, server-rendered book cards for no-JavaScript visitors.\n  if (bookGrid && !bookGrid.children.length) bookGrid.innerHTML = JT.books.map(bookCard).join("");
   if (audioGrid) audioGrid.innerHTML = JT.books.map(audioCard).join("");
 
   const featured = await featuredBook();
