@@ -65,7 +65,8 @@
 
   const readerStartEvents = new Set([
     "chapter",
-    "featured_chapter"
+    "featured_chapter",
+    "reader_next_chapter"
   ]);
 
   const readIntentEvents = new Set([
@@ -74,9 +75,12 @@
     "featured_kindle_unlimited",
     "amazon",
     "ku_home_amazon",
-    "ku_author_page"
+    "ku_author_page",
+    "reader_next_ku"
   ]);
 
+  // Only verified Kit subscription events should become GA4 sign_up conversions.
+  // Confirmation page views are informational and never count as a sign-up.
   const challengeEvents = new Set([
     "challenge_current_youtube",
     "challenge_reveal_youtube"

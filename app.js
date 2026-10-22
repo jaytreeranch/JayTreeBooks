@@ -143,7 +143,17 @@ document.querySelectorAll("[data-event]").forEach(el => {
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
   const toggle = document.querySelector(".menu-toggle");
-  if (toggle) toggle.addEventListener("click", () => document.querySelector(".nav")?.classList.toggle("open"));
+  if (toggle) {
+    const nav = document.querySelector(".nav");
+    const links = document.querySelector(".nav-links");
+    function closeMenu() { nav?.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); }
+    toggle.addEventListener("click", () => {
+      const isOpen = nav?.classList.toggle("open") || false;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+    links?.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
+    document.addEventListener("keydown", event => { if (event.key === "Escape") closeMenu(); });
+  }
 }
 
 let campaignConfigPromise = null;
@@ -208,7 +218,7 @@ async function featuredBook() {
 async function renderIndex() {
   const bookGrid = document.getElementById("book-grid");
   const audioGrid = document.getElementById("audio-grid");
-  if (bookGrid) bookGrid.innerHTML = JT.books.map(bookCard).join("");
+  // Preserve crawlable, server-rendered book cards for no-JavaScript visitors.\n  if (bookGrid && !bookGrid.children.length) bookGrid.innerHTML = JT.books.map(bookCard).join("");
   if (audioGrid) audioGrid.innerHTML = JT.books.map(audioCard).join("");
 
   const featured = await featuredBook();
