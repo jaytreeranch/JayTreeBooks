@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071a2b">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="JayTree Card Vault, a private trading card collection and scanning workspace.">
+<title>JayTree Card Vault | Private Collection</title>
+<style>
+:root{color-scheme:dark;--bg:#071827;--panel:#10293c;--panel2:#0e2334;--line:#244c62;--text:#ecf6fa;--muted:#a9c3d1;--cyan:#70cbe8;--gold:#eabf77}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.62 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 84% 10%,#13445b66,transparent 36%),var(--bg)}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.shell{max-width:1150px;margin:auto;padding:0 28px}
+.top{border-bottom:1px solid var(--line);background:#061522e8}
+.header{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:86px}
+.mark{font:bold 25px/1.1 Georgia,serif;text-decoration:none;letter-spacing:-.04em}
+.mark span{color:var(--cyan)}.mark small{font:700 10px/1 system-ui;display:block;margin-top:7px;letter-spacing:.22em;color:var(--muted)}
+.nav{display:flex;align-items:center;gap:22px;font-size:13px}
+.nav a:not(.pill){color:var(--muted);text-decoration:none}.nav a:hover{color:var(--cyan)}
+.pill{display:inline-flex;justify-content:center;align-items:center;border-radius:9px;padding:12px 20px;font-weight:700;text-decoration:none;background:var(--cyan);color:#071927;white-space:nowrap}
+.pill.secondary{background:transparent;color:var(--text);border:1px solid #5c8499}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center;padding-top:100px;padding-bottom:95px}
+.eyebrow{font-size:11px;color:var(--gold);font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1,h2,h3{font-family:Georgia,serif;font-weight:500;line-height:1.11;letter-spacing:-.045em}
+h1{font-size:clamp(45px,6vw,78px);margin:23px 0 24px}
+h1 em{font-style:normal;color:var(--cyan)}
+.lead{color:var(--muted);font-size:18px;max-width:580px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.note{font-size:12px;color:var(--muted);margin-top:18px}
+.preview{border:1px solid #34657d;border-radius:20px;background:linear-gradient(140deg,#16364a,#091928);box-shadow:0 25px 70px #0006;overflow:hidden;min-height:360px}
+.preview-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #315167;padding:20px 24px;font-size:12px}
+.preview-header b{color:var(--cyan);letter-spacing:.13em}.preview-header span{color:var(--gold)}
+.preview-main{padding:30px 25px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.tile{aspect-ratio:2.5/3.5;border:1px solid #42738a;border-radius:10px;background:linear-gradient(140deg,#d9ebf0,#739cb1 54%,#172e41 55%,#21495e);box-shadow:inset 0 0 0 6px #0c233866;display:flex;align-items:end;justify-content:center;padding:12px 5px;color:#f9f2e4;font:700 11px system-ui;letter-spacing:.1em}
+.tile:nth-child(2){background:linear-gradient(145deg,#b7d4e8,#355b79 52%,#af9161 53%,#2d3b48)}
+.tile:nth-child(3){background:linear-gradient(160deg,#dfd5aa,#496674 47%,#16364e 48%,#326b79)}
+.preview-footer{display:flex;align-items:center;gap:8px;padding-top:22px;color:#b3d2dc;font-size:12px}.dot{width:7px;height:7px;border-radius:100%;background:var(--cyan)}
+section.features{border-top:1px solid var(--line);padding:69px 0}
+h2{font-size:clamp(31px,4vw,45px);margin:13px 0 25px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.panel{background:var(--panel2);border:1px solid var(--line);padding:28px;border-radius:14px;min-height:205px}
+.panel h3{font-size:25px;margin:0 0 14px}
+.panel p{color:var(--muted);margin:0}
+.number{font:800 12px system-ui;color:var(--gold);letter-spacing:.1em;margin-bottom:24px}
+.access{background:#102b3e;border:1px solid #375c71;padding:30px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;gap:30px;margin:5px 0 77px}
+.access h2{font-size:28px;margin:5px 0 8px}.access p{color:var(--muted);margin:0}
+.status{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:13px}
+.status strong{color:var(--text)}footer{padding:20px 0 44px;color:#86a5b6;font-size:12px}
+footer a{color:var(--cyan)}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:60px;padding-bottom:60px;gap:35px}.preview{max-width:570px}.cards{grid-template-columns:1fr 1fr}.nav a:not(.pill){display:none}}
+@media(max-width:620px){.shell{padding:0 18px}.header{min-height:76px}.mark{font-size:22px}.hero{padding-top:44px;padding-bottom:54px}.lead{font-size:16px}.cards{grid-template-columns:1fr}.access{display:block}.access .pill{margin-top:20px;width:100%}.preview-main{padding:25px 18px}.actions .pill{width:100%}}
+@media(prefers-reduced-motion:no-preference){.pill:hover{filter:brightness(1.08)}.preview{transform:translateY(0)}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="shell header">
+  <a class="mark" href="/cards/" aria-label="JayTree Card Vault home">JayTree <span>Card Vault</span><small>PRIVATE COLLECTION</small></a>
+  <nav class="nav" aria-label="Site navigation">
+   <a href="#how-it-works">How it works</a><a href="#roadmap">What's next</a>
+   <a class="pill" href="https://jaytree-card-vault.jaytree-card-vault.workers.dev/" rel="noopener noreferrer">Open My Vault</a>
+  </nav>
+ </div>
+</header>
+<main>
+ <div class="shell hero">
+  <div>
+   <div class="eyebrow">JayTree Interactive · Sports Card Collection</div>
+   <h1>Every card.<br><em>One vault.</em></h1>
+   <p class="lead">Scan, review, and organize your trading cards. Keep front and back images together, preserve unidentified cards, and access your private collection online.</p>
+   <div class="actions">
+    <a class="pill" href="https://jaytree-card-vault.jaytree-card-vault.workers.dev/">Open private collection</a>
+    <a class="pill secondary" href="#how-it-works">See scanning workflow</a>
+   </div>
+   <p class="note">Your collection and card photos are never displayed on this public landing page. Sign-in is required to access the private vault.</p>
+  </div>
+  <div class="preview" aria-label="Decorative preview of three illustrated trading card placeholders">
+   <div class="preview-header"><b>JAYTREE / CARD VAULT</b><span>PRIVATE</span></div>
+   <div class="preview-main">
+    <div class="tiles" aria-hidden="true"><div class="tile">FRONT</div><div class="tile">BACK</div><div class="tile">VAULT</div></div>
+    <div class="preview-footer"><span class="dot"></span> Scan · Review · Save securely</div>
+   </div>
+  </div>
+ </div>
+ <section id="how-it-works" class="features">
+  <div class="shell">
+   <div class="eyebrow">Collection workflow</div><h2>Built for more than one card at a time.</h2>
+   <div class="cards">
+    <article class="panel"><div class="number">01 / CAPTURE</div><h3>Scan a group</h3><p>Photograph several card fronts together. The beta scanner detects individual cards and prepares crops for review.</p></article>
+    <article class="panel"><div class="number">02 / PAIR</div><h3>Flip and match</h3><p>Flip cards in place and photograph the backs. Review the suggested front/back pairings before saving.</p></article>
+    <article class="panel"><div class="number">03 / KEEP</div><h3>Save even unknowns</h3><p>Unidentified cards can stay in your private vault with their photos and be rechecked later.</p></article>
+   </div>
+  </div>
+ </section>
+ <div class="shell">
+  <aside class="access" aria-label="Secure vault access">
+   <div><div class="eyebrow">Account protected</div><h2>Your cards stay private.</h2><p>Sign in with JayTree's Cloudflare Access protection to view, edit or scan your collection.</p></div>
+   <a class="pill" href="https://jaytree-card-vault.jaytree-card-vault.workers.dev/" rel="noopener noreferrer">Sign in to Card Vault</a>
+  </aside>
+ </div>
+ <section id="roadmap" class="status">
+  <div class="shell"><strong>Development status:</strong> Private collection, camera scan and review-first batching are in beta. More accurate NFL image recognition, full-resolution photo backup, eBay sold-price research and owner-approved eBay listing are planned, not currently released.</div>
+ </section>
+</main>
+<footer class="shell">© JayTree · <a href="https://www.jaytreebooks.com/">JayTreeBooks.com</a> · This public page contains no private inventory.</footer>
+</body></html>
