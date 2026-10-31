@@ -11,10 +11,6 @@ on:
         description: "Optional | separated keyword list (blank = default 25 five-novel phrases)"
         required: false
         default: ""
-  push:
-    branches: [main]
-    paths:
-      - "reports/amazon-rank/manual-trigger.txt"
   schedule:
     - cron: "17 14 1,15 * *"
 
@@ -33,7 +29,7 @@ jobs:
       CANOPY_API_KEY: ${{ secrets.CANOPY_API_KEY }}
       AMAZON_COUNTRY: US
       MAX_PAGES: ${{ github.event.inputs.max_pages || '5' }}
-      KEYWORDS: ${{ github.event.inputs.keywords || (github.event_name == 'push' && 'archive conspiracy mystery') || '' }}
+      KEYWORDS: ${{ github.event.inputs.keywords || '' }}
 
     steps:
       - name: Check out tracker files
