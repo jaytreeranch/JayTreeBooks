@@ -3,12 +3,12 @@
 - Marketplace: `US`
 - API: `Canopy GraphQL`
 - Search scope: `Amazon US featured search via Canopy (no categoryId filter)`
-- Checked: `2026-10-31T14:19:14.265184+00:00`
+- Checked: `2026-10-31T14:20:40.443126+00:00`
 - Books checked: `5`
-- Unique keywords checked: `5`
+- Unique keywords checked: `1`
 - Maximum pages requested per keyword: `5`
 - Page size requested: `20`
-- Canopy API requests sent this run: `5`
+- Canopy API requests sent this run: `1`
 
 ## Portfolio summary
 
@@ -24,31 +24,27 @@
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| cold case mystery | — | — | 60 | No | not_found_after_5_pages_60_organic_results |
 
 ## Second Draft
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| reality bending mystery | — | — | 76 | No | not_found_after_5_pages_76_organic_results |
 
 ## The Hollow Year
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| memory erasure mystery | — | — | 47 | No | not_found_after_3_pages_47_organic_results |
 
 ## The Absconding
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| New England folklore mystery | — | — | 77 | No | not_found_after_5_pages_77_organic_results |
 
 ## The Correction
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| archive conspiracy mystery | — | — | 0 | No | graphql_error |
+| archive conspiracy mystery | — | — | 58 | No | not_found_after_5_pages_58_organic_results |
 
 ## Unexpected cross-title rankings
 
