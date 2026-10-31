@@ -33,7 +33,7 @@ jobs:
       CANOPY_API_KEY: ${{ secrets.CANOPY_API_KEY }}
       AMAZON_COUNTRY: US
       MAX_PAGES: ${{ github.event.inputs.max_pages || '5' }}
-      KEYWORDS: ${{ github.event.inputs.keywords || (github.event_name == 'push' && 'cold case mystery|reality bending mystery|memory erasure mystery|New England folklore mystery|archive conspiracy mystery') || '' }}
+      KEYWORDS: ${{ github.event.inputs.keywords || (github.event_name == 'push' && 'archive conspiracy mystery') || '' }}
 
     steps:
       - name: Check out tracker files
