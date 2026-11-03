@@ -1,3 +1,17 @@
+# CURRENT HANDOFF — November 3, 2026: Hollow Bell V6 PRIVATE GitHub Release staging
+
+**Current status:** The original 30-second Hollow Bell Beneath the Ice V6 MP4 and approved portrait JPG are stored on JayTree LAN AND uploaded with matching server SHA-256 to an existing **GitHub Release PRIVATE DRAFT** in this repository: tag hollow-bell-beneath-the-ice-v6-20261101, release ID 433067322. Authenticated server reports two matching assets. Unauthenticated GitHub release tag lookup HTTP 404, thus it is NOT PUBLIC. Never claim it is a published video.
+
+**Root cause of old MP4 site 404:** _config.yml intentionally excludes media/social/video from GitHub Pages. Existing public official-trailer GitHub Release delivery returned HTTP 206. Do not use broken JayTreeBooks.com media/video URLs as source for Social Poster uploads.
+
+**Exact approved hashes:** MP4 SHA256 211b150ccb1e7487faa9e1dd9fdd4c31bafb61f6a6341bc23c27f531e9219897, 20,768,108 bytes; portrait JPG SHA256 7b959cb19ccaf2fb232ab082d9d7e95d11ae8ede0bf73503c36cdf808c6b3c1e, 638,324 bytes. Independent authenticated stage receipt on LAN SHA 31d6410de79685f101722ee5fe52669e4bfdcefdea282f38f078b191ab32d622.
+
+**Continue at:** docs/handoffs/2026-11-03-hollow-bell-v6-private-release-staging.md and Social Poster feature/hollow-bell-v6-release-admission-20261102 docs/CURRENT_HANDOFF.md. V6 delivery candidate remains disabled, gated by independent rights/signed release, exact account OAuth/remote duplicate check, and subsequent public release URL verification. No social upload. **DO NOT START OTHER BOOK VIDEOS.**
+
+**Scope:** Feature-branch documentation only; JayTreeBooks main/deployed site and media archive unchanged. Private draft is separate from Git history. Rollback: preserve draft private until owner authorizes deletion; revert feature docs if necessary.
+
+---
+
 # JayTreeBooks — CURRENT HANDOFF
 
 **Status at 2026-10-31: DOCUMENTATION BOOTSTRAP ONLY — PROJECT STATE NOT AUDITED.**
