@@ -1,3 +1,6 @@
+## November 8 V6 public delivery
+See handoffs/2026-11-08-v6-public-delivery.md. Exact approved master copy hash PASS; public HTTP/hash check pending Pages deployment.
+
 # JayTreeBooks — CURRENT HANDOFF
 
 **Status at 2026-10-31: DOCUMENTATION BOOTSTRAP ONLY — PROJECT STATE NOT AUDITED.**

@@ -1,0 +1,3 @@
+# November 8 approved V6 public media delivery
+
+The existing media/social/video archive is deliberately excluded from Pages. This release adds only the owner-approved original V6 to media/delivery for direct HTTPS TikTok fetching at https://jaytreebooks.com/media/delivery/the-hollow-bell-beneath-the-ice-v6.mp4. This is an authorized public publishing asset; the original and private production evidence remain on JayTree LAN. No website UI, old archive, CNAME or service-worker changes. SHA256 211b150ccb1e7487faa9e1dd9fdd4c31bafb61f6a6341bc23c27f531e9219897. Rollback: revert this delivery commit after any active provider pull finishes. Verify real public bytes before TikTok retry.
