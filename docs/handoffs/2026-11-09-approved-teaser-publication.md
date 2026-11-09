@@ -1,0 +1,8 @@
+## Approved cinematic teaser publication — November 9, 2026
+
+Owner approved the finished teaser for the website. Public approved asset is https://github.com/jaytreeranch/JayTreeBooks/releases/download/upcoming-novels-teaser-20261109/JayTree_Upcoming_Novels_Cinematic_Teaser_v1.mp4. HTTP 200, 19,665,280 bytes, SHA256 870c7f7de906473a874082ec908b60b5a900972d4031564db81dbbe0c1f4d184 verified; byte-identical to approved export, 27.2 seconds. No new generation, re-encoding or subscription.
+
+Added native controls/playsinline video on upcoming-books.html, preload=none and existing approved poster; same-origin English VTT captions plus fallback direct link. Updated script/style versions to avoid stale caches. Added video-start, watched 25/50/75% and completion events. Progress uses actually played time ranges rather than seek position; completion requires ended with at least 90% watched. Eight tests PASS (existing six plus two video behavior tests). Website deployment/player playback PENDING at this checkpoint. GA4 server ingestion remains unverified due reporting access limitations.
+
+Owner also requested a handoff prompt for the existing seven-platform social poster, including both JayTreeBooks and JayTreeBook on Facebook. No social posts were submitted in this chat. Verify exact account IDs; if JayTreeBook is unavailable, provide the manual posting package without blocking other connected accounts. Keep Video Studio repairs and global production settings untouched. Rollback: remove only cinematic-teaser section and video-specific events using a new commit; preserve three-novel promo and existing published books.
+

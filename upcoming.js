@@ -40,6 +40,45 @@
       surfaces.filter(el => el.dataset.upcomingSurface !== "landing").forEach(el => observer.observe(el));
       document.querySelectorAll("[data-upcoming-book]").forEach(el => observer.observe(el));
     }
+    document.querySelectorAll("[data-upcoming-video]").forEach(video => {
+      let started = false;
+      const milestones = new Set();
+      let complete = false;
+      const details = () => ({placement, video_id: video.dataset.upcomingVideo,
+        video_title: "Upcoming novels cinematic teaser",
+        video_duration: Number.isFinite(video.duration) ? video.duration : 0});
+      function percentWatched() {
+        if (!Number.isFinite(video.duration) || video.duration <= 0) return 0;
+        const ranges = video.played;
+        let watched = 0;
+        for (let i = 0; i < ranges.length; i++) watched += ranges.end(i) - ranges.start(i);
+        return Math.min(100, watched / video.duration * 100);
+      }
+      function progress() {
+        const percent = percentWatched();
+        [25, 50, 75].forEach(milestone => {
+          if (percent >= milestone && !milestones.has(milestone)) {
+            milestones.add(milestone);
+            send("upcoming_video_progress", Object.assign(details(), {video_percent: milestone}));
+          }
+        });
+      }
+      video.addEventListener("play", () => {
+        if (started) return;
+        started = true;
+        send("upcoming_video_start", details());
+      });
+      video.addEventListener("timeupdate", progress);
+      video.addEventListener("ended", () => {
+        progress();
+        if (!complete && percentWatched() >= 90) {
+          complete = true;
+          send("upcoming_video_complete", Object.assign(details(), {video_percent: Math.round(percentWatched())}));
+        }
+      });
+      video.addEventListener("error", () => send("upcoming_video_error",
+        Object.assign(details(), {media_error_code: video.error?.code || 0})));
+    });
     const actions = {
       open: "upcoming_promo_click", notify: "upcoming_notify_click",
       collection: "upcoming_collection_click", chapter: "upcoming_chapter_click",

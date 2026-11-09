@@ -22,3 +22,7 @@ Use https://jaytreebooks.com/upcoming-books.html?utm_source=youtube&utm_medium=v
 ## Verification limits
 Six local behavioral tests PASS; HTML/assets/link destinations and configured GA4 ID checked. Live browser collection/request confirmation and deployed-page checks must be recorded in release receipts. GSC Wizard reporting connector refused reads because no active subscription; this is separate from the site's Google Analytics tag. No visitor total or confirmed GA4 server-side receipt is claimed from a local test. A test visit tagged promo_test=1 sends debug_mode and promo_test=true; exclude it when interpreting launch counts.
 
+
+## Approved native teaser
+
+upcoming_video_start counts one first play per page load. upcoming_video_progress reports once each for 25, 50 and 75 percent of unique played-time ranges. upcoming_video_complete requires playback ended and at least 90 percent actually viewed; seeking alone does not qualify. upcoming_video_error reports the browser media error code. Parameters include video_id, video_title, video_duration and video_percent where applicable. These are viewing metrics, not purchases or subscriptions. Eight behavioral tests PASS. Live Analytics receipt remains unverified.
