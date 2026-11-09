@@ -1,0 +1,37 @@
+/* Owner-approved upcoming novel campaign, November 2026. */
+.upcoming-home{padding:64px 24px;background:linear-gradient(135deg,#142028,#080d12);border-block:1px solid var(--line)}
+.upcoming-home .wrap{max-width:1180px}.upcoming-home-head{max-width:800px;margin-bottom:28px}
+.upcoming-home h2{font-size:clamp(2rem,4.5vw,3.7rem);line-height:1.13;margin:12px 0 18px}
+.upcoming-home p,.upcoming-copy p{color:var(--muted);line-height:1.8}
+.upcoming-home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.upcoming-mini{display:block;border:1px solid var(--line);text-decoration:none!important;background:#0c151b;color:var(--cream)}
+.upcoming-mini img{width:100%;height:auto;aspect-ratio:16/9;display:block}
+.upcoming-mini span{display:block;padding:18px 20px;font-size:1.03rem}
+.upcoming-mini strong{display:block;font-family:Georgia,serif;font-size:1.35rem;margin-bottom:6px}
+.upcoming-home-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.upcoming-page{max-width:1180px;margin:0 auto;padding:125px 24px 75px}
+.upcoming-hero{max-width:900px;margin:0 0 35px}.upcoming-hero h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.07;letter-spacing:-.025em;margin:12px 0 22px}
+.upcoming-hero .deck{font-size:1.15rem;color:var(--muted);line-height:1.8;max-width:760px}
+.upcoming-status{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);line-height:1.6}
+.upcoming-card{border:1px solid var(--line);background:var(--panel);overflow:hidden}
+.upcoming-card img{width:100%;height:auto;aspect-ratio:16/9;display:block}
+.upcoming-copy{padding:28px 32px}.upcoming-copy h2{font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.2;margin:10px 0 18px}
+.upcoming-hook{font-family:Georgia,serif;font-size:1.3rem!important;color:var(--cream)!important;line-height:1.45!important}
+.upcoming-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.upcoming-bridge{margin-top:60px;padding-top:40px;border-top:1px solid var(--line)}
+.upcoming-bridge h2,.upcoming-notify h2{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:12px 0 18px}
+.upcoming-bridge>p,.upcoming-notify p{max-width:800px;color:var(--muted);line-height:1.8}
+.upcoming-library{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin:28px 0}
+.upcoming-library article{background:var(--panel);border:1px solid var(--line);padding:15px;min-width:0}
+.upcoming-library img{width:100%;height:auto;aspect-ratio:2/3;object-fit:contain}
+.upcoming-library h3{font-size:1.15rem;line-height:1.3;margin:15px 0 10px}
+.upcoming-library p{color:var(--muted);font-size:.83rem;line-height:1.7}
+.upcoming-library a{display:inline-flex;align-items:center;min-height:44px;color:var(--gold)}
+.upcoming-notify{margin-top:44px;padding:32px;border:1px solid var(--line);background:linear-gradient(120deg,#19262e,#0c141b)}
+.upcoming-fineprint{font-size:.8rem;color:var(--muted);line-height:1.7}
+.upcoming-page-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,13,18,.97);border-bottom:1px solid var(--line)}
+.upcoming-page-nav .wrap{max-width:1180px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 24px}
+.upcoming-page-nav a{text-decoration:none;color:var(--cream);min-height:44px;display:inline-flex;align-items:center}
+.upcoming-page-nav .brand{font-size:1rem}.upcoming-page-nav div div{display:flex;gap:25px}
+@media(max-width:850px){.upcoming-home-grid{grid-template-columns:1fr}.upcoming-mini{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}.upcoming-pair{grid-template-columns:1fr}.upcoming-library{grid-template-columns:repeat(2,minmax(0,1fr))}.upcoming-page{padding-top:115px}.upcoming-copy{padding:24px}.upcoming-home{padding:45px 20px}}
+@media(max-width:500px){.upcoming-page{padding-inline:16px}.upcoming-mini{display:block}.upcoming-page-nav .wrap{padding:12px 16px;gap:12px}.upcoming-page-nav div div{gap:14px;font-size:.8rem}.upcoming-page-nav .brand{font-size:.85rem}.upcoming-library{gap:12px}.upcoming-library article{padding:12px}.upcoming-notify{padding:24px}.upcoming-home-actions{flex-direction:column}.upcoming-home-actions .cta{text-align:center}}

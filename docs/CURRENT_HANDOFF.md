@@ -1,3 +1,6 @@
+## November 9 upcoming-novels promotion
+Owner approved the three concept images, preview and website publication. Implemented upcoming-books.html, homepage/nav teaser, six optimized images, spoiler-free hooks, five published first-chapter links and GA4 promo instrumentation. Six behavioral tests PASS; 38 landing references and five sample links PASS; JavaScript syntax and sitemap PASS. Base remote main verified at 112b93b3f0eac88c7e68178914e16f907bb1cd57. Publishing and live visual/analytics receipt PENDING at this checkpoint. See docs/UPCOMING_PROMO_ANALYTICS.md. Rollback: restore only index.html and sitemap.xml from base, remove upcoming page/nav integration with a new commit; never force-push. No paid video generated or social post sent. Next: publish atomic source/assets update, verify Pages and live browser, then record receipt.
+
 ## November 8 V6 public delivery
 See handoffs/2026-11-08-v6-public-delivery.md. Exact approved master copy hash PASS; public HTTP/hash check pending Pages deployment.
 
