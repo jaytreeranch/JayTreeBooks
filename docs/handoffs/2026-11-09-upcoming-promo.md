@@ -1,3 +1,11 @@
+## Final verification — November 9, 2026, 20:06 UTC
+
+Public promotion COMPLETE: https://jaytreebooks.com/upcoming-books.html. Latest website source commit 4b020d9cf460ed7c996ee11e831f88db462ee572 verified on main. GitHub Pages run 42687869864 SUCCESS; final desktop styling and 390px phone layout verified in browser, no horizontal overflow. Homepage mobile menu's Upcoming Novels link reaches the correct landing page. Three novel illustrations and all five current covers load; The Correction first-chapter link verified by navigation. Six event behavior tests and static validation PASS. Actual GA4 ingestion/live visitor counts remain unverified because reporting access is subscription-blocked; see analytics guide. No claim of new signups or sales.
+
+Cinematic teaser PRIVATE REVIEW export completed locally: 27.200 seconds, 1920x1080 H.264/AAC, 30fps, SHA256 870c7f7de906473a874082ec908b60b5a900972d4031564db81dbbe0c1f4d184. Narration and three story scenes generated after owner approved script/voice choice; one reading-room background generation failed. Owner then required further generation to be free. NO replacement call was submitted; closing was authored locally with the five published covers. Final decode PASS; visual and caption/timing review PASS; voice still needs owner listening review. Video is in the owner's private Cinematic Teaser workspace and is NOT published. Video Studio inspected only: live connection reports can_start=false/publish_allowed=false; ongoing repairs untouched.
+
+Next action: owner reviews finished teaser and decides whether to publish it. Do not add it to the website or social media without that approval. Source artifacts, subtitle sidecar, edit ledger and original files preserved privately. No further website code change is pending for the promo launch.
+
 # Upcoming novels promotion — release receipt
 
 2026-11-09, checked 19:44 UTC.
