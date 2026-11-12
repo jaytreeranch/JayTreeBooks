@@ -1,3 +1,11 @@
+## Hollow Bell novella catalog release — November 12, 2026
+
+Owner approved adding the already-published novella to the JayTree Books website (replaces the earlier marketing exclusion for this title only). Added a distinct static homepage card, separate SEO/Book structured-data page, Kindle/paperback/hardcover Amazon CTAs based on known separate ASINs, dynamic catalog entry, audiobook coming-soon and mailing-list CTA, full-novel cross-links, mystery hub discovery, sitemap, and regression tests. Reused existing repo cover `images/the-hollow-bell-novella.png`; no new image/audio was generated.
+
+**Sale gates:** novella ebook/print formats link to Amazon; audiobook remains COMING SOON, with no purchase/sample until certified SALE_READY. No novella KU promise because current enrollment was not rechecked. Full-length novel and existing audiobook samples remain separate.
+
+Base: `0751729adb8327445850155da1cd83fbdfdd9224` on `main`. QC: source assertions before commit PASS; Node tests and live public Pages/HTTP checks PENDING until deployment. Publication authorized by owner for this website catalog change only. Rollback: revert only the novella catalog/page/cross-links/sitemap/test changes from this milestone using a new, non-force commit. Next: verify main remote SHA, run `node --test tests/hollow-bell-novella.test.cjs`, inspect GitHub Pages workflow and public permalink/cover/homepage, then update this handoff with evidence.
+
 ## Cinematic teaser hosting recovery — November 9, 2026, 20:52 UTC
 
 Owner reconfirmed website publication and asked whether to use social media instead. Recommendation: use both, with the website as the permanent promotion destination. No social posts submitted.

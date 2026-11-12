@@ -57,6 +57,17 @@ window.JT = {
       "coverOriginal": "images/the-hollow-bell.png"
     },
     {
+      "slug": "the-hollow-bell-novella",
+      "title": "The Hollow Bell",
+      "format": "novella",
+      "genre": "A Millbrook Falls Mystery • Novella",
+      "description": "A shorter telling of the Millbrook Falls mystery, where an old bell and buried secrets refuse to stay quiet.",
+      "cover": "images/the-hollow-bell-novella.png",
+      "amazonUrl": "https://www.amazon.com/dp/B0HD2H8586",
+      "kindleUnlimited": false,
+      "coverOriginal": "images/the-hollow-bell-novella.png"
+    },
+    {
       "slug": "the-absconding",
       "title": "The Absconding",
       "genre": "A Psychological Mystery Thriller",

@@ -20,11 +20,21 @@
   {
     "slug": "the-hollow-bell",
     "title": "The Hollow Bell",
-    "genre": "A Psychological Mystery Thriller \u2022 Supernatural",
+    "genre": "A Psychological Mystery Thriller • Supernatural",
     "description": "Twenty years after Marnie Renner vanished, her remains surface beneath the ice—and a bell tied to old drownings starts ringing again.",
     "cover": "images/the-hollow-bell.png",
     "chapter": "chapters/book-3-first-chapter.html",
     "audio": "audio/book-3-sample.html"
+  },
+  {
+    "slug": "the-hollow-bell-novella",
+    "title": "The Hollow Bell",
+    "format": "novella",
+    "genre": "A Millbrook Falls Mystery • Novella",
+    "description": "A shorter telling of the Millbrook Falls mystery, where an old bell and buried secrets refuse to stay quiet.",
+    "cover": "images/the-hollow-bell-novella.png",
+    "amazonUrl": "https://www.amazon.com/dp/B0HD2H8586",
+    "kindleUnlimited": false
   },
   {
     "slug": "the-absconding",

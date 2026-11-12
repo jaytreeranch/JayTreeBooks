@@ -65,10 +65,10 @@ function bookCard(b) {
   return `<article class="card">
     <a class="cover" href="books/${b.slug}.html" aria-label="Explore ${b.title}"><img src="${b.cover}" alt="${b.title} book cover" loading="lazy" decoding="async"></a>
     <div class="card-body">
-      ${kindleUnlimitedBadge(b)}
+      ${b.format === "novella" ? '<div class="ku-badge">Novella</div>' : kindleUnlimitedBadge(b)}
       <div class="genre">${b.genre}</div><h3>${b.title}</h3><p>${b.description}</p>
       <div class="card-actions">
-        <a class="read-sample" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read First Chapter</a>
+        ${b.chapter ? `<a class="read-sample" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read First Chapter</a>` : `<a class="read-sample" href="${b.amazonUrl}" target="_blank" rel="noopener" data-track="amazon" data-book="${b.slug}">Buy on Amazon</a>`}
         <a class="buy" href="books/${b.slug}.html" data-track="book_page" data-book="${b.slug}">Explore Book</a>
       </div>
     </div>
@@ -76,6 +76,12 @@ function bookCard(b) {
 }
 
 function audioCard(b) {
+  if (b.format === "novella") return `<article class="audio-card">
+    <div class="audio-icon">◉</div><div class="format">Novella Audiobook — Coming Soon</div><h3>${b.title} (Novella)</h3>
+    <p>Our separate Millbrook Falls novella audiobook is in final preparation. No purchase or listening sample is available yet.</p>
+    <div class="card-actions"><a class="read-sample" href="books/${b.slug}.html" data-track="book_page" data-book="${b.slug}">Explore Novella</a>
+    <a class="audible" href="case-files.html" data-track="audiobook_case_files" data-book="${b.slug}">Get Release Updates</a></div>
+  </article>`;
   return `<article class="audio-card">
     <div class="audio-icon">◉</div><div class="format">Choose Your Narrator</div><h3>${b.title}</h3><p>${b.description}</p>
     <div class="card-actions">
@@ -289,8 +295,8 @@ async function renderBook() {
         <div class="book-meta">${b.genre}</div><h1>${b.title}</h1><p class="book-hook">${b.description}</p>
         ${kindleUnlimitedCallout(b)}
         <div class="book-actions">
-          <a class="cta solid" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read Chapter One</a>
-          <a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Choose Narrator & Listen</a>
+          ${b.chapter ? `<a class="cta solid" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read Chapter One</a>` : ""}
+          ${b.audio ? `<a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Choose Narrator & Listen</a>` : `<a class="cta" href="books/${b.slug}.html#audiobook" data-track="audio_coming_soon" data-book="${b.slug}">Audiobook Coming Soon</a>`}
           ${externalButton(b.amazonUrl, "Buy on Amazon", "amazon", b.slug)}
         </div>
         <p><a class="back" href="index.html#books">← Back to the collection</a></p>
