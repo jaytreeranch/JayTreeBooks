@@ -87,7 +87,8 @@ jobs:
           for book in config['books']:
               path = Path('books') / f"{book['slug']}.html"
               text = path.read_text(encoding='utf-8')
-              text = re.sub(r'https://www\.amazon\.com/dp/B0[A-Z0-9]+', book['amazonUrl'], text)
+              # Keep separate novella Kindle/print ASINs and cross-promoted novel ASINs.
+              assert book['amazonUrl'] in text, f'Expected Amazon listing missing in {path}'
               marker = '<!-- JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON -->'
               needle = '<div class="ku-callout audiobook-coming-soon"'
               if marker not in text and needle in text:
@@ -131,7 +132,10 @@ jobs:
           by_slug = {book['slug']: book for book in books}
           newsletter = config['newsletter']
           provider = newsletter.get('provider', 'formsubmit')
-          assert len(books) == 5
+          novels = [book for book in books if book.get('format') != 'novella']
+          novellas = [book for book in books if book.get('format') == 'novella']
+          assert len(books) == 6 and len(novels) == 5 and len(novellas) == 1
+          assert novellas[0]['slug'] == 'the-hollow-bell-novella'
           assert config['socials']['youtube'].endswith('@JayTreeBooks')
           assert config['socials']['x'].endswith('/JayTreeBooks')
           assert config['socials']['tiktok'].endswith('/@jaytreebooks')
@@ -150,7 +154,7 @@ jobs:
           else:
               assert newsletter['kit']['embedCode']
 
-          for book in books:
+          for book in novels:
               page = root / 'books' / f"{book['slug']}.html"
               assert page.exists(), page
               html = page.read_text(encoding='utf-8')
@@ -199,6 +203,17 @@ jobs:
               assert optimized.exists(), optimized
               assert optimized.suffix == '.webp'
               assert optimized.stat().st_size < 1_000_000, (optimized, optimized.stat().st_size)
+
+          novella = novellas[0]
+          novella_html = (root / 'books/the-hollow-bell-novella.html').read_text(encoding='utf-8')
+          assert all(asin in novella_html for asin in ('B0HD2H8586', 'B0HD2KL44Q', 'B0HFT5VDRL'))
+          assert 'id="audiobook"' in novella_html
+          assert 'The novella audiobook is coming soon' in novella_html
+          assert 'Read FREE with Kindle Unlimited' not in novella_html
+          assert 'href="the-hollow-bell.html"' in novella_html
+          assert novella['amazonUrl'] in novella_html
+          assert (root / novella['cover']).exists()
+          assert novella['cover'].endswith('.webp')
 
           hollow = (root / 'books/the-hollow-bell.html').read_text(encoding='utf-8')
           assert 'JAYTREE_HOLLOW_BELL_SERIES_PROMO_START' in hollow
@@ -262,13 +277,14 @@ jobs:
           assert 'privacy.html' in legacy and 'terms.html' in legacy
 
           sitemap = (root / 'sitemap.xml').read_text(encoding='utf-8')
-          assert sitemap.count('<url>') == 25
-          assert sitemap.count('<lastmod>') == 25
+          assert sitemap.count('<url>') >= 26
+          assert sitemap.count('<lastmod>') == sitemap.count('<url>')
+          assert 'https://jaytreebooks.com/books/the-hollow-bell-novella.html' in sitemap
           assert 'https://jaytreebooks.com/about.html' in sitemap
           assert 'https://jaytreebooks.com/mystery-books.html' in sitemap
           assert 'https://jaytreebooks.com/animated-series.html' in sitemap
           assert 'https://jaytreebooks.com/case-files.html' in sitemap
-          for book in books:
+          for book in novels:
               assert f'https://jaytreebooks.com/{book["audio"]}' in sitemap
           assert (root / 'robots.txt').exists()
           print(f'Generated reader-growth site and SEO preservation validated with provider={provider}.')

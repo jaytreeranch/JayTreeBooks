@@ -59,3 +59,14 @@ test('legacy site generator preserves editorial pages and skips unavailable nove
   const audioSeo = read('scripts/apply_audio_seo.py');
   assert.match(audioSeo, /Modern narrator pages use/);
 });
+
+test('published novella remains distinct across legacy build automation', () => {
+  const workflow = read('.github/workflows/build-reader-growth-site.yml');
+  assert.match(workflow, /len\(books\) == 6/);
+  assert.match(workflow, /Keep separate novella Kindle/);
+  const seo = read('scripts/seo_content_cleanup.py');
+  assert.match(seo, /books\/the-hollow-bell-novella\.html/);
+  assert.match(read('scripts/add_audiobook_coming_soon.py'), /Preserved novella audiobook release gate/);
+  assert.match(read('scripts/qc_repair_site.py'), /if not book\.get\("audio"\)/);
+  assert.equal((read('sitemap.xml').match(/<url>/g) || []).length, 26);
+});

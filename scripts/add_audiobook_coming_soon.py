@@ -52,6 +52,11 @@ HEADLINE_STYLE = f'''/* {HEADLINE_STYLE_MARKER} */
 
 def patch_book_page(path: Path) -> None:
     text = path.read_text(encoding="utf-8")
+    if path.stem == "the-hollow-bell-novella" and 'id="audiobook"' in text:
+        # Keep the novella's distinct upcoming-audiobook gate; never inject a
+        # full-length edition CTA or unapproved audio sample.
+        print("Preserved novella audiobook release gate")
+        return
     if MARKER in text:
         pattern = re.compile(
             rf'<!-- {MARKER} -->\s*<div class="ku-callout audiobook-coming-soon".*?</div>\s*</div>',

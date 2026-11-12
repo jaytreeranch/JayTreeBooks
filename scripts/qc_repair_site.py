@@ -214,6 +214,8 @@ def patch_book_pages(config: dict) -> None:
 
 def patch_chapters(config: dict) -> None:
     for book in config.get("books", []):
+        if not book.get("chapter"):
+            continue
         path = ROOT / str(book["chapter"])
         text = path.read_text(encoding="utf-8")
         original = text
@@ -240,22 +242,20 @@ def patch_chapters(config: dict) -> None:
 
 
 def write_sitemap(config: dict) -> None:
-    urls = [
-        f"{SITE}/",
-        f"{SITE}/animated-series.html",
-        f"{SITE}/case-files.html",
-    ]
+    """Preserve the editorial sitemap while adding missing core links."""
+    urls = [f"{SITE}/", f"{SITE}/animated-series.html", f"{SITE}/case-files.html"]
     urls.extend(f'{SITE}/books/{b["slug"]}.html' for b in config.get("books", []))
-    urls.extend(f'{SITE}/{b["chapter"]}' for b in config.get("books", []))
-    entries = "\n".join(f"  <url><loc>{escape(url)}</loc></url>" for url in urls)
-    sitemap = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f"{entries}\n"
-        "</urlset>\n"
-    )
-    SITEMAP_PATH.write_text(sitemap, encoding="utf-8")
-    print(f"QC: sitemap contains {len(urls)} public URLs")
+    urls.extend(f'{SITE}/{b["chapter"]}' for b in config.get("books", []) if b.get("chapter"))
+    if SITEMAP_PATH.exists() and "</urlset>" in SITEMAP_PATH.read_text(encoding="utf-8"):
+        text = SITEMAP_PATH.read_text(encoding="utf-8")
+        for url in urls:
+            if f"<loc>{escape(url)}</loc>" not in text:
+                text = text.replace("</urlset>", f"  <url><loc>{escape(url)}</loc></url>\n</urlset>", 1)
+    else:
+        entries = "\n".join(f"  <url><loc>{escape(url)}</loc></url>" for url in urls)
+        text = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + entries + '\n</urlset>\n'
+    SITEMAP_PATH.write_text(text, encoding="utf-8")
+    print(f"QC: confirmed {len(urls)} core public URLs")
 
 
 def validate(config: dict) -> None:
@@ -292,6 +292,8 @@ def validate(config: dict) -> None:
     assert "../animated-series.html#trailer" in hollow
 
     for book in config["books"]:
+        if not book.get("chapter"):
+            continue
         chapter = (ROOT / book["chapter"]).read_text(encoding="utf-8")
         assert f'{book["title"]} — First Chapter | JayTree Books' in chapter
         after_note = chapter.split('<div class="note">', 1)[-1]
@@ -300,7 +302,8 @@ def validate(config: dict) -> None:
     sitemap = SITEMAP_PATH.read_text(encoding="utf-8")
     assert f"{SITE}/animated-series.html" in sitemap
     assert f"{SITE}/case-files.html" in sitemap
-    assert sitemap.count("<url>") == 13
+    assert sitemap.count("<url>") >= 13
+    assert f"{SITE}/books/the-hollow-bell-novella.html" in sitemap
     print("QC repair validation passed.")
 
 
@@ -313,6 +316,8 @@ def validate_static_pages(config: dict) -> None:
     assert "https://bsky.app/profile/jaytreebooks.com" in animated
 
     for book in config["books"]:
+        if not book.get("audio"):
+            continue
         audio = (ROOT / book["audio"]).read_text(encoding="utf-8")
         assert "Jaytree Books" not in audio
         assert f'{SITE}/{book["audio"]}' in audio

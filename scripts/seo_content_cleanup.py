@@ -66,6 +66,7 @@ SITEMAP_PATHS = [
     ("books/second-draft.html", "books/second-draft.html"),
     ("books/the-hollow-year.html", "books/the-hollow-year.html"),
     ("books/the-hollow-bell.html", "books/the-hollow-bell.html"),
+    ("books/the-hollow-bell-novella.html", "books/the-hollow-bell-novella.html"),
     ("books/the-absconding.html", "books/the-absconding.html"),
     ("books/the-correction.html", "books/the-correction.html"),
     ("chapters/book-1-first-chapter.html", "chapters/book-1-first-chapter.html"),
