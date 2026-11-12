@@ -256,7 +256,7 @@ jobs:
 
           app = (root / 'app.js').read_text(encoding='utf-8')
           assert 'books/${b.slug}.html' in app
-          assert 'books/${b.slug}.html#listen' in app
+          assert 'books/${b.slug}.html#audiobook' in app
           assert 'href="books/${featured.slug}.html"' in app
           assert 'loading="lazy"' in app
           assert 'track("social_visit"' in app

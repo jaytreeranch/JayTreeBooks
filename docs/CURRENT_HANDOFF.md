@@ -1,3 +1,7 @@
+## Reader growth workflow validation correction — November 12, 2026
+
+Remote main at milestone start: `1b27f62a707e6e43a9cc6a4038eff76bc0505e05`. After six-title compatibility patch, reader-growth action run 43314086713 completed generator, audiobook, QC, SEO, and related steps successfully; its final validation failed because of a stale assertion requiring `books/${b.slug}.html#listen` in app.js despite the existing correct dynamic anchor `#audiobook`. This commit fixes the assertion and adds regression. Previous tests: 7/7 Node and Python compile PASS on JT-DESKTOP; workflow/Pages checks for the new source PENDING. No changes to public novella copy, artwork, sales gates, or Amazon links. Rollback: use new non-force revert commit. Next: verify workflow, live site and remote SHA; record final receipts.
+
 ## Novella six-title automation fix — November 12, 2026
 
 The source release `71bad26b377d8218d5409ffbcec3dc7d1330b18f` passed live production HTTP checks on JT-DESKTOP: the novella page, home (six cards), cover, crosslinks, sitemap, Amazon ASIN, and gated audiobook. Node regression 6/6 PASS; Python syntax PASS. Compatibility patch `786eb53a639c6907422fc11fc49058e5e562a64a` fixed the generator's missing novella chapter and audio SEO breadcrumb logic. Reader growth rerun 43313261774 then failed on old `add_audiobook_coming_soon.py`; the reader-growth generator itself completed for six books. Audio SEO successful run moved main to `6e23e6917c3d581d7d3b497c5445dd9daeccebba` and regenerated a 25-item sitemap without the novella.

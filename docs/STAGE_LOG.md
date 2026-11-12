@@ -1,3 +1,6 @@
+## 2026-11-12 — Correct stale audiobook anchor assertion
+Build Reader Growth action 43314086713 failed final validation on `#listen` (actual `#audiobook`); patched workflow and appended regression; verify rerun and published site. Base 1b27f62a707e6e43a9cc6a4038eff76bc0505e05.
+
 ## 2026-11-12 — Novella six-title automation preservation
 Live listing and image verified HTTP 200; source Node tests 6/6 and Python compile PASS. Fixed audiobook generator, QC optional chapter/audio, SEO 26-item sitemap, workflow validators and distinct Amazon ASIN preservation. Base 6e23e6917c3d581d7d3b497c5445dd9daeccebba; workflow and new SHA verification pending.
 

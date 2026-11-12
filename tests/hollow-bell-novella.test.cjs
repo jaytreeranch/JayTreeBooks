@@ -70,3 +70,9 @@ test('published novella remains distinct across legacy build automation', () => 
   assert.match(read('scripts/qc_repair_site.py'), /if not book\.get\("audio"\)/);
   assert.equal((read('sitemap.xml').match(/<url>/g) || []).length, 26);
 });
+
+test('reader growth workflow checks the current audiobook anchor', () => {
+  const workflow = read('.github/workflows/build-reader-growth-site.yml');
+  assert.match(workflow, /books\/\$\{b\.slug\}\.html#audiobook/);
+  assert.doesNotMatch(workflow, /books\/\$\{b\.slug\}\.html#listen/);
+});
