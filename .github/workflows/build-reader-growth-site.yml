@@ -227,7 +227,8 @@ jobs:
           assert 'href="#animated-series">Mini-Series</a>' in index
           assert '<link rel="canonical" href="https://jaytreebooks.com/">' in index
           assert 'JayTree Books | Mystery & Psychological Thrillers' in index
-          assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
+          assert 'Five novels on Kindle Unlimited. Plus a novella on Amazon.' in index
+          assert 'Every current JayTree Books title is available' not in index
           assert index.index('id="kindle-unlimited"') < index.index('id="books"')
           assert 'continue the story on Audible' not in index
           assert '<script src="video-lite.js"></script>' in index

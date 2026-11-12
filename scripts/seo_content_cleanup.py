@@ -14,7 +14,7 @@ LOGO = f"{SITE}/icons/icon-512.png"
 SEO = {
     "index.html": {
         "title": "JayTree Books | Mystery & Psychological Thrillers",
-        "description": "Discover JayTree Books mysteries and psychological thrillers. Read first chapters, watch trailers, solve Mystery Challenges, and find Kindle Unlimited reads.",
+        "description": "Discover five JayTree mystery novels and The Hollow Bell novella. Read first chapters, watch trailers, and explore Kindle Unlimited titles.",
         "video_alt": "JayTree Books Mystery Challenge video thumbnail",
     },
     "books/second-draft.html": {

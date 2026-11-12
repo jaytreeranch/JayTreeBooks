@@ -12,10 +12,7 @@ STYLES = ROOT / "styles.css"
 VIDEO_JS = ROOT / "video-lite.js"
 
 TITLE = "JayTree Books | Mystery & Psychological Thrillers"
-DESCRIPTION = (
-    "Discover JayTree Books mysteries and psychological thrillers. Read first chapters, "
-    "watch trailers, solve Mystery Challenges, and find Kindle Unlimited reads."
-)
+DESCRIPTION = "Discover five JayTree mystery novels and The Hollow Bell novella. Read first chapters, watch trailers, and explore Kindle Unlimited titles."
 SHARE_IMAGE = "https://jaytreebooks.com/images/jaytree-books-challenge.png"
 POLISH_MARKER = "/* JAYTREE_2026_CONVERSION_POLISH */"
 CHAPTER_MARKER = "/* JAYTREE_2026_READER_ACCESSIBILITY */"
@@ -152,8 +149,8 @@ def patch_index() -> None:
   <div class="wrap ku-home-inner">
     <div>
       <div class="eyebrow">Kindle Unlimited</div>
-      <h2>Five mysteries. Read them all with Kindle Unlimited.</h2>
-      <p>Every current JayTree Books title is available to Kindle Unlimited members at no additional cost. Choose a mystery, read Chapter One here, then continue on Kindle.</p>
+      <h2>Five novels on Kindle Unlimited. Plus a novella on Amazon.</h2>
+      <p>The five full-length JayTree Books novels are available with Kindle Unlimited. The Hollow Bell novella is a separate edition on Amazon; check its listing for available formats and eligibility.</p>
     </div>
     <div class="ku-home-actions">
       <a class="cta solid" href="#books" data-track="ku_home_choose">Choose Your Mystery</a>
@@ -163,6 +160,9 @@ def patch_index() -> None:
 </section>'''
             text = text[: hero.end()] + banner + text[hero.end() :]
 
+    # Upgrade preexisting KU banner without implying novella enrollment.
+    text = text.replace("Five mysteries. Read them all with Kindle Unlimited.", "Five novels on Kindle Unlimited. Plus a novella on Amazon.")
+    text = text.replace("Every current JayTree Books title is available to Kindle Unlimited members at no additional cost. Choose a mystery, read Chapter One here, then continue on Kindle.", "The five full-length JayTree Books novels are available with Kindle Unlimited. The Hollow Bell novella is a separate edition on Amazon; check its listing for available formats and eligibility.")
     text = replace_youtube_iframes(text)
     text = add_legal_footer(text)
     text = text.replace('<button class="menu-toggle" aria-label="Menu">', '<button class="menu-toggle" aria-label="Menu" aria-expanded="false">')
@@ -316,7 +316,7 @@ def verify() -> None:
     app = APP.read_text(encoding="utf-8")
     assert TITLE in index
     assert '<link rel="canonical" href="https://jaytreebooks.com/">' in index
-    assert 'Five mysteries. Read them all with Kindle Unlimited.' in index
+    assert 'Five novels on Kindle Unlimited. Plus a novella on Amazon.' in index
     assert index.index('id="kindle-unlimited"') < index.index('id="books"')
     assert 'continue the story on Audible' not in index
     assert '<script src="video-lite.js"></script>' in index

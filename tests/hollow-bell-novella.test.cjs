@@ -20,7 +20,9 @@ test('homepage renders six crawlable cards and distinct novella purchase link', 
   assert.equal((home.match(/data-book-card="/g) || []).length, 6);
   assert.match(home, /data-book-card="the-hollow-bell-novella"/);
   assert.match(home, /https:\/\/www\.amazon\.com\/dp\/B0HD2H8586/);
-  assert.match(home, /five dark mystery novels and a separate novella/);
+  assert.match(home, /five JayTree mystery novels and The Hollow Bell novella/i);
+  assert.match(home, /Five novels on Kindle Unlimited\. Plus a novella on Amazon\./);
+  assert.doesNotMatch(home, /Every current JayTree Books title is available/);
 });
 test('novella page links verified purchase formats and gates audiobook', () => {
   const p = read('books/the-hollow-bell-novella.html');
@@ -75,4 +77,10 @@ test('reader growth workflow checks the current audiobook anchor', () => {
   const workflow = read('.github/workflows/build-reader-growth-site.yml');
   assert.match(workflow, /books\/\$\{b\.slug\}\.html#audiobook/);
   assert.doesNotMatch(workflow, /books\/\$\{b\.slug\}\.html#listen/);
+});
+
+test('automation does not promise the novella participates in Kindle Unlimited', () => {
+  assert.match(read('scripts/apply_site_improvements.py'), /Five novels on Kindle Unlimited\. Plus a novella on Amazon/);
+  assert.match(read('scripts/seo_content_cleanup.py'), /Discover five JayTree mystery novels and The Hollow Bell novella/);
+  assert.match(read('.github/workflows/build-reader-growth-site.yml'), /Every current JayTree Books title is available' not in index/);
 });

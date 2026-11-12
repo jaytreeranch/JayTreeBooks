@@ -1,3 +1,6 @@
+## 2026-11-12 — Fix inherited KU banner after novella catalog release
+Reader Growth workflow 43314424712 PASSED; bot asset commit ae94b17365b614697309cbffd3c4df1c84107b85. Corrected misleading all-titles KU wording and retained 5 novels + novella meta via durable SEO scripts. Added workflow assertions and regression; production follow-up pending.
+
 ## 2026-11-12 — Correct stale audiobook anchor assertion
 Build Reader Growth action 43314086713 failed final validation on `#listen` (actual `#audiobook`); patched workflow and appended regression; verify rerun and published site. Base 1b27f62a707e6e43a9cc6a4038eff76bc0505e05.
 
