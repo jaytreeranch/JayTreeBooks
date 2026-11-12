@@ -1,3 +1,7 @@
+## 2026-11-12 — Hollow Bell novella catalog released and independently certified
+
+**Production source remote `a33f120b81ab03d40a265bc5d614d7ff4bccbd1d`**, Pages run **43315324589 SUCCESS**. Public homepage HTTP 200; six crawlable book cards; correct novels/KU versus novella/Amazon banner and meta; old all-titles KU claim absent. New novella permalink HTTP 200 with distinct Kindle/paperback/hardcover ASINs, cross-linked full novel and mystery hub; optimized cover HTTP 200; sitemap HTTP 200 with 26 URLs. Audiobook is explicitly **Coming Soon**, no checkout or sample. Node regression 9/9 PASS, Python six scripts compile PASS, Reader Growth run 43315069298 PASS, SEO run 43315069382 PASS, PWA run 43315211519 PASS. Verified LAN QC receipt at `F:\JayTreeFarmStorageV2\Projects\JayTreeBooks-Novella-QC-20261112\QC_RECEIPT_20261112.md`. Rollback: selective non-force revert via GitHub main; no private assets published. Next: await audiobook SALE_READY and then implement real sample/direct checkout; confirm KU before any novella KU claim. Docs-only handoff commit will have a newer SHA than source release.
+
 ## 2026-11-12 — Fix inherited KU banner after novella catalog release
 Reader Growth workflow 43314424712 PASSED; bot asset commit ae94b17365b614697309cbffd3c4df1c84107b85. Corrected misleading all-titles KU wording and retained 5 novels + novella meta via durable SEO scripts. Added workflow assertions and regression; production follow-up pending.
 
