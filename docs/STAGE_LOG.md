@@ -1,3 +1,6 @@
+## 2026-11-12 — Novella generator compatibility
+Post-push tests PASS 5/5; remote source commit 71bad26b377d8218d5409ffbcec3dc7d1330b18f verified. Auxiliary reader-growth and audio-SEO workflows exposed legacy assumptions; patched generator to skip unpublished novella samples and preserve editorial pages/sitemap, and patched audio SEO breadcrumbs. Pages hosting still pending at diagnostic time. Re-verify follow-up commit and all workflows.
+
 ## 2026-11-12 — Hollow Bell novella website listing
 Owner-approved update: six distinct homepage cards (five novels + novella), new novella SEO/purchase page, dynamic catalog, gated audiobook coming-soon, novel cross-link, sitemap and tests. Base main 0751729adb8327445850155da1cd83fbdfdd9224. Remote push, test execution and Pages verification pending at source preparation. Rollback by additive revert commit; preserve original novels and media.
 

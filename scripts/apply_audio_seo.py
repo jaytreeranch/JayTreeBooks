@@ -136,9 +136,11 @@ def patch_page(spec: dict, description: str) -> None:
             f'<a href="../books/{spec["slug"]}.html">{spec["title"]}</a><span aria-hidden="true">›</span>'
             '<span aria-current="page">Audio Sample</span></nav>'
         )
+        # Modern narrator pages use <main class="audio-page"> rather than .audio-card.
+        # Insert breadcrumbs as the first main child; keep legacy templates compatible.
         text = re.sub(
-            r'(<section class="audio-card"[^>]*>)',
-            r'\1' + crumbs,
+            r'(<main\\b[^>]*>)'.replace('\\\\b', '\\b'),
+            lambda match: match.group(1) + crumbs,
             text,
             count=1,
             flags=re.IGNORECASE,
@@ -150,7 +152,10 @@ def patch_page(spec: dict, description: str) -> None:
             ".audio-breadcrumbs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;align-items:center;margin:0 0 24px;color:#aaa9a3;font:400 .76rem/1.4 Arial,sans-serif}"
             ".audio-breadcrumbs a{color:#c8a15a;text-decoration:none}.audio-breadcrumbs a:hover{text-decoration:underline}"
         )
-        text = text.replace("</style>", css + "</style>", 1)
+        if "</style>" in text:
+            text = text.replace("</style>", css + "</style>", 1)
+        else:
+            text = text.replace("</head>", "<style>" + css + "</style>\n</head>", 1)
 
     text = re.sub(r"<audio\s+controls", '<audio data-audio-sample controls', text, count=1, flags=re.IGNORECASE)
     text = re.sub(

@@ -50,3 +50,12 @@ test('novel, mystery hub and sitemap link to the novella', () => {
   assert.match(read('mystery-books.html'), /href="books\/the-hollow-bell-novella.html"/);
   assert.match(read('sitemap.xml'), /books\/the-hollow-bell-novella\.html/);
 });
+
+test('legacy site generator preserves editorial pages and skips unavailable novella samples', () => {
+  const generator = read('scripts/build_reader_growth_site.py');
+  assert.match(generator, /if not book\.get\("chapter"\)/);
+  assert.match(generator, /Preserved existing book page/);
+  assert.match(generator, /Retain the editorial sitemap/);
+  const audioSeo = read('scripts/apply_audio_seo.py');
+  assert.match(audioSeo, /Modern narrator pages use/);
+});

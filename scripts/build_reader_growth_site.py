@@ -223,6 +223,9 @@ def patch_chapters(config: dict) -> None:
 
     analytics = chapter_analytics(config)
     for book in config.get("books", []):
+        if not book.get("chapter"):
+            # Published editions without an approved sample must not acquire a fake chapter CTA.
+            continue
         path = ROOT / book["chapter"]
         text = path.read_text(encoding="utf-8")
 
@@ -403,6 +406,10 @@ def generate_book_pages(config: dict) -> None:
     BOOKS_DIR.mkdir(parents=True, exist_ok=True)
     for book in config.get("books", []):
         path = BOOKS_DIR / f"{book['slug']}.html"
+        if path.exists():
+            # Preserve editorially reviewed public pages, including the separate novella.
+            print(f"Preserved existing book page: {path.relative_to(ROOT)}")
+            continue
         path.write_text(generate_book_page(book, config), encoding="utf-8")
         print(f"Generated SEO book page: {path.relative_to(ROOT)}")
 
@@ -487,14 +494,25 @@ def generate_sitemap(config: dict) -> None:
     for book in config.get("books", []):
         urls.append(f"{SITE}/books/{book['slug']}.html")
     for book in config.get("books", []):
-        urls.append(f"{SITE}/{book['chapter']}")
+        if book.get("chapter"):
+            urls.append(f"{SITE}/{book['chapter']}")
     entries = "\n".join(f"  <url><loc>{escape(url)}</loc></url>" for url in urls)
     sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {entries}
 </urlset>
 '''
-    (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    sitemap_path = ROOT / "sitemap.xml"
+    if sitemap_path.exists() and "</urlset>" in sitemap_path.read_text(encoding="utf-8"):
+        # Retain the editorial sitemap (guides, promotions, and per-page lastmod data).
+        current = sitemap_path.read_text(encoding="utf-8")
+        missing = [url for url in urls if f"<loc>{escape(url)}</loc>" not in current]
+        if missing:
+            extras = "\n".join(f"  <url><loc>{escape(url)}</loc></url>" for url in missing)
+            current = current.replace("</urlset>", extras + "\n</urlset>", 1)
+            sitemap_path.write_text(current, encoding="utf-8")
+    else:
+        sitemap_path.write_text(sitemap, encoding="utf-8")
     (ROOT / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n",
         encoding="utf-8",
