@@ -45,3 +45,12 @@ test('index cards and book pages both include purchase CTA', () => {
   assert.match(source, /\$\{audiobookDirectCallout\(b\)\}/);
   assert.match(source, /JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON/);
 });
+
+test('homepage static purchase banner is limited to the two cleared editions', () => {
+  const index = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const payhipLinks = index.match(/https:\/\/payhip\.com\/b\/[A-Za-z0-9]+/g) || [];
+  assert.deepEqual(payhipLinks, Object.values(approved));
+  assert.match(index, /Limited-Time Audiobook Offer/);
+  assert.match(index, /data-book="the-absconding"/);
+  assert.match(index, /data-book="the-hollow-year"/);
+});
