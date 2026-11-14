@@ -1,3 +1,7 @@
+## 2026-11-14 — Vivian audiobooks Payhip two-title storefront staging (NOT DEPLOYED)
+
+Two products passed independent $0 buyer checkout, emailed receipts and repeat MP3/M4B SHA checks; private SALE_READY receipts retained on JayTree LAN. The Absconding and The Hollow Year are the only allowlisted $1.99 direct-sale links in the staged website source; the four ACX-held editions remain excluded. Browser-based Payhip seller publication is **not verified**, so this branch must not merge until both products are confirmed Visible and buyer-accessible. Node syntax and four launch-guard regression tests passed independently on JT-DESKTOP. Dated details, blocker, rollback and exact next steps: [docs/handoffs/2026-11-14-vivian-two-title-payhip-launch-staging.md](handoffs/2026-11-14-vivian-two-title-payhip-launch-staging.md). Safe feature branch: `feature/audiobook-two-title-payhip-20261114`.
+
 ## November 13, 2026 - Owner approved scored upcoming novels video, new thumbnail hosted for TikTok-first seven-platform posting
 Video SHA a599f891dc2912b62ab036234631ec2e5428cdb3c19d42a3ee292f28413e3446, cover SHA 7b92379c8cf64ff3a59b56b6680aaf7a61927778535c9ef7fe2e4e76d3b56e11. Staging only; verify Pages HTTP 200 and exact SHA before live Social Poster delivery. TikTok FIRST; six other official destinations later; no post claimed. See docs/handoffs/2026-11-13-scored-upcoming-novels-native-social-delivery.md.
 
