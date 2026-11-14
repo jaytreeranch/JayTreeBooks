@@ -6,7 +6,7 @@
 
 - The Absconding — https://payhip.com/b/q3GfL
 - The Hollow Year — https://payhip.com/b/Zf7tv
-- Hold: Second Draft; The Correction; The Hollow Bell (Novella); The Hollow Bell (Full Novel) pending written ACX exclusivity/distribution clearance. No public paid link or live buyer delivery for any held edition.
+- **ACX clearance received after the initial staging audit:** ACX Support confirmed on 2026-11-14 that its projects for Second Draft, The Correction, The Hollow Bell, and The Hollow Bell: A Millbrook Falls Mystery were unclaimed/removed effective 2026-11-14; no ACX distribution agreement remains active and no direct-sale restriction is asserted. The source confirmation is preserved in private Gmail and SHA-bound on JayTree LAN. The four now have **checkout-testing hold**, not ACX contractual hold: do not publish until real Payhip buyer checkout, delivery, repeat downloads and hashes are verified.
 - Existing older $5 The Correction product must remain untouched.
 
 ## Verified tests and source
@@ -25,6 +25,12 @@ Private source masters, transaction evidence, exact file hashes and signed-off r
 
 1. Restore trusted authenticated Payhip editor access without closing unrelated user tabs; confirm two eligible product identities/files and set **Visible** individually, verifying a freshly loaded seller page plus anonymous buyer-facing view.
 2. Merge this reviewed website feature branch only after both seller products are visibly purchasable and rerun website+security tests; verify GitHub main SHA, public site HTTP content and two correct CTA links.
-3. Preserve the remaining four at Invisible until written ACX release; then individually complete owner-controlled buyer fulfillment tests, SHA validation and SALE_READY, and release only with authorized visibility change.
+3. Written ACX release is now documented. Keep the remaining four Invisible while completing independent owner-controlled checkout, receipt, MP3/M4B repeat-download/hash validation and individual SALE_READY, then authorize visibility changes.
 
 No promotional expiration date was introduced. Real paid-card checkout and post-publication customer purchase are not certified.
+
+## Post-clearance source QC addendum (2026-11-14)
+
+After the ACX response, all 16 staged files (MP3, M4B, sample and cover for each of the four newly cleared editions) were independently SHA-256 compared to the source release matrix on JT-DESKTOP: **16/16 PASS**. M4B chapter counts: Second Draft 50; The Correction 37; The Hollow Bell novella 39; The Hollow Bell full novel 50. This does not prove the files uploaded to Payhip are customer-download identical; that requires separate live Payhip tests.
+
+Payhip seller Chrome accessibility/document control remained unavailable even after guarded reload and switching existing tabs; attempting an alternative machine showed the account was not authenticated there. No authorized live public-listing toggle occurred. All six customer launches remain **unverified/not deployed**. Private, dated six-edition release matrix: `SIX_VIVIAN_POST_ACX_CLEAR_RELEASE_GATE_20261114_V3.json` on the established JayTree audiobook staging LAN path.
