@@ -1,5 +1,34 @@
 const JT = window.JT;
 
+// Direct-sale links are deliberately allowlisted: four ACX-held editions remain unavailable.
+const JT_AUDIOBOOK_PAYHIP = Object.freeze({
+  "the-absconding": "https://payhip.com/b/q3GfL",
+  "the-hollow-year": "https://payhip.com/b/Zf7tv"
+});
+function audiobookPurchaseUrl(book) {
+  return Object.prototype.hasOwnProperty.call(JT_AUDIOBOOK_PAYHIP, book.slug) ? JT_AUDIOBOOK_PAYHIP[book.slug] : "";
+}
+function audiobookPurchaseButton(book) {
+  const url = audiobookPurchaseUrl(book);
+  return url ? `<a class="cta solid" href="${url}" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="${book.slug}">Buy Vivian Audiobook — $1.99</a>` : "";
+}
+function audiobookDirectCallout(book) {
+  const url = audiobookPurchaseUrl(book);
+  if (url) return `<div class="ku-callout" aria-label="Buy full audiobook directly from JayTree Books">
+    <div><span class="ku-kicker">Direct from JayTree Books</span>
+    <strong>Vivian Audiobook — Limited-Time $1.99</strong>
+    <small>Instant MP3 and chaptered M4B downloads. Narrated by a digitally generated JayTree Books voice.</small></div>
+    <a class="cta solid ku-button" href="${url}" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="${book.slug}">Buy Audiobook — $1.99</a>
+  </div>`;
+  return `<div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">
+    <div><span class="ku-kicker">Direct from JayTree Books</span>
+    <strong>Full Audiobook — Coming Soon</strong>
+    <small>Join JayTree Case Files and we’ll let you know when full audiobook editions are available to purchase directly from JayTreeBooks.com.</small></div>
+    <a class="cta solid ku-button" href="case-files.html" data-track="audiobook_case_files" data-book="${book.slug}">Join JayTree Case Files</a>
+  </div>`;
+}
+
+
 function track(name, params = {}) {
   if (typeof gtag === "function") gtag("event", name, params);
 }
@@ -85,6 +114,7 @@ function audioCard(b) {
   return `<article class="audio-card">
     <div class="audio-icon">◉</div><div class="format">Choose Your Narrator</div><h3>${b.title}</h3><p>${b.description}</p>
     <div class="card-actions">
+      ${audiobookPurchaseButton(b)}
       <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Compare 4 Narrators</a>
       <a class="audible" href="${b.audio}#immersive-title" data-track="book_audio" data-book="${b.slug}">Immersive — Coming Soon</a>
     </div>
@@ -297,6 +327,7 @@ async function renderBook() {
         <div class="book-actions">
           ${b.chapter ? `<a class="cta solid" href="${b.chapter}" data-track="chapter" data-book="${b.slug}">Read Chapter One</a>` : ""}
           ${b.audio ? `<a class="cta" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Choose Narrator & Listen</a>` : `<a class="cta" href="books/${b.slug}.html#audiobook" data-track="audio_coming_soon" data-book="${b.slug}">Audiobook Coming Soon</a>`}
+          ${audiobookPurchaseButton(b)}
           ${externalButton(b.amazonUrl, "Buy on Amazon", "amazon", b.slug)}
         </div>
         <p><a class="back" href="index.html#books">← Back to the collection</a></p>
@@ -309,14 +340,7 @@ async function renderBook() {
       <p class="section-copy">Play the website audio sample${b.audiobookYoutubeUrl ? " or watch the YouTube chapter reading" : ""}.</p>
       ${audiobookVideo}
       <!-- JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON -->
-      <div class="ku-callout audiobook-coming-soon" aria-label="Full audiobook coming soon">
-        <div>
-          <span class="ku-kicker">Direct from JayTree Books</span>
-          <strong>Full Audiobook — Coming Soon</strong>
-          <small>Join JayTree Case Files and we’ll let you know when full audiobook editions are available to purchase directly from JayTreeBooks.com.</small>
-        </div>
-        <a class="cta solid ku-button" href="case-files.html" data-track="audiobook_case_files" data-book="${b.slug}">Join JayTree Case Files</a>
-      </div>
+      ${audiobookDirectCallout(b)}
       <div class="book-actions">
         <a class="cta solid" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Play Website Audio Sample</a>
         ${externalButton(b.audiobookYoutubeUrl, "Open Reading on YouTube", "audiobook_youtube", b.slug)}
