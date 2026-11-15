@@ -1,3 +1,4 @@
+> Nov 15, 2026 update: a zero-plugin-cost read-only Search Console keyword-history collector is staged in scripts/gsc_weekly_tracker.py with 10/10 offline tests, but Google OAuth and live weekly schedule are not yet authorized. Setup and limitations: docs/SEO_FREE_RANK_TRACKING.md. The Sep 24 snapshot below is historical, not the current rank for the two priority phrases. Do not use OpenSEO for routine ranking checks.
 # JayTree Books SEO Search Decision System
 
 Updated: 2026-09-24
