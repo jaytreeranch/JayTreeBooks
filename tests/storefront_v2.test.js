@@ -39,16 +39,19 @@ for (const file of pages) {
 
 test('all six Vivian offers are purchasable, separate, and edition-specific on the audiobook catalog', () => {
   const page = html('audiobooks.html');
-  assert.equal((page.match(/data-track="audiobook_payhip"/g) || []).length, 6);
-  assert.equal((page.match(/class="sf-book-card"/g) || []).length, 6);
+  assert.equal((page.match(/data-track="audiobook_payhip"/g) || []).length, offers.length + 1, "six shelf links and one featured link");
+  assert.equal((page.match(/class="sf-cine-product(?: is-selected)?"/g) || []).length, offers.length);
+  assert.equal((page.match(/class="sf-cine-cover-link sf-cine-select"/g) || []).length, offers.length);
   for (const [slug, sku, sample] of offers) {
     assert.match(page, new RegExp(`href="https://payhip\\.com/b/${sku}"[^>]*data-track="audiobook_payhip" data-book="${slug}"`));
     assert.ok(page.includes(`href="${sample}"`), `missing ${slug} sample`);
   }
-  assert.match(page, /Alternative narrator editions <em>coming soon/);
+  assert.match(page, /Alternative narrator editions coming soon/);
+  assert.match(page, /id="sf-cine-featured-cover"/);
+  assert.match(page, /id="sf-cine-featured-buy"/);
   assert.match(page, /Vivian is the only complete narrator edition available to buy today/);
   assert.match(page, /MP3 \+ chaptered M4B/);
-  assert.match(page, /Direct digital download/);
+  assert.match(page, /Six complete audiobooks — available now/);
 });
 
 test('books catalog is directly accessible without JS and all six Amazon links remain original', () => {
@@ -105,4 +108,38 @@ test('CSS supports mobile layouts, motion preferences and visible keyboard focus
   assert.match(css, /prefers-reduced-motion:reduce/);
   assert.match(css, /:focus-visible/);
   assert.match(css, /\.sf-product-grid\{display:grid/);
+});
+
+test('cinematic featured book selector uses real card data and never invents purchase URLs', () => {
+  const page = html('audiobooks.html');
+  const script = html('storefront-v2.js');
+  for (const [slug, sku, sample] of offers) {
+    assert.match(page, new RegExp('data-select-book="' + slug + '"'));
+    assert.match(page, new RegExp('data-book="' + slug + '"'));
+    assert.ok(page.includes('https://payhip.com/b/' + sku));
+    assert.ok(page.includes('href="' + sample + '"'));
+  }
+  assert.match(script, /featuredBuy\.href = purchase\.href/);
+  assert.match(script, /featuredSample\.href = preview\.getAttribute/);
+  assert.match(script, /featuredCover\.src = thumbnail\.getAttribute/);
+  assert.match(script, /featuredDescription\.textContent = card\.dataset\.description/);
+  assert.match(script, /scrollIntoView/);
+  assert.match(script, /aria-pressed/);
+});
+
+test('catalog uses a single JSON source and static generator to make future books easy to add', () => {
+  const catalog = JSON.parse(html('data/storefront-catalog.json'));
+  assert.equal(catalog.schema_version, 1);
+  assert.equal(catalog.books.length, offers.length);
+  assert.equal(catalog.books.filter(x => x.audiobook_status === 'available').length, offers.length);
+  for (const [slug, sku] of offers) {
+    const row = catalog.books.find(x => x.slug === slug);
+    assert.equal(row.payhip_url, 'https://payhip.com/b/' + sku);
+    assert.equal(row.book_status, 'published');
+    assert.equal(row.audiobook_status, 'available');
+  }
+  const generator = html('scripts/build_storefront_catalog.py');
+  assert.match(generator, /book_status/);
+  assert.match(generator, /audiobook_status/);
+  assert.match(generator, /--check/);
 });
