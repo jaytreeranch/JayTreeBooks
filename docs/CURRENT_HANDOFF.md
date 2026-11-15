@@ -1,3 +1,11 @@
+## November 15, 2026 — Cinematic storefront published and verified
+
+PR #32 merged as c1f5f0489ca324af094e856bdae5d66587e0bc22 after the release candidate 100b0bfac8e48881c032f6c3e66d1deebdaeb76a passed all 93 source regressions, the campaign checks and the actual Pages build. GitHub Pages deployed production main 603c5499154196da19bf06abd64e1dee585a8e90 ([deployment](https://github.com/jaytreeranch/JayTreeBooks/actions/runs/43711452197)). The custom domain passed 162 Windows Chrome checks across 320, 390, 768 and 1440 pixels before and again after publication. Eight public routes returned 200 with the expected content.
+
+The original /#audiobooks sale link and standalone /audiobooks.html shop work. All six title selections resolve to their distinct Payhip and sample destinations. All 21 excerpts played. The series heading, complete Samples cover artwork, News animated-series/reader-guide art and both hidden paths passed live checks. Automated Payhip product requests returned 403; no charge or settlement was verified. The final PWA validator follows the homepage include and checked all 47 source pages locally.
+
+LAN evidence: JayTreeBooksWebsiteRedesign_20261114/PortableReview_20261115/EditorialUpdate/public-release-qc under the JayTreeFarm Projects share. browser-qc.json SHA-256 4cfcef224932e9699f779e04a04d084527d63d902743a49b8f8a3ecd03fe6796. Roll back the redesign by reverting merge c1f5f048 with mainline parent 1, then regenerate the sitemap and verify the custom domain. No further website publication step is pending. A human checkout would verify Payhip's separate purchase flow.
+
 ## November 15, 2026 — Authorized storefront release candidate
 
 Reconciled production 0218ac82985d649c33600503252c5eaf1933d014 and editorial fix c113f58427752da6f6e31886d78d16118d180c56. All 161 Windows browser checks passed for the editorial build. The existing /#audiobooks entry opens the sale section, with the full shop at /audiobooks.html. The Pages build maps the previous homepage to /classic.html. Gate publication on the rendered Pages build and source regressions. After merge verify the custom domain, links and both hidden gestures. Rollback by reverting the PR merge on main.
