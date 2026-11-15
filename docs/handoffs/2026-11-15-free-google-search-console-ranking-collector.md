@@ -37,3 +37,5 @@ Git full SHA: see independently verified remote SHA in LAN milestone log and fin
 - Complete repository Node test suite 56/56 PASS; raw logs archived in the same LAN QC folder.
 - Source targeted unit suite 10/10 PASS, legacy archive migration PASS, real Google OAuth absent -> BLOCKED (expected), git diff --check PASS.
 - Live Search Console auth and scheduled weekly collection remain BLOCKED, not silently marked complete.
+## GitHub preservation QC
+Initial source+tests+documentation commit 9d927d09cf3068b666f660b3dd0373d159261fe5 was pushed to origin/feat/free-gsc-weekly-tracker-20261115 and independently verified with git ls-remote. Production main remains unchanged by this task. Full Python suite 35/35 PASS, Node suite 56/56 PASS, exact targeted suite 10/10 PASS. Source is ready for an authorized OAuth integration; Google API live data and the weekly trigger remain NOT VERIFIED/NOT ACTIVE.
