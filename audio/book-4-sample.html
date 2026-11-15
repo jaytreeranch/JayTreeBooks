@@ -120,7 +120,9 @@
     audio.addEventListener('play',function(){if(!started){started=true;send('audio_sample_play')}});
     audio.addEventListener('ended',function(){if(!completed){completed=true;send('audio_sample_complete')}});
   }
-  // Outbound clicks are handled once by audiobook-experience.js.
+  document.querySelectorAll('[data-track]').forEach(function(el){
+    el.addEventListener('click',function(){send(el.dataset.track)});
+  });
 })();
 </script>
 <!-- JAYTREE_AUDIO_TRACKING_END -->
