@@ -1,6 +1,8 @@
 ## 2026-11-14 — Full website/navigation and audiobook sales QC (DEVELOPMENT BRANCH ONLY)
 
-**QA milestone — 24/24 regression tests PASS, NOT DEPLOYED.** Public HTTP crawl 26/26 sitemap pages + 28/28 additional internal resources PASS; 20 narrator MP3 preview sources reachable. Browser mobile (390px) and desktop (1365px) no horizontal overflow; mobile homepage audiobook section begins about 13,241px into 19,296px document, and fixed PWA Install App button overlays sale content.
+**QA milestone — 24/24 regression tests PASS, NOT DEPLOYED.**
+**Draft PR #29 (review only):** https://github.com/jaytreeranch/JayTreeBooks/pull/29. Last tested code SHA: `c641af7a9d19120d245d6e1f405137eb09a229c9`; 24/24 PASS on tested code. No production merge. Final development branch SHA should be checked remotely after documentation updates.
+ Public HTTP crawl 26/26 sitemap pages + 28/28 additional internal resources PASS; 20 narrator MP3 preview sources reachable. Browser mobile (390px) and desktop (1365px) no horizontal overflow; mobile homepage audiobook section begins about 13,241px into 19,296px document, and fixed PWA Install App button overlays sale content.
 
 **Confirmed tracking failure:** live homepage/Correction detail Payhip click event 0→1, live Hollow Bell novella event 0→0. Branch fixes novella tracking (local browser 0→1), sale metadata, duplicate PWA and keyboard menu. Five narrator comparison pages were outdated ("audiobook editions in production") with no direct Vivian Payhip offer; branch adds price-correct $1.99 links and removes duplicate tracking listeners (local sample click 0→1). PWA install affordance moved to footer/end-body instead of floating over conversions. New tests added; original audiobook checkout regressions retained.
 
