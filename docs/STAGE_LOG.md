@@ -1,3 +1,7 @@
+## November 14, 2026 — Vivian website sample parity: branch staging only
+
+Verified 6/6 manuscript excerpt text alignment (5x 100% 6-gram matches, Absconding 99.6%), but five live public Vivian MP3 preview recordings differed from Payhip certified excerpts. Staged 6 correct certified preview files plus new Hollow Bell novella preview page, accurate marketing copy, cache-busting and regression safeguards on feature branch `fix/vivian-final-samples-20261114`. Six media SHA PASS; 4/4 Python QC, 5/5 purchase link regressions, node syntax PASS. No deploy and no changes to verified six $1.99 Payhip Visible products. See [handoff](handoffs/2026-11-14-vivian-final-website-preview-parity.md).
+
 ## November 13, 2026 - Owner approved scored upcoming novels video, new thumbnail hosted for TikTok-first seven-platform posting
 Video SHA a599f891dc2912b62ab036234631ec2e5428cdb3c19d42a3ee292f28413e3446, cover SHA 7b92379c8cf64ff3a59b56b6680aaf7a61927778535c9ef7fe2e4e76d3b56e11. Staging only; verify Pages HTTP 200 and exact SHA before live Social Poster delivery. TikTok FIRST; six other official destinations later; no post claimed. See docs/handoffs/2026-11-13-scored-upcoming-novels-native-social-delivery.md.
 

@@ -2,6 +2,10 @@ from pathlib import Path
 import json
 
 ROOT=Path(__file__).resolve().parents[1]
+# Guard the live $1.99 release against the legacy four-narrator page generator.
+if (ROOT / "audio" / "book-1-sample.html").is_file() and "Buy Vivian Audiobook" in (ROOT / "audio" / "book-1-sample.html").read_text(encoding="utf-8"):
+    print("Preserving certified Vivian release pages; retired generator skipped.")
+    raise SystemExit(0)
 books=[
  dict(page="book-1-sample.html",slug="second-draft",title="Second Draft",genre="A Psychological Mystery Thriller",description="Nora helps people rehearse impossible conversations—until the rehearsals begin changing reality.",cover="second-draft.webp",book="../books/second-draft.html",chapter="../chapters/book-1-first-chapter.html",amazon="https://www.amazon.com/dp/B0HFYQ9KGV"),
  dict(page="book-2-sample.html",slug="the-hollow-year",title="The Hollow Year",genre="A Psychological Mystery Thriller",description="In Amity Hollow, one person is erased from every living memory each October.",cover="the-hollow-year.webp",book="../books/the-hollow-year.html",chapter="../chapters/book-2-first-chapter.html",amazon="https://www.amazon.com/dp/B0HFXF8MTP"),

@@ -1,3 +1,7 @@
+## 2026-11-14 — Vivian public preview parity feature branch (not live)
+
+The live six Vivian audiobook $1.99 sale remains verified and unchanged. Dedicated feature branch `fix/vivian-final-samples-20261114` replaces five historical Vivian website samples with the exact approved Payhip previews, adds a novella player, clarifies archived narrator demos, and adds a generator fail-safe and SHA regression tests. Six preview hashes PASS, 4/4 Python tests PASS, 5/5 purchase-link Node tests PASS, JS/Python checks PASS. Website Pages deployment pending; see [dated handoff](handoffs/2026-11-14-vivian-final-website-preview-parity.md). Latest feature commit/PR to be verified separately.
+
 ## 2026-11-14 — Audiobook narrator availability wording corrected in QC branch
 
 **Owner-approved copy directive:** Six complete Vivian-narrated audiobook editions are available NOW at $1.99 each. Only alternative full-length narrator editions are 'coming soon'; their Chapter One previews are already playable. Corrected homepage, five narrator preview pages, six static book pages, `mystery-books.html`, and dynamic `app.js`; eliminated misleading full-audiobook coming-soon fallback, including on the novella route. Corrected generic newsletter release copy. Preserved all six distinct approved Payhip links, narrator disclosure and future immersive status.

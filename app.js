@@ -109,13 +109,13 @@ function audioCard(b) {
     <div class="audio-icon">◉</div><div class="format">Vivian Novella Audiobook</div><h3>${b.title} (Novella)</h3>
     <p>Complete Vivian-narrated novella available now with MP3 and chaptered M4B downloads for $1.99. Alternative narrators are coming soon.</p>
     <div class="card-actions"><a class="read-sample" href="books/${b.slug}.html" data-track="book_page" data-book="${b.slug}">Explore Novella</a>
-      ${audiobookPurchaseButton(b)}</div>
+      ${audiobookPurchaseButton(b)} <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Listen to Vivian Preview</a></div>
   </article>`;
   return `<article class="audio-card">
     <div class="audio-icon">◉</div><div class="format">Vivian Audiobook Available Now</div><h3>${b.title}</h3><p>${b.description} Complete Vivian edition $1.99; other full-length narrator editions coming soon.</p>
     <div class="card-actions">
       ${audiobookPurchaseButton(b)}
-      <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Preview 4 Narrators</a>
+      <a class="read-sample" href="${b.audio}" data-track="audio_preview" data-book="${b.slug}">Vivian Preview &amp; Other Voice Demos</a>
       <a class="audible" href="${b.audio}#immersive-title" data-track="book_audio" data-book="${b.slug}">Immersive Experience (In Development)</a>
     </div>
   </article>`;
