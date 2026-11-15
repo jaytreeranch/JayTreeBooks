@@ -137,3 +137,14 @@
 .sf-audio-cinematic .sf-cine-search-panel{right:-55px;width:min(290px,calc(100vw - 30px))}
 }
 @media(prefers-reduced-motion:reduce){.sf-audio-cinematic *, .sf-audio-cinematic *::before,.sf-audio-cinematic *::after{transition:none!important}}
+
+/* Stateful cover selector: no nested links, visible selected edition. */
+.sf-audio-cinematic button.sf-cine-cover-link{width:100%;padding:0;text-align:initial;cursor:pointer;appearance:none;color:inherit;font:inherit}
+.sf-audio-cinematic .sf-cine-product.is-selected .sf-cine-cover-link{border:2px solid #f5ce76;box-shadow:0 0 0 2px rgba(235,176,68,.24),0 14px 28px rgba(0,0,0,.6)}
+.sf-audio-cinematic .sf-cine-product.is-selected .sf-cine-card-action{box-shadow:0 0 0 1px rgba(245,206,118,.25)}
+.sf-audio-cinematic #sf-cine-featured-region{scroll-margin-top:12px}
+.sf-audio-cinematic .sf-cine-selection-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.sf-audio-cinematic .sf-coming-status{color:#f1cb80;font:600 .75rem/1.55 Arial,sans-serif;padding:12px 0}
+.sf-audio-cinematic .sf-cine-upcoming-audio{grid-column:1/-1;border-top:1px solid rgba(225,173,88,.25);margin-top:16px;padding:13px 0;color:#dec99f}
+.sf-audio-cinematic .sf-cine-upcoming-audio h3{font-size:1.25rem;margin:0 0 4px}
+.sf-audio-cinematic .sf-cine-upcoming-audio p{margin:0}
