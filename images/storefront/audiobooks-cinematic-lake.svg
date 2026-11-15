@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 555" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<defs>
+<linearGradient id="sk" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#090f14"/><stop offset=".45" stop-color="#18262b"/><stop offset=".68" stop-color="#293538"/><stop offset="1" stop-color="#070f14"/></linearGradient>
+<linearGradient id="lake" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#35464a" stop-opacity=".72"/><stop offset=".24" stop-color="#26383d" stop-opacity=".69"/><stop offset="1" stop-color="#020a0f"/></linearGradient>
+<radialGradient id="moonGlow"><stop stop-color="#d5c3a7" stop-opacity=".43"/><stop offset=".4" stop-color="#a7a9a2" stop-opacity=".2"/><stop offset="1" stop-color="#bbc1b8" stop-opacity="0"/></radialGradient>
+<radialGradient id="amber"><stop stop-color="#ffd88e"/><stop offset=".23" stop-color="#e3a150"/><stop offset="1" stop-color="#ecae50" stop-opacity="0"/></radialGradient>
+<linearGradient id="mist" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#9babb0" stop-opacity="0"/><stop offset=".32" stop-color="#a1b4b3" stop-opacity=".12"/><stop offset=".75" stop-color="#ccd4cc" stop-opacity=".19"/><stop offset="1" stop-color="#afc1bc" stop-opacity="0"/></linearGradient>
+<filter id="cloud" x="-25%" y="-60%" width="160%" height="240%"><feGaussianBlur stdDeviation="25"/></filter>
+<filter id="fog" x="-25%" y="-60%" width="150%" height="250%"><feGaussianBlur stdDeviation="14"/></filter>
+<filter id="light" x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="4"/></filter>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".48" numOctaves="3" seed="5" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".035"/></feComponentTransfer></filter>
+</defs>
+<rect width="1536" height="555" fill="url(#sk)"/>
+<ellipse cx="1130" cy="210" rx="630" ry="280" fill="url(#moonGlow)"/>
+<g filter="url(#cloud)" fill="#a6b6b0" opacity=".13"><ellipse cx="955" cy="185" rx="430" ry="58"/><ellipse cx="1270" cy="240" rx="375" ry="75"/><ellipse cx="1220" cy="101" rx="450" ry="54"/><ellipse cx="740" cy="277" rx="450" ry="48"/></g>
+<path d="M0 316Q160 290 340 304T680 313Q850 290 1000 299T1536 302V380H0Z" fill="#0b161a" opacity=".7"/>
+<g fill="#060e12" opacity=".87">
+<path d="M0 356l13-56 18 56 17-92 13 92 22-64 16 64 13-45 20 45 26-85 18 85 19-64 15 64 20-77 17 77 24-54 13 54 19-101 16 101 29-55 17 55 18-80 15 80 20-45 14 45 26-80 18 80 21-54 15 54 21-81 17 81 23-42 12 42 19-90 18 90 21-55 11 55 24-85 22 85H0Z"/>
+<path d="M760 352l16-41 11 41 19-69 17 69 21-53 18 53 16-94 14 94 21-62 17 62 18-75 18 75 17-44 19 44 16-81 20 81 19-70 17 70 12-38 18 38 19-63 21 63 21-82 18 82 15-59 17 59 24-84 13 84 27-79 23 79 19-61 19 61 26-87 17 87 19-64 19 64 23-69 17 69 20-49 19 49 28-80 17 80 20-64 18 64 20-82 16 82 18-70 16 70H760Z"/>
+</g>
+<rect y="352" width="1536" height="203" fill="url(#lake)"/>
+<g opacity=".26" stroke="#b9c4b9" fill="none" stroke-linecap="round">
+<path d="M620 379q260 15 560 0t350 4M770 401q160 9 320 1M1050 435q175 8 350 0M815 469q80 3 250 0M1120 501q100 3 320-5" stroke-width="2"/>
+<path d="M720 414h95m35 4h200m-130 40h100m-70 39h200m-350 25h100m150 8h280" stroke-width="1.1"/>
+</g>
+<!-- Lakeside house and aged chapel silhouette -->
+<g opacity=".93">
+<path d="M1190 304l82-70 101 74v63h-183Z" fill="#111b20"/>
+<path d="M1179 309l94-86 115 89-11 8-104-80-80 78Z" fill="#091116"/>
+<path d="M1220 246v-31h17v21M1350 273v-39h12v51" stroke="#0b1216" stroke-width="8"/>
+<rect x="1210" y="296" width="159" height="75" fill="#0b1419"/>
+<path d="M1244 317h14v26h-14zM1299 311h13v24h-13zM1337 319h12v24h-12z" fill="#c3934d"/>
+<path d="M1248 319h6v22h-6zM1303 313h5v19h-5zM1341 321h5v19h-5z" fill="#f3c46e"/>
+<path d="M1249 317v27m50-33v25m38-17v24" stroke="#060d12" stroke-width="2"/>
+<path d="M1271 349q12-17 24 0v21h-24Z" fill="#03090d"/>
+<path d="M1206 366q65 6 165 0l-9 12h-145Z" fill="#0a1417"/>
+</g>
+<g opacity=".67" filter="url(#fog)"><ellipse cx="1240" cy="348" rx="290" ry="29" fill="url(#mist)"/><ellipse cx="780" cy="350" rx="500" ry="29" fill="#a2b3b2" opacity=".17"/><ellipse cx="1150" cy="396" rx="340" ry="28" fill="#b4bdb8" opacity=".12"/><ellipse cx="1160" cy="298" rx="260" ry="25" fill="#c6cac4" opacity=".13"/></g>
+<g opacity=".55"><ellipse cx="1250" cy="397" rx="50" ry="80" fill="url(#amber)"/><ellipse cx="1305" cy="416" rx="38" ry="92" fill="url(#amber)"/><ellipse cx="1340" cy="414" rx="32" ry="82" fill="url(#amber)"/></g>
+<!-- Twisted branches, avoiding hero type -->
+<g fill="none" stroke="#04090d" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+<path d="M1535 34Q1465 57 1418 119T1295 178M1535 93Q1450 90 1414 150T1325 203M1479 1q-44 90-45 148M1515 71q-94-15-161 23M1430 89q-48-45-58-87M1380 111q-70-3-113-66M1360 143q-46 0-92 35M1458 102q-15 80-83 122M1351 175q-17-35-43-44M1408 134q-3-45-23-61" stroke-width="8"/>
+<path d="M1535 52q-45 38-60 79M1535 134q-59-13-88 47M1428 149q-39-30-90-24M1382 158q-42 44-87 34M1388 97q-39-42-85-50M1485 54q-24-30-30-54M1323 87q-20-19-24-44M1358 139q-24-17-44-13M1412 183q-30 38-74 47" stroke-width="3.8"/>
+<path d="M0 14q95 9 159 89t116 121M0 113q72-31 132-8T260 204M35 0q88 69 132 172M101 0q-11 90 59 171M0 192q116-32 184-6M95 117q-36-41-28-117M160 103q18-58 67-85" stroke-width="7"/>
+<path d="M0 83q64-5 88 43M39 23q26 73 50 85M91 67q66-13 126 15M128 124q32 2 72 49M174 142q35-2 74 43M48 151q39-9 59-40M228 19q14 38 3 68" stroke-width="3.1"/>
+</g>
+<rect width="1536" height="555" fill="url(#moonGlow)" opacity=".08"/>
+<rect width="1536" height="555" filter="url(#grain)" opacity=".47"/>
+</svg>
