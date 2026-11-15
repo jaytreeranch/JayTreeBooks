@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>The Hollow Bell Novella | Millbrook Falls Mystery | JayTree Books</title>
-<meta name="description" content="Explore The Hollow Bell novella, a separate, shorter Millbrook Falls mystery edition. Available now on Amazon. The audiobook is coming soon.">
+<meta name="description" content="Explore The Hollow Bell novella, a separate, shorter Millbrook Falls mystery edition. Available now on Amazon, with a complete Vivian-narrated audiobook for sale directly from JayTree Books.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://jaytreebooks.com/books/the-hollow-bell-novella.html">
 <link rel="icon" type="image/png" href="/favicon.png">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://jaytreebooks.com/books/the-hollow-bell-novella.html">
 <meta property="og:title" content="The Hollow Bell — Novella | JayTree Books">
-<meta property="og:description" content="A shorter telling of the Millbrook Falls mystery. Available now on Amazon; audiobook coming soon.">
+<meta property="og:description" content="A shorter telling of the Millbrook Falls mystery. Available on Amazon and as a complete Vivian-narrated audiobook direct from JayTree Books.">
 <meta property="og:image" content="https://jaytreebooks.com/images/the-hollow-bell-novella.png">
 <meta property="og:image:alt" content="The Hollow Bell novella cover">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Hollow Bell — Novella | JayTree Books">
-<meta name="twitter:description" content="A separate, shorter Millbrook Falls mystery edition. Read it now on Amazon.">
+<meta name="twitter:description" content="A shorter Millbrook Falls mystery. Read it on Amazon or get the complete Vivian audiobook direct from JayTree Books.">
 <meta name="twitter:image" content="https://jaytreebooks.com/images/the-hollow-bell-novella.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":"https://jaytreebooks.com/books/the-hollow-bell-novella.html#book","name":"The Hollow Bell","alternateName":"The Hollow Bell (Novella)","bookFormat":"https://schema.org/EBook","genre":["Mystery","Small-town mystery","Novella"],"description":"A shorter telling of the Millbrook Falls mystery, where an old bell and buried secrets refuse to stay quiet.","author":{"@type":"Organization","name":"JayTree Books","@id":"https://jaytreebooks.com/#publisher","url":"https://jaytreebooks.com","logo":{"@type":"ImageObject","url":"https://jaytreebooks.com/icons/icon-512.png"}},"publisher":{"@type":"Organization","name":"JayTree Books","@id":"https://jaytreebooks.com/#publisher","url":"https://jaytreebooks.com","logo":{"@type":"ImageObject","url":"https://jaytreebooks.com/icons/icon-512.png"}},"image":"https://jaytreebooks.com/images/the-hollow-bell-novella.png","url":"https://jaytreebooks.com/books/the-hollow-bell-novella.html","sameAs":"https://www.amazon.com/dp/B0HD2H8586","offers":{"@type":"Offer","url":"https://www.amazon.com/dp/B0HD2H8586","availability":"https://schema.org/InStock"}}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
@@ -60,14 +60,42 @@
 </section>
 <section class="book-section" id="audiobook">
   <div class="eyebrow">Vivian Audiobook • Available Now</div><h2>Listen to The Hollow Bell novella.</h2>
-  <p class="section-copy">The complete separately narrated novella is available directly from JayTree Books for a limited-time $1.99. Receive MP3 and chaptered M4B digital download formats. Narrated by a digitally generated JayTree Books voice.</p>
+  <p class="section-copy">The complete separately narrated novella is available directly from JayTree Books for a limited-time $1.99. Receive MP3 and chaptered M4B digital download formats. Narrated by a digitally generated JayTree Books voice. <strong>The complete Vivian edition is available now; alternative full-length narrator editions are coming soon.</strong></p>
   <div class="book-actions"><a class="cta solid" href="https://payhip.com/b/EWc5q" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="the-hollow-bell-novella">Buy Novella Audiobook — $1.99</a></div>
 </section>
 <section class="book-section"><div class="eyebrow">Keep Exploring</div><h2>Find another mystery.</h2><p class="section-copy">Browse the <a href="../mystery-books.html">JayTree Books mystery collection</a> or explore the <a href="../books/the-hollow-bell.html">full-length Hollow Bell novel</a>.</p></section>
 </main>
 <footer><div class="footer-brand">JAYTREE BOOKS</div><p>Stories That Stay.</p><div class="footer-links"><a href="../index.html">Home</a> · <a href="../mystery-books.html">Mystery Books</a> · <a href="../index.html#books">All Books</a> · <a href="../case-files.html">Case Files</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></div><small>© <span id="year"></span> JayTree Books. All rights reserved.</small></footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();(function(){var t=document.querySelector('.menu-toggle'),n=document.querySelector('.nav');if(!t||!n)return;function close(){n.classList.remove('open');t.setAttribute('aria-expanded','false')}t.addEventListener('click',function(){var open=n.classList.toggle('open');t.setAttribute('aria-expanded',String(open))});document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',close)})})()</script>
-<script src="/pwa.js" defer></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+(function () {
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
+  if (!toggle || !nav) return;
+  function close() {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  toggle.addEventListener('click', function () {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.querySelectorAll('.nav-links a').forEach(function (link) {
+    link.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') close();
+  });
+})();
+document.addEventListener('click', function (event) {
+  const link = event.target.closest('a[data-track]');
+  if (!link || typeof window.gtag !== 'function') return;
+  window.gtag('event', link.dataset.track, {
+    book: link.dataset.book || 'the-hollow-bell-novella',
+    transport_type: 'beacon'
+  });
+});
+</script>
 <!-- JAYTREE_PWA_SCRIPT_START -->
 <script src="/pwa.js" defer></script>
 <!-- JAYTREE_PWA_SCRIPT_END -->
