@@ -1,3 +1,7 @@
+## November 15, 2026 — Authorized storefront release candidate
+
+Reconciled production 0218ac82985d649c33600503252c5eaf1933d014 and editorial fix c113f58427752da6f6e31886d78d16118d180c56. All 161 Windows browser checks passed for the editorial build. The existing /#audiobooks entry opens the sale section, with the full shop at /audiobooks.html. The Pages build maps the previous homepage to /classic.html. Gate publication on the rendered Pages build and source regressions. After merge verify the custom domain, links and both hidden gestures. Rollback by reverting the PR merge on main.
+
 ## November 14, 2026 (Central) — Downloadable cinematic storefront
 
 Verified source 3d70b454f818fd717295e2b900cdef6c2939f35c on draft PR #32. The complete ZIP opens directly on Windows, with the owner-approved photographic audiobook showcase, six distinct product selections and 21 locally playable excerpts. All 93 source regressions and 150 Windows browser checks passed. Payhip challenged automated access. Checkout settlement and production launch remain open. [Evidence, archive hash, rollback and next steps](handoffs/2026-11-15-downloadable-cinematic-storefront.md).
@@ -37,6 +41,10 @@ OPEN: photographic lake/headphone approved artwork not yet imported (current SVG
 **Access:** Draft [PR #32](https://github.com/jaytreeranch/JayTreeBooks/pull/32) on branch design/multipage-storefront-review-20261114. Private preview gallery and source evidence: \\JT-DESKTOP\JayTreeFarm\Projects\JayTreeBooksWebsiteRedesign_20261114\REVIEW_INDEX.html. Detailed [navigation/release plan](design/STOREFRONT_V2_NAVIGATION_AND_LAUNCH_PLAN.md) and [development stage log](handoffs/2026-11-14-storefront-v2-review-stage.md).
 
 **Release block:** Owner explicitly requested no merge to main yet. Next exact work is owner visual/IA review, preserving or migrating current homepage Challenge, reading guides, news, mini-series and videos, then upgrading individual product pages, reconciling current main, completing accessibility/SEO/commerce QA, and requesting separate release approval. Revert website-only changes if later buyer regression; preserve existing six Payhip listings and master audio untouched.
+
+## 2026-11-14 audiobook social sale image/video DELIVERY-ONLY
+
+Approved Option A creative staged as three static media assets on isolated branch release/audiobook199-social-delivery-only-20261114; website HTML/CSS/JS and audiobook checkout pages UNCHANGED. Direct public URLs must be verified after merge. Details: docs/handoffs/2026-11-14-audiobook199-public-media-only.md. Social publication is performed independently through existing Social Poster and must have seven provider receipts before claiming success.
 
 ---
 
