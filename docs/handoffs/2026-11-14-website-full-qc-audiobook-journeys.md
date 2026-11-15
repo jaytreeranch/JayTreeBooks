@@ -90,7 +90,7 @@ Do not change the unrelated older $5 Correction Payhip SKU, currently recorded H
 - `website_qc_tracking_clicks_20261114.json` (live) vs `website_qc_tracking_branch_20261114.json` (local branch)
 - `website_qc_audio_sample_branch_click_20261114.json`
 - `site_detail_checks_20261114.json` — public privacy/terms/preview reachability
-- `source-qc/` — source fetched from immutable GitHub branch before checking tests
+- `source-qc/` — source fetched from GitHub review branch at the tested checkpoint
 - `QC_REPORT_20261114.md` and `QC_STAGE_LOG_20261114.md`
 
 **Source preservation:** GitHub feature branch `fix/website-novella-qc-20261114`; review via `https://github.com/jaytreeranch/JayTreeBooks/tree/fix/website-novella-qc-20261114`. Confirm its **remote head SHA** in the final handoff, then do not claim live deployment without an independently successful Pages run.
