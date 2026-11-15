@@ -1,3 +1,9 @@
+## November 15, 2026 — Samples user-approved artwork PUBLISHED AND LIVE VERIFIED
+
+Exact user upload (pixel-identical GE78/LAN copy) published as 1200x630 versioned Samples OG/X image at https://jaytreebooks.com/images/social/previews/samples-approved-20261115.jpg. PR #36 squash merge c65739c981ecbcf51f449fbac6927410a87dc5bb, Pages workflow 43729663535 SUCCESS, source validation 43729499687 SUCCESS. Live page https://jaytreebooks.com/samples.html advertises correct og:image and twitter:image. Public image HTTP 200 image/jpeg, SHA256 b62959dfc89e7be34ff4d89aa87fd78e92f5cc832310d877fc9828062367874b MATCH. Six Samples cards retained; other section previews, actual audio and commerce untouched. LAN public QC receipt in JayTreeBooksWebsiteRedesign_20261114. Facebook cache state not independently confirmed. See docs/handoffs/2026-11-15-approved-samples-social-preview.md for source, test results, next steps and rollback.
+
+---
+
 ## 2026-11-15 — User-approved Samples social-image replacement
 
 Owner uploaded an exact Samples image (open chapter-one book, gold lamp, headphones, moonlit lake), found on JT-GE78 and copied with matching SHA to JayTree LAN. New versioned 1200x630 JPEG images/social/previews/samples-approved-20261115.jpg, hash B62959DFC89E7BE34FF4D89AA87FD78E92F5CC832310D877FC9828062367874B. Samples page OG/Twitter metadata points to this approved image and correct alt. Other page previews, original book covers, audio samples, Payhip SKUs, site functionality unchanged. Python 36/36 PASS, Node suite exit 0, all generators in sync. Source branch fix/approved-samples-social-art-20261115. Publication and public Facebook-style crawler verification still pending. Full details and rollback: docs/handoffs/2026-11-15-approved-samples-social-preview.md.
