@@ -62,15 +62,39 @@ def footer(root="", hidden_path=False):
     return f'''<footer class="jt-footer"><div class="jt-wrap"><div class="jt-footer-inner">
 <div><div class="jt-footer-brand">JAYTREE BOOKS</div><p>{footer_line}{glyph}</p><small>© 2026 JayTree Books · Independent mystery fiction</small></div>
 <nav aria-label="Footer navigation">{''.join(f'<a href="{root}{href}">{label}</a>' for label,href in links)}</nav>
-</div><small>Development design preview. No changes to the public JayTreeBooks.com website or Payhip listings.</small></div></footer>{transition}'''
+</div></div></footer>{transition}'''
 
 ANALYTICS = '<script>\n// Analytics is only loaded on production host, never local preview.\nwindow.dataLayer=window.dataLayer||[];\nfunction gtag(){dataLayer.push(arguments)}\nif (location.hostname==="jaytreebooks.com" || location.hostname==="www.jaytreebooks.com"){\n const jtTag=document.createElement("script");jtTag.async=true;\n jtTag.src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6";\n document.head.appendChild(jtTag);\n gtag("js",new Date());gtag("config","G-PHE2JVV5P6");\n}\n</script>'
 
-def head(title,desc,extra=""):
+def production_meta(page, title, description):
+    origin = "https://jaytreebooks.com/"
+    routes = {"home": "", "series": "series-v2.html", "news": "news-v2.html",
+              "experiences": "experiences-v2.html", "books": "books.html",
+              "audio": "audiobooks.html", "samples": "samples.html"}
+    url = origin + routes[page]
+    return (f'<link rel="canonical" href="{url}">\n'
+            f'<meta property="og:url" content="{url}"><meta property="og:type" content="website">\n'
+            f'<meta property="og:title" content="{e(title)} | JayTree Books">\n'
+            f'<meta property="og:description" content="{e(description)}">\n'
+            f'<meta property="og:image" content="{origin}images/jaytree-books-challenge.png">\n'
+            '<meta name="twitter:card" content="summary_large_image">')
+
+def legacy_block(name):
+    source = (ROOT / "index.html").read_text(encoding="utf-8")
+    start = "<!-- JAYTREE_" + name + "_START -->"
+    end = "<!-- JAYTREE_" + name + "_END -->"
+    return start + source.split(start, 1)[1].split(end, 1)[0] + end
+
+def head(page,title,desc):
+    extra = production_meta(page,title,desc) + "\n" + legacy_block("PWA_HEAD")
+    if page == "home":
+        extra += "\n" + legacy_block("ORG_SCHEMA") + "\n" + legacy_block("WEBSITE_SCHEMA")
+        extra += '<script src="home-links.js" defer></script>'
+
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,follow"><meta name="theme-color" content="#061116">
-<meta name="description" content="{e(desc)}"><title>{e(title)} | JayTree Books Preview</title>
+<meta name="robots" content="index,follow"><meta name="theme-color" content="#061116">
+<meta name="description" content="{e(desc)}"><title>{e(title)} | JayTree Books</title>
 <link rel="icon" href="favicon.png"><link rel="stylesheet" href="storefront-v2.css">
 <link rel="stylesheet" href="cinematic-site-v2.css">{extra}
 {ANALYTICS}
@@ -79,7 +103,7 @@ def head(title,desc,extra=""):
 </head>'''
 
 def body(page,title,desc,main):
-    return head(title,desc)+f'<body class="jt-cinematic jt-page-{page}" data-jt-root=""><a class="sf-skip" href="#main">Skip to content</a>'+header(page)+f'<main id="main">{main}</main>'+footer(hidden_path=page == "home")+'</body></html>'
+    return head(page,title,desc)+f'<body class="jt-cinematic jt-page-{page}" data-jt-root=""><a class="sf-skip" href="#main">Skip to content</a>'+header(page)+f'<main id="main">{main}</main>'+footer(hidden_path=page == "home")+legacy_block('PWA_SCRIPT')+'</body></html>'
 
 def newsletter():
     return '''<section class="jt-newsletter" id="case-files"><div class="jt-wrap"><span class="jt-overline">Behind the next clue</span>
@@ -105,7 +129,7 @@ f'''<section class="jt-hero" id="top"><div class="jt-wrap jt-hero-grid">
 <a class="jt-text-link" href="chapters/book-1-first-chapter.html">Read Chapter One of Second Draft →</a></div>
 <div class="jt-hero-art"><a href="books/second-draft.html" aria-label="Discover Second Draft"><img src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft official cover" fetchpriority="high"></a></div>
 </div></section>
-<section class="jt-listen-strip" id="audiobooks"><div class="jt-wrap"><div><strong>{words(audio_count).capitalize()} complete Vivian audiobooks</strong><span>Limited-time sale · $1.99 each · MP3 + chaptered M4B</span></div><a class="jt-text-link" href="audiobooks.html">Browse audiobooks →</a></div></section>
+<section class="jt-listen-strip" id="audiobooks"><div class="jt-wrap"><div><strong>{words(audio_count).capitalize()} complete Vivian audiobooks</strong><span>Limited-time sale · $1.99 each · MP3 + chaptered M4B</span></div><a class="jt-text-link" href="audiobooks.html">Shop the $1.99 audiobooks →</a></div></section>
 <section class="jt-section jt-dark" id="books"><div class="jt-wrap"><div class="jt-shelf-heading"><h2>The mystery collection</h2><a class="jt-text-link" href="samples.html">Explore Free Samples →</a></div>
 <div class="jt-home-books">{tiles}</div></div></section>
 <section class="jt-case-feature" id="challenge"><div class="jt-wrap"><span class="jt-overline">Mystery Challenge · Case 001</span><h2>Can you solve the case?</h2><div class="jt-actions"><a class="jt-btn secondary" href="experiences-v2.html">Explore the mysteries</a><a class="jt-text-link" href="https://www.youtube.com/watch?v=643W5-_bLPA">Watch the case →</a></div></div></section>'''+newsletter())

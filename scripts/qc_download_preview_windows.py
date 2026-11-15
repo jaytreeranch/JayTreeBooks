@@ -3,10 +3,12 @@ from pathlib import Path
 from time import monotonic, sleep
 import base64, json, os, subprocess, sys, tempfile
 import requests, websocket
+from urllib.parse import urljoin
 from concurrent.futures import ThreadPoolExecutor
 root = Path(sys.argv[1]).resolve()
 out = Path(sys.argv[2]).resolve()
 out.mkdir(parents=True, exist_ok=True)
+base_url = sys.argv[3] if len(sys.argv) > 3 else None
 books = json.loads((root / 'data/storefront-catalog.json').read_text('utf-8'))['books']
 pages = ['index.html', 'books.html', 'audiobooks.html', 'samples.html', 'series-v2.html', 'about.html', 'news-v2.html', 'experiences-v2.html', 'case-files.html', 'chapters/book-1-first-chapter.html', 'upcoming-books.html'] + [book[key] for book in books for key in ('book_page', 'sample_page')]
 receipts = []
@@ -49,7 +51,7 @@ with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
             return res['result'].get('value')
 
         def visit(path):
-            url = (root / path).as_uri()
+            url = urljoin(base_url, path) if base_url else (root / path).as_uri()
             cmd('Page.navigate', {'url': url})
             for i in range(70):
                 if ev('location.href===' + json.dumps(url) + ' && document.readyState!=="loading"'):
@@ -130,6 +132,14 @@ with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
                 sleep(.05)
             return False
 
+        if base_url:
+            visit_url = urljoin(base_url, '?utm_source=release-qc#audiobooks')
+            cmd('Page.navigate', {'url': visit_url})
+            for _ in range(120):
+                if ev('location.href === ' + json.dumps(visit_url) + ' && !!document.querySelector("#audiobooks a")'):
+                    break
+                sleep(.05)
+            record('campaign', visit_url, ev('document.querySelector("#audiobooks a")?.getAttribute("href")') == 'audiobooks.html')
         visit('index.html')
         ev('document.querySelector("[data-secret-path]").focus()')
         cmd('Input.dispatchKeyEvent', dict(type='keyDown', key='Enter', code='Enter', text='\r', windowsVirtualKeyCode=13))

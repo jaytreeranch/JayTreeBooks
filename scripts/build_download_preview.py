@@ -6,12 +6,13 @@ from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIP_PAGES = {"x-preview-test.html", "tiktok-callback.html"}
+SKIP_PAGES = {"storefront-home.html", "x-preview-test.html", "tiktok-callback.html"}
 SECTIONS = {"books": "books.html", "audiobooks": "audiobooks.html", "challenge": "experiences-v2.html",
             "about": "about.html", "case-files": "case-files.html", "youtube": "experiences-v2.html",
             "upcoming-novels": "upcoming-books.html"}
 # Other historical campaign anchors retain their original homepage content.
 def portable_html(source, name, catalog):
+    source = re.sub(r"\A---\n.*?\n---\n", "", source, count=1, flags=re.S)
     root = "../" * (len(PurePosixPath(name).parts) - 1)
     source = re.sub(r'<script\b[^>]*\bsrc=["\']https://www\.googletagmanager\.com/[^>]*></script>', '', source)
     source = re.sub(r'<script\b[^>]*\bsrc="[^"]*pwa\.js[^"]*"[^>]*></script>', '', source)

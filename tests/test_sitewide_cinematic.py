@@ -72,9 +72,9 @@ class SitewideTests(unittest.TestCase):
                 self.assertIn(book['payhip_url'],page)
                 self.assertIn(book['sample_page'],page)
         self.assertEqual(len(set(b['payhip_url'] for b in BOOKS)),6)
-    def test_preview_isolated_and_analytics_production_gated(self):
+    def test_production_indexing_and_analytics_host_guard(self):
         for page in PAGES:
-            self.assertIn('name="robots" content="noindex,follow"',text(page))
+            self.assertIn('name="robots" content="index,follow"',text(page))
         for page in ['home-v2.html','series-v2.html','news-v2.html','experiences-v2.html']:
             source=text(page)
             self.assertIn('location.hostname==="jaytreebooks.com"',source)

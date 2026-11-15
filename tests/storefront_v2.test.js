@@ -17,14 +17,14 @@ const offers = [
 ];
 
 for (const file of pages) {
-  test(`${file} has crawlable static content, accessible landmarks, and preview guard`, () => {
+  test(`${file} has crawlable static content, accessible landmarks, and production indexing`, () => {
     const page = html(file);
     assert.match(page, /<html lang="en">/);
     assert.match(page, /<main id="main">/);
     assert.match(page, /<a class="sf-skip" href="#main">/);
     assert.match(page, /<nav[^>]+aria-label="Primary navigation"/);
     assert.match(page, /<nav aria-label="Mobile navigation">/);
-    assert.match(page, /<meta name="robots" content="noindex,follow">/);
+    assert.match(page, /<meta name="robots" content="index,follow">/);
     assert.match(page, /<h1(?:\s[^>]*)?>[^]*?<\/h1>/);
     assert.match(page, /<img src="icons\/icon-192\.png"/);
     assert.match(page, /href="cinematic-site-v2\.css"/);
