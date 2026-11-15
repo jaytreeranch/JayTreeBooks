@@ -15,3 +15,7 @@ The updater refuses to add a published page whose image does not exist. Both the
 Facebook and X render social metadata from initial HTML. The old /#audiobooks URL sends real visitors to the Audiobooks shop, but a fragment cannot select an independent social card. Share https://jaytreebooks.com/audiobooks.html to get the audiobook-specific image.
 
 After deploy, verify the bot-facing page has one og:image and twitter:image, absolute HTTPS URLs, og:image:width=1200, og:image:height=630 and an image/jpeg response. Meta/Facebook caches may need a fresh scrape using https://developers.facebook.com/tools/debug/ and the Scrape Again action. Never claim a provider cache refresh without a provider receipt. Existing Payhip products, book content and approved audio remain unchanged.
+
+## Approved Samples artwork — November 15, 2026
+
+The owner-approved Samples image is images/social/previews/samples-approved-20261115.jpg (1200x630, SHA256 B62959DFC89E7BE34FF4D89AA87FD78E92F5CC832310D877FC9828062367874B). Original PNG is on JayTree LAN under ApprovedSocialArt; source SHA256 12FBD91162852B868BC77F5A6B445998AA9E6A237CBB251BDEA9A83C68B371C0. The updater maps Samples to this versioned image so a generic image composer cannot overwrite the approved image. Preserve the original when creating future artwork.

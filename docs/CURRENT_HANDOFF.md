@@ -1,3 +1,8 @@
+## 2026-11-15 — User-approved Samples social-image replacement
+
+Owner uploaded an exact Samples image (open chapter-one book, gold lamp, headphones, moonlit lake), found on JT-GE78 and copied with matching SHA to JayTree LAN. New versioned 1200x630 JPEG images/social/previews/samples-approved-20261115.jpg, hash B62959DFC89E7BE34FF4D89AA87FD78E92F5CC832310D877FC9828062367874B. Samples page OG/Twitter metadata points to this approved image and correct alt. Other page previews, original book covers, audio samples, Payhip SKUs, site functionality unchanged. Python 36/36 PASS, Node suite exit 0, all generators in sync. Source branch fix/approved-samples-social-art-20261115. Publication and public Facebook-style crawler verification still pending. Full details and rollback: docs/handoffs/2026-11-15-approved-samples-social-preview.md.
+
+---
 ## November 15, 2026 — Page-specific branded social previews (authorized for publication)
 
 Prepared 24 distinct 1200x630 JayTree social JPG cards assigned across 25 pages. Audiobooks now previews its cinematic lake, gold headphones, Second Draft official cover and $1.99 offer rather than the unrelated Challenge image. Home, Books, Samples, Series, News, About, Experiences, other discovery routes and all six published book pages use separate cards. Central metadata updater and SEO/sitewide generator protection added.
