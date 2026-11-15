@@ -1,3 +1,10 @@
+## November 15, 2026 — Hollow Bell cover badges and original social audiobook link LIVE / QC VERIFIED
+
+Owner-requested targeted repair merged in PR #34 as 6151370d371fa2a68b86aaf4d89eee6901180fa2. Pages deployment 43722057934 succeeded; production main after canonical normalization recorded at 26a195f9427b35fddbeb344acc80c3802965eb55. On the live website, Books and homepage show gold Full Novel and Novella badges for the two Hollow Bell covers. The unchanged social URL https://JayTreeBooks.com/#audiobooks routes to the standalone /audiobooks.html store, preserving campaign UTM query parameters. Narrow-phone Privacy and Terms overflow fixed.
+
+Verified live: 69/69 Chrome tests and 37/37 public URL requests. Local source checks: 96/96 Chrome, 56/56 Node, 21/21 Python, both static generators in sync. Six Vivian edition Payhip SKUs and all approved sample destinations unchanged. LAN receipts under F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteRedesign_20261114. No paid checkout settlement or first-party analytics conversion receipt claimed. Complete test details/rollback: docs/handoffs/2026-11-15-hollow-bell-badges-audiobook-campaign-qc.md.
+
+---
 ## 2026-11-15 — Targeted Hollow Bell cover badges and legacy audiobook social URL fix
 
 Branch fix/hollow-bell-badges-audiobook-social-link-20261115 based on production SHA 8ba86a7034fa4578458a86f305f17b6201efa474. On the full Books shop and homepage book shelf, Full Novel and Novella now appear as matching gold badges on the two Hollow Bell covers, generated from the existing catalog edition metadata. home-links.js now sends existing social URL https://jaytreebooks.com/#audiobooks directly to /audiobooks.html, preserving UTM query parameters and all other bookmark behavior. Also fixed narrow-phone overflow of Privacy and Terms without editing legal text.
