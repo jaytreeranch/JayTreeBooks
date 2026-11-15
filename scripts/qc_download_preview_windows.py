@@ -98,9 +98,14 @@ with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
                 ev('document.querySelector(' + json.dumps(selector) + ').scrollIntoView({block:"start",behavior:"instant"})')
                 ev('window.scrollBy(0,-96)')
                 ev('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+                ev('Promise.all([...document.querySelectorAll(".jt-media-grid img, .sf-sample-grid img")].map(img => { img.loading = "eager"; return img.decode(); }))')
                 photo = cmd('Page.captureScreenshot', {'format': 'jpeg', 'quality': 82})['data']
                 (out / (route + '-section-' + str(w) + '.jpg')).write_bytes(base64.b64decode(photo))
             visit('audiobooks.html')
+            for _ in range(100):
+                if ev('document.querySelector(".jt-search-results")?.getAttribute("aria-busy") !== "true"'):
+                    break
+                sleep(.05)
             search = ev('(()=>{document.querySelector(".jt-search summary").click();const s=document.querySelector("#jt-search-input");s.value="Hollow Bell";s.dispatchEvent(new Event("input"));return [...document.querySelectorAll(".jt-search-results a")].map(a=>a.getAttribute("href"))})()')
             record('search', [w, search], all((b['book_page'] in search for b in books if 'hollow-bell' in b['slug'])))
             ev('document.querySelector(".jt-search summary").click()')

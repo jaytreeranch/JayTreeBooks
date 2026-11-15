@@ -54,9 +54,11 @@
     if (embedded) {
       useBooks(JSON.parse(embedded.textContent));
     } else if (/^https?:$/.test(location.protocol)) {
+      results.setAttribute("aria-busy", "true");
       fetch(root + "data/storefront-catalog.json", {cache:"force-cache"})
         .then(r => r.ok ? r.json() : Promise.reject(Error("No catalog")))
-        .then(useBooks).catch(() => { /* Navigation search still works offline. */ });
+        .then(useBooks).catch(() => { /* Navigation search still works offline. */ })
+        .finally(() => results.removeAttribute("aria-busy"));
     }
   }
   // Preview pages don't claim payments, signups, or completions. Existing attribution remains owned by tracking.js.
