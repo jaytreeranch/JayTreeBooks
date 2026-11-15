@@ -119,6 +119,7 @@ def home(catalog):
     audio_count=sum(book["audiobook_status"] == "available" for book in books)
     tiles="".join(f'''<a class="jt-home-book" href="{e(b['book_page'])}">
 <img src="{e(b['cover'])}" alt="{e(b['title'])} {e(b['edition'])} official cover" width="240" height="360" loading="lazy">
+{('<span class="jt-home-edition-badge" aria-hidden="true">'+("Full Novel" if b["edition"]=="Full novel" else "Novella")+'</span>') if b["edition"] in ("Full novel","Novella") else ""}
 <span>{e(b["title"])}{ " · Novella" if b["edition"]=="Novella" else ""}</span></a>''' for b in books)
     return body("home","Psychological Mysteries, Books & Audiobooks","Discover suspense novels, first chapter samples and Vivian audiobooks direct from JayTree Books.",
 f'''<section class="jt-hero" id="top"><div class="jt-wrap jt-hero-grid">

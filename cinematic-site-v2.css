@@ -151,3 +151,25 @@ body.jt-modernized>footer:not(.jt-footer){border-top:1px solid var(--jt-line);ba
 .jt-page-home .secret-dissolve.is-entering { opacity:1; pointer-events:auto; }
 .jt-page-home .secret-dissolve-core { width:48px; height:48px; background:url("images/interactive/JayTree_Interactive_Hidden_Glyph.webp") center/contain no-repeat; }
 .jt-page-news .jt-media-tile img,.jt-page-experiences .jt-media-tile img { height:auto; aspect-ratio:16/9; object-fit:cover; }
+
+/* Book-edition corner badges match the existing Audiobooks Full Novel/Novella treatment. */
+.jt-cinematic .sf-cover-art{position:relative;display:block;width:175px;height:100%;margin:0 auto}
+.jt-cinematic .sf-book-edition-badge,.jt-cinematic .jt-home-edition-badge{
+ position:absolute;top:7px;right:6px;z-index:3;display:inline-block;
+ background:rgba(4,13,19,.92);border:1px solid #dba956;border-radius:3px;
+ padding:5px 7px;color:#ffe3a6;font:700 10px/1.15 Arial,Helvetica,sans-serif;
+ text-transform:uppercase;letter-spacing:.045em;white-space:nowrap;
+ box-shadow:0 2px 7px #000b;pointer-events:none;
+}
+.jt-cinematic .jt-home-book{position:relative}
+.jt-cinematic .jt-home-edition-badge{top:8px;right:7px}
+@media(max-width:700px){.jt-cinematic .sf-cover-art{width:120px}
+ .jt-cinematic .sf-book-edition-badge,.jt-cinematic .jt-home-edition-badge{font-size:9px;padding:4px 5px}}
+@media(max-width:430px){.jt-cinematic .sf-cover-art{width:193px}}
+
+/* Full-site QC: legal copy includes long provider URLs. Keep 320px phones readable. */
+body.jt-modernized .policy-card{min-width:0;max-width:100%;overflow-wrap:anywhere}
+@media(max-width:380px){
+ body.jt-modernized .policy-page,body.jt-modernized .policy-wrap{padding-left:12px;padding-right:12px}
+ body.jt-modernized .policy-card{padding:18px}
+}
