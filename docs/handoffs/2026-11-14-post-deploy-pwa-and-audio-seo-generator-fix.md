@@ -25,3 +25,17 @@ On branch `fix/pwa-generator-overlay-20261114`:
 Review PR, confirm branch is current with main, rerun 40 tests, squash merge with expected head SHA, allow GitHub automation to run, then independently verify no reinsertion of redundant listeners, footer-based PWA control in public `pwa.js`/`pwa.css`, continued **14/14** narrator copy HTTP checks and a successful GitHub Pages deployment. If automation reintroduces a bug, identify and update the authoritative generator **before** another rollout; do not repeatedly patch generated files alone. Record final production SHA and receipt.
 
 **Rollback:** Revert only the website-specific repair if necessary; preserve original six Payhip Vivian listing statuses and older unrelated hidden $5 Correction SKU. Existing audio delivery and ACX rights receipts remain private on LAN. Nonzero card charge, processor settlement, full WCAG and GA4/GSC reporting remain unverified (separate scopes).
+
+## Final public release certification — 2026-11-14, after automatic workflows
+
+**PASS: Vivian audiobook availability and alternative narrator messaging are LIVE.**
+- Main production source after PR #29, PR #30 and automatic SEO normalization: `c8e3bc5865924b67377ad309f55003922c49ddff`.
+- GitHub Pages build/deployment run **43673295167** completed **SUCCESS**, including build, report-build-status and deploy steps, on the source SHA above.
+- JT-DESKTOP owner-controlled live HTTPS acceptance: **16/16 PASS**, HTTP 200 and exact current language, checking homepage, mystery-book hub, app.js, pwa.js, pwa.css, six static book pages and five narrator comparison pages.
+- All six distinct $1.99 Vivian Payhip purchase URLs remain present and unmodified; five narrator pages each carry three alternative narrator coming-soon badges with their playable previews. The full audiobook is explicitly available now; no generic 'audiobook coming soon' promotion remains on those routes.
+- Live `pwa.js` places Install App in footer/end-of-body (not floating over purchase buttons); `pwa.css` gives it static positioning. Live narrator sample pages have no duplicate `data-track` event-binding loop.
+- Directly downloaded actual post-automation remote main source and ran **40/40 Node tests PASS** and JS syntax PASS; authoritative PWA and audio SEO generators now preserve these behaviors on future successful runs.
+- Verified LAN receipt: `F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteAudit_20261114\VIVIAN_FINAL_PUBLIC_POST_GENERATOR_QC_20261114.json`, SHA-256 `FF0D5209BC20DC0C80156311D5C1566F4B5B21957C23A3BC5E1E27069BB4559F`.
+- **Unrelated open maintenance:** Legacy Build Reader Growth Site workflow still fails because its validator/generator expects pre-launch generic audiobook Coming Soon text. Do not reverse the release copy to satisfy it. GA4/Google Search Console reporting access restrictions, a real-money checkout/payout, full WCAG test remain separate open checks.
+
+**Rollback:** Revert a faulty website repair commit while retaining six correctly visible Payhip products and their certified masters. Do not touch the unrelated older Hidden $5 Correction listing.
