@@ -173,3 +173,12 @@ body.jt-modernized .policy-card{min-width:0;max-width:100%;overflow-wrap:anywher
  body.jt-modernized .policy-page,body.jt-modernized .policy-wrap{padding-left:12px;padding-right:12px}
  body.jt-modernized .policy-card{padding:18px}
 }
+
+/* Accessible single-header experience on modernized editorial and book pages. */
+.jt-cinematic .jt-skip{position:fixed;left:12px;top:-100px;z-index:10000;padding:12px 18px;background:#f2d18d;color:#081218;font:700 15px Arial,sans-serif;border:2px solid #081218;border-radius:4px}
+.jt-cinematic .jt-skip:focus{top:12px}
+.jt-cinematic .jt-home-discovery{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;margin-top:27px;padding-top:20px;border-top:1px solid rgba(219,185,115,.25);font:600 .9rem Arial,sans-serif}
+.jt-cinematic .jt-home-discovery strong{color:#e6ded1}
+.jt-cinematic .jt-home-discovery a{color:#f0c876;text-decoration:underline;text-underline-offset:4px}
+.jt-cinematic .jt-home-discovery a:hover,.jt-cinematic .jt-home-discovery a:focus-visible{color:#fff3d4}
+@media(max-width:480px){.jt-cinematic .jt-home-discovery{display:grid;gap:14px}}
