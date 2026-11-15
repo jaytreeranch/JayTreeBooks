@@ -14,17 +14,21 @@ const { purchaseUrl, button, callout } = new Function(
 )();
 const approved = {
   'the-absconding': 'https://payhip.com/b/q3GfL',
-  'the-hollow-year': 'https://payhip.com/b/Zf7tv'
+  'the-hollow-year': 'https://payhip.com/b/Zf7tv',
+  'second-draft': 'https://payhip.com/b/GejHn',
+  'the-correction': 'https://payhip.com/b/OPaGw',
+  'the-hollow-bell-novella': 'https://payhip.com/b/EWc5q',
+  'the-hollow-bell': 'https://payhip.com/b/0BeoF'
 };
-const held = ['second-draft', 'the-correction', 'the-hollow-bell', 'the-hollow-bell-novella'];
+const notListed = ['where-mercy-stood', 'the-fifth-copy', 'unknown-title'];
 
-test('only the two cleared titles have direct purchase URLs', () => {
+test('exactly six independently ACX-cleared editions are allowlisted for a gated release', () => {
   for (const [slug, url] of Object.entries(approved)) {
     assert.equal(purchaseUrl({ slug }), url);
     assert.match(button({ slug }), /Buy Vivian Audiobook.*\$1\.99/);
     assert.match(callout({ slug }), /Limited-Time \$1\.99/);
   }
-  for (const slug of held) {
+  for (const slug of notListed) {
     assert.equal(purchaseUrl({ slug }), '');
     assert.equal(button({ slug }), '');
     assert.match(callout({ slug }), /Full Audiobook.*Coming Soon/);
@@ -32,7 +36,7 @@ test('only the two cleared titles have direct purchase URLs', () => {
 });
 
 test('purchase links are allowlisted and safe for a new tab', () => {
-  assert.equal((source.match(/https:\/\/payhip\.com\/b\//g) || []).length, 2);
+  assert.equal((source.match(/https:\/\/payhip\.com\/b\//g) || []).length, 6);
   for (const slug of Object.keys(approved)) {
     const html = button({ slug });
     assert.match(html, /rel="noopener noreferrer"/);
@@ -46,11 +50,19 @@ test('index cards and book pages both include purchase CTA', () => {
   assert.match(source, /JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON/);
 });
 
-test('homepage static purchase banner is limited to the two cleared editions', () => {
+test('homepage static launch banner contains exactly the six staged editions', () => {
   const index = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const payhipLinks = index.match(/https:\/\/payhip\.com\/b\/[A-Za-z0-9]+/g) || [];
   assert.deepEqual(payhipLinks, Object.values(approved));
   assert.match(index, /Limited-Time Audiobook Offer/);
   assert.match(index, /data-book="the-absconding"/);
   assert.match(index, /data-book="the-hollow-year"/);
+  for (const slug of Object.keys(approved)) assert.ok(index.includes(`data-book="${slug}"`));
+});
+
+test('the separate Hollow Bell novella has a direct-sale audiobook card', () => {
+  assert.match(source, /Vivian Novella Audiobook/);
+  assert.match(source, /if \(b\.format === "novella"\)/);
+  assert.match(source, /\$\{audiobookPurchaseButton\(b\)\}/);
+  assert.doesNotMatch(source, /Novella Audiobook — Coming Soon/);
 });
