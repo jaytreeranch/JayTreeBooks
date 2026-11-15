@@ -1,3 +1,11 @@
+## November 15, 2026 — Page-specific branded social previews (authorized for publication)
+
+Prepared 24 distinct 1200x630 JayTree social JPG cards assigned across 25 pages. Audiobooks now previews its cinematic lake, gold headphones, Second Draft official cover and $1.99 offer rather than the unrelated Challenge image. Home, Books, Samples, Series, News, About, Experiences, other discovery routes and all six published book pages use separate cards. Central metadata updater and SEO/sitewide generator protection added.
+
+Local QC: 73/73 JavaScript, 31/31 Python; metadata and both site/catalog generator checks PASS; SEO writing sequence repeated twice and social metadata preserved. No Payhip, sample, social account or media changes. LAN QC receipt stored under JayTreeBooksWebsiteRedesign_20261114. Publication status and remote SHA will be updated only after GitHub and public-host verification. Detailed handoff: docs/handoffs/2026-11-15-page-specific-social-previews.md. Rollback: revert this site-only social-image change; do not alter audio masters/sellers.
+
+---
+
 ## 2026-11-15 — Targeted Hollow Bell cover badges and legacy audiobook social URL fix
 
 Branch fix/hollow-bell-badges-audiobook-social-link-20261115 based on production SHA 8ba86a7034fa4578458a86f305f17b6201efa474. On the full Books shop and homepage book shelf, Full Novel and Novella now appear as matching gold badges on the two Hollow Bell covers, generated from the existing catalog edition metadata. home-links.js now sends existing social URL https://jaytreebooks.com/#audiobooks directly to /audiobooks.html, preserving UTM query parameters and all other bookmark behavior. Also fixed narrow-phone overflow of Privacy and Terms without editing legal text.
