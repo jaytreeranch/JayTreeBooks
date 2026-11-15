@@ -37,7 +37,7 @@ if (/^(www\.)?jaytreebooks\.com$/i.test(window.location.hostname)) {
 </nav></details>
 </div></header>
 <main id="main">
-<section class="sf-cine-hero" aria-labelledby="sf-cine-page-title">
+<section class="sf-cine-hero" id="sf-cine-featured-region" aria-labelledby="sf-cine-page-title">
 <div class="sf-cine-scene" aria-hidden="true"></div><div class="sf-cine-hero-shade" aria-hidden="true"></div>
 <div class="sf-cine-shell sf-cine-hero-shell">
 <div class="sf-cine-heading"><div class="sf-cine-rule-heading"><span></span><h1 id="sf-cine-page-title">Audiobooks</h1><span></span></div><p>Psychological Mysteries in Audio</p></div>
@@ -68,17 +68,17 @@ if (/^(www\.)?jaytreebooks\.com$/i.test(window.location.hostname)) {
 <path d="M465 296v103" stroke="#cba36c" opacity=".58" stroke-width="2.5"/>
 </g>
 </svg>
-<a href="books/second-draft.html" aria-label="Second Draft — featured book details" class="sf-cine-featured-book"><img src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft — official published book cover" fetchpriority="high" loading="eager" decoding="async"></a>
+<a href="books/second-draft.html" id="sf-cine-featured-details" aria-label="Second Draft — featured book details" class="sf-cine-featured-book"><img id="sf-cine-featured-cover" src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft — official published book cover" fetchpriority="high" loading="eager" decoding="async"></a>
 </div>
-<div class="sf-cine-featured-copy">
+<div class="sf-cine-featured-copy"><span class="sf-cine-selection-status" id="sf-cine-selection-status" aria-live="polite" aria-atomic="true">Selected: Second Draft</span>
 <p class="sf-cine-kicker">Featured Audiobook</p>
-<h2>Second Draft</h2>
+<h2 id="sf-cine-featured-title">Second Draft</h2>
 <div class="sf-cine-narrator-by"><span aria-hidden="true"></span><span>Narrated by Vivian</span><span aria-hidden="true"></span></div>
-<p class="sf-cine-description">Nora helps people rehearse impossible conversations—until the rehearsals begin changing reality.</p>
+<p class="sf-cine-description" id="sf-cine-featured-description">Nora helps people rehearse impossible conversations—until the rehearsals begin changing reality.</p>
 <div class="sf-cine-features"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13h3v7H4c-2 0-2-2-2-3v-2c0-2 1-2 2-2ZM20 13h-3v7h3c2 0 2-2 2-3v-2c0-2-1-2-2-2Z"/></svg> Six complete audiobooks — available now</span><span><svg viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 11v3M6 7v10M10 3v18M14 8v8M18 1v22M22 6v12M26 9v6M30 11v3"/></svg> MP3 + chaptered M4B</span></div>
 <div class="sf-cine-featured-actions">
-<a class="sf-cine-featured-buy" href="https://payhip.com/b/GejHn" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="second-draft" data-placement="audio_cinematic_featured"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg> Buy Audiobook — $1.99</a>
-<a class="sf-cine-featured-sample" href="audio/book-1-sample.html" data-track="audio_preview" data-book="second-draft" data-placement="audio_cinematic_featured"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg> Listen to Sample</a>
+<a class="sf-cine-featured-buy" id="sf-cine-featured-buy" href="https://payhip.com/b/GejHn" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="second-draft" data-placement="audio_cinematic_featured"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg> Buy Audiobook — $1.99</a>
+<a class="sf-cine-featured-sample" id="sf-cine-featured-sample" href="audio/book-1-sample.html" data-track="audio_preview" data-book="second-draft" data-placement="audio_cinematic_featured"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg> Listen to Sample</a>
 </div></div></div>
 <div class="sf-cine-brush-price"><span>$1.99 <i>each</i></span></div>
 </div></section>
@@ -86,62 +86,62 @@ if (/^(www\.)?jaytreebooks\.com$/i.test(window.location.hostname)) {
 <div class="sf-cine-shell">
 <div class="sf-cine-collection-title"><span aria-hidden="true"></span><h2 id="sf-cine-collection-heading">Browse the Audiobooks</h2><span aria-hidden="true"></span></div>
 <p class="sf-cine-collection-intro">Six complete Vivian-narrated editions available to buy now. Choose a mystery, or hear a sample first.</p>
-<div class="sf-cine-book-shelf"><article class="sf-cine-product" data-title="second draft novel" data-book="second-draft">
-<a class="sf-cine-cover-link" href="books/second-draft.html" aria-label="Second Draft Novel — view book details">
+<div class="sf-cine-book-shelf"><article class="sf-cine-product is-selected" data-title="second draft novel" data-book="second-draft" data-description="Nora helps people rehearse impossible conversations—until the rehearsals begin changing reality.">
+<button class="sf-cine-cover-link sf-cine-select" type="button" data-select-book="second-draft" aria-label="Feature Second Draft Novel and update buy and listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="true">
 <img src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft Novel — official JayTree Books cover" loading="eager" decoding="async">
 
 <span class="sf-cine-narrated">Narrated by Vivian</span>
-</a>
+</button>
 <h3 class="sf-cine-product-title">Second Draft </h3>
 <a class="sf-cine-buy sf-cine-card-action" href="https://payhip.com/b/GejHn" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="second-draft" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg><span>Buy Audiobook — $1.99</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="audio/book-1-sample.html" data-track="audio_preview" data-book="second-draft" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg><span>Listen to Sample</span></a>
 </article>
-<article class="sf-cine-product" data-title="the hollow year novel" data-book="the-hollow-year">
-<a class="sf-cine-cover-link" href="books/the-hollow-year.html" aria-label="The Hollow Year Novel — view book details">
+<article class="sf-cine-product" data-title="the hollow year novel" data-book="the-hollow-year" data-description="In Amity Hollow, one person is erased from every living memory each October.">
+<button class="sf-cine-cover-link sf-cine-select" type="button" data-select-book="the-hollow-year" aria-label="Feature The Hollow Year Novel and update buy and listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="false">
 <img src="images/optimized/the-hollow-year.webp" width="300" height="450" alt="The Hollow Year Novel — official JayTree Books cover" loading="eager" decoding="async">
 
 <span class="sf-cine-narrated">Narrated by Vivian</span>
-</a>
+</button>
 <h3 class="sf-cine-product-title">The Hollow Year </h3>
 <a class="sf-cine-buy sf-cine-card-action" href="https://payhip.com/b/Zf7tv" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="the-hollow-year" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg><span>Buy Audiobook — $1.99</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="audio/book-2-sample.html" data-track="audio_preview" data-book="the-hollow-year" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg><span>Listen to Sample</span></a>
 </article>
-<article class="sf-cine-product" data-title="the hollow bell full novel" data-book="the-hollow-bell">
-<a class="sf-cine-cover-link" href="books/the-hollow-bell.html" aria-label="The Hollow Bell Full novel — view book details">
+<article class="sf-cine-product" data-title="the hollow bell full novel" data-book="the-hollow-bell" data-description="Twenty years after Marnie Renner vanished, her remains surface beneath the ice—and a bell tied to old drownings starts ringing again.">
+<button class="sf-cine-cover-link sf-cine-select" type="button" data-select-book="the-hollow-bell" aria-label="Feature The Hollow Bell Full novel and update buy and listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="false">
 <img src="images/optimized/the-hollow-bell.webp" width="300" height="450" alt="The Hollow Bell Full novel — official JayTree Books cover" loading="lazy" decoding="async">
 <span class="sf-cine-edition-badge">Full novel</span>
 <span class="sf-cine-narrated">Narrated by Vivian</span>
-</a>
+</button>
 <h3 class="sf-cine-product-title">The Hollow Bell (Full novel)</h3>
 <a class="sf-cine-buy sf-cine-card-action" href="https://payhip.com/b/0BeoF" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="the-hollow-bell" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg><span>Buy Audiobook — $1.99</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="audio/book-3-sample.html" data-track="audio_preview" data-book="the-hollow-bell" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg><span>Listen to Sample</span></a>
 </article>
-<article class="sf-cine-product" data-title="the hollow bell novella" data-book="the-hollow-bell-novella">
-<a class="sf-cine-cover-link" href="books/the-hollow-bell-novella.html" aria-label="The Hollow Bell Novella — view book details">
+<article class="sf-cine-product" data-title="the hollow bell novella" data-book="the-hollow-bell-novella" data-description="A shorter telling of the Millbrook Falls mystery, where an old bell and buried secrets refuse to stay quiet.">
+<button class="sf-cine-cover-link sf-cine-select" type="button" data-select-book="the-hollow-bell-novella" aria-label="Feature The Hollow Bell Novella and update buy and listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="false">
 <img src="images/optimized/the-hollow-bell-novella.webp" width="300" height="450" alt="The Hollow Bell Novella — official JayTree Books cover" loading="lazy" decoding="async">
 <span class="sf-cine-edition-badge">Novella</span>
 <span class="sf-cine-narrated">Narrated by Vivian</span>
-</a>
+</button>
 <h3 class="sf-cine-product-title">The Hollow Bell (Novella)</h3>
 <a class="sf-cine-buy sf-cine-card-action" href="https://payhip.com/b/EWc5q" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="the-hollow-bell-novella" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg><span>Buy Audiobook — $1.99</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="audio/book-6-sample.html" data-track="audio_preview" data-book="the-hollow-bell-novella" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg><span>Listen to Sample</span></a>
 </article>
-<article class="sf-cine-product" data-title="the absconding novel" data-book="the-absconding">
-<a class="sf-cine-cover-link" href="books/the-absconding.html" aria-label="The Absconding Novel — view book details">
+<article class="sf-cine-product" data-title="the absconding novel" data-book="the-absconding" data-description="Del returns after her mother dies beside the family beehives. The hives fall silent, and an old family ritual says the story is wrong.">
+<button class="sf-cine-cover-link sf-cine-select" type="button" data-select-book="the-absconding" aria-label="Feature The Absconding Novel and update buy and listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="false">
 <img src="images/optimized/the-absconding.webp" width="300" height="450" alt="The Absconding Novel — official JayTree Books cover" loading="lazy" decoding="async">
 
 <span class="sf-cine-narrated">Narrated by Vivian</span>
-</a>
+</button>
 <h3 class="sf-cine-product-title">The Absconding </h3>
 <a class="sf-cine-buy sf-cine-card-action" href="https://payhip.com/b/q3GfL" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="the-absconding" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg><span>Buy Audiobook — $1.99</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="audio/book-4-sample.html" data-track="audio_preview" data-book="the-absconding" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg><span>Listen to Sample</span></a>
 </article>
-<article class="sf-cine-product" data-title="the correction novel" data-book="the-correction">
-<a class="sf-cine-cover-link" href="books/the-correction.html" aria-label="The Correction Novel — view book details">
+<article class="sf-cine-product" data-title="the correction novel" data-book="the-correction" data-description="A correction slip changes more than the official record—it changes what Averill Falls remembers.">
+<button class="sf-cine-cover-link sf-cine-select" type="button" data-select-book="the-correction" aria-label="Feature The Correction Novel and update buy and listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="false">
 <img src="images/optimized/the-correction.webp" width="300" height="450" alt="The Correction Novel — official JayTree Books cover" loading="lazy" decoding="async">
 
 <span class="sf-cine-narrated">Narrated by Vivian</span>
-</a>
+</button>
 <h3 class="sf-cine-product-title">The Correction </h3>
 <a class="sf-cine-buy sf-cine-card-action" href="https://payhip.com/b/OPaGw" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="the-correction" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="19" cy="20" r="1.3"/><path d="M2 3h3l2.5 12h12l2-9H6"/></svg><span>Buy Audiobook — $1.99</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="audio/book-5-sample.html" data-track="audio_preview" data-book="the-correction" data-placement="audio_cinematic_shelf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 7.7v8.6l6.6-4.3z" fill="currentColor" stroke="none"/></svg><span>Listen to Sample</span></a>
