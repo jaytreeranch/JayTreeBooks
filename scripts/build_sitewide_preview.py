@@ -190,6 +190,8 @@ def ensure_buy_panel(source,book,path):
         if not m:
             raise ValueError(str(path)+" missing existing book hero")
         source=source[:m.end()]+'\n'+strip+source[m.end():]
+    if book and 'id="audiobook"' not in source:
+        source = source.replace('<aside class="jt-detail-buy"', '<aside id="audiobook" class="jt-detail-buy"', 1)
     return source
 
 def customize(path,root="",page="",book=None):
