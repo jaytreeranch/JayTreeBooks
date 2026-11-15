@@ -67,23 +67,34 @@ test('legacy site generator preserves editorial pages and skips unavailable nove
 
 test('published novella remains distinct across legacy build automation', () => {
   const workflow = read('.github/workflows/build-reader-growth-site.yml');
-  assert.match(workflow, /len\(books\) == 6/);
-  assert.match(workflow, /Keep separate novella Kindle/);
+  assert.match(workflow, /build_storefront_catalog\.py --write/);
+  const offers = JSON.parse(read('data/storefront-catalog.json')).books;
+  const editions = offers.filter(book => book.slug.startsWith('the-hollow-bell'));
+  assert.equal(editions.length, 2);
+  assert.equal(new Set(editions.map(book => book.amazon_url)).size, 2);
+  assert.equal(new Set(editions.map(book => book.payhip_url)).size, 2);
   const seo = read('scripts/seo_content_cleanup.py');
   assert.match(seo, /books\/the-hollow-bell-novella\.html/);
   assert.match(read('scripts/add_audiobook_coming_soon.py'), /Preserved novella audiobook release gate/);
   assert.match(read('scripts/qc_repair_site.py'), /if not book\.get\("audio"\)/);
-  assert.equal((read('sitemap.xml').match(/<url>/g) || []).length, 26);
+  const sitemap = read('sitemap.xml');
+  for (const book of editions) {
+    assert.ok(sitemap.includes('/' + book.book_page + '</loc>'));
+    assert.ok(sitemap.includes('/' + book.sample_page + '</loc>'));
+  }
 });
 
-test('reader growth workflow checks the current audiobook anchor', () => {
-  const workflow = read('.github/workflows/build-reader-growth-site.yml');
-  assert.match(workflow, /books\/\$\{b\.slug\}\.html#audiobook/);
-  assert.doesNotMatch(workflow, /books\/\$\{b\.slug\}\.html#listen/);
+test('the current audiobook anchors resolve in both editions', () => {
+  assert.match(read('app.js'), /books\/\$\{b\.slug\}\.html#audiobook/);
+  for (const edition of ['the-hollow-bell', 'the-hollow-bell-novella']) {
+    assert.match(read('books/' + edition + '.html'), /id="audiobook"/);
+  }
 });
 
 test('automation does not promise the novella participates in Kindle Unlimited', () => {
   assert.match(read('scripts/apply_site_improvements.py'), /Five novels on Kindle Unlimited\. Plus a novella on Amazon/);
   assert.match(read('scripts/seo_content_cleanup.py'), /Discover five JayTree mystery novels and The Hollow Bell novella/);
-  assert.match(read('.github/workflows/build-reader-growth-site.yml'), /Every current JayTree Books title is available' not in index/);
+  for (const entry of ['index.html', 'home-v2.html', 'books.html']) {
+    assert.doesNotMatch(read(entry), /Every current JayTree Books title is available/);
+  }
 });
