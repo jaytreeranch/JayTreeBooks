@@ -37,3 +37,10 @@ Status: INITIAL FOUR-PAGE CONCEPT BUILT AND QC'D, OWNER VISUAL REVIEW PENDING, N
 ## Reconciliation rule
 
 Do not infer that the other chat's web/sample work must be repeated. Current main already has the sample updates and sixth novella sample page. The design prototype is based on that state and only creates new HTML/CSS/JS/tests/docs. Compare main at release time; in a conflict, rebase/reconcile only the new concept pages and preserve audio edits verbatim.
+
+## Saved GitHub review PR
+
+- Draft PR #32: https://github.com/jaytreeranch/JayTreeBooks/pull/32
+- Review-only branch: design/multipage-storefront-review-20261114; owner explicitly requested not to merge the redesign into main yet.
+- The original design scratch branch design/multipage-storefront-20261114 is superseded by this current-main-based review branch. Do not use the scratch branch for a production merge.
+- All six preview destinations were independently verified against public HTTPS after the other chat completed its sample work. No audio files were touched.
