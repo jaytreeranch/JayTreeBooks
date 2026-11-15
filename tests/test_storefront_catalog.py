@@ -79,6 +79,49 @@ class CatalogReleaseSafety(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "needs published"):
             generator.validate(catalog)
 
+    def test_new_published_audiobook_requires_only_catalog_update(self):
+        catalog = copy.deepcopy(self.catalog)
+        upcoming = {
+            "slug": "catalog-growth-test",
+            "title": "Catalog Growth Test",
+            "edition": "Novel",
+            "description": "A fictional seventh book used exclusively by automated tests.",
+            "tagline": "A new mysterious manuscript",
+            "cover": "images/optimized/catalog-growth-test.webp",
+            "book_page": "books/catalog-growth-test.html",
+            "amazon_url": "https://www.amazon.com/dp/TESTEXAMPLE",
+            "sample_page": "audio/book-7-test-only.html",
+            "chapter_page": "chapters/book-7-test-only.html",
+            "payhip_url": "https://payhip.com/b/testOnlySeventh",
+            "book_status": "published",
+            "audiobook_status": "available",
+            "audiobook_price_usd": "1.99",
+            "narrator": "Vivian",
+            "kindle_unlimited": False
+        }
+        catalog["books"].append(upcoming)
+        catalog["featured_audiobook"] = upcoming["slug"]
+        with tempfile.TemporaryDirectory() as temp:
+            root = self.copy_pages(temp)
+            generated = generator.build(root, catalog)
+            self.assertEqual(generated["audiobooks.html"].count('class="sf-cine-cover-link sf-cine-select"'), 7)
+            self.assertIn("https://payhip.com/b/testOnlySeventh", generated["audiobooks.html"])
+            self.assertIn('id="sf-cine-featured-title">Catalog Growth Test</h2>', generated["audiobooks.html"])
+            self.assertIn('id="sf-cine-featured-buy" href="https://payhip.com/b/testOnlySeventh"', generated["audiobooks.html"])
+            self.assertIn('id="sf-cine-featured-sample" href="audio/book-7-test-only.html"', generated["audiobooks.html"])
+            self.assertIn("Catalog Growth Test", generated["books.html"])
+            self.assertIn("Catalog Growth Test", generated["samples.html"])
+            self.assertIn("Seven complete Vivian-narrated editions", generated["audiobooks.html"])
+            for name, source in generated.items():
+                (root/name).write_text(source, encoding="utf-8")
+            self.assertEqual(generated, generator.build(root, catalog))
+
+    def test_new_price_does_not_silently_mislabel_global_sale_banner(self):
+        catalog = copy.deepcopy(self.catalog)
+        catalog["books"][1]["audiobook_price_usd"] = "2.99"
+        with self.assertRaisesRegex(ValueError, "Mixed audiobook prices"):
+            generator.validate(catalog)
+
     def test_duplicate_seller_url_is_blocked(self):
         catalog = copy.deepcopy(self.catalog)
         catalog["books"][1]["payhip_url"] = catalog["books"][0]["payhip_url"]
