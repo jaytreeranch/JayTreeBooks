@@ -1,3 +1,11 @@
+## 2026-11-14 — Audiobook narrator availability wording corrected in QC branch
+
+**Owner-approved copy directive:** Six complete Vivian-narrated audiobook editions are available NOW at $1.99 each. Only alternative full-length narrator editions are 'coming soon'; their Chapter One previews are already playable. Corrected homepage, five narrator preview pages, six static book pages, `mystery-books.html`, and dynamic `app.js`; eliminated misleading full-audiobook coming-soon fallback, including on the novella route. Corrected generic newsletter release copy. Preserved all six distinct approved Payhip links, narrator disclosure and future immersive status.
+
+**Validation:** 38/38 Node tests PASS, JS syntax PASS, remote source downloaded to LAN QA workspace. JT-DESKTOP Local Control hostname verified. A further browser automation probe timed out: full visual/accessibility/paid checkout certification remains OPEN. **Review branch only at this point; NOT merged / NOT LIVE until independent Pages verification.** See [narrator availability clarification and rollback](handoffs/2026-11-14-vivian-narrator-availability-clarification.md) and draft PR #29: https://github.com/jaytreeranch/JayTreeBooks/pull/29. Next: verify head/PR, run final QC, production rollout under authorized release process, inspect actual live text, preserve six existing Payhip products.
+
+---
+
 ## 2026-11-14 — Full website/navigation and audiobook sales QC (DEVELOPMENT BRANCH ONLY)
 
 **QA milestone — 24/24 regression tests PASS, NOT DEPLOYED.**
