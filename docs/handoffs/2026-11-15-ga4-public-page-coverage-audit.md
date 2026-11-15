@@ -31,3 +31,13 @@ Production stays unchanged until deployment authorization/independent release QC
 4. Rollback is a revert of this analytics-only PR; preserve the website and production media.
 
 Status: DEVELOPMENT SOURCE UPDATED; NODE TRACKING QC PASS; PRODUCTION DEPLOYMENT AND GA4 INGESTION NOT YET VERIFIED.
+
+## Post-merge production verification — 2026-11-15
+- PR #37 merged to main as `13ce2f3479a3103a5db67b75a76754757f74b01a`; a later SEO maintenance commit `9c87cc3996ff7d31109f8a5ff83d9fde02fb06ef` preserved the tracking changes.
+- GitHub Pages deployment run `43740737481` completed **SUCCESS** at the custom domain.
+- **35/35 live sitemap routes returned HTTP 200** and carried the expected GA4 config plus shared tracking helper, audited in two independent parity partitions via GE75 and GE78. **10/10 target public pages HTTP 200** via JT-DESKTOP with expected new scripts and events; unverified thank-you signup conversion removed.
+- Local source regression **5/5 PASS** and **18/18 inline script Node parsing PASS**, PR validation workflow `43740310488` **SUCCESS**.
+- **Final analytics truth limitation**: GA4 Data API traffic/event report cannot currently be read. GSC Wizard access requires subscription, Windsor.ai reports 5 connected sources versus 1 on its Free plan. Do not report real pageview or conversion ingestion verified. Kit subscription confirmation and Payhip purchase events not retested in this release.
+- This is a tracking-only source change; zero Payhip catalog, pricing, audio master, social media or private OAuth modifications.
+- **Rollback**: selective restoration of the 14-file PR #37 change-set, preserving subsequent SEO/PWA automation commits. Re-run 35 route checks after rollback.
+- **Next actions**: restore a GA4 read connection (one provider); inspect last-day `page_view`, `audio_sample_play`, `audio_sample_complete`, `audiobook_payhip`, `campaign_landing`, newsletter `generate_lead`; separately verify Kit subscriber success and genuine Payhip purchase before claiming `sign_up` or `purchase`. Watch whether subsequent SEO/PWA generators preserve code.
