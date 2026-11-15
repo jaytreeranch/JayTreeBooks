@@ -1,3 +1,7 @@
+## 2026-11-14 — Six Vivian public audiobook previews LIVE VERIFIED
+
+PR 31 merge a16cc39415670b5140389c268e08ce9cb5517831, postautomation deployed SHA dba6bd8e45f17818e99d2bc8e4198136c2eccf09, GitHub Pages run 43674595906 SUCCESS. Independent live QA: 6/6 byte-identical SHA-256 Vivian MP3s, 6/6 HTTP 200 sample pages with correct $1.99 Payhip links, 57/57 Node tests and 4/4 Python sample tests PASS. This website workstream is finished; owner may proceed with visual redesign. Reader Growth legacy CI remains separate. Full receipt: docs/handoffs/2026-11-14-vivian-live-preview-deployment-receipt.md.
+
 ## November 14, 2026 ? Final Vivian website previews integrated with latest live website (STAGED; not yet deployed)
 
 **Status:** Six approved Vivian Payhip sale-preview recordings copied by exact SHA-256 to the website sample paths; five older website audio players updated without removing the current website's navigation, accessibility, Payhip tracking or PWA fixes. Sixth Hollow Bell novella player now has its own route. The full six-title $1.99 Payhip sale remains LIVE and unchanged.
