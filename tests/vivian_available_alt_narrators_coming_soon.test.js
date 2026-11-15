@@ -38,6 +38,10 @@ for (const [slug, url] of allSix) {
     assert.match(html, /\$1\.99/);
     assert.ok(html.includes('href="' + url + '"'));
     assert.doesNotMatch(html, /(?:full|complete|novella) audiobook[^<.]{0,50}coming soon/i);
+    if (slug !== 'the-hollow-bell-novella') {
+      assert.doesNotMatch(html, /audiobook release news/);
+      assert.match(html, /updates when alternative full-length narrators are released/);
+    }
   });
 }
 
