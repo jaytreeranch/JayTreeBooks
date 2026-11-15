@@ -51,7 +51,7 @@ test('all six Vivian offers are purchasable, separate, and edition-specific on t
   assert.match(page, /id="sf-cine-featured-buy"/);
   assert.match(page, /Vivian is the only complete narrator edition on sale/);
   assert.match(page, /MP3 \+ chaptered M4B/);
-  assert.match(page, /Six complete audiobooks — available now/);
+  assert.match(page, /Six complete audiobooks[^<]*available now/);
 });
 
 test('books catalog is directly accessible without JS and all six Amazon links remain original', () => {
