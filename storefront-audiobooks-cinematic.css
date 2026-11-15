@@ -68,6 +68,8 @@
 .sf-audio-cinematic .sf-cine-collection-intro{color:#b9bdb9;text-align:center;font-size:.83rem;margin:0 0 12px}
 .sf-audio-cinematic .sf-cine-book-shelf{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px;align-items:start}
 .sf-audio-cinematic .sf-cine-product{min-width:0;display:flex;flex-direction:column;align-items:stretch;position:relative}
+.sf-audio-cinematic .sf-cine-product[hidden]{display:none!important}
+.sf-audio-cinematic .sf-cine-no-results[hidden]{display:none!important}
 .sf-audio-cinematic .sf-cine-cover-link{position:relative;display:block;height:218px;overflow:hidden;border-radius:8px 8px 6px 6px;border:1px solid #586165;background:#071117;box-shadow:0 12px 18px rgba(0,0,0,.45);text-decoration:none!important}
 .sf-audio-cinematic .sf-cine-cover-link>img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 29%;transition:transform .2s}
 .sf-audio-cinematic .sf-cine-cover-link:hover>img{transform:scale(1.045)}
