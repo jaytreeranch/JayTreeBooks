@@ -26,6 +26,7 @@ for (const file of pages) {
     assert.match(page, /<nav aria-label="Mobile navigation">/);
     assert.match(page, /<meta name="robots" content="noindex,follow">/);
     assert.match(page, /<h1>[^]*?<\/h1>/);
+    assert.match(page, /<img src="icons\/icon-192\.png" alt=""/);
     assert.match(page, /href="storefront-v2\.css"/);
     assert.match(page, /src="storefront-v2\.js"/);
     assert.doesNotMatch(page, /<script[^>]*src="app\.js"/);
@@ -81,7 +82,7 @@ test('all new pages use real book covers and avoid invented mockup image assets'
   for (const file of pages) {
     const page = html(file);
     for (const match of page.matchAll(/<img[^>]+src="([^"]+)"/g)) {
-      assert.match(match[1], /^images\/optimized\/[a-z-]+\.webp$/);
+      assert.ok(/^images\/optimized\/[a-z-]+\.webp$/.test(match[1]) || match[1] === 'icons/icon-192.png', match[1]);
     }
   }
 });
