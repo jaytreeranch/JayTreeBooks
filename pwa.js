@@ -77,9 +77,7 @@
       showHelp("Open your browser menu and choose Install app or Add to Home screen.");
     });
 
-    // Keep the install affordance in the footer rather than floating over book
-    // purchases, audio controls and mobile navigation.
-    (document.querySelector("footer") || document.body).appendChild(installButton);
+    document.body.appendChild(installButton);
   };
 
   window.addEventListener("beforeinstallprompt", event => {
