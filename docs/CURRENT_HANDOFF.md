@@ -1,3 +1,9 @@
+## 2026-11-14 audiobook social sale image/video DELIVERY-ONLY
+
+Approved Option A creative staged as three static media assets on isolated branch release/audiobook199-social-delivery-only-20261114; website HTML/CSS/JS and audiobook checkout pages UNCHANGED. Direct public URLs must be verified after merge. Details: docs/handoffs/2026-11-14-audiobook199-public-media-only.md. Social publication is performed independently through existing Social Poster and must have seven provider receipts before claiming success.
+
+---
+
 ## November 14, 2026 ? Final Vivian website previews integrated with latest live website (STAGED; not yet deployed)
 
 **Status:** Six approved Vivian Payhip sale-preview recordings copied by exact SHA-256 to the website sample paths; five older website audio players updated without removing the current website's navigation, accessibility, Payhip tracking or PWA fixes. Sixth Hollow Bell novella player now has its own route. The full six-title $1.99 Payhip sale remains LIVE and unchanged.
