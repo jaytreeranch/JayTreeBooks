@@ -1,3 +1,9 @@
+## 2026-11-15 — Live website GA4 coverage audit (development staged)
+
+All 35 sitemap routes returned HTTP 200 and contain GA4 G-PHE2JVV5P6 configuration. Source tracking fixes on branch fix/website-analytics-coverage-20261115: add GA4 to public Privacy/Terms, shared campaign helper to six audio preview pages and Case Files, add novella first-play/complete events, and separate receipt-view from verified signup. Five new targeted Node assertions PASS (LAN archive of 45 source text files), but production is not yet deployed; actual GA4 traffic/events cannot be read because GSC Wizard and Windsor.ai plans block reporting. Private OAuth and QA pages intentionally excluded. Receipt, rollback and gates: docs/handoffs/2026-11-15-ga4-public-page-coverage-audit.md. Branch source SHA 5fa87040f16b451abe1455e0b48465d664ec995f verified by authenticated git fetch; final docs SHA must be independently reverified.
+
+---
+
 ## November 15, 2026 — Samples user-approved artwork PUBLISHED AND LIVE VERIFIED
 
 Exact user upload (pixel-identical GE78/LAN copy) published as 1200x630 versioned Samples OG/X image at https://jaytreebooks.com/images/social/previews/samples-approved-20261115.jpg. PR #36 squash merge c65739c981ecbcf51f449fbac6927410a87dc5bb, Pages workflow 43729663535 SUCCESS, source validation 43729499687 SUCCESS. Live page https://jaytreebooks.com/samples.html advertises correct og:image and twitter:image. Public image HTTP 200 image/jpeg, SHA256 b62959dfc89e7be34ff4d89aa87fd78e92f5cc832310d877fc9828062367874b MATCH. Six Samples cards retained; other section previews, actual audio and commerce untouched. LAN public QC receipt in JayTreeBooksWebsiteRedesign_20261114. Facebook cache state not independently confirmed. See docs/handoffs/2026-11-15-approved-samples-social-preview.md for source, test results, next steps and rollback.

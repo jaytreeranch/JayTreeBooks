@@ -63,6 +63,7 @@ for b in books:
 <link rel="stylesheet" href="/pwa.css">
 <!-- JAYTREE_PWA_HEAD_END -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
+<script src="/tracking.js"></script>
 <script type="application/ld+json">{schema}</script>
 </head>
 <body data-book="{b['slug']}" style="--book-cover:url('../images/optimized/{b['cover']}')">
