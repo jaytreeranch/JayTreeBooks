@@ -77,7 +77,8 @@
       showHelp("Open your browser menu and choose Install app or Add to Home screen.");
     });
 
-    document.body.appendChild(installButton);
+    // Keep the install control out of sales and reading surfaces.
+    (document.querySelector("footer") || document.body).appendChild(installButton);
   };
 
   window.addEventListener("beforeinstallprompt", event => {
