@@ -70,6 +70,12 @@ def validate(catalog):
             raise ValueError(slug + ": invalid KU setting")
     if catalog.get("featured_audiobook") not in [x["slug"] for x in catalog["books"] if x["audiobook_status"] == "available"]:
         raise ValueError("featured_audiobook must be currently available")
+    live_prices = {str(x["audiobook_price_usd"]) for x in catalog["books"] if x["audiobook_status"] == "available"}
+    if len(live_prices) > 1:
+        raise ValueError("Mixed audiobook prices require review of sitewide sale-price banners")
+    live_narrators = {x["narrator"] for x in catalog["books"] if x["audiobook_status"] == "available"}
+    if live_narrators != {"Vivian"}:
+        raise ValueError("This storefront currently advertises Vivian only; review narrator messaging before release")
     return catalog["books"]
 
 def cover(book):
@@ -144,13 +150,55 @@ def count_copy(text, name, books):
     if name == "audiobooks.html":
         replace(r"\b(?:six|seven|eight|nine|ten|\d+) complete Vivian audiobooks", f"{words(audio).capitalize()} complete Vivian audiobooks")
         replace(r"\b(?:six|seven|eight|nine|ten|\d+) complete audiobooks", f"{words(audio).capitalize()} complete audiobooks")
+        replace(r"\b(?:six|seven|eight|nine|ten|\d+) complete Vivian-narrated editions", f"{words(audio).capitalize()} complete Vivian-narrated editions")
         replace(r"Search (?:six|seven|eight|nine|ten|\d+) audiobooks", f"Search {words(audio)} audiobooks")
+        replace(r"Filter the (?:six|seven|eight|nine|ten|\d+) currently available Vivian editions", f"Filter the {words(audio)} currently available Vivian editions")
     if name == "books.html":
         replace(r"\b(?:six|seven|eight|nine|ten|\d+) published books", f"{pub} published books")
         replace(r"\b(?:five|six|seven|eight|nine|ten|\d+) full novels", f"{words(novels)} full novels")
     if name == "samples.html":
         replace(r"\b(?:six|seven|eight|nine|ten|\d+) published editions", f"{pub} published editions")
         replace(r"Vivian's (?:six|seven|eight|nine|ten|\d+) complete audiobooks", f"Vivian's {words(audio)} complete audiobooks")
+    if name == "home-v2.html":
+        replace(r"\b(?:six|seven|eight|nine|ten|\d+) Vivian audiobooks", f"{words(audio)} Vivian audiobooks")
+    if name == "books.html":
+        replace(r"\b(?:five|six|seven|eight|nine|ten|\d+) psychological mystery novels", f"{words(novels)} psychological mystery novels")
+    return text
+
+
+def sync_featured(text, book):
+    """Update initial featured product when featured_audiobook changes in JSON."""
+    slug = e(book["slug"])
+    full_title = e(book["title"]) + ((" (" + e(book["edition"]) + ")") if book["edition"] != "Novel" else "")
+    def update_tag(tag, identifier, updates):
+        nonlocal text
+        pattern = r"<" + tag + r"\b[^>]*\bid=\"" + re.escape(identifier) + r"\"[^>]*>"
+        def apply(match):
+            element = match.group(0)
+            for attr, value in updates.items():
+                element, count = re.subn(r"\b" + attr + r'="[^"]*"', attr + '="' + e(value) + '"', element, count=1)
+                if count != 1:
+                    raise ValueError("Featured " + identifier + " missing " + attr)
+            return element
+        text, count = re.subn(pattern, apply, text, count=1)
+        if count != 1:
+            raise ValueError("Missing unique featured element " + identifier)
+    update_tag("a", "sf-cine-featured-details", {
+        "href": book["book_page"], "aria-label": full_title + " — featured book details"})
+    update_tag("img", "sf-cine-featured-cover", {
+        "src": book["cover"], "alt": full_title + " — official published book cover"})
+    update_tag("a", "sf-cine-featured-buy", {
+        "href": book["payhip_url"], "data-book": book["slug"]})
+    update_tag("a", "sf-cine-featured-sample", {
+        "href": book["sample_page"], "data-book": book["slug"]})
+    for identifier, value in (("sf-cine-featured-title", full_title),
+                              ("sf-cine-featured-description", book["description"])):
+        pattern = r'(<(?:h2|p)\b[^>]*id="' + identifier + r'"[^>]*>).*?(</(?:h2|p)>)'
+        text, count = re.subn(pattern, lambda m: m.group(1) + e(value) + m.group(2), text, count=1, flags=re.S)
+        if count != 1: raise ValueError("Missing featured content " + identifier)
+    pattern = r'(<span\b[^>]*id="sf-cine-selection-status"[^>]*>).*?(</span>)'
+    text, count = re.subn(pattern, lambda m: m.group(1) + "Selected: " + full_title + m.group(2), text, count=1, flags=re.S)
+    if count != 1: raise ValueError("Missing selected status")
     return text
 
 def build(root, catalog):
@@ -170,7 +218,10 @@ def build(root, catalog):
     updates = {}
     for name,marker in MARKERS.items():
         source = (root/name).read_text(encoding="utf-8")
-        updates[name] = count_copy(render_section(source,marker,parts[name]),name,books)
+        rendered = count_copy(render_section(source,marker,parts[name]),name,books)
+        if name == "audiobooks.html":
+            rendered = sync_featured(rendered, next(b for b in books if b["slug"] == selected))
+        updates[name] = rendered
     updates["home-v2.html"] = count_copy((root/"home-v2.html").read_text(encoding="utf-8"),"home-v2.html",books)
     return updates
 
