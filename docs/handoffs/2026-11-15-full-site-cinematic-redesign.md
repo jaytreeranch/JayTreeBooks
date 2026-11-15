@@ -29,3 +29,12 @@ Status: DEVELOPMENT REVIEW ONLY; NOT merged into main or publicly deployed.
 
 ## Next
 Import and certify the two approved cinematic photo layers, owner-review fourteen page pairs, fix legacy encoding / SEO migration with source review, run full accessibility/performance/seller QC, reconcile current main and obtain distinct owner production launch approval. Never merge PR #32 until expressly authorized. Rollback: close/revert review branch; live main, Payhip listings and private audio masters untouched.
+
+
+## Verified GitHub source milestone and LAN checksum
+
+- First successfully pushed/verified remote source SHA: 351d986451939643128fd2ff8e6e756c0e2ea914.
+- The source milestone contains all new/modified 43 website, test, generator and documentation files; developer confirmed clean git worktree immediately after push and GitHub remote SHA matched.
+- Verified independent LAN checkpoint: F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteRedesign_20261114\FULL_SITE_CINEMATIC_REVIEW_CHECKPOINT_20261115.json, SHA-256 4DA87A14115B5954DEAEA3BB013641CE1776A1A33CF92A2A1536597118F56ED7.
+- Existing original audiobooks and Payhip listings continue to be owner-approved production assets; no development-site preview traffic should be interpreted as paid conversions.
+- This paragraph records the *source* commit. Subsequent handoff-only commits can advance the review branch; final remote SHA must be checked and logged separately in the session result.
