@@ -261,8 +261,10 @@ def main():
         f=ROOT/b["book_page"]
         if f.exists() and b["book_status"]=="published":
             pages[b["book_page"]]=customize(f,root="../",book=b)
+    from apply_social_previews import apply_to_markup
     changed=[]
     for path,html_doc in pages.items():
+        html_doc=apply_to_markup(path, html_doc)
         f=ROOT/path
         if not f.exists() or f.read_text(encoding="utf-8")!=html_doc:
             changed.append(path)

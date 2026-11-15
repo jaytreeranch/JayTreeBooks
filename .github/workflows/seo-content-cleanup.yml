@@ -56,11 +56,16 @@ jobs:
       - name: Apply SEO cleanup and sitemap refresh
         run: python scripts/seo_content_cleanup.py
 
+      - name: Restore page-specific social previews after SEO writers
+        run: python scripts/apply_social_previews.py --write
+
       - name: Validate idempotent SEO output
         run: |
           python scripts/apply_entity_seo.py
           python scripts/apply_audio_seo.py
           python scripts/seo_content_cleanup.py
+          python scripts/apply_social_previews.py --write
+          python scripts/apply_social_previews.py --check
 
       - name: Verify workflow files untouched
         shell: bash
