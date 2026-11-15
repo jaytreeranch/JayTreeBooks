@@ -3,12 +3,12 @@
 - Marketplace: `US`
 - API: `Canopy GraphQL`
 - Search scope: `Amazon US featured search via Canopy (no categoryId filter)`
-- Checked: `2026-11-08T16:08:22.380240+00:00`
+- Checked: `2026-11-15T19:48:36.811148+00:00`
 - Books checked: `5`
-- Unique keywords checked: `5`
+- Unique keywords checked: `25`
 - Maximum pages requested per keyword: `5`
 - Page size requested: `20`
-- Canopy API requests sent this run: `5`
+- Canopy API requests sent this run: `25`
 
 ## Portfolio summary
 
@@ -18,37 +18,68 @@
 | Second Draft | `B0HFYQ9KGV` | — | — | 0 |
 | The Hollow Year | `B0HFXF8MTP` | — | — | 0 |
 | The Absconding | `B0HDWRVSXQ` | — | — | 0 |
-| The Correction | `B0HFV8KCVL` | 10 | altered records psychological mystery | 1 |
+| The Correction | `B0HFV8KCVL` | — | — | 0 |
 
 ## The Hollow Bell — Full Novel
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| cold case mystery | — | — | 61 | No | not_found_after_5_pages_61_organic_results |
+| small town mystery | — | — | 64 | No | not_found_after_5_pages_64_organic_results |
+| supernatural mystery | — | — | 59 | No | not_found_after_5_pages_59_organic_results |
+| atmospheric mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| cold case mystery | — | — | 65 | No | not_found_after_5_pages_65_organic_results |
+| small town cold case mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| missing sister mystery | — | — | 68 | No | not_found_after_5_pages_68_organic_results |
+| police procedural mystery | — | — | 69 | No | not_found_after_5_pages_69_organic_results |
+| women sleuth mystery | — | — | 70 | No | not_found_after_5_pages_70_organic_results |
 
 ## Second Draft
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| reality bending mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| psychological mystery | — | — | 65 | No | not_found_after_5_pages_65_organic_results |
+| atmospheric mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| missing woman mystery | — | — | 13 | No | not_found_after_1_pages_13_organic_results |
+| haunted house psychological mystery | — | — | 71 | No | not_found_after_5_pages_71_organic_results |
+| reality bending mystery | — | — | 64 | No | not_found_after_4_pages_64_organic_results |
+| memory mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
 
 ## The Hollow Year
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| memory erasure mystery | — | — | 52 | No | not_found_after_4_pages_52_organic_results |
+| small town mystery | — | — | 64 | No | not_found_after_5_pages_64_organic_results |
+| psychological mystery | — | — | 65 | No | not_found_after_5_pages_65_organic_results |
+| supernatural mystery | — | — | 59 | No | not_found_after_5_pages_59_organic_results |
+| atmospheric mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| memory mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| small town supernatural mystery | — | — | 68 | No | not_found_after_5_pages_68_organic_results |
+| memory erasure mystery | — | — | 43 | No | not_found_after_3_pages_43_organic_results |
+| missing brother supernatural mystery | — | — | 74 | No | not_found_after_5_pages_74_organic_results |
 
 ## The Absconding
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| New England folklore mystery | — | — | 77 | No | not_found_after_5_pages_77_organic_results |
+| psychological mystery | — | — | 65 | No | not_found_after_5_pages_65_organic_results |
+| atmospheric mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| family secrets mystery | — | — | 44 | No | not_found_after_3_pages_44_organic_results |
+| small town Vermont mystery | — | — | 69 | No | not_found_after_5_pages_69_organic_results |
+| New England folklore mystery | — | — | 74 | No | not_found_after_5_pages_74_organic_results |
+| beekeeping small town mystery | — | — | 55 | No | not_found_after_4_pages_55_organic_results |
+| environmental conspiracy mystery | — | — | 77 | No | not_found_after_5_pages_77_organic_results |
 
 ## The Correction
 
 | Keyword | Organic Rank | Page | Results Scanned | Sponsored | Status |
 |---|---:|---:|---:|:---:|---|
-| altered records psychological mystery | 10 | 1 | 17 | No | found |
+| small town mystery | — | — | 64 | No | not_found_after_5_pages_64_organic_results |
+| psychological mystery | — | — | 65 | No | not_found_after_5_pages_65_organic_results |
+| atmospheric mystery | — | — | 80 | No | not_found_after_5_pages_80_organic_results |
+| archive mystery | — | — | 77 | No | not_found_after_5_pages_77_organic_results |
+| archive conspiracy mystery | — | — | 32 | No | not_found_after_2_pages_32_organic_results |
+| altered records psychological mystery | — | — | 14 | No | not_found_after_1_pages_14_organic_results |
+| memory manipulation mystery | — | — | 71 | No | not_found_after_5_pages_71_organic_results |
 
 ## Unexpected cross-title rankings
 
