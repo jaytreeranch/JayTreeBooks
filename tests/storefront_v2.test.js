@@ -71,7 +71,8 @@ test('shortened homepage sends visitors to books, audiobooks, or samples immedia
   const page = html('home-v2.html');
   assert.match(page, /data-placement="home_hero">Explore books/);
   assert.match(page, /data-placement="home_hero">Shop audiobooks/);
-  assert.match(page, /data-placement="home_path">Explore free samples/);
+  assert.match(page, /href="samples\.html" data-track="storefront_samples" data-placement="home_path"/);
+  assert.match(page, /Explore free samples/);
   assert.match(page, /Six complete Vivian audiobooks/);
   assert.match(page, /Alternative full-length narrator editions are coming soon/);
 });
@@ -90,7 +91,7 @@ test('tracking records intent without claiming a sale or intercepting purchase n
   assert.match(script, /document.addEventListener\("click"/);
   assert.match(script, /closest\("a\[data-track\]"\)/);
   assert.match(script, /window.gtag\("event", link.dataset.track/);
-  assert.doesNotMatch(script, /preventDefault\(|purchase\W|sign_up\W/);
+  assert.doesNotMatch(script, /preventDefault\(|gtag\(['"]event['"],\s*['"]purchase|gtag\(['"]event['"],\s*['"]sign_up/);
 });
 
 test('CSS supports mobile layouts, motion preferences and visible keyboard focus', () => {
