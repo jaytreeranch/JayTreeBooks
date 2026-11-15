@@ -53,3 +53,9 @@ test('authoritative PWA generator matches shipped assets, preventing workflow re
   assert.equal(generatedCss, fs.readFileSync(path.join(__dirname, '..', 'pwa.css'), 'utf8'));
   assert.match(generator, /querySelector\("footer"\) \|\| document.body/);
 });
+
+test('authoritative audio SEO generator never rebinds narrator purchase clicks', () => {
+  const generator = fs.readFileSync(path.join(__dirname, '..', 'scripts', 'apply_audio_seo.py'), 'utf8');
+  assert.match(generator, /Outbound click events are registered once by audiobook-experience\.js/);
+  assert.doesNotMatch(generator, /document\.querySelectorAll\('\[data-track\]'\)\.forEach/);
+});
