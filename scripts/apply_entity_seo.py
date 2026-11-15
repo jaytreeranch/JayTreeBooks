@@ -92,6 +92,7 @@ def enrich_publisher(value):
     if isinstance(value, dict):
         if value.get("@type") == "Organization" and value.get("name") == "JayTree Books":
             value["@id"] = PUBLISHER_ID
+            value.setdefault("alternateName", "JayTreeBooks")
             value["url"] = SITE
             logo = value.get("logo")
             if not logo:

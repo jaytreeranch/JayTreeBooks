@@ -1,3 +1,10 @@
+## November 15, 2026 — Brand identity + video search SEO staging (NOT LIVE)
+
+Isolated source branch seo/brand-video-search-20261115 starts from GitHub origin/main 241345a4346e2e0bb659302f23e7052ff015dcd8. Preserved the established Organization sameAs links and clarified JayTreeBooks alternate name in both classic source and rendered home. Fixed the Hollow Bell YouTube trailer's invalid contentUrl, added a dedicated watch page for the approved upcoming-novels MP4, and preserved page-36 GA4 coverage, video playback telemetry, sitemap regeneration and caption/thumbnail assets. Added local first-party branded-vs-genre GSC CSV analysis script without exposing private data or spending rank-tracker credits.
+
+QC: 78/78 Node PASS; 7/7 Python new SEO/tracker tests PASS; AST syntax PASS, git diff --check PASS; idempotent patch PASS. OpenSEO existing US mobile depth-50 tracker has two genre terms but zero actual ranking checks; its first-party GSC is not connected. GSC Wizard access expired. No ranking position was inferred. All publication, live new-route checks and Search Console recrawl remain PENDING. Detailed handoff: docs/handoffs/2026-11-15-brand-video-search-visibility.md; tracking runbook: docs/SEARCH_VISIBILITY_RUNBOOK.md. Do not merge/publish without separate release authorization.
+
+---
 ## November 15, 2026 — Cinematic storefront published and verified
 
 PR #32 merged as c1f5f0489ca324af094e856bdae5d66587e0bc22 after the release candidate 100b0bfac8e48881c032f6c3e66d1deebdaeb76a passed all 93 source regressions, the campaign checks and the actual Pages build. GitHub Pages deployed production main 603c5499154196da19bf06abd64e1dee585a8e90 ([deployment](https://github.com/jaytreeranch/JayTreeBooks/actions/runs/43711452197)). The custom domain passed 162 Windows Chrome checks across 320, 390, 768 and 1440 pixels before and again after publication. Eight public routes returned 200 with the expected content.

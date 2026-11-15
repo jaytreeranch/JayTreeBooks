@@ -67,6 +67,7 @@ SITEMAP_PATHS = [
     ("news-v2.html", "news-v2.html"),
     ("experiences-v2.html", "experiences-v2.html"),
     ("upcoming-books.html", "upcoming-books.html"),
+    ("upcoming-novels-teaser.html", "upcoming-novels-teaser.html"),
     ("reading-guides.html", "reading-guides.html"),
     ("audio/book-6-sample.html", "audio/book-6-sample.html"),
     ("about.html", "about.html"),
@@ -115,6 +116,7 @@ def add_org_logo(value):
     if isinstance(value, dict):
         if value.get("@type") == "Organization" and value.get("name") == "JayTree Books":
             value["@id"] = f"{SITE}/#publisher"
+            value.setdefault("alternateName", "JayTreeBooks")
             value["url"] = SITE
             logo = value.get("logo")
             if not logo:

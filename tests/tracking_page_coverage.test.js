@@ -7,10 +7,10 @@ const root = path.resolve(__dirname, "..");
 const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
 const site = "G-PHE2JVV5P6";
 
-test("all 35 sitemap routes have the configured GA4 measurement ID", () => {
+test("all 36 sitemap routes have the configured GA4 measurement ID", () => {
   const xml = read("sitemap.xml");
   const urls = [...xml.matchAll(/<loc>https:\/\/jaytreebooks\.com([^<]*)<\/loc>/g)];
-  assert.equal(urls.length, 35, "update coverage when the sitemap expands");
+  assert.equal(urls.length, 36, "update coverage when the sitemap expands");
   for (const match of urls) {
     const file = !match[1] || match[1] === "/" ? "home-v2.html" : match[1].replace(/^\//, "");
     const markup = read(file);

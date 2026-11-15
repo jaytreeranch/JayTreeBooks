@@ -12,3 +12,6 @@ Applies to all ChatGPT, Work, Codex, AI-agent and developer work in this JayTree
 
 Canonical owner policy (private): `jaytreeranch/JayTree-Video-Studio/docs/JAYTREE_DEVELOPMENT_CONTINUITY_POLICY.md`.
 For projects with existing stricter production/security policies, follow those too. Repository files are discovery aids; a new ordinary ChatGPT chat must still be given project access and/or the account-wide continuity instruction.
+
+Current website SEO handoff: docs/handoffs/2026-11-15-brand-video-search-visibility.md.
+Canonical JayTree LAN engineering policy: \\JT-DESKTOP\JayTreeFarm\Control\JAYTREE_GITHUB_HANDOFF_POLICY.md.
