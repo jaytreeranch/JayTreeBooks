@@ -19,22 +19,19 @@ if (/^(www\.)?jaytreebooks\.com$/i.test(window.location.hostname)) {
 }
 </script>
 <script src="tracking.js" defer></script><script src="storefront-v2.js" defer></script>
+<link rel="stylesheet" href="cinematic-site-v2.css">
 </head>
-<body class="sf-site sf-page-audio sf-audio-cinematic"><a class="sf-skip" href="#main">Skip to content</a>
-<header class="sf-cine-header"><div class="sf-cine-shell sf-cine-header-inner">
-<a class="sf-cine-brand" href="home-v2.html" aria-label="JayTree Books - preview homepage"><img src="icons/icon-192.png" alt="" width="62" height="62"><span>JAYTREE BOOKS</span></a>
-<nav class="sf-cine-main-nav" aria-label="Primary navigation">
-<a href="home-v2.html">Home</a>
-<a href="books.html">Books <span class="sf-cine-tiny-caret" aria-hidden="true">?</span></a>
-<a href="audiobooks.html" aria-current="page">Audiobooks</a>
-<a href="mystery-books.html">The Series</a>
-<a href="about.html">About</a>
-<a href="upcoming-books.html">News</a>
-</nav>
-<details class="sf-cine-search"><summary aria-label="Search audiobook titles" title="Search audiobooks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.8"/><path d="m16 16 5.3 5.3"/></svg></summary><div class="sf-cine-search-panel"><label for="sf-cine-title-search">Find an audiobook</label><input type="search" id="sf-cine-title-search" placeholder="Search six audiobooks." autocomplete="off"><small>Filter the six currently available Vivian editions</small></div></details>
-<details class="sf-cine-menu"><summary aria-label="Open mobile navigation"><span>MENU</span><span aria-hidden="true">?</span></summary><nav aria-label="Mobile navigation">
-<a href="home-v2.html">Home</a><a href="books.html">Books</a><a href="audiobooks.html" aria-current="page">Audiobooks</a><a href="samples.html">Samples</a><a href="mystery-books.html">The Series</a><a href="about.html">About</a><a href="upcoming-books.html">News</a>
-</nav></details>
+<body class="jt-cinematic sf-site sf-page-audio sf-audio-cinematic"><a class="sf-skip" href="#main">Skip to content</a>
+<header class="jt-header"><div class="jt-head-inner">
+<a class="jt-brand" href="home-v2.html" aria-label="JayTree Books home">
+<img src="icons/icon-192.png" width="61" height="60" alt=""><span>JAYTREE BOOKS</span></a>
+<nav class="jt-nav" aria-label="Primary navigation"><a href="home-v2.html">Home</a><a href="books.html">Books</a><a href="audiobooks.html" aria-current="page">Audiobooks</a><a href="series-v2.html">The Series</a><a href="samples.html">Samples</a><a href="about.html">About</a><a href="news-v2.html">News</a></nav>
+<details class="jt-search"><summary aria-label="Search books and pages" title="Search">⌕</summary>
+<div class="jt-search-box"><label for="jt-search-input">Search JayTree Books</label>
+<input id="jt-search-input" type="search" placeholder="Book title or page" autocomplete="off">
+<div class="jt-search-results" aria-live="polite"></div></div></details>
+<details class="jt-mobile"><summary aria-label="Open navigation">MENU ☰</summary>
+<nav aria-label="Mobile navigation"><a href="home-v2.html">Home</a><a href="books.html">Books</a><a href="audiobooks.html" aria-current="page">Audiobooks</a><a href="series-v2.html">The Series</a><a href="samples.html">Samples</a><a href="about.html">About</a><a href="news-v2.html">News</a></nav></details>
 </div></header>
 <main id="main">
 <section class="sf-cine-hero" id="sf-cine-featured-region" aria-labelledby="sf-cine-page-title">
@@ -130,4 +127,5 @@ if (/^(www\.)?jaytreebooks\.com$/i.test(window.location.hostname)) {
 </div></section>
 </main>
 <footer class="sf-cine-footer"><div class="sf-cine-shell"><a href="books.html">Shop books</a><a href="samples.html">Explore samples</a><a href="case-files.html">Join the Case Files</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><small>c 2026 JayTree Books � Cinematic design preview (not live)</small></div></footer>
+<script src="cinematic-site-v2.js" defer></script>
 </body></html>

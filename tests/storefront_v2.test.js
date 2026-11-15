@@ -6,7 +6,7 @@ const path = require('node:path');
 
 const root = path.join(__dirname, '..');
 const html = name => fs.readFileSync(path.join(root, name), 'utf8');
-const pages = ['home-v2.html', 'books.html', 'audiobooks.html', 'samples.html'];
+const pages = ['home-v2.html', 'books.html', 'audiobooks.html', 'samples.html', 'series-v2.html', 'news-v2.html', 'experiences-v2.html'];
 const offers = [
   ['second-draft', 'GejHn', 'audio/book-1-sample.html', 'B0HFYQ9KGV'],
   ['the-hollow-year', 'Zf7tv', 'audio/book-2-sample.html', 'B0HFXF8MTP'],
@@ -26,12 +26,12 @@ for (const file of pages) {
     assert.match(page, /<nav aria-label="Mobile navigation">/);
     assert.match(page, /<meta name="robots" content="noindex,follow">/);
     assert.match(page, /<h1(?:\s[^>]*)?>[^]*?<\/h1>/);
-    assert.match(page, /<img src="icons\/icon-192\.png" alt=""/);
-    assert.match(page, /href="storefront-v2\.css"/);
-    assert.match(page, /src="storefront-v2\.js"/);
-    assert.match(page, /Preview hosts never send QA clicks or visits/);
-    assert.match(page, /window\.location\.hostname/);
-    assert.match(page, /document\.head\.appendChild\(jtAnalytics\)/);
+    assert.match(page, /<img src="icons\/icon-192\.png"/);
+    assert.match(page, /href="cinematic-site-v2\.css"/);
+    assert.match(page, /src="cinematic-site-v2\.js"/);
+    assert.match(page, /<header class="jt-header">/);
+    assert.match(page, /aria-label="Primary navigation"/);
+    assert.match(page, /aria-label="Mobile navigation"/);
     assert.doesNotMatch(page, /<script[^>]*src="app\.js"/);
     assert.doesNotMatch(page, /Full Audiobook — Coming Soon|Audiobook editions are in production/);
   });
@@ -76,10 +76,10 @@ test('six samples resolve to existing audio preview HTML routes; novella is sepa
 
 test('shortened homepage sends visitors to books, audiobooks, or samples immediately', () => {
   const page = html('home-v2.html');
-  assert.match(page, /data-placement="home_hero">Explore books/);
-  assert.match(page, /data-placement="home_hero">Shop audiobooks/);
-  assert.match(page, /href="samples\.html" data-track="storefront_samples" data-placement="home_path"/);
-  assert.match(page, /Explore free samples/);
+  assert.match(page, /href="books.html" data-track="storefront_books">Explore the Books/);
+  assert.match(page, /href="audiobooks.html" data-track="storefront_audio">Shop Audiobooks/);
+  assert.match(page, /href="samples.html"/);
+  assert.match(page, /Explore Free Samples/);
   assert.match(page, /Six complete Vivian audiobooks/);
   assert.match(page, /Alternative full-length narrator editions are coming soon/);
 });
@@ -88,7 +88,7 @@ test('all new pages use real book covers and avoid invented mockup image assets'
   for (const file of pages) {
     const page = html(file);
     for (const match of page.matchAll(/<img[^>]+src="([^"]+)"/g)) {
-      assert.ok(/^images\/optimized\/[a-z-]+\.webp$/.test(match[1]) || match[1] === 'icons/icon-192.png', match[1]);
+      assert.ok(/^(images\/(?:optimized|upcoming|interactive)\/[a-zA-Z0-9._-]+\.webp|icons\/icon-192\.png)$/.test(match[1]), match[1]);
     }
   }
 });

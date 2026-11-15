@@ -98,3 +98,10 @@ body.jt-modernized .jt-detail-buy p{color:var(--jt-bright);margin:0}
 @media(max-width:970px){.jt-nav{display:none}.jt-mobile{display:block}.jt-search{margin-left:auto}.jt-hero-grid{gap:28px}.jt-path-grid{gap:12px}.jt-path{padding:19px}}
 @media(max-width:700px){.jt-head-inner{width:calc(100% - 24px);min-height:61px;gap:8px}.jt-brand{font-size:clamp(.95rem,4vw,1.3rem);letter-spacing:.08em}.jt-brand img{width:42px;height:44px}.jt-search summary{width:30px}.jt-mobile summary{font-size:.6rem;padding:9px 7px}.jt-wrap{width:calc(100% - 36px)}.jt-hero{min-height:0}.jt-hero-grid{grid-template-columns:1fr;gap:20px;padding-block:55px}.jt-hero h1{font-size:clamp(3.1rem,11vw,5.1rem)}.jt-hero p{font-size:1rem}.jt-hero-art{min-height:280px}.jt-hero-art img{max-height:250px}.jt-hero-art span{bottom:0;right:5px;font-size:.85rem;padding:9px}.jt-section{padding:56px 0}.jt-path-grid,.jt-media-grid{grid-template-columns:1fr}.jt-path{min-height:210px}.jt-path h3{margin-top:16px}.jt-subhero{padding:60px 0}.jt-footer-inner{display:block}.jt-footer nav{margin-top:25px;grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){.jt-cinematic *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* Preserve full approved audio sample player / chapter content; avoid two nav bars. */
+body.jt-modernized>header.audio-nav{display:none!important}
+body.jt-modernized .audio-page{padding-top:30px}
+body.jt-modernized .chapter-shell,body.jt-modernized .chapter-content,body.jt-modernized .reader-shell{color:var(--jt-cream)}
+body.jt-modernized .policy-wrap,body.jt-modernized .policy-page{background:#0c1b23;color:var(--jt-cream)}
+body.jt-modernized>footer:not(.jt-footer){border-top:1px solid var(--jt-line);background:#030a10;color:var(--jt-muted)}

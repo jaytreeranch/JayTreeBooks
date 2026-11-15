@@ -21,7 +21,7 @@ test('novella metadata promotes the available audiobook, never the old coming-so
 test('novella keeps exactly one direct Payhip edition and a distinct full-novel reference', () => {
   assert.deepEqual(
     [...html.matchAll(/https:\/\/payhip\.com\/b\/[A-Za-z0-9]+/g)].map(match => match[0]),
-    ['https://payhip.com/b/EWc5q']
+    ['https://payhip.com/b/EWc5q', 'https://payhip.com/b/EWc5q']
   );
   assert.match(html, /data-track="audiobook_payhip"\s+data-book="the-hollow-bell-novella"/);
   assert.match(html, /MP3 and chaptered M4B/);

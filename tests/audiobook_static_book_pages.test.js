@@ -17,7 +17,8 @@ for (const [slug, url] of Object.entries(books)) {
   test('static book detail '+slug+' advertises only its certified Payhip audiobook', () => {
     const html = fs.readFileSync(path.join(__dirname, '..', 'books', slug+'.html'), 'utf8');
     const links = html.match(/https:\/\/payhip\.com\/b\/[A-Za-z0-9]+/g) || [];
-    assert.deepEqual(links, [url]);
+    assert.equal(links.length, 2, 'the featured purchase bar and original audiobook callout must both point to the correct edition');
+    assert.deepEqual([...new Set(links)], [url], 'no other Payhip SKU is allowed');
     assert.match(html, /\$1\.99/);
     assert.match(html, /data-track="audiobook_payhip"/);
     assert.match(html, /target="_blank" rel="noopener noreferrer"/);

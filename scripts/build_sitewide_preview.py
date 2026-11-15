@@ -23,7 +23,8 @@ NAV = [
 LEGACY = [
  "about.html", "upcoming-books.html", "mystery-books.html",
  "psychological-mystery-books.html", "kindle-unlimited-mystery-books.html",
- "reading-guides.html", "case-files.html", "animated-series.html"
+ "reading-guides.html", "case-files.html", "animated-series.html",
+ "privacy.html", "terms.html"
 ]
 
 def e(x):
@@ -55,6 +56,8 @@ def footer(root=""):
 <nav aria-label="Footer navigation">{''.join(f'<a href="{root}{href}">{label}</a>' for label,href in links)}</nav>
 </div><small>Development design preview. No changes to the public JayTreeBooks.com website or Payhip listings.</small></div></footer>'''
 
+ANALYTICS = '<script>\n// Analytics is only loaded on production host, never local preview.\nwindow.dataLayer=window.dataLayer||[];\nfunction gtag(){dataLayer.push(arguments)}\nif (location.hostname==="jaytreebooks.com" || location.hostname==="www.jaytreebooks.com"){\n const jtTag=document.createElement("script");jtTag.async=true;\n jtTag.src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6";\n document.head.appendChild(jtTag);\n gtag("js",new Date());gtag("config","G-PHE2JVV5P6");\n}\n</script>'
+
 def head(title,desc,extra=""):
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -62,6 +65,8 @@ def head(title,desc,extra=""):
 <meta name="description" content="{e(desc)}"><title>{e(title)} | JayTree Books Preview</title>
 <link rel="icon" href="favicon.png"><link rel="stylesheet" href="storefront-v2.css">
 <link rel="stylesheet" href="cinematic-site-v2.css">{extra}
+{ANALYTICS}
+<script src="tracking.js" defer></script>
 <script src="cinematic-site-v2.js" defer></script><script src="storefront-v2.js" defer></script>
 </head>'''
 
@@ -159,10 +164,30 @@ def experiences():
 <section class="jt-section jt-dark"><div class="jt-wrap"><span class="jt-overline">Watch more</span><h2>Choose another mystery.</h2>
 <div class="jt-media-grid">'''+media_card("animated-series.html","images/interactive/JayTree_Interactive_Hidden_Page_Hero.webp","Cinematic storytelling","Animated mini-series","Explore the developing Hollow Bell screen experience.")+media_card("upcoming-books.html#cinematic-teaser","images/upcoming/where-mercy-stood-1600.webp","Next in the universe","Upcoming novels teaser","A 27-second glimpse of the next JayTree mysteries.")+media_card("reading-guides.html","images/upcoming/the-fifth-copy-1600.webp","Read deeper","Reader guides","Explore how each story builds its own mystery mechanism.")+'''</div></div></section>'''+newsletter())
 
-def customize(path,root="",page=""):
+def ensure_buy_panel(source,book,path):
+    if book and 'jt-detail-buy' not in source:
+        actions=[]
+        slug=e(book["slug"])
+        if book.get("amazon_url"):
+            actions.append('<a class="jt-btn secondary" href="'+e(book["amazon_url"])+'" target="_blank" rel="noopener noreferrer" data-track="amazon" data-book="'+slug+'">Buy the Book</a>')
+        if book.get("chapter_page"):
+            actions.append('<a class="jt-btn secondary" href="../'+e(book["chapter_page"])+'" data-track="chapter" data-book="'+slug+'">Read Chapter One</a>')
+        if book.get("sample_page"):
+            actions.append('<a class="jt-btn secondary" href="../'+e(book["sample_page"])+'" data-track="audio_preview" data-book="'+slug+'">Hear a Sample</a>')
+        if book.get("audiobook_status") == "available":
+            actions.insert(0,'<a class="jt-btn primary" href="'+e(book["payhip_url"])+'" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="'+slug+'">Buy Vivian Audiobook · $'+e(book["audiobook_price_usd"])+'</a>')
+        label=e(book["title"])+(" (Novella)" if book["edition"]=="Novella" else "")
+        strip='<aside class="jt-detail-buy" aria-label="Choose format for '+label+'"><p>Choose your edition · Vivian audiobook available now; other narrators coming soon.</p><div class="jt-actions">'+''.join(actions)+'</div></aside>'
+        m=re.search(r'<section class="book-hero[^"]*".*?</section>',source,flags=re.S)
+        if not m:
+            raise ValueError(str(path)+" missing existing book hero")
+        source=source[:m.end()]+'\n'+strip+source[m.end():]
+    return source
+
+def customize(path,root="",page="",book=None):
     source=path.read_text(encoding="utf-8")
     if 'jt-cinematic jt-modernized' in source:
-        return source
+        return ensure_buy_panel(source,book,path)
     # Preserve canonical URLs, structured data, existing main/story sections,
     # action hooks, lazy video playback, PWA, Kit and GA4.
     style=f'<link rel="stylesheet" href="{root}cinematic-site-v2.css">\n'
@@ -176,7 +201,26 @@ def customize(path,root="",page=""):
     source=source[:idx]+'\n'+header(page,root)+'\n'+source[idx:]
     if '</body>' not in source:raise ValueError(str(path)+" missing end body")
     source=source.replace('</body>',script+'</body>',1)
+    source=ensure_buy_panel(source,book,path)
     return source
+
+
+def modernize_catalog(page, key):
+    """Shared navigation for the three generated storefronts without altering static cards."""
+    source=(ROOT/page).read_text(encoding="utf-8")
+    if '<header class="jt-header">' in source:
+        return source
+    old=re.search(r'<header class="sf-(?:header|cine-header)"[^>]*>.*?</header>',source,flags=re.S)
+    if not old:
+        raise ValueError(page+" missing old header")
+    source=source[:old.start()]+header(key)+source[old.end():]
+    if '<body class="sf-site ' not in source:
+        raise ValueError(page+" missing body class")
+    source=source.replace('<body class="sf-site ','<body class="jt-cinematic sf-site ',1)
+    source=source.replace('</head>','<link rel="stylesheet" href="cinematic-site-v2.css">\n</head>',1)
+    source=source.replace('</body>','<script src="cinematic-site-v2.js" defer></script>\n</body>',1)
+    return source
+
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
@@ -191,6 +235,13 @@ def main():
       "news-v2.html":news(),
       "experiences-v2.html":experiences()
     }
+    # The catalog cards remain generated by build_storefront_catalog.py.
+    for page,key in (("books.html","books"),("samples.html","samples"),("audiobooks.html","audio")):
+        pages[page]=modernize_catalog(page,key)
+    # Preserve complete listening player scripts and chapter text; add only common chrome.
+    for folder,pattern in (("audio","book-*-sample.html"),("chapters","book-*-first-chapter.html")):
+        for f in sorted((ROOT/folder).glob(pattern)):
+            pages[str(f.relative_to(ROOT)).replace("\\","/")]=customize(f,root="../")
     # Modernize, without replacing, original evergreen and commerce editorial pages.
     for path in LEGACY:
         f=ROOT/path
@@ -198,7 +249,7 @@ def main():
     for b in catalog["books"]:
         f=ROOT/b["book_page"]
         if f.exists() and b["book_status"]=="published":
-            pages[b["book_page"]]=customize(f,root="../")
+            pages[b["book_page"]]=customize(f,root="../",book=b)
     changed=[]
     for path,html_doc in pages.items():
         f=ROOT/path

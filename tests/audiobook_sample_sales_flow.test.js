@@ -49,8 +49,9 @@ test('authoritative PWA generator matches shipped assets, preventing workflow re
   const generatedJs = generator.split('PWA_JS = r"""')[1]?.split('"""')[0];
   const generatedCss = generator.split('PWA_CSS = r"""')[1]?.split('"""')[0]?.trim() + '\n';
   assert.ok(generatedJs, 'generated PWA JS is discoverable');
-  assert.equal(generatedJs, fs.readFileSync(path.join(__dirname, '..', 'pwa.js'), 'utf8'));
-  assert.equal(generatedCss, fs.readFileSync(path.join(__dirname, '..', 'pwa.css'), 'utf8'));
+  const normalizeNewlines = value => value.replace(/\r\n?/g, '\n');
+  assert.equal(normalizeNewlines(generatedJs), normalizeNewlines(fs.readFileSync(path.join(__dirname, '..', 'pwa.js'), 'utf8')));
+  assert.equal(normalizeNewlines(generatedCss), normalizeNewlines(fs.readFileSync(path.join(__dirname, '..', 'pwa.css'), 'utf8')));
   assert.match(generator, /querySelector\("footer"\) \|\| document.body/);
 });
 

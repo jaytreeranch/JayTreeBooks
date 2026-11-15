@@ -1,3 +1,13 @@
+## 2026-11-15 — Full-site cinematic preview complete for review; NOT LIVE
+
+Built 34-page premium JayTree Books multi-page design on review-only branch design/multipage-storefront-review-20261114 (draft PR #32), including shorter Home v2, Books, Audiobooks, Samples, Series, News, Experiences, six original book details, six approved sample interfaces, five first chapters, evergreen/legal pages. Preserved all original Payhip SKUs and media, with dual exact-same-SKU audiobook CTA on book pages, and Vivian available now versus alternative full narrators coming soon. No merge to main.
+
+QC verified on JT-DESKTOP: 34/34 generator checks PASS; Chrome 38/38 viewport, 18/18 audiobook thumbnail interaction, 5/5 search/navigation PASS; Node 16/16 storefront + 40/40 historic audiobook PASS; Python 8/8 catalog + 8/8 new sitewide PASS. LAN screenshot gallery: F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteRedesign_20261114\FULL_SITE_REDESIGN_REVIEW.html, SHA256 1CA7FAA7C2A42A6EA7CA1EE548BF8C6E50F7F411C6E1079D6E8208537CE1ED45.
+
+OPEN: photographic lake/headphone approved artwork not yet imported (current SVG placeholder); final production index/old-anchors/metadata/SEO migration, WCAG/performance/GA4/payment QC and owner explicit public launch authorization. Exact next actions, evidence, rollback in docs/handoffs/2026-11-15-full-site-cinematic-redesign.md. Draft PR: https://github.com/jaytreeranch/JayTreeBooks/pull/32.
+
+---
+
 ## 2026-11-14 — Interactive featured audiobook + scalable book catalog (DRAFT PR #32, NOT LIVE)
 
 **Owner-approved interaction implemented:** On the cinematic Audiobooks preview, each of six small official book covers is a button that selects the large featured title, cover, correct description, official book detail page, exact Payhip purchase URL and correct final Vivian preview. Selection scrolls to the hero and shows one gold-highlighted/aria-pressed cover. The full Hollow Bell novel and separate novella are distinct. The current six complete Vivian editions are available now at $1.99, while alternative full-length narrators are coming soon.
