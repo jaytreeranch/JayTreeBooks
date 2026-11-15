@@ -28,3 +28,17 @@ The six certified Vivian Payhip URLs remain unchanged and correctly edition-spec
 3. Update live receipt and `docs/CURRENT_HANDOFF.md`, with actual outcome and GitHub remote SHA. In a buyer-facing regression, revert the site merge without hiding verified six Payhip listings or touching the hidden legacy $5 Correction listing. The project must not claim a real-money transaction was tested.
 
 **Private/LAN evidence:** `\\JT-DESKTOP\JayTreeFarm\Projects\JayTreeBooksWebsiteAudit_20261114\` and the earlier commercial SALE_READY receipts under LAN `Staging\SixAudiobooksLaunchControl20261113`.
+
+## Final public release certification — 2026-11-14, after automatic workflows
+
+**PASS: Vivian audiobook availability and alternative narrator messaging are LIVE.**
+- Main production source after PR #29, PR #30 and automatic SEO normalization: `c8e3bc5865924b67377ad309f55003922c49ddff`.
+- GitHub Pages build/deployment run **43673295167** completed **SUCCESS**, including build, report-build-status and deploy steps, on the source SHA above.
+- JT-DESKTOP owner-controlled live HTTPS acceptance: **16/16 PASS**, HTTP 200 and exact current language, checking homepage, mystery-book hub, app.js, pwa.js, pwa.css, six static book pages and five narrator comparison pages.
+- All six distinct $1.99 Vivian Payhip purchase URLs remain present and unmodified; five narrator pages each carry three alternative narrator coming-soon badges with their playable previews. The full audiobook is explicitly available now; no generic 'audiobook coming soon' promotion remains on those routes.
+- Live `pwa.js` places Install App in footer/end-of-body (not floating over purchase buttons); `pwa.css` gives it static positioning. Live narrator sample pages have no duplicate `data-track` event-binding loop.
+- Directly downloaded actual post-automation remote main source and ran **40/40 Node tests PASS** and JS syntax PASS; authoritative PWA and audio SEO generators now preserve these behaviors on future successful runs.
+- Verified LAN receipt: `F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteAudit_20261114\VIVIAN_FINAL_PUBLIC_POST_GENERATOR_QC_20261114.json`, SHA-256 `FF0D5209BC20DC0C80156311D5C1566F4B5B21957C23A3BC5E1E27069BB4559F`.
+- **Unrelated open maintenance:** Legacy Build Reader Growth Site workflow still fails because its validator/generator expects pre-launch generic audiobook Coming Soon text. Do not reverse the release copy to satisfy it. GA4/Google Search Console reporting access restrictions, a real-money checkout/payout, full WCAG test remain separate open checks.
+
+**Rollback:** Revert a faulty website repair commit while retaining six correctly visible Payhip products and their certified masters. Do not touch the unrelated older Hidden $5 Correction listing.
