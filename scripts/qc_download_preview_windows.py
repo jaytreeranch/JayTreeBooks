@@ -71,6 +71,33 @@ with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
                 if p in ['index.html', 'audiobooks.html', 'books.html', 'samples.html', 'books/second-draft.html', 'audio/book-1-sample.html', 'about.html', 'news-v2.html', 'case-files.html']:
                     data = cmd('Page.captureScreenshot', {'format': 'jpeg', 'quality': 76})['data']
                     (out / (p.replace('/', '_') + str(w) + '.jpg')).write_bytes(base64.b64decode(data))
+            visit('samples.html')
+            covers = ev("""(async () => {
+              const images = [...document.querySelectorAll('.sf-sample-cover img')];
+              for (const img of images) { img.loading = 'eager'; await img.decode(); }
+              return images.map(img => {
+                const bounds = img.getBoundingClientRect();
+                return img.naturalWidth > 0 && bounds.width > 0 &&
+                  Math.abs(bounds.height - bounds.width * img.naturalHeight / img.naturalWidth) < 1;
+              });
+            })()""")
+            record('sample_covers', w, len(covers) == len(books) and all(covers))
+            visit('news-v2.html')
+            news_art = ev("""(async () => {
+              const images = [...document.querySelectorAll('.jt-media-tile img')];
+              for (const img of images) { img.loading = 'eager'; await img.decode(); }
+              return images.map(img => [img.getAttribute('src'), img.closest('a').getAttribute('href')]);
+            })()""")
+            record('news_art', w, news_art[1:] == [
+                ['images/optimized/hollow-bell-series-trailer.webp', 'animated-series.html'],
+                ['images/optimized/reading-guides-desk.webp', 'reading-guides.html']])
+            for route, selector in [('news-v2.html', '.jt-media-grid'), ('samples.html', '.sf-sample-grid'), ('series-v2.html', '.jt-section h2')]:
+                visit(route)
+                ev('document.querySelector(' + json.dumps(selector) + ').scrollIntoView({block:"start",behavior:"instant"})')
+                ev('window.scrollBy(0,-96)')
+                ev('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
+                photo = cmd('Page.captureScreenshot', {'format': 'jpeg', 'quality': 82})['data']
+                (out / (route + '-section-' + str(w) + '.jpg')).write_bytes(base64.b64decode(photo))
             visit('audiobooks.html')
             search = ev('(()=>{document.querySelector(".jt-search summary").click();const s=document.querySelector("#jt-search-input");s.value="Hollow Bell";s.dispatchEvent(new Event("input"));return [...document.querySelectorAll(".jt-search-results a")].map(a=>a.getAttribute("href"))})()')
             record('search', [w, search], all((b['book_page'] in search for b in books if 'hollow-bell' in b['slug'])))
@@ -96,6 +123,34 @@ with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
             for phase in ['mousePressed', 'mouseReleased']:
                 cmd('Input.dispatchMouseEvent', dict(type=phase, x=link[0], y=link[1], button='left', clickCount=1))
             record('pointer', b['slug'], ev('document.querySelector("#sf-cine-featured-buy").href') == b['payhip_url'])
+        def wait_for_page(name):
+            for _ in range(80):
+                if ev('location.pathname.endsWith(' + json.dumps('/' + name) + ') && document.readyState !== "loading"'):
+                    return True
+                sleep(.05)
+            return False
+
+        visit('index.html')
+        ev('document.querySelector("[data-secret-path]").focus()')
+        cmd('Input.dispatchKeyEvent', dict(type='keyDown', key='Enter', code='Enter', text='\r', windowsVirtualKeyCode=13))
+        cmd('Input.dispatchKeyEvent', dict(type='keyUp', key='Enter', code='Enter', windowsVirtualKeyCode=13))
+        record('footer_easter_egg', 'Enter', wait_for_page('interactive.html'))
+        for gesture in ('shift-click', 'long-press'):
+            visit('interactive.html')
+            coords = ev("""(() => {
+              const mark = document.querySelector('[data-second-secret]');
+              mark.scrollIntoView({block:'center',behavior:'instant'});
+              const rect = mark.getBoundingClientRect();
+              return {x:rect.x+rect.width/2, y:rect.y+rect.height/2};
+            })()""")
+            if gesture == 'long-press':
+                cmd('Input.dispatchTouchEvent', {'type':'touchStart', 'touchPoints':[coords]})
+                sleep(1.4)
+                cmd('Input.dispatchTouchEvent', {'type':'touchEnd', 'touchPoints':[]})
+            else:
+                for phase in ('mousePressed', 'mouseReleased'):
+                    cmd('Input.dispatchMouseEvent', dict(type=phase, modifiers=8, button='left', clickCount=1, **coords))
+            record('archive_easter_egg', gesture, wait_for_page('echo-archive.html'))
         ws.close()
     finally:
         proc.terminate()

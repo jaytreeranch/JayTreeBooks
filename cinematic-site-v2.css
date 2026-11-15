@@ -144,3 +144,10 @@ body.jt-modernized>footer:not(.jt-footer){border-top:1px solid var(--jt-line);ba
  body.jt-modernized .book-hero h1 { font-size:clamp(1.95rem,8.6vw,2.6rem); }
  body.jt-modernized .book-hero *,body.jt-modernized .book-actions { min-width:0; }
 }
+
+.jt-footer .hidden-root { display:inline-grid; place-items:center; width:32px; height:32px; vertical-align:middle; opacity:.38; }
+.jt-footer .hidden-root:hover,.jt-footer .hidden-root:focus-visible { opacity:1; }
+.jt-page-home .secret-dissolve { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:#0a0203; opacity:0; pointer-events:none; transition:opacity .75s ease; }
+.jt-page-home .secret-dissolve.is-entering { opacity:1; pointer-events:auto; }
+.jt-page-home .secret-dissolve-core { width:48px; height:48px; background:url("images/interactive/JayTree_Interactive_Hidden_Glyph.webp") center/contain no-repeat; }
+.jt-page-news .jt-media-tile img,.jt-page-experiences .jt-media-tile img { height:auto; aspect-ratio:16/9; object-fit:cover; }

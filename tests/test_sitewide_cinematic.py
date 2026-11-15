@@ -54,7 +54,7 @@ class SitewideTests(unittest.TestCase):
         self.assertIn('643W5-_bLPA',text('home-v2.html'))
         self.assertIn('R-5cB9FaVOA',text('experiences-v2.html'))
         self.assertIn('where-mercy-stood',text('upcoming-books.html'))
-        self.assertIn('the next three mysteries',text('series-v2.html').lower())
+        self.assertIn('<h2>Upcoming novels</h2>',text('series-v2.html'))
         for book in BOOKS:
             self.assertIn('data-track="audiobook_payhip"',text(book['book_page']))
     def test_samples_scripts_and_long_form_text_preserved(self):

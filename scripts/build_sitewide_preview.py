@@ -46,17 +46,23 @@ def header(page="",root=""):
 <nav aria-label="Mobile navigation">{links}</nav></details>
 </div></header>'''
 
-def footer(root=""):
+def footer(root="", hidden_path=False):
     links=[
         ("Books","books.html"),("Audiobooks","audiobooks.html"),("Free samples","samples.html"),
         ("Series","series-v2.html"),("Reading guides","reading-guides.html"),
         ("Videos & challenge","experiences-v2.html"),("Case Files","case-files.html"),
         ("About","about.html"),("Privacy","privacy.html"),("Terms","terms.html")
     ]
+    footer_line = "Some roots run deeper than the page." if hidden_path else "Stories that stay with you."
+    glyph = (' <a class="hidden-root" href="interactive.html" data-secret-path '
+             'aria-label="Discover a hidden JayTree path" title="A path for those who look closer.">'
+             '<img src="images/interactive/JayTree_Interactive_Hidden_Glyph.webp" alt="" width="24" height="24"></a>') if hidden_path else ""
+    transition = ('<div class="secret-dissolve" aria-hidden="true"><div class="secret-dissolve-core"></div></div>'
+                  '<script src="hidden-path.js" defer></script>') if hidden_path else ""
     return f'''<footer class="jt-footer"><div class="jt-wrap"><div class="jt-footer-inner">
-<div><div class="jt-footer-brand">JAYTREE BOOKS</div><p>Stories that stay with you.</p><small>© 2026 JayTree Books · Independent mystery fiction</small></div>
+<div><div class="jt-footer-brand">JAYTREE BOOKS</div><p>{footer_line}{glyph}</p><small>© 2026 JayTree Books · Independent mystery fiction</small></div>
 <nav aria-label="Footer navigation">{''.join(f'<a href="{root}{href}">{label}</a>' for label,href in links)}</nav>
-</div><small>Development design preview. No changes to the public JayTreeBooks.com website or Payhip listings.</small></div></footer>'''
+</div><small>Development design preview. No changes to the public JayTreeBooks.com website or Payhip listings.</small></div></footer>{transition}'''
 
 ANALYTICS = '<script>\n// Analytics is only loaded on production host, never local preview.\nwindow.dataLayer=window.dataLayer||[];\nfunction gtag(){dataLayer.push(arguments)}\nif (location.hostname==="jaytreebooks.com" || location.hostname==="www.jaytreebooks.com"){\n const jtTag=document.createElement("script");jtTag.async=true;\n jtTag.src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6";\n document.head.appendChild(jtTag);\n gtag("js",new Date());gtag("config","G-PHE2JVV5P6");\n}\n</script>'
 
@@ -73,7 +79,7 @@ def head(title,desc,extra=""):
 </head>'''
 
 def body(page,title,desc,main):
-    return head(title,desc)+f'<body class="jt-cinematic jt-page-{page}" data-jt-root=""><a class="sf-skip" href="#main">Skip to content</a>'+header(page)+f'<main id="main">{main}</main>'+footer()+'</body></html>'
+    return head(title,desc)+f'<body class="jt-cinematic jt-page-{page}" data-jt-root=""><a class="sf-skip" href="#main">Skip to content</a>'+header(page)+f'<main id="main">{main}</main>'+footer(hidden_path=page == "home")+'</body></html>'
 
 def newsletter():
     return '''<section class="jt-newsletter" id="case-files"><div class="jt-wrap"><span class="jt-overline">Behind the next clue</span>
@@ -116,14 +122,14 @@ def series():
     '''<section class="jt-subhero"><div class="jt-wrap"><span class="jt-overline">One universe · distinct mysteries</span>
 <h1>Every secret leads <em>somewhere.</em></h1><p>Discover the published novels, then follow three upcoming mysteries built around disputed records, missing originals and histories that refuse to agree. All release dates are to be announced.</p>
 <div class="jt-actions"><a class="jt-btn primary" href="books.html">Read the published books</a><a class="jt-btn secondary" href="upcoming-books.html">Read the full previews</a></div></div></section>
-<section class="jt-section"><div class="jt-wrap"><span class="jt-overline">Coming chapters</span><h2>The next three mysteries.</h2><div class="jt-media-grid">'''+art+'''</div><p style="margin-top:20px">Working titles and promotional concept art. No preorders or release dates are implied.</p></div></section>
+<section class="jt-section"><div class="jt-wrap"><h2>Upcoming novels</h2><div class="jt-media-grid">'''+art+'''</div><p style="margin-top:20px">Working titles and promotional concept art. No preorders or release dates are implied.</p></div></section>
 <section class="jt-section jt-dark"><div class="jt-wrap"><span class="jt-overline">Start anywhere</span><h2>The stories before them.</h2><p>The five published novels and Hollow Bell novella stand on their own, with threads readers may recognize across the wider mystery universe.</p><div class="jt-actions"><a class="jt-btn primary" href="books.html">Browse published books</a><a class="jt-btn secondary" href="samples.html">Read a free first chapter</a></div></div></section>'''+newsletter())
 
 def news():
     arts=[
       ("upcoming-books.html","images/upcoming/where-mercy-stood-1600.webp","Manuscript updates","Three upcoming novels","Discover the next stories taking shape."),
-      ("animated-series.html","images/interactive/JayTree_Interactive_Hidden_Page_Hero.webp","On screen","Mystery stories in motion","Explore the cinematic and animated mystery experiences."),
-      ("reading-guides.html","images/upcoming/the-fifth-copy-1600.webp","Reader notes","Explore the story mechanisms","Reading guides for cold cases, unreliable memories and psychological suspense."),
+      ("animated-series.html","images/optimized/hollow-bell-series-trailer.webp","On screen","The Hollow Bell animated mini-series","Watch the official trailer and meet the characters of Millbrook Falls."),
+      ("reading-guides.html","images/optimized/reading-guides-desk.webp","Reader notes","Mystery reading guides","Reading guides for cold cases, unreliable memories and psychological suspense."),
     ]
     tiles="".join(media_card(*p) for p in arts)
     return body("news","News & Upcoming Mysteries","Follow upcoming JayTree novels, cinematic trailers and mystery-reader updates.",
@@ -140,7 +146,7 @@ def experiences():
 <div class="jt-actions"><a class="jt-btn primary" href="https://www.youtube.com/watch?v=643W5-_bLPA" target="_blank" rel="noopener noreferrer">Watch full case</a>
 <a class="jt-btn secondary" href="https://www.youtube.com/watch?v=R-5cB9FaVOA" target="_blank" rel="noopener noreferrer">Watch the reveal</a></div></div></section>
 <section class="jt-section jt-dark"><div class="jt-wrap"><span class="jt-overline">Watch more</span><h2>Choose another mystery.</h2>
-<div class="jt-media-grid">'''+media_card("animated-series.html","images/interactive/JayTree_Interactive_Hidden_Page_Hero.webp","Cinematic storytelling","Animated mini-series","Explore the developing Hollow Bell screen experience.")+media_card("upcoming-books.html#cinematic-teaser","images/upcoming/where-mercy-stood-1600.webp","Next in the universe","Upcoming novels teaser","A 27-second glimpse of the next JayTree mysteries.")+media_card("reading-guides.html","images/upcoming/the-fifth-copy-1600.webp","Read deeper","Reader guides","Explore how each story builds its own mystery mechanism.")+'''</div></div></section>'''+newsletter())
+<div class="jt-media-grid">'''+media_card("animated-series.html","images/optimized/hollow-bell-series-trailer.webp","Cinematic storytelling","Animated mini-series","Explore the developing Hollow Bell screen experience.")+media_card("upcoming-books.html#cinematic-teaser","images/upcoming/where-mercy-stood-1600.webp","Next in the universe","Upcoming novels teaser","A 27-second glimpse of the next JayTree mysteries.")+media_card("reading-guides.html","images/optimized/reading-guides-desk.webp","Read deeper","Reader guides","Explore how each story builds its own mystery mechanism.")+'''</div></div></section>'''+newsletter())
 
 def ensure_buy_panel(source,book,path):
     if book and 'jt-detail-buy' not in source:
