@@ -1,3 +1,7 @@
+## November 14, 2026 (Central) — Downloadable cinematic storefront
+
+Verified source 3d70b454f818fd717295e2b900cdef6c2939f35c on draft PR #32. The complete ZIP opens directly on Windows, with the owner-approved photographic audiobook showcase, six distinct product selections and 21 locally playable excerpts. All 93 source regressions and 150 Windows browser checks passed. Payhip challenged automated access. Checkout settlement and production launch remain open. [Evidence, archive hash, rollback and next steps](handoffs/2026-11-15-downloadable-cinematic-storefront.md).
+
 ## 2026-11-15 — Full-site cinematic preview complete for review; NOT LIVE
 
 Built 34-page premium JayTree Books multi-page design on review-only branch design/multipage-storefront-review-20261114 (draft PR #32), including shorter Home v2, Books, Audiobooks, Samples, Series, News, Experiences, six original book details, six approved sample interfaces, five first chapters, evergreen/legal pages. Preserved all original Payhip SKUs and media, with dual exact-same-SKU audiobook CTA on book pages, and Vivian available now versus alternative full narrators coming soon. No merge to main.
