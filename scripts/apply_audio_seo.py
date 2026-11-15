@@ -188,9 +188,7 @@ def patch_page(spec: dict, description: str) -> None:
     audio.addEventListener('play',function(){{if(!started){{started=true;send('audio_sample_play')}}}});
     audio.addEventListener('ended',function(){{if(!completed){{completed=true;send('audio_sample_complete')}}}});
   }}
-  document.querySelectorAll('[data-track]').forEach(function(el){{
-    el.addEventListener('click',function(){{send(el.dataset.track)}});
-  }});
+  // Outbound click events are registered once by audiobook-experience.js.
 }})();
 </script>"""
     text = marker_replace(text, TRACKING_START, TRACKING_END, tracking, "</body>")

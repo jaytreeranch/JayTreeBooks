@@ -1,3 +1,13 @@
+## 2026-11-14 — Vivian narrator release LIVE; generator repair follow-up in review
+
+**Narrator copy PRODUCTION LIVE — VERIFIED.** PR #29 squash merge `0fcb08146aa2b62d179a5aea041ff276a8418038`; later main `971b9ae38f86dcca23baa725b38db58c338e92a9`; Pages run `43672594033` SUCCESS. Public HTTP owner QC **14/14 PASS** (homepage, six book pages, five narrator previews, mystery hub and app.js). Six complete Vivian audiobooks at $1.99 are available now; **only alternative full-length narrator editions** are called coming soon. All distinct Payhip links preserved.
+
+**Postdeploy automation regressions found and staged for repair:** SEO Content Cleanup `1685bf4d...` reinserted duplicate Payhip event handlers into narrator samples; PWA `971b9ae...` reintroduced fixed Install App purchase overlay. Actual deployed main replay of tests failed five cases. Repair on `fix/pwa-generator-overlay-20261114` patches *authoritative* `scripts/apply_audio_seo.py`, `scripts/apply_pwa.py`, PWA JS/CSS and five audio pages, plus generator drift tests. **40/40 PASS on repair branch**. This repair is **not yet merged or verified publicly**. See [generator repair handoff](handoffs/2026-11-14-post-deploy-pwa-and-audio-seo-generator-fix.md). Existing Reader Growth Site legacy pre-launch assertions still fail; keep as separately scoped maintenance, do not revert live audiobook copy.
+
+**Next:** review/merge generator repair with exact SHA guard, verify PWA + audio SEO source stability and production HTTP, then record main SHA and public receipt. Preserve six Payhip listings at $1.99 and legacy hidden Correction listing. No paid-card or payout test in this workstream.
+
+---
+
 ## 2026-11-14 — Audiobook narrator availability wording corrected in QC branch
 
 **Owner-approved copy directive:** Six complete Vivian-narrated audiobook editions are available NOW at $1.99 each. Only alternative full-length narrator editions are 'coming soon'; their Chapter One previews are already playable. Corrected homepage, five narrator preview pages, six static book pages, `mystery-books.html`, and dynamic `app.js`; eliminated misleading full-audiobook coming-soon fallback, including on the novella route. Corrected generic newsletter release copy. Preserved all six distinct approved Payhip links, narrator disclosure and future immersive status.

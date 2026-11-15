@@ -43,3 +43,19 @@ test('install option does not overlay mobile sales or reader actions', () => {
   assert.match(css, /\.pwa-install-button\{\s*position:static/);
   assert.doesNotMatch(css, /\.pwa-install-button\{[^}]*position:fixed/);
 });
+
+test('authoritative PWA generator matches shipped assets, preventing workflow regressions', () => {
+  const generator = fs.readFileSync(path.join(__dirname, '..', 'scripts', 'apply_pwa.py'), 'utf8');
+  const generatedJs = generator.split('PWA_JS = r"""')[1]?.split('"""')[0];
+  const generatedCss = generator.split('PWA_CSS = r"""')[1]?.split('"""')[0]?.trim() + '\n';
+  assert.ok(generatedJs, 'generated PWA JS is discoverable');
+  assert.equal(generatedJs, fs.readFileSync(path.join(__dirname, '..', 'pwa.js'), 'utf8'));
+  assert.equal(generatedCss, fs.readFileSync(path.join(__dirname, '..', 'pwa.css'), 'utf8'));
+  assert.match(generator, /querySelector\("footer"\) \|\| document.body/);
+});
+
+test('authoritative audio SEO generator never rebinds narrator purchase clicks', () => {
+  const generator = fs.readFileSync(path.join(__dirname, '..', 'scripts', 'apply_audio_seo.py'), 'utf8');
+  assert.match(generator, /Outbound click events are registered once by audiobook-experience\.js/);
+  assert.doesNotMatch(generator, /document\.querySelectorAll\('\[data-track\]'\)\.forEach/);
+});
