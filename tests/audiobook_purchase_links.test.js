@@ -31,7 +31,7 @@ test('exactly six independently ACX-cleared editions are allowlisted for a gated
   for (const slug of notListed) {
     assert.equal(purchaseUrl({ slug }), '');
     assert.equal(button({ slug }), '');
-    assert.match(callout({ slug }), /Full Audiobook.*Coming Soon/);
+    assert.equal(callout({ slug }), '', 'unreleased catalog entries must not imply that the six live audiobooks are coming soon');
   }
 });
 
@@ -47,7 +47,7 @@ test('purchase links are allowlisted and safe for a new tab', () => {
 test('index cards and book pages both include purchase CTA', () => {
   assert.match(source, /\$\{audiobookPurchaseButton\(b\)\}/);
   assert.match(source, /\$\{audiobookDirectCallout\(b\)\}/);
-  assert.match(source, /JAYTREE_AUDIOBOOK_DIRECT_COMING_SOON/);
+  assert.match(source, /JAYTREE_AUDIOBOOK_VIVIAN_ON_SALE/);
 });
 
 test('homepage static launch banner contains exactly the six staged editions', () => {
