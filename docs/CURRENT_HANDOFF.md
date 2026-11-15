@@ -1,3 +1,9 @@
+## 2026-11-14 20:48 CST — Six Vivian audiobook sales live, independently rechecked
+
+**PASS:** All six certified Vivian audiobooks remain Payhip **Visible at $1.99**, verified from the authenticated seller's existing Chrome tab (no new tabs/products). The distinct legacy $5 Correction listing remains Hidden. Live `https://jaytreebooks.com/`, `https://www.jaytreebooks.com/` and `/app.js` each return HTTP 200 with all six exact Payhip URLs; all six static book-detail pages return HTTP 200, one edition-correct direct-sale link, $1.99, MP3 plus chaptered M4B, and no stale “Coming Soon.” Production release, original master/buyer-file hashes, ACX removal and six `SALE_READY` receipts remain verified.
+
+**Evidence:** LAN `SixAudiobooksLaunchControl20261113\SIX_VIVIAN_LIVE_STORE_RECHECK_20261114_204830.json`, SHA256 `4F65A259DDCA7E8D74ACAD927F1452AC6AFB287AC8B3DD215D4923A7AE352E92`. Full [dated release recheck and rollback](handoffs/2026-11-14-evening-six-audiobook-live-recheck.md). No new deployment needed; actual nonzero buyer charge and payout have not yet been tested. Next: limited-time $1.99 promo campaign and optional real-money payment settlement check. Preserve concurrent website work and the legacy Correction SKU.
+
 ## 2026-11-14 — SIX VIVIAN AUDIOBOOKS FOR SALE — PUBLIC WEBSITE VERIFIED
 
 **PRODUCTION LIVE — PASS.** Six distinct JayTree Books Vivian-narrated audiobooks passed genuine owner-controlled Payhip test orders with buyer/seller receipts, two customer-downloaded MP3s and two chaptered M4Bs per edition matching the master SHA-256, edition-specific private SALE_READY certifications, and ACX's November 14 written contract clearance. All six Payhip products are seller-verified **Visible at $1.99**; the unrelated older $5 Correction listing stays Hidden. Payment methods show connected, but an actual nonzero card charge and payout were not tested. No promotion expiration date is advertised.
