@@ -73,7 +73,8 @@ MANIFEST = {
 
 PWA_CSS = r"""
 .pwa-install-button{
-  position:fixed;right:18px;bottom:18px;z-index:80;
+  position:static;display:inline-flex;align-items:center;justify-content:center;
+  margin:18px auto 0;
   border:1px solid #c8a15a;background:#c8a15a;color:#080d12;
   padding:12px 16px;font:700 .72rem/1.1 Arial,sans-serif;
   letter-spacing:.11em;text-transform:uppercase;cursor:pointer;
@@ -92,8 +93,8 @@ PWA_CSS = r"""
   padding:8px 11px;cursor:pointer;text-transform:uppercase;letter-spacing:.08em;font-size:.68rem
 }
 @media(max-width:600px){
-  .pwa-install-button{right:12px;bottom:12px}
-  .pwa-install-help{right:12px;bottom:64px;width:calc(100vw - 24px)}
+  .pwa-install-button{max-width:calc(100vw - 24px)}
+  .pwa-install-help{right:12px;bottom:12px;width:calc(100vw - 24px)}
 }
 @media(display-mode:standalone){
   .pwa-install-button,.pwa-install-help{display:none!important}
@@ -179,7 +180,8 @@ PWA_JS = r"""(() => {
       showHelp("Open your browser menu and choose Install app or Add to Home screen.");
     });
 
-    document.body.appendChild(installButton);
+    // Keep the install control out of sales and reading surfaces.
+    (document.querySelector("footer") || document.body).appendChild(installButton);
   };
 
   window.addEventListener("beforeinstallprompt", event => {
