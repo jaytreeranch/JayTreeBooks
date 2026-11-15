@@ -1,3 +1,9 @@
+## November 15, 2026 — Niche Google SERP diagnostic RESULTS
+
+Six niche/story-mechanism mobile/US keyword checks completed and none showed JayTreeBooks.com within first 30 sampled results. Two book-title branded controls also completed with no JayTree result within top 10; two additional jobs failed upstream with DataForSEO `Internal SE Server Error` and are NOT position evidence. This strengthens the case to inspect first-party Google Search Console indexing and impressions, but does NOT prove deindexing. The two core target phrases still have no JayTree result within inspected first 50. No website changes, keyword-goal changes or scheduled tracker credit spend. Exact queries, provider errors and continuity at `docs/handoffs/2026-11-15-google-serp-baseline-and-niche-diagnostics.md`.
+
+---
+
 ## November 15, 2026 — OpenSEO ranking baseline and niche diagnostics
 
 Connected OpenSEO account verified; JayTree Books project created, US English market. Independent US-mobile Google sampling reports JayTreeBooks.com not detected within first 50 results for `psychological mystery books` or `new mystery book`. Three completed niche phrase checks also have no JayTree result in the sampled top 30; other finer-phrased searches still pending. Saved *manual* rank tracker for both principal phrases with depth 50, but did not execute tracker or schedule paid recurring checks. Estimate 42 credits/check; owner approval required to spend. OpenSEO GSC account connection is missing, so first-party average position/clicks unavailable. Full benchmark, precise project/tracker IDs, diagnostic phrases and pending conditions: `docs/handoffs/2026-11-15-google-serp-baseline-and-niche-diagnostics.md`.
