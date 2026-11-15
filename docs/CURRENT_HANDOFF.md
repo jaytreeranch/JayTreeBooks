@@ -1,3 +1,10 @@
+## 2026-11-15 — Targeted Hollow Bell cover badges and legacy audiobook social URL fix
+
+Branch fix/hollow-bell-badges-audiobook-social-link-20261115 based on production SHA 8ba86a7034fa4578458a86f305f17b6201efa474. On the full Books shop and homepage book shelf, Full Novel and Novella now appear as matching gold badges on the two Hollow Bell covers, generated from the existing catalog edition metadata. home-links.js now sends existing social URL https://JayTreeBooks.com/#audiobooks directly to /audiobooks.html, preserving UTM query parameters and all other bookmark behavior. Also fixed narrow-phone overflow of Privacy and Terms without editing legal text.
+
+Local QC: Chrome 96/96 (320, 390, 768, 1440); existing Node 56/56; Python catalog 8/8, sitewide 8/8, new target 5/5; two generator sync checks PASS. No real Payhip settlement or GA4 attribution receipt claimed. LAN evidence under F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteRedesign_20261114\; details/rollback in docs/handoffs/2026-11-15-hollow-bell-badges-audiobook-campaign-qc.md. Merge/deployment and verified remote SHA pending separate receipts.
+
+---
 ## November 15, 2026 — Cinematic storefront published and verified
 
 PR #32 merged as c1f5f0489ca324af094e856bdae5d66587e0bc22 after the release candidate 100b0bfac8e48881c032f6c3e66d1deebdaeb76a passed all 93 source regressions, the campaign checks and the actual Pages build. GitHub Pages deployed production main 603c5499154196da19bf06abd64e1dee585a8e90 ([deployment](https://github.com/jaytreeranch/JayTreeBooks/actions/runs/43711452197)). The custom domain passed 162 Windows Chrome checks across 320, 390, 768 and 1440 pixels before and again after publication. Eight public routes returned 200 with the expected content.

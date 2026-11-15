@@ -40,6 +40,14 @@ for page in pages:
 home = (root / "index.html").read_text(encoding="utf-8")
 assert home.strip() == (root / "home-v2.html").read_text(encoding="utf-8").strip()
 assert 'id="audiobooks"' in home and 'href="audiobooks.html"' in home
+legacy = (root / "home-links.js").read_text(encoding="utf-8")
+assert "audiobooks: 'audiobooks.html'" in legacy and "anchor !== 'audiobooks'" in legacy
+assert "target.search = location.search" in legacy, "Must preserve social campaign UTM parameters"
+book_shop = (root / "books.html").read_text(encoding="utf-8")
+assert book_shop.count('class="sf-book-edition-badge"') == 2
+for label in ("Full Novel", "Novella"):
+    assert ('class="sf-book-edition-badge" aria-hidden="true">' + label) in book_shop
+assert home.count('class="jt-home-edition-badge"') == 2
 assert 'data-secret-path' in home and 'data-second-secret' in (root / "interactive.html").read_text(encoding="utf-8")
 classic = (root / "classic.html").read_text(encoding="utf-8")
 assert 'id="follow"' in classic and 'id="youtube"' in classic

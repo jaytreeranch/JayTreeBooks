@@ -103,7 +103,11 @@ def books_card(book):
     kind = e(book["edition"])
     title = e(book["title"]) + ((' <span class="sf-title-kind">('+kind+')</span>') if book["edition"] != "Novel" else "")
     label = ("Kindle Unlimited · Novel" if book.get("kindle_unlimited") else "Separate edition") if published else "Coming soon · Not yet for sale"
-    cover_html = ('<a class="sf-cover" href="'+e(book["book_page"])+'">'+cover(book)+'</a>') if published else ('<div class="sf-cover">'+cover(book)+'</div>')
+    edition_badge = ('<span class="sf-book-edition-badge" aria-hidden="true">'+
+                     ("Full Novel" if book["edition"] == "Full novel" else "Novella")+
+                     '</span>') if book["edition"] in ("Full novel", "Novella") else ""
+    artwork = '<span class="sf-cover-art">'+cover(book)+edition_badge+'</span>'
+    cover_html = ('<a class="sf-cover" href="'+e(book["book_page"])+'">'+artwork+'</a>') if published else ('<div class="sf-cover">'+artwork+'</div>')
     actions = '<div class="sf-coming-status">In development · No purchase link until released</div>'
     if published:
         actions = f'''<div class="sf-card-row">
