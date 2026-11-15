@@ -1,3 +1,15 @@
+## 2026-11-14 — Full website/navigation and audiobook sales QC (DEVELOPMENT BRANCH ONLY)
+
+**QA milestone — 24/24 regression tests PASS, NOT DEPLOYED.** Public HTTP crawl 26/26 sitemap pages + 28/28 additional internal resources PASS; 20 narrator MP3 preview sources reachable. Browser mobile (390px) and desktop (1365px) no horizontal overflow; mobile homepage audiobook section begins about 13,241px into 19,296px document, and fixed PWA Install App button overlays sale content.
+
+**Confirmed tracking failure:** live homepage/Correction detail Payhip click event 0→1, live Hollow Bell novella event 0→0. Branch fixes novella tracking (local browser 0→1), sale metadata, duplicate PWA and keyboard menu. Five narrator comparison pages were outdated ("audiobook editions in production") with no direct Vivian Payhip offer; branch adds price-correct $1.99 links and removes duplicate tracking listeners (local sample click 0→1). PWA install affordance moved to footer/end-body instead of floating over conversions. New tests added; original audiobook checkout regressions retained.
+
+**Reports:** [Full site journey and audiobook audit](handoffs/2026-11-14-website-full-qc-audiobook-journeys.md), [dated QC stage log](handoffs/2026-11-14-website-full-qc-stage-log.md). Private screenshots and HTTP/browser receipts: `F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteAudit_20261114\`.
+
+**Blockers and scope:** Branch `fix/website-novella-qc-20261114` not merged and fixes NOT visible on production. GA4/Search Console actual traffic reads unavailable: GSC Wizard subscription required; Windsor.ai free plan exceeds connected-account cap. Nonzero card charge, payout and confirmed-sale GA4 purchase event unverified. Seller's six products and prior sale-ready receipts remain as described below; neither product visibility nor paid buyer records were changed. Review branch against latest main and production rollout only when authorized; rerun 24 tests, review layout, then certify Pages deploy and actual click counts. Rollback website-only source if defects; preserve Payhip sales and legacy hidden Correction SKU.
+
+---
+
 ## 2026-11-14 20:48 CST — Six Vivian audiobook sales live, independently rechecked
 
 **PASS:** All six certified Vivian audiobooks remain Payhip **Visible at $1.99**, verified from the authenticated seller's existing Chrome tab (no new tabs/products). The distinct legacy $5 Correction listing remains Hidden. Live `https://jaytreebooks.com/`, `https://jaytreebooks.com/` and `/app.js` each return HTTP 200 with all six exact Payhip URLs; all six static book-detail pages return HTTP 200, one edition-correct direct-sale link, $1.99, MP3 plus chaptered M4B, and no stale “Coming Soon.” Production release, original master/buyer-file hashes, ACX removal and six `SALE_READY` receipts remain verified.
