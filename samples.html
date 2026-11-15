@@ -6,8 +6,18 @@
 <meta name="description" content="Try JayTree mystery first chapters and audiobook narration samples before buying.">
 <meta name="theme-color" content="#080d12">
 <link rel="icon" href="favicon.png"><link rel="stylesheet" href="storefront-v2.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-PHE2JVV5P6');</script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments)}
+// Preview hosts never send QA clicks or visits to the production Analytics property.
+if (/^(www\.)?jaytreebooks\.com$/i.test(window.location.hostname)) {
+  var jtAnalytics=document.createElement('script');
+  jtAnalytics.async=true;
+  jtAnalytics.src='https://www.googletagmanager.com/gtag/js?id=G-PHE2JVV5P6';
+  document.head.appendChild(jtAnalytics);
+  gtag('js',new Date());gtag('config','G-PHE2JVV5P6');
+}
+</script>
 <script src="tracking.js" defer></script><script src="storefront-v2.js" defer></script>
 </head><body class="sf-site sf-page-samples"><a class="sf-skip" href="#main">Skip to content</a><header class="sf-header"><div class="sf-width sf-header-inner"><a class="sf-brand" href="home-v2.html" aria-label="JayTree Books redesign preview home"><span class="sf-mark" aria-hidden="true"><img src="icons/icon-192.png" alt="" width="40" height="40"></span><span>JAYTREE <b>BOOKS</b></span></a><nav class="sf-nav" aria-label="Primary navigation"><a href="home-v2.html" >Home</a>
 <a href="books.html" >Books</a>
