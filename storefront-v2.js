@@ -48,9 +48,9 @@
           return;
         }
 
-        featuredCover.src = thumbnail.getAttribute("src");
+        featuredCover.src = card.dataset.featuredArt || thumbnail.getAttribute("src");
         featuredCover.alt = thumbnail.alt;
-        featuredDetails.href = "books/" + book + ".html";
+        featuredDetails.href = card.dataset.bookPage;
         featuredDetails.setAttribute("aria-label", title + " — featured book details");
         featuredTitle.textContent = title;
         featuredDescription.textContent = card.dataset.description || "";

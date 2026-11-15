@@ -81,7 +81,7 @@ test('shortened homepage sends visitors to books, audiobooks, or samples immedia
   assert.match(page, /href="samples.html"/);
   assert.match(page, /Explore Free Samples/);
   assert.match(page, /Six complete Vivian audiobooks/);
-  assert.match(page, /Alternative full-length narrator editions are coming soon/);
+  assert.match(html('audiobooks.html'), /Alternative narrator editions coming soon/);
 });
 
 test('all new pages use real book covers and avoid invented mockup image assets', () => {
@@ -121,7 +121,7 @@ test('cinematic featured book selector uses real card data and never invents pur
   }
   assert.match(script, /featuredBuy\.href = purchase\.href/);
   assert.match(script, /featuredSample\.href = preview\.getAttribute/);
-  assert.match(script, /featuredCover\.src = thumbnail\.getAttribute/);
+  assert.match(script, /featuredCover\.src = card\.dataset\.featuredArt/);
   assert.match(script, /featuredDescription\.textContent = card\.dataset\.description/);
   assert.match(script, /scrollIntoView/);
   assert.match(script, /aria-pressed/);

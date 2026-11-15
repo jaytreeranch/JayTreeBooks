@@ -45,15 +45,18 @@
     header.addEventListener("keydown", ev => {
       if (ev.key === "Escape") header.querySelector(".jt-search")?.removeAttribute("open");
     });
-    if (/^https?:$/.test(location.protocol)) {
+    const useBooks = data => {
+      bookEntries = data.books.filter(book => book.book_status === "published")
+        .map(book => [book.title + (book.edition === "Novella" ? " (Novella)" : ""), book.book_page, book.tagline || "Book details"]);
+      draw();
+    };
+    const embedded = document.getElementById("jt-portable-catalog");
+    if (embedded) {
+      useBooks(JSON.parse(embedded.textContent));
+    } else if (/^https?:$/.test(location.protocol)) {
       fetch(root + "data/storefront-catalog.json", {cache:"force-cache"})
         .then(r => r.ok ? r.json() : Promise.reject(Error("No catalog")))
-        .then(data => {
-          if (!Array.isArray(data.books)) return;
-          bookEntries = data.books.filter(b => b.book_status === "published")
-            .map(b => [b.title + (b.edition === "Novella" ? " (Novella)" : ""), b.book_page, b.tagline || "Book details"]);
-          draw();
-        }).catch(() => { /* Navigation search still works offline. */ });
+        .then(useBooks).catch(() => { /* Navigation search still works offline. */ });
     }
   }
   // Preview pages don't claim payments, signups, or completions. Existing attribution remains owned by tracking.js.

@@ -27,7 +27,7 @@
 .sf-audio-cinematic .sf-cine-menu nav a{padding:11px;border-bottom:1px solid rgba(219,177,103,.23);font:700 .76rem Arial,sans-serif;letter-spacing:.09em;text-decoration:none!important;text-transform:uppercase}
 .sf-audio-cinematic .sf-cine-menu nav a[aria-current="page"]{color:var(--cine-gold)}
 .sf-audio-cinematic .sf-cine-hero{position:relative;isolation:isolate;min-height:493px;overflow:hidden;background:#0b151a}
-.sf-audio-cinematic .sf-cine-scene{position:absolute;z-index:-2;inset:0;background:linear-gradient(90deg,rgba(0,8,12,.30),rgba(0,7,12,.08) 36%,rgba(3,10,15,.32) 70%,rgba(0,8,11,.03)),url("images/storefront/audiobooks-cinematic-lake.svg") center center/cover no-repeat}
+.sf-audio-cinematic .sf-cine-scene{position:absolute;z-index:-2;inset:0;background:linear-gradient(90deg,rgba(0,8,12,.30),rgba(0,7,12,.08) 36%,rgba(3,10,15,.32) 70%,rgba(0,8,11,.03)),url("images/optimized/moonlit-manor.webp") center center/cover no-repeat}
 .sf-audio-cinematic .sf-cine-hero-shade{position:absolute;z-index:-1;inset:0;background:linear-gradient(0deg,rgba(0,7,10,.8) 0%,rgba(0,7,11,.15) 16%,rgba(2,8,12,.11) 70%,rgba(0,7,10,.38) 100%),radial-gradient(ellipse at 35% 55%,rgba(0,9,13,.72),transparent 53%);pointer-events:none}
 .sf-audio-cinematic .sf-cine-hero-shell{position:relative;min-height:493px}
 .sf-audio-cinematic .sf-cine-heading{height:130px;padding-top:12px;text-align:center;position:relative;z-index:4}
@@ -148,3 +148,38 @@
 .sf-audio-cinematic .sf-cine-upcoming-audio{grid-column:1/-1;border-top:1px solid rgba(225,173,88,.25);margin-top:16px;padding:13px 0;color:#dec99f}
 .sf-audio-cinematic .sf-cine-upcoming-audio h3{font-size:1.25rem;margin:0 0 4px}
 .sf-audio-cinematic .sf-cine-upcoming-audio p{margin:0}
+
+.sf-audio-cinematic .sf-cine-headphones { object-fit:contain; pointer-events:none; }
+.sf-audio-cinematic .sf-cine-featured-copy h2 { white-space:normal; text-wrap:balance; }
+.sf-audio-cinematic .sf-cine-cover-link { height:auto; aspect-ratio:3/4; }
+.sf-audio-cinematic .sf-cine-cover-link>img { object-fit:contain; background:#0b1115; transform:none; }
+.sf-audio-cinematic .sf-cine-featured-book img { object-fit:contain; height:auto; }
+.sf-audio-cinematic .sf-cine-featured-actions { padding-bottom:20px; }
+@media(min-width:1050px) {
+ .sf-audio-cinematic .sf-cine-cover-stage { margin-top:-50px; }
+ .sf-audio-cinematic .sf-cine-featured-book { width:225px; left:104px; top:62px; }
+ .sf-audio-cinematic .sf-cine-headphones { width:450px; height:450px; left:-12px; top:-18px; }
+}
+@media(max-width:760px) {
+ .sf-audio-cinematic .sf-cine-brush-price { display:none; }
+ .sf-audio-cinematic .sf-cine-cover-link { aspect-ratio:2/3; }
+}
+.jt-review-band { text-align:center; padding:6px; background:#b68a3c; color:#10100b; font:700 11px/1.3 Arial,sans-serif; text-transform:uppercase; letter-spacing:.13em; }
+.sf-audio-cinematic .sf-cine-cover-link>img { object-fit:cover; object-position:center; }
+.sf-audio-cinematic .sf-cine-featured-book img { height:100%; object-fit:cover; }
+.sf-audio-cinematic .sf-cine-headphones { filter:drop-shadow(0 10px 19px #000a); }
+@media(min-width:1091px) {
+  .sf-audio-cinematic .sf-cine-shell { width:94.4%; max-width:1490px; }
+  .sf-audio-cinematic .sf-cine-heading { height:auto; padding:10px 0 0; }
+  .sf-audio-cinematic .sf-cine-heading>p { margin:6px 0 13px; }
+  .sf-audio-cinematic .sf-cine-hero-body { grid-template-columns:minmax(305px,31%) 1fr; gap:3.8%; }
+  .sf-audio-cinematic .sf-cine-cover-stage { height:350px; margin-top:-31px; }
+  .sf-audio-cinematic .sf-cine-headphones { width:113%; height:114%; left:-6%; top:-8%; }
+  .sf-audio-cinematic .sf-cine-featured-book { width:64%; height:102%; left:23%; top:15%; overflow:hidden; }
+  .sf-audio-cinematic .sf-cine-featured-copy { padding-right:clamp(100px,10vw,170px); }
+  .sf-audio-cinematic .sf-cine-brush-price { width:185px; height:67px; right:1.2%; }
+  .sf-audio-cinematic .sf-cine-cover-link { aspect-ratio:auto; height:clamp(185px,14.5vw,230px); }
+}
+@media(max-width:1090px) {
+  .sf-audio-cinematic .sf-cine-featured-book { aspect-ratio:3/4; }
+}

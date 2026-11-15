@@ -40,7 +40,7 @@ def validate(catalog):
             raise ValueError(slug + ": bad book status")
         if book.get("audiobook_status") not in ("available","coming_soon","not_planned"):
             raise ValueError(slug + ": bad audiobook status")
-        for field in ("cover","book_page","sample_page","chapter_page"):
+        for field in ("cover","audio_cover","audio_hero","book_page","sample_page","chapter_page"):
             value = book.get(field, "")
             if value and (not isinstance(value, str) or
                           not re.fullmatch(r"[A-Za-z0-9_./-]+", value) or
@@ -78,19 +78,21 @@ def validate(catalog):
         raise ValueError("This storefront currently advertises Vivian only; review narrator messaging before release")
     return catalog["books"]
 
-def cover(book):
+def cover(book, audio=False):
     if not book.get("cover"):
         return '<span class="sf-coming-cover-placeholder">Artwork coming soon</span>'
-    return '<img src="' + e(book["cover"]) + '" width="300" height="450" loading="lazy" decoding="async" alt="' + e(book["title"] + " " + book["edition"] + " official book cover") + '">'
+    artwork = book.get("audio_cover") if audio else None
+    label = " audiobook artwork" if artwork else " official book cover"
+    return '<img src="' + e(artwork or book["cover"]) + '" width="300" height="450" loading="lazy" decoding="async" alt="' + e(book["title"] + " " + book["edition"] + label) + '">'
 
 def audio_card(book, selected):
     slug,title,edition = e(book["slug"]),e(book["title"]),e(book["edition"])
     full_title = title + ((" (" + edition + ")") if book["edition"] != "Novel" else "")
     badge = '<span class="sf-cine-edition-badge">' + edition + '</span>' if book["edition"] != "Novel" else ""
     price = "$" + format(float(book["audiobook_price_usd"]), ".2f")
-    return f'''<article class="sf-cine-product{' is-selected' if selected else ''}" data-title="{e((book["title"]+" "+book["edition"]).lower())}" data-book="{slug}" data-description="{e(book["description"])}">
+    return f'''<article class="sf-cine-product{' is-selected' if selected else ''}" data-title="{e((book["title"]+" "+book["edition"]).lower())}" data-book="{slug}" data-featured-art="{e(book.get('audio_hero') or book['cover'])}" data-book-page="{e(book['book_page'])}" data-description="{e(book["description"])}">
 <button type="button" class="sf-cine-cover-link sf-cine-select" data-select-book="{slug}" aria-label="Feature {full_title} and update Buy and Listen buttons" aria-controls="sf-cine-featured-region" aria-pressed="{'true' if selected else 'false'}">
-{cover(book)}{badge}<span class="sf-cine-narrated">Narrated by {e(book["narrator"])}</span></button>
+{cover(book, audio=True)}{badge}<span class="sf-cine-narrated">Narrated by {e(book["narrator"])}</span></button>
 <h3 class="sf-cine-product-title">{full_title}</h3>
 <a class="sf-cine-buy sf-cine-card-action" href="{e(book["payhip_url"])}" target="_blank" rel="noopener noreferrer" data-track="audiobook_payhip" data-book="{slug}" data-placement="audio_cinematic_shelf">{CART}<span>Buy Audiobook — {price}</span></a>
 <a class="sf-cine-sample sf-cine-card-action" href="{e(book["sample_page"])}" data-track="audio_preview" data-book="{slug}" data-placement="audio_cinematic_shelf">{PLAY}<span>Listen to Sample</span></a></article>'''
@@ -186,7 +188,7 @@ def sync_featured(text, book):
     update_tag("a", "sf-cine-featured-details", {
         "href": book["book_page"], "aria-label": full_title + " — featured book details"})
     update_tag("img", "sf-cine-featured-cover", {
-        "src": book["cover"], "alt": full_title + " — official published book cover"})
+        "src": book.get("audio_hero") or book["cover"], "alt": full_title + " audiobook artwork"})
     update_tag("a", "sf-cine-featured-buy", {
         "href": book["payhip_url"], "data-book": book["slug"]})
     update_tag("a", "sf-cine-featured-sample", {

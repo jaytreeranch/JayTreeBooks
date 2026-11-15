@@ -75,8 +75,7 @@ def body(page,title,desc,main):
 
 def newsletter():
     return '''<section class="jt-newsletter" id="case-files"><div class="jt-wrap"><span class="jt-overline">Behind the next clue</span>
-<h2>Join the JayTree Case Files.</h2><p>Get announcements, case reveals, previews and mystery news.
-No guessing which narrator edition is available: all six complete Vivian audiobooks are already on sale.</p>
+<h2>Join the JayTree Case Files.</h2><p>Receive new releases, first looks and mystery challenge reveals by email.</p>
 <a class="jt-btn primary" href="case-files.html" data-track="case_files" data-placement="cinematic_site">Join the Case Files</a>
 </div></section>'''
 
@@ -88,44 +87,20 @@ def home(catalog):
     tiles="".join(f'''<a class="jt-home-book" href="{e(b['book_page'])}">
 <img src="{e(b['cover'])}" alt="{e(b['title'])} {e(b['edition'])} official cover" width="240" height="360" loading="lazy">
 <span>{e(b["title"])}{ " · Novella" if b["edition"]=="Novella" else ""}</span></a>''' for b in books)
-    routes=[
-      ("01","Read a mystery","Five novels and a separate Hollow Bell novella. Find the story mechanism that catches your imagination.","books.html","Shop the Books"),
-      ("02","Hear a mystery","Six complete Vivian audiobooks available now at the limited-time $1.99 price.","audiobooks.html","Shop Audiobooks"),
-      ("03","Try a first chapter","Read a chapter or hear the narrator demos before you decide.","samples.html","Explore Free Samples")
-    ]
-    paths="".join(f'<a class="jt-path" href="{url}"><small>{num} / JAYTREE</small><h3>{title}</h3><p>{copy}</p><strong>{action} →</strong></a>' for num,title,copy,url,action in routes)
-    media=media_card("upcoming-books.html","images/upcoming/where-mercy-stood-1600.webp","Upcoming mystery","Where Mercy Stood","A town stood here. The records tell another story.")+media_card("experiences-v2.html","images/interactive/JayTree_Interactive_Hidden_Page_Hero.webp","Enter the experience","Mystery Challenges & Videos","Watch a case unfold, search for clues, then see the reveal.")+media_card("reading-guides.html","images/upcoming/the-fifth-copy-1600.webp","Go deeper","The Reader Guides","Explore the unique mysteries of memory, evidence, records and silence.")
     return body("home","Psychological Mysteries, Books & Audiobooks","Discover suspense novels, first chapter samples and Vivian audiobooks direct from JayTree Books.",
 f'''<section class="jt-hero" id="top"><div class="jt-wrap jt-hero-grid">
-<div><div class="jt-overline">Psychological mysteries · Stories that stay</div><h1>Every story<br><em>leaves a trace.</em></h1>
-<p>Impossible rehearsals. Forgotten people. Cold cases beneath the ice.
-At JayTree Books, each mystery begins with a question you can name—and an answer that refuses to stay simple.</p>
+<div class="jt-opening"><div class="jt-overline">Featured novel · Second Draft</div><h1>What if rehearsal<br><em>changed reality?</em></h1>
+<p>Nora helps people rehearse impossible conversations. Then the rehearsals start changing what actually happens.</p>
 <div class="jt-actions"><a class="jt-btn primary" href="books.html" data-track="storefront_books">Explore the Books</a>
 <a class="jt-btn secondary" href="audiobooks.html" data-track="storefront_audio">Shop Audiobooks</a></div>
-</div><div class="jt-hero-art"><a href="books/second-draft.html" aria-label="Discover Second Draft">
-<img src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft official published book cover" fetchpriority="high"></a>
-<span>Featured mystery · Second Draft</span></div></div></section>
-<section class="jt-section" id="start-here"><div class="jt-wrap"><div class="jt-overline">Choose your doorway</div>
-<h2>Enter the mystery your way.</h2><div class="jt-path-grid">{paths}</div></div></section>
-<section class="jt-section jt-dark" id="books"><div class="jt-wrap"><div class="jt-overline">The collection</div>
-<h2>Six books. Six different secrets.</h2><p>Five full novels and a shorter, separate <em>Hollow Bell</em> novella.</p>
-<div class="jt-home-books">{tiles}</div><div class="jt-actions" style="margin-top:25px"><a class="jt-btn secondary" href="books.html">Explore all book editions</a></div>
+<a class="jt-text-link" href="chapters/book-1-first-chapter.html">Read Chapter One of Second Draft →</a></div>
+<div class="jt-hero-art"><a href="books/second-draft.html" aria-label="Discover Second Draft"><img src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft official cover" fetchpriority="high"></a></div>
 </div></section>
-<section class="jt-section jt-home-audio" id="audiobooks"><div class="jt-wrap jt-hero-grid">
-<div><div class="jt-overline">Available now · $1.99 each</div><h2>Hear the story<br><em>after dark.</em></h2>
-<p>All six complete audiobooks are available now with Vivian narration. Enjoy direct MP3 and chaptered M4B downloads.</p>
-<p>Alternative full-length narrator editions are coming soon. Preview the voices today.</p>
-<div class="jt-actions"><a class="jt-btn primary" href="audiobooks.html" data-track="storefront_audio">Shop all six audiobooks</a>
-<a class="jt-btn secondary" href="samples.html" data-track="storefront_samples">Hear samples</a></div></div>
-<div class="jt-hero-art"><a href="audiobooks.html"><img src="images/optimized/the-hollow-bell.webp" alt="The Hollow Bell full novel official cover" loading="lazy"></a><span>Six complete Vivian editions</span></div>
-</div></section>
-<section class="jt-section" id="upcoming-novels"><div class="jt-wrap"><div class="jt-overline">On the horizon</div>
-<h2>The stories are still unfolding.</h2><div class="jt-media-grid">{media}</div></div></section>
-<section class="jt-section jt-dark" id="challenge"><div class="jt-wrap"><div class="jt-overline">The mystery doesn't end at the page</div>
-<h2>Watch. Question. Solve.</h2><p>The first Mystery Challenge reveal is live, along with cinematic previews and further investigations.</p>
-<div class="jt-actions"><a class="jt-btn primary" href="experiences-v2.html">Enter the Experiences</a>
-<a class="jt-btn secondary" href="https://www.youtube.com/watch?v=643W5-_bLPA" target="_blank" rel="noopener noreferrer">Watch Case #001</a></div>
-<div id="youtube"></div></div></section>'''+newsletter()+'''<div id="follow"></div><div id="about"></div>''')
+<section class="jt-listen-strip" id="audiobooks"><div class="jt-wrap"><div><strong>Six complete Vivian audiobooks</strong><span>Limited-time sale · $1.99 each · MP3 + chaptered M4B</span></div><a class="jt-text-link" href="audiobooks.html">Browse audiobooks →</a></div></section>
+<section class="jt-section jt-dark" id="books"><div class="jt-wrap"><div class="jt-shelf-heading"><h2>The mystery collection</h2><a class="jt-text-link" href="samples.html">Explore Free Samples →</a></div>
+<div class="jt-home-books">{tiles}</div></div></section>
+<section class="jt-case-feature" id="challenge"><div class="jt-wrap"><span class="jt-overline">Mystery Challenge · Case 001</span><h2>Can you solve the case?</h2><div class="jt-actions"><a class="jt-btn secondary" href="experiences-v2.html">Explore the mysteries</a><a class="jt-text-link" href="https://www.youtube.com/watch?v=643W5-_bLPA">Watch the case →</a></div></div></section>'''+newsletter())
+
 
 def series():
     cards=[

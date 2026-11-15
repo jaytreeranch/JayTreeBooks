@@ -18,7 +18,9 @@
       "audiobook_status": "available",
       "narrator": "Vivian",
       "audiobook_price_usd": "1.99",
-      "kindle_unlimited": true
+      "kindle_unlimited": true,
+      "audio_cover": "images/optimized/second-draft-showcase.webp",
+      "audio_hero": "images/optimized/second-draft-showcase-hero.webp"
     },
     {
       "slug": "the-hollow-year",
@@ -36,7 +38,9 @@
       "audiobook_status": "available",
       "narrator": "Vivian",
       "audiobook_price_usd": "1.99",
-      "kindle_unlimited": true
+      "kindle_unlimited": true,
+      "audio_cover": "images/optimized/the-hollow-year-showcase.webp",
+      "audio_hero": "images/optimized/the-hollow-year-showcase-hero.webp"
     },
     {
       "slug": "the-hollow-bell",
@@ -54,7 +58,9 @@
       "audiobook_status": "available",
       "narrator": "Vivian",
       "audiobook_price_usd": "1.99",
-      "kindle_unlimited": true
+      "kindle_unlimited": true,
+      "audio_cover": "images/optimized/the-hollow-bell-showcase.webp",
+      "audio_hero": "images/optimized/the-hollow-bell-showcase-hero.webp"
     },
     {
       "slug": "the-hollow-bell-novella",
@@ -72,7 +78,9 @@
       "audiobook_status": "available",
       "narrator": "Vivian",
       "audiobook_price_usd": "1.99",
-      "kindle_unlimited": false
+      "kindle_unlimited": false,
+      "audio_cover": "images/optimized/the-hollow-bell-novella-showcase.webp",
+      "audio_hero": "images/optimized/the-hollow-bell-novella-showcase-hero.webp"
     },
     {
       "slug": "the-absconding",
@@ -90,7 +98,9 @@
       "audiobook_status": "available",
       "narrator": "Vivian",
       "audiobook_price_usd": "1.99",
-      "kindle_unlimited": true
+      "kindle_unlimited": true,
+      "audio_cover": "images/optimized/the-absconding-showcase.webp",
+      "audio_hero": "images/optimized/the-absconding-showcase-hero.webp"
     },
     {
       "slug": "the-correction",
@@ -108,7 +118,9 @@
       "audiobook_status": "available",
       "narrator": "Vivian",
       "audiobook_price_usd": "1.99",
-      "kindle_unlimited": true
+      "kindle_unlimited": true,
+      "audio_cover": "images/optimized/the-correction-showcase.webp",
+      "audio_hero": "images/optimized/the-correction-showcase-hero.webp"
     }
   ]
 }
