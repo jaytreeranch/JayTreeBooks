@@ -110,6 +110,9 @@ jobs:
           assert targets
           for path in targets:
               html = path.read_text(encoding="utf-8")
+              if path.name == "storefront-home.html":
+                  assert "{% include_relative home-v2.html %}" in html, path
+                  html = (root / "home-v2.html").read_text(encoding="utf-8")
               assert '<link rel="manifest" href="/manifest.webmanifest">' in html, path
               assert '<script src="/pwa.js" defer></script>' in html, path
               assert '/icons/apple-touch-icon.png?v=publisher-logo-3' in html, path
