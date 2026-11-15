@@ -44,4 +44,4 @@ The isolated branch can be discarded without affecting current production. For a
 2. Obtain production publication approval for the SEO change; then run the existing GitHub Pages release process and independently test the new route and schema.
 3. Connect first-party Google Search Console for real brand-vs-genre baseline, or use the documented owner-exported CSV. Check OpenSEO credit estimate before any optional rank check.
 
-GitHub checkpoint and LAN receipt: to be appended after remote verification; do not assume a commit succeeded merely from this handoff text.
+Verified source/checkpoint commit: 4ea5a376e5cd6d2a2ef22b0a478f4c106b8129d4. GitHub refs/heads/seo/brand-video-search-20261115 returned the identical full SHA through git ls-remote. Source commit pushed successfully and worktree clean. This subsequent documentation addendum receives its own commit; record its final SHA in the independent LAN receipt.

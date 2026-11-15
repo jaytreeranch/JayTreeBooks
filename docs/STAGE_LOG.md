@@ -1,5 +1,7 @@
 ## November 15, 2026 — Brand identity + video search SEO staging (NOT LIVE)
 
+Verified source checkpoint 4ea5a376e5cd6d2a2ef22b0a478f4c106b8129d4 was PUSHED to GitHub with matching remote SHA and clean worktree. No production publish or Google recrawl claimed.
+
 Isolated source branch seo/brand-video-search-20261115 starts from GitHub origin/main 241345a4346e2e0bb659302f23e7052ff015dcd8. Preserved the established Organization sameAs links and clarified JayTreeBooks alternate name in both classic source and rendered home. Fixed the Hollow Bell YouTube trailer's invalid contentUrl, added a dedicated watch page for the approved upcoming-novels MP4, and preserved page-36 GA4 coverage, video playback telemetry, sitemap regeneration and caption/thumbnail assets. Added local first-party branded-vs-genre GSC CSV analysis script without exposing private data or spending rank-tracker credits.
 
 QC: 78/78 Node PASS; 7/7 Python new SEO/tracker tests PASS; AST syntax PASS, git diff --check PASS; idempotent patch PASS. OpenSEO existing US mobile depth-50 tracker has two genre terms but zero actual ranking checks; its first-party GSC is not connected. GSC Wizard access expired. No ranking position was inferred. All publication, live new-route checks and Search Console recrawl remain PENDING. Detailed handoff: docs/handoffs/2026-11-15-brand-video-search-visibility.md; tracking runbook: docs/SEARCH_VISIBILITY_RUNBOOK.md. Do not merge/publish without separate release authorization.

@@ -12,4 +12,4 @@ In this branch:
 - Private Search Console CSV comparison script supports brand and genre trends without inventing a live baseline.
 - OpenSEO project and manual depth-50 genre tracker exist, but tracker has never run and GSC is not connected.
 
-This branch is NOT LIVE. See docs/handoffs/2026-11-15-brand-video-search-visibility.md for QC, remote checkpoint, rollback and next steps.
+Verified pushed source checkpoint: 4ea5a376e5cd6d2a2ef22b0a478f4c106b8129d4. This branch is NOT LIVE. See docs/handoffs/2026-11-15-brand-video-search-visibility.md for QC, remote checkpoint, rollback and next steps.
