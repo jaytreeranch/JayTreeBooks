@@ -22,7 +22,7 @@ class References(HTMLParser):
             if key in attr:
                 self.targets.append(attr[key])
 
-sitemap = {el.text for el in ElementTree.parse(root / "sitemap.xml").getroot().iter("{*}loc")}
+sitemap = {el.text for el in ElementTree.parse(root / "sitemap.xml").findall(".//{*}loc")}
 for page in pages:
     source = (root / page).read_text(encoding="utf-8")
     assert source.lower().count("<!doctype html>") == 1, page
