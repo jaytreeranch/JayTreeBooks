@@ -1,3 +1,17 @@
+## 2026-11-14 — FINAL LIVE ACCEPTANCE: Vivian audiobooks now; alternative full-length narrator editions coming soon
+
+**PRODUCTION PASS.** Six complete Vivian audiobooks are on sale for $1.99 each, with MP3 and chaptered M4B buyer files; alternative complete narrator editions are coming soon and their Chapter One voice previews are available now. All five narrator-comparison pages, six published book pages (including the Hollow Bell novella), homepage audiobook section and mystery hub now distinguish these states accurately.
+
+**Source/deployment verification:** PR #29 squash merge `0fcb08146aa2b62d179a5aea041ff276a8418038`, permanent generator repair PR #30 squash merge `f2a93f58a5bc6ebd381b737e330f05da8a396f1a`; postautomation source `c8e3bc5865924b67377ad309f55003922c49ddff`. GitHub Pages build/deployment run `43673295167` completed **SUCCESS** on the postautomation source. JT-DESKTOP owner-controlled live HTTP/semantic QA **16/16 PASS**, including pwa.js and pwa.css, all six static book links, five narrator pages, app.js and two discovery pages. Latest source reread from GitHub after automation and **40/40 Node regression tests PASS**, JavaScript syntax PASS. Exact public receipt: `F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteAudit_20261114\VIVIAN_FINAL_PUBLIC_POST_GENERATOR_QC_20261114.json` SHA256 `FF0D5209BC20DC0C80156311D5C1566F4B5B21957C23A3BC5E1E27069BB4559F`.
+
+**Automation stability:** Fixes are upstream in `scripts/apply_pwa.py` (footer install button), `scripts/apply_audio_seo.py` (single click event binding), plus generated PWA assets, five sample pages and generator-drift tests. Second successful SEO automation did not restore duplicates. Public PWA CSS/JS and all samples independently verified after fresh Pages deployment; the live site contains no outdated generic 'Audiobook Coming Soon' claim on the certified 14 content routes.
+
+**Still open, NOT sale-blocking:** Legacy Reader Growth Site validation workflow expects prelaunch five-book and 'Full Audiobook Coming Soon' assertions and fails—update it and its generator separately **without undoing approved six-title public sale copy**. Real nonzero Payhip payment and payout remain untested in this workstream; GA4/GSC reporting connector access and full WCAG/performance certification remain open. No Payhip products, prices, covers, masters or buyer accounts were changed by this website milestone.
+
+**Reports and rollback:** [Narrator availability release handoff](handoffs/2026-11-14-vivian-narrator-availability-clarification.md), [postdeploy generator repair](handoffs/2026-11-14-post-deploy-pwa-and-audio-seo-generator-fix.md). Source rollback: revert only relevant faulty website commit, keep six Vivian sale products available and separate older $5 Correction product Hidden; verify public Pages after any rollback.
+
+---
+
 ## 2026-11-14 — Vivian narrator release LIVE; generator repair follow-up in review
 
 **Narrator copy PRODUCTION LIVE — VERIFIED.** PR #29 squash merge `0fcb08146aa2b62d179a5aea041ff276a8418038`; later main `971b9ae38f86dcca23baa725b38db58c338e92a9`; Pages run `43672594033` SUCCESS. Public HTTP owner QC **14/14 PASS** (homepage, six book pages, five narrator previews, mystery hub and app.js). Six complete Vivian audiobooks at $1.99 are available now; **only alternative full-length narrator editions** are called coming soon. All distinct Payhip links preserved.
