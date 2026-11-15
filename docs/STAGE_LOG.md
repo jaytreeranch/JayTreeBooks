@@ -1,3 +1,9 @@
+## 2026-11-14 audiobook social sale image/video DELIVERY-ONLY
+
+Approved Option A creative staged as three static media assets on isolated branch release/audiobook199-social-delivery-only-20261114; website HTML/CSS/JS and audiobook checkout pages UNCHANGED. Direct public URLs must be verified after merge. Details: docs/handoffs/2026-11-14-audiobook199-public-media-only.md. Social publication is performed independently through existing Social Poster and must have seven provider receipts before claiming success.
+
+---
+
 ## November 14, 2026 ? Website integration of certified Vivian previews
 
 Reconciled approved preview audio with the previously completed website QC release on main f01b7940. Changed five Vivian MP3 website samples to certified full-edition excerpts; created sixth Hollow Bell novella audio player; corrected on-page narrator labeling and preserved six $1.99 Payhip URLs. Additional Python sample QC 4/4 PASS, **57/57 Node suite PASS**, JS/Python compilation PASS, six release SHA hashes PASS. Staging on `fix/vivian-final-samples-merged-20261114`; live deployment pending. Original current main and Payhip seller listings unchanged. See [handoff](handoffs/2026-11-14-vivian-final-website-preview-parity.md).
