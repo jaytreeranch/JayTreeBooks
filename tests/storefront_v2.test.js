@@ -29,6 +29,9 @@ for (const file of pages) {
     assert.match(page, /<img src="icons\/icon-192\.png" alt=""/);
     assert.match(page, /href="storefront-v2\.css"/);
     assert.match(page, /src="storefront-v2\.js"/);
+    assert.match(page, /Preview hosts never send QA clicks or visits/);
+    assert.match(page, /window\.location\.hostname/);
+    assert.match(page, /document\.head\.appendChild\(jtAnalytics\)/);
     assert.doesNotMatch(page, /<script[^>]*src="app\.js"/);
     assert.doesNotMatch(page, /Full Audiobook — Coming Soon|Audiobook editions are in production/);
   });
