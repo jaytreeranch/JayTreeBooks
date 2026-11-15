@@ -1,3 +1,17 @@
+## November 14, 2026 — Multi-page mystery storefront design staged for OWNER REVIEW (not live)
+
+**NEW DESIGN PROTOTYPE:** Shorter premium homepage (home-v2.html); separate Books (books.html), Audiobooks (audiobooks.html) and Samples (samples.html) pages, namespaced storefront-v2.css, storefront-v2.js and static regression tests. Official book covers and tree/open-book logo used, no synthetic substitute covers, and every book/audiobook card exists in HTML without JavaScript. Vivian's six complete audiobooks available now at $1.99, only alternative narrator *full-length* editions coming soon.
+
+**Concurrent work resolved:** This review branch was created from GitHub main ea3ee60b90e880d5c28bbfb219dfe8662a81a76d after the other chat's sample integration. All six public sample pages returned HTTP 200, including the Hollow Bell novella; no media MP3s, audio preview templates, Payhip products, current book pages or live homepage touched. Six distinct original Payhip SKUs and six Amazon listings preserved.
+
+**QC:** 11/11 Node tests PASS; 10/10 Chrome viewports PASS (1440 desktop, 390 mobile and 320px narrow mobile), no horizontal overflow or failed official cover/logo resources. Prototype is review-only with noindex,follow; QA host does not transmit events to production GA4. Full WCAG, Core Web Vitals, seller payment settlement and old-section SEO migration NOT certified or deployed.
+
+**Access:** Draft [PR #32](https://github.com/jaytreeranch/JayTreeBooks/pull/32) on branch design/multipage-storefront-review-20261114. Private preview gallery and source evidence: \\JT-DESKTOP\JayTreeFarm\Projects\JayTreeBooksWebsiteRedesign_20261114\REVIEW_INDEX.html. Detailed [navigation/release plan](design/STOREFRONT_V2_NAVIGATION_AND_LAUNCH_PLAN.md) and [development stage log](handoffs/2026-11-14-storefront-v2-review-stage.md).
+
+**Release block:** Owner explicitly requested no merge to main yet. Next exact work is owner visual/IA review, preserving or migrating current homepage Challenge, reading guides, news, mini-series and videos, then upgrading individual product pages, reconciling current main, completing accessibility/SEO/commerce QA, and requesting separate release approval. Revert website-only changes if later buyer regression; preserve existing six Payhip listings and master audio untouched.
+
+---
+
 ## November 14, 2026 ? Final Vivian website previews integrated with latest live website (STAGED; not yet deployed)
 
 **Status:** Six approved Vivian Payhip sale-preview recordings copied by exact SHA-256 to the website sample paths; five older website audio players updated without removing the current website's navigation, accessibility, Payhip tracking or PWA fixes. Sixth Hollow Bell novella player now has its own route. The full six-title $1.99 Payhip sale remains LIVE and unchanged.
