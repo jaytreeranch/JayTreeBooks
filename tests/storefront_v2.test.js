@@ -25,7 +25,7 @@ for (const file of pages) {
     assert.match(page, /<nav[^>]+aria-label="Primary navigation"/);
     assert.match(page, /<nav aria-label="Mobile navigation">/);
     assert.match(page, /<meta name="robots" content="noindex,follow">/);
-    assert.match(page, /<h1>[^]*?<\/h1>/);
+    assert.match(page, /<h1(?:\s[^>]*)?>[^]*?<\/h1>/);
     assert.match(page, /<img src="icons\/icon-192\.png" alt=""/);
     assert.match(page, /href="storefront-v2\.css"/);
     assert.match(page, /src="storefront-v2\.js"/);
@@ -49,7 +49,7 @@ test('all six Vivian offers are purchasable, separate, and edition-specific on t
   assert.match(page, /Alternative narrator editions coming soon/);
   assert.match(page, /id="sf-cine-featured-cover"/);
   assert.match(page, /id="sf-cine-featured-buy"/);
-  assert.match(page, /Vivian is the only complete narrator edition available to buy today/);
+  assert.match(page, /Vivian is the only complete narrator edition on sale/);
   assert.match(page, /MP3 \+ chaptered M4B/);
   assert.match(page, /Six complete audiobooks — available now/);
 });
