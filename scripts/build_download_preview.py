@@ -54,7 +54,9 @@ def build(output):
     with zipfile.ZipFile(output, "w") as archive:
         def add(name, data):
             # Fixed metadata makes the LAN and downloadable builds comparable.
-            archive.writestr(zipfile.ZipInfo(name),data,compress_type=zipfile.ZIP_STORED)
+            info = zipfile.ZipInfo(name)
+            info.create_system = 0
+            archive.writestr(info, data, compress_type=zipfile.ZIP_STORED)
         for p in sorted(selected, key=lambda path:path.relative_to(ROOT).as_posix()):
             name = p.relative_to(ROOT).as_posix()
             if p.suffix == ".html":

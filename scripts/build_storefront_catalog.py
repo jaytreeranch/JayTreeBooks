@@ -147,7 +147,7 @@ def count_copy(text, name, books):
         text = re.sub(pattern,lambda _:value,text,flags=re.I)
     if name == "home-v2.html":
         replace(r"\b\d+ novels \+ \d+ novella", f"{novels} novels + {novella} novella")
-        replace(r"\b\d+ complete Vivian audiobooks", f"{audio} complete Vivian audiobooks")
+        replace(r"\b(?:six|seven|eight|nine|ten|\d+) complete Vivian audiobooks", f"{words(audio).capitalize()} complete Vivian audiobooks")
         replace(r"\b(?:six|seven|eight|nine|ten|\d+) complete audiobooks", f"{words(audio).capitalize()} complete audiobooks")
     if name == "audiobooks.html":
         replace(r"\b(?:six|seven|eight|nine|ten|\d+) complete Vivian audiobooks", f"{words(audio).capitalize()} complete Vivian audiobooks")

@@ -183,3 +183,22 @@
 @media(max-width:1090px) {
   .sf-audio-cinematic .sf-cine-featured-book { aspect-ratio:3/4; }
 }
+@media (min-width:701px) and (max-width:1090px) {
+  .sf-audio-cinematic .sf-cine-shell { width:calc(100% - 40px); }
+  .sf-audio-cinematic .sf-cine-hero-body { grid-template-columns:minmax(0,36%) minmax(0,1fr); gap:24px; }
+  .sf-audio-cinematic .sf-cine-cover-stage { transform:none; width:100%; height:auto; aspect-ratio:3/4; margin-top:-12px; }
+  .sf-audio-cinematic .sf-cine-headphones { width:117%; height:100%; left:-9%; top:-8%; }
+  .sf-audio-cinematic .sf-cine-featured-book { width:66%; left:21%; top:14%; }
+  .sf-audio-cinematic .sf-cine-featured-copy h2 { font-size:clamp(2.7rem,5vw,4rem); }
+  .sf-audio-cinematic .sf-cine-featured-actions { display:grid; grid-template-columns:repeat(auto-fit,minmax(185px,1fr)); }
+  .sf-audio-cinematic .sf-cine-featured-actions a { padding-inline:8px; gap:7px; min-width:0; }
+  .sf-audio-cinematic .sf-cine-brush-price { display:none; }
+  .sf-audio-cinematic .sf-cine-hero-shell,.sf-audio-cinematic .sf-cine-hero { min-height:0; }
+}
+@media (max-width:700px) {
+  .sf-audio-cinematic .sf-cine-cover-stage { width:min(265px,86%); height:auto; aspect-ratio:1; margin:0 auto 12px; }
+  .sf-audio-cinematic .sf-cine-headphones { width:110%; height:110%; left:-5%; top:-4%; }
+  .sf-audio-cinematic .sf-cine-featured-book { width:58%; left:23%; top:19%; }
+  .sf-audio-cinematic .sf-cine-featured-copy h2 { font-size:clamp(2.55rem,10vw,3.2rem); }
+  .sf-audio-cinematic .sf-cine-cover-link { aspect-ratio:360/380; }
+}

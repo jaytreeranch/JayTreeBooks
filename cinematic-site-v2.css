@@ -136,3 +136,11 @@ body.jt-modernized>footer:not(.jt-footer){border-top:1px solid var(--jt-line);ba
 .jt-home-book:hover img { outline:1px solid var(--jt-gold); }
 @media(max-width:900px) { .jt-home-books { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media(max-width:480px) { .jt-home-books { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(min-width:971px) {
+ .jt-page-home .jt-hero-grid { grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr); }
+ .jt-opening h1 { font-size:clamp(3.3rem,5.8vw,5.8rem); }
+}
+@media(max-width:420px) {
+ body.jt-modernized .book-hero h1 { font-size:clamp(1.95rem,8.6vw,2.6rem); }
+ body.jt-modernized .book-hero *,body.jt-modernized .book-actions { min-width:0; }
+}

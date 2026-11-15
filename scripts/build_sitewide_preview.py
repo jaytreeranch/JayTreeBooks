@@ -9,6 +9,8 @@ import json
 import re
 from pathlib import Path
 
+from build_storefront_catalog import words
+
 ROOT = Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "data/storefront-catalog.json"
 NAV = [
@@ -84,6 +86,7 @@ def media_card(url,img,label,title,desc):
 
 def home(catalog):
     books=[x for x in catalog["books"] if x["book_status"]=="published"]
+    audio_count=sum(book["audiobook_status"] == "available" for book in books)
     tiles="".join(f'''<a class="jt-home-book" href="{e(b['book_page'])}">
 <img src="{e(b['cover'])}" alt="{e(b['title'])} {e(b['edition'])} official cover" width="240" height="360" loading="lazy">
 <span>{e(b["title"])}{ " · Novella" if b["edition"]=="Novella" else ""}</span></a>''' for b in books)
@@ -96,7 +99,7 @@ f'''<section class="jt-hero" id="top"><div class="jt-wrap jt-hero-grid">
 <a class="jt-text-link" href="chapters/book-1-first-chapter.html">Read Chapter One of Second Draft →</a></div>
 <div class="jt-hero-art"><a href="books/second-draft.html" aria-label="Discover Second Draft"><img src="images/optimized/second-draft.webp" width="300" height="450" alt="Second Draft official cover" fetchpriority="high"></a></div>
 </div></section>
-<section class="jt-listen-strip" id="audiobooks"><div class="jt-wrap"><div><strong>Six complete Vivian audiobooks</strong><span>Limited-time sale · $1.99 each · MP3 + chaptered M4B</span></div><a class="jt-text-link" href="audiobooks.html">Browse audiobooks →</a></div></section>
+<section class="jt-listen-strip" id="audiobooks"><div class="jt-wrap"><div><strong>{words(audio_count).capitalize()} complete Vivian audiobooks</strong><span>Limited-time sale · $1.99 each · MP3 + chaptered M4B</span></div><a class="jt-text-link" href="audiobooks.html">Browse audiobooks →</a></div></section>
 <section class="jt-section jt-dark" id="books"><div class="jt-wrap"><div class="jt-shelf-heading"><h2>The mystery collection</h2><a class="jt-text-link" href="samples.html">Explore Free Samples →</a></div>
 <div class="jt-home-books">{tiles}</div></div></section>
 <section class="jt-case-feature" id="challenge"><div class="jt-wrap"><span class="jt-overline">Mystery Challenge · Case 001</span><h2>Can you solve the case?</h2><div class="jt-actions"><a class="jt-btn secondary" href="experiences-v2.html">Explore the mysteries</a><a class="jt-text-link" href="https://www.youtube.com/watch?v=643W5-_bLPA">Watch the case →</a></div></div></section>'''+newsletter())
