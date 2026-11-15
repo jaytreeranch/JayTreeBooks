@@ -1,3 +1,47 @@
+## November 15, 2026 — Authorized storefront release candidate
+
+Reconciled production 0218ac82985d649c33600503252c5eaf1933d014 and editorial fix c113f58427752da6f6e31886d78d16118d180c56. All 161 Windows browser checks passed for the editorial build. The existing /#audiobooks entry opens the sale section, with the full shop at /audiobooks.html. The Pages build maps the previous homepage to /classic.html. Gate publication on the rendered Pages build and source regressions. After merge verify the custom domain, links and both hidden gestures. Rollback by reverting the PR merge on main.
+
+## November 14, 2026 (Central) — Downloadable cinematic storefront
+
+Verified source 3d70b454f818fd717295e2b900cdef6c2939f35c on draft PR #32. The complete ZIP opens directly on Windows, with the owner-approved photographic audiobook showcase, six distinct product selections and 21 locally playable excerpts. All 93 source regressions and 150 Windows browser checks passed. Payhip challenged automated access. Checkout settlement and production launch remain open. [Evidence, archive hash, rollback and next steps](handoffs/2026-11-15-downloadable-cinematic-storefront.md).
+
+## 2026-11-15 — Full-site cinematic preview complete for review; NOT LIVE
+
+Built 34-page premium JayTree Books multi-page design on review-only branch design/multipage-storefront-review-20261114 (draft PR #32), including shorter Home v2, Books, Audiobooks, Samples, Series, News, Experiences, six original book details, six approved sample interfaces, five first chapters, evergreen/legal pages. Preserved all original Payhip SKUs and media, with dual exact-same-SKU audiobook CTA on book pages, and Vivian available now versus alternative full narrators coming soon. No merge to main.
+
+QC verified on JT-DESKTOP: 34/34 generator checks PASS; Chrome 38/38 viewport, 18/18 audiobook thumbnail interaction, 5/5 search/navigation PASS; Node 16/16 storefront + 40/40 historic audiobook PASS; Python 8/8 catalog + 8/8 new sitewide PASS. LAN screenshot gallery: F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteRedesign_20261114\FULL_SITE_REDESIGN_REVIEW.html, SHA256 1CA7FAA7C2A42A6EA7CA1EE548BF8C6E50F7F411C6E1079D6E8208537CE1ED45.
+
+OPEN: photographic lake/headphone approved artwork not yet imported (current SVG placeholder); final production index/old-anchors/metadata/SEO migration, WCAG/performance/GA4/payment QC and owner explicit public launch authorization. Exact next actions, evidence, rollback in docs/handoffs/2026-11-15-full-site-cinematic-redesign.md. Draft PR: https://github.com/jaytreeranch/JayTreeBooks/pull/32. Source remotely verified at 351d986451939643128fd2ff8e6e756c0e2ea914; LAN QC checkpoint SHA256 4DA87A14115B5954DEAEA3BB013641CE1776A1A33CF92A2A1536597118F56ED7.
+
+---
+
+## 2026-11-14 — Interactive featured audiobook + scalable book catalog (DRAFT PR #32, NOT LIVE)
+
+**Owner-approved interaction implemented:** On the cinematic Audiobooks preview, each of six small official book covers is a button that selects the large featured title, cover, correct description, official book detail page, exact Payhip purchase URL and correct final Vivian preview. Selection scrolls to the hero and shows one gold-highlighted/aria-pressed cover. The full Hollow Bell novel and separate novella are distinct. The current six complete Vivian editions are available now at $1.99, while alternative full-length narrators are coming soon.
+
+**Easy future-book releases:** `data/storefront-catalog.json` is the verified central catalog. `scripts/new_storefront_title.py` safely drafts a new title as Coming Soon with no buy link; `scripts/build_storefront_catalog.py` generates static, SEO-crawlable Books/Audiobooks/Samples product cards and some catalog counts. Initial featured choice follows `featured_audiobook`. A simulated seventh book with genuine-looking test URLs confirmed new product cards, samples and hero are generated solely from JSON; nothing fake was added to the live six-title catalog. Separate book and audiobook availability are validated; future unapproved sellers, duplicate Payhip URLs, alternate narrators/mixed promotional pricing cannot silently go on sale. New individual product-detail pages and SEO sitemap updates still require a later reviewed release step.
+
+**QC:** JT-DESKTOP Local Control hostname verified. 13/13 Node tests PASS; 8/8 Python lifecycle tests PASS; generator --check PASS on files redownloaded from GitHub, including exact UTF-8 descriptions; new-title helper dry run did not change manifest. Headless Chrome clicked all six covers at 1440px, 390px and 320px: **18/18 PASS** for title, description, cover, detail link, Payhip URL, sample URL, selected visual state and no horizontal overflow. LAN evidence: `F:\JayTreeFarmStorageV2\Projects\JayTreeBooksWebsiteRedesign_20261114\featured_selector_browser_qc.json` and saved screenshots.
+
+**Design still incomplete:** Working preview still uses custom SVG scenery/headphones. Owner-approved photorealistic generated lake and black/gold headphone assets have not been imported from ChatGPT outputs to LAN/GitHub. Do not claim final approved visual match until imported and visually checked. The rest of the multi-page site, all individual book product pages, legacy section/SEO navigation, cross-device full accessibility and actual Payhip transaction QC still require work. No audio masters, Payhip product visibility, original production homepage or production `main` changed.
+
+**Where to resume:** Draft [PR #32](https://github.com/jaytreeranch/JayTreeBooks/pull/32), [catalog onboarding instructions](design/ADDING_NEW_BOOKS_TO_STOREFRONT.md), [interactive catalog stage handoff](handoffs/2026-11-14-interactive-audiobook-and-catalog-growth.md). Next: transfer and certify the two approved image layers; finish all site pages in the same design system; provide safe detail/sitemap release step; conduct complete buyer flow/SEO/performance/accessibility QC; request separate owner approval before any merge. Rollback: close/revert review branch; keep current live sales intact.
+
+---
+
+## November 14, 2026 — Multi-page mystery storefront design staged for OWNER REVIEW (not live)
+
+**NEW DESIGN PROTOTYPE:** Shorter premium homepage (home-v2.html); separate Books (books.html), Audiobooks (audiobooks.html) and Samples (samples.html) pages, namespaced storefront-v2.css, storefront-v2.js and static regression tests. Official book covers and tree/open-book logo used, no synthetic substitute covers, and every book/audiobook card exists in HTML without JavaScript. Vivian's six complete audiobooks available now at $1.99, only alternative narrator *full-length* editions coming soon.
+
+**Concurrent work resolved:** This review branch was created from GitHub main ea3ee60b90e880d5c28bbfb219dfe8662a81a76d after the other chat's sample integration. All six public sample pages returned HTTP 200, including the Hollow Bell novella; no media MP3s, audio preview templates, Payhip products, current book pages or live homepage touched. Six distinct original Payhip SKUs and six Amazon listings preserved.
+
+**QC:** 11/11 Node tests PASS; 10/10 Chrome viewports PASS (1440 desktop, 390 mobile and 320px narrow mobile), no horizontal overflow or failed official cover/logo resources. Prototype is review-only with noindex,follow; QA host does not transmit events to production GA4. Full WCAG, Core Web Vitals, seller payment settlement and old-section SEO migration NOT certified or deployed.
+
+**Access:** Draft [PR #32](https://github.com/jaytreeranch/JayTreeBooks/pull/32) on branch design/multipage-storefront-review-20261114. Private preview gallery and source evidence: \\JT-DESKTOP\JayTreeFarm\Projects\JayTreeBooksWebsiteRedesign_20261114\REVIEW_INDEX.html. Detailed [navigation/release plan](design/STOREFRONT_V2_NAVIGATION_AND_LAUNCH_PLAN.md) and [development stage log](handoffs/2026-11-14-storefront-v2-review-stage.md).
+
+**Release block:** Owner explicitly requested no merge to main yet. Next exact work is owner visual/IA review, preserving or migrating current homepage Challenge, reading guides, news, mini-series and videos, then upgrading individual product pages, reconciling current main, completing accessibility/SEO/commerce QA, and requesting separate release approval. Revert website-only changes if later buyer regression; preserve existing six Payhip listings and master audio untouched.
+
 ## 2026-11-14 audiobook social sale image/video DELIVERY-ONLY
 
 Approved Option A creative staged as three static media assets on isolated branch release/audiobook199-social-delivery-only-20261114; website HTML/CSS/JS and audiobook checkout pages UNCHANGED. Direct public URLs must be verified after merge. Details: docs/handoffs/2026-11-14-audiobook199-public-media-only.md. Social publication is performed independently through existing Social Poster and must have seven provider receipts before claiming success.

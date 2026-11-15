@@ -29,7 +29,20 @@
 <meta name="apple-mobile-web-app-title" content="JayTree Books">
 <link rel="stylesheet" href="/pwa.css">
 <!-- JAYTREE_PWA_HEAD_END -->
-</head><body>
+<link rel="stylesheet" href="cinematic-site-v2.css">
+</head><body class="jt-cinematic jt-modernized" data-jt-root="">
+<header class="jt-header"><div class="jt-head-inner">
+<a class="jt-brand" href="home-v2.html" aria-label="JayTree Books home">
+<img src="icons/icon-192.png" width="61" height="60" alt=""><span>JAYTREE BOOKS</span></a>
+<nav class="jt-nav" aria-label="Primary navigation"><a href="home-v2.html">Home</a><a href="books.html">Books</a><a href="audiobooks.html">Audiobooks</a><a href="series-v2.html">The Series</a><a href="samples.html">Samples</a><a href="about.html">About</a><a href="news-v2.html">News</a></nav>
+<details class="jt-search"><summary aria-label="Search books and pages" title="Search">⌕</summary>
+<div class="jt-search-box"><label for="jt-search-input">Search JayTree Books</label>
+<input id="jt-search-input" type="search" placeholder="Book title or page" autocomplete="off">
+<div class="jt-search-results" aria-live="polite"></div></div></details>
+<details class="jt-mobile"><summary aria-label="Open navigation">MENU ☰</summary>
+<nav aria-label="Mobile navigation"><a href="home-v2.html">Home</a><a href="books.html">Books</a><a href="audiobooks.html">Audiobooks</a><a href="series-v2.html">The Series</a><a href="samples.html">Samples</a><a href="about.html">About</a><a href="news-v2.html">News</a></nav></details>
+</div></header>
+
 <nav class="upcoming-page-nav" aria-label="Main navigation"><div class="wrap"><a class="brand" href="index.html">JAYTREE BOOKS</a><div><a href="#read-now" data-promo-action="collection">Read the First Five</a><a href="case-files.html" data-promo-action="notify">Get Updates</a></div></div></nav>
 <main class="upcoming-page" data-upcoming-surface="landing">
 <header class="upcoming-hero"><div class="eyebrow">The next JayTree mysteries</div><h1>Three new mysteries.<br>Three reasons to doubt what you know.</h1><p class="deck">A place misrepresented on paper. An original nobody can find. A familiar road into an unfamiliar past. Something new is taking shape at JayTree Books.</p><p class="upcoming-fineprint">Upcoming novels · Working titles and promotional concept artwork · Release dates to be announced</p></header>
@@ -52,4 +65,5 @@ Your browser does not support this player. <a href="https://github.com/jaytreera
 <!-- JAYTREE_PWA_SCRIPT_START -->
 <script src="/pwa.js" defer></script>
 <!-- JAYTREE_PWA_SCRIPT_END -->
+<script src="cinematic-site-v2.js" defer></script>
 </body></html>

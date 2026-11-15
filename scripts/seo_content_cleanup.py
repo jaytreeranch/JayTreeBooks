@@ -59,7 +59,16 @@ JSONLD_RE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 SITEMAP_PATHS = [
-    ("", "index.html"),
+    ("", "home-v2.html"),
+    ("audiobooks.html", "audiobooks.html"),
+    ("books.html", "books.html"),
+    ("samples.html", "samples.html"),
+    ("series-v2.html", "series-v2.html"),
+    ("news-v2.html", "news-v2.html"),
+    ("experiences-v2.html", "experiences-v2.html"),
+    ("upcoming-books.html", "upcoming-books.html"),
+    ("reading-guides.html", "reading-guides.html"),
+    ("audio/book-6-sample.html", "audio/book-6-sample.html"),
     ("about.html", "about.html"),
     ("animated-series.html", "animated-series.html"),
     ("case-files.html", "case-files.html"),
