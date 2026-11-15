@@ -1,9 +1,13 @@
 const JT = window.JT;
 
-// Direct-sale links are deliberately allowlisted: four ACX-held editions remain unavailable.
+// ACX distribution cleared all six. Private buyer-flow QC and live activation still gate production deployment.
 const JT_AUDIOBOOK_PAYHIP = Object.freeze({
   "the-absconding": "https://payhip.com/b/q3GfL",
-  "the-hollow-year": "https://payhip.com/b/Zf7tv"
+  "the-hollow-year": "https://payhip.com/b/Zf7tv",
+  "second-draft": "https://payhip.com/b/GejHn",
+  "the-correction": "https://payhip.com/b/OPaGw",
+  "the-hollow-bell-novella": "https://payhip.com/b/EWc5q",
+  "the-hollow-bell": "https://payhip.com/b/0BeoF"
 });
 function audiobookPurchaseUrl(book) {
   return Object.prototype.hasOwnProperty.call(JT_AUDIOBOOK_PAYHIP, book.slug) ? JT_AUDIOBOOK_PAYHIP[book.slug] : "";
@@ -106,10 +110,10 @@ function bookCard(b) {
 
 function audioCard(b) {
   if (b.format === "novella") return `<article class="audio-card">
-    <div class="audio-icon">◉</div><div class="format">Novella Audiobook — Coming Soon</div><h3>${b.title} (Novella)</h3>
-    <p>Our separate Millbrook Falls novella audiobook is in final preparation. No purchase or listening sample is available yet.</p>
+    <div class="audio-icon">◉</div><div class="format">Vivian Novella Audiobook</div><h3>${b.title} (Novella)</h3>
+    <p>Complete novella audiobook with MP3 and chaptered M4B download options. Limited-time $1.99.</p>
     <div class="card-actions"><a class="read-sample" href="books/${b.slug}.html" data-track="book_page" data-book="${b.slug}">Explore Novella</a>
-    <a class="audible" href="case-files.html" data-track="audiobook_case_files" data-book="${b.slug}">Get Release Updates</a></div>
+      ${audiobookPurchaseButton(b)}</div>
   </article>`;
   return `<article class="audio-card">
     <div class="audio-icon">◉</div><div class="format">Choose Your Narrator</div><h3>${b.title}</h3><p>${b.description}</p>
