@@ -91,11 +91,15 @@ def head(page,title,desc):
         extra += "\n" + legacy_block("ORG_SCHEMA") + "\n" + legacy_block("WEBSITE_SCHEMA")
         extra += '<script src="home-links.js" defer></script>'
 
+    # Give the above-the-fold featured book cover an early request without
+    # preloading the rest of the lazy book shelf.
+    hero_preload = ('<link rel="preload" as="image" href="images/optimized/second-draft.webp" fetchpriority="high">\n'
+                    if page == "home" else "")
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow"><meta name="theme-color" content="#061116">
 <meta name="description" content="{e(desc)}"><title>{e(title)} | JayTree Books</title>
-<link rel="icon" href="favicon.png"><link rel="stylesheet" href="storefront-v2.css">
+{hero_preload}<link rel="icon" href="favicon.png"><link rel="stylesheet" href="storefront-v2.css">
 <link rel="stylesheet" href="cinematic-site-v2.css">{extra}
 {ANALYTICS}
 <script src="tracking.js" defer></script>
@@ -132,7 +136,12 @@ f'''<section class="jt-hero" id="top"><div class="jt-wrap jt-hero-grid">
 </div></section>
 <section class="jt-listen-strip" id="audiobooks"><div class="jt-wrap"><div><strong>{words(audio_count).capitalize()} complete Vivian audiobooks</strong><span>Limited-time sale · $1.99 each · MP3 + chaptered M4B</span></div><a class="jt-text-link" href="audiobooks.html">Shop the $1.99 audiobooks →</a></div></section>
 <section class="jt-section jt-dark" id="books"><div class="jt-wrap"><div class="jt-shelf-heading"><h2>The mystery collection</h2><a class="jt-text-link" href="samples.html">Explore Free Samples →</a></div>
-<div class="jt-home-books">{tiles}</div></div></section>
+<div class="jt-home-books">{tiles}</div>
+<nav class="jt-home-discovery" aria-label="Browse mystery books by reader interest">
+<strong>Find your next mystery:</strong>
+<a href="psychological-mystery-books.html">Psychological mystery books</a>
+<a href="mystery-books.html">New mystery books &amp; thrillers</a>
+</nav></div></section>
 <section class="jt-case-feature" id="challenge"><div class="jt-wrap"><span class="jt-overline">Mystery Challenge · Case 001</span><h2>Can you solve the case?</h2><div class="jt-actions"><a class="jt-btn secondary" href="experiences-v2.html">Explore the mysteries</a><a class="jt-text-link" href="https://www.youtube.com/watch?v=643W5-_bLPA">Watch the case →</a></div></div></section>'''+newsletter())
 
 
@@ -195,10 +204,34 @@ def ensure_buy_panel(source,book,path):
         source = source.replace('<aside class="jt-detail-buy"', '<aside id="audiobook" class="jt-detail-buy"', 1)
     return source
 
+def remove_duplicate_legacy_header(source):
+    """Keep the new accessible site header; remove only the replaced legacy one.
+
+    Called by the source generator so future --write runs never restore two
+    competing navigation bars and duplicate landmark links on public pages.
+    """
+    if '<header class="jt-header">' not in source:
+        return source
+    cleaned, count = re.subn(
+        r'<header\s+class="nav"[^>]*>.*?</header>\s*',
+        '', source, count=1, flags=re.S | re.I
+    )
+    source = cleaned if count else source
+    # The replaced classic header also had the only keyboard navigation
+    # landmark on some pages. Keep a consistent focusable skip link.
+    if '<a class="jt-skip"' not in source and re.search(r'<main\b', source, re.I):
+        source = re.sub(r'<body\b[^>]*>', lambda m: m.group(0) +
+            '\n<a class="jt-skip" href="#main">Skip to main content</a>', source,
+            count=1, flags=re.I)
+    if re.search(r'<main\b', source, re.I) and not re.search(r'<main\b[^>]*\bid="main"',source,re.I):
+        source = re.sub(r'<main\b', '<main id="main"', source, count=1, flags=re.I)
+    return source
+
+
 def customize(path,root="",page="",book=None):
     source=path.read_text(encoding="utf-8")
     if 'jt-cinematic jt-modernized' in source:
-        return ensure_buy_panel(source,book,path)
+        return remove_duplicate_legacy_header(ensure_buy_panel(source,book,path))
     # Preserve canonical URLs, structured data, existing main/story sections,
     # action hooks, lazy video playback, PWA, Kit and GA4.
     style=f'<link rel="stylesheet" href="{root}cinematic-site-v2.css">\n'
@@ -213,7 +246,7 @@ def customize(path,root="",page="",book=None):
     if '</body>' not in source:raise ValueError(str(path)+" missing end body")
     source=source.replace('</body>',script+'</body>',1)
     source=ensure_buy_panel(source,book,path)
-    return source
+    return remove_duplicate_legacy_header(source)
 
 
 def modernize_catalog(page, key):
