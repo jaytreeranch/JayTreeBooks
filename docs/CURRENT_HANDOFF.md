@@ -1,3 +1,11 @@
+## November 14, 2026 ? Final Vivian website previews integrated with latest live website (STAGED; not yet deployed)
+
+**Status:** Six approved Vivian Payhip sale-preview recordings copied by exact SHA-256 to the website sample paths; five older website audio players updated without removing the current website's navigation, accessibility, Payhip tracking or PWA fixes. Sixth Hollow Bell novella player now has its own route. The full six-title $1.99 Payhip sale remains LIVE and unchanged.
+
+**Base:** GitHub production main `f01b794082021e0a9d841006ec8bbdbc13401bb8`; integration branch `fix/vivian-final-samples-merged-20261114`. Source and audio QC on JT-DESKTOP LAN. QA: **57/57 Node tests PASS**, **4/4 additional Python tests PASS**, syntax checks PASS, six released preview SHA-256 checks PASS. Updated one stale novella test that incorrectly demanded audiobook Coming Soon. No production deploy by this milestone. [Integration handoff](handoffs/2026-11-14-vivian-final-website-preview-parity.md).
+
+**Next:** push/verify feature branch and open PR, verify main hasn't moved, deploy under safe release gate, then independently verify six public preview byte hashes and six exact public sale links. Do not change Payhip visibility, older alternative narrator demos, or unrelated website work.
+
 ## 2026-11-14 — FINAL LIVE ACCEPTANCE: Vivian audiobooks now; alternative full-length narrator editions coming soon
 
 **PRODUCTION PASS.** Six complete Vivian audiobooks are on sale for $1.99 each, with MP3 and chaptered M4B buyer files; alternative complete narrator editions are coming soon and their Chapter One voice previews are available now. All five narrator-comparison pages, six published book pages (including the Hollow Bell novella), homepage audiobook section and mystery hub now distinguish these states accurately.

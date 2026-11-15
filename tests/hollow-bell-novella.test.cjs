@@ -24,13 +24,14 @@ test('homepage renders six crawlable cards and distinct novella purchase link', 
   assert.match(home, /Five novels on Kindle Unlimited\. Plus a novella on Amazon\./);
   assert.doesNotMatch(home, /Every current JayTree Books title is available/);
 });
-test('novella page links verified purchase formats and gates audiobook', () => {
+test('novella page links verified formats and the live Vivian $1.99 audiobook', () => {
   const p = read('books/the-hollow-bell-novella.html');
   assert.match(p, /B0HD2H8586/);
   assert.match(p, /B0HD2KL44Q/);
   assert.match(p, /B0HFT5VDRL/);
-  assert.match(p, /The novella audiobook is coming soon/);
-  assert.doesNotMatch(p, /href="[^"]*(\.mp3|\.m4b|checkout|payhip)/i);
+  assert.match(p, /https:\/\/payhip\.com\/b\/EWc5q/);
+  assert.match(p, /\$1\.99/);
+  assert.doesNotMatch(p, /The novella audiobook is coming soon/i);
   assert.match(p, /href="the-hollow-bell.html"/);
   const match = p.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
   assert.ok(match);
@@ -38,14 +39,16 @@ test('novella page links verified purchase formats and gates audiobook', () => {
   assert.equal(obj['@type'], 'Book');
   assert.equal(obj.offers.url, 'https://www.amazon.com/dp/B0HD2H8586');
 });
-test('dynamic catalog does not advertise a novella chapter or audio preview', () => {
+test('dynamic catalog presents the released novella Vivian audio preview', () => {
   const config = read('config.js');
   assert.match(config, /"slug": "the-hollow-bell-novella"/);
   assert.match(config, /"kindleUnlimited": false/);
+  assert.match(config, /"audio": "audio\/book-6-sample.html"/);
   const app = read('app.js');
   assert.match(app, /b\.format === "novella"/);
   assert.match(app, /b\.chapter \?/);
   assert.match(app, /b\.audio \?/);
+  assert.match(app, /Listen to Vivian Preview/);
 });
 test('novel, mystery hub and sitemap link to the novella', () => {
   assert.match(read('books/the-hollow-bell.html'), /href="the-hollow-bell-novella.html"/);
