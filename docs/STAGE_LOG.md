@@ -1,3 +1,7 @@
+## November 14, 2026 ? Website integration of certified Vivian previews
+
+Reconciled approved preview audio with the previously completed website QC release on main f01b7940. Changed five Vivian MP3 website samples to certified full-edition excerpts; created sixth Hollow Bell novella audio player; corrected on-page narrator labeling and preserved six $1.99 Payhip URLs. Additional Python sample QC 4/4 PASS, **57/57 Node suite PASS**, JS/Python compilation PASS, six release SHA hashes PASS. Staging on `fix/vivian-final-samples-merged-20261114`; live deployment pending. Original current main and Payhip seller listings unchanged. See [handoff](handoffs/2026-11-14-vivian-final-website-preview-parity.md).
+
 ## November 13, 2026 - Owner approved scored upcoming novels video, new thumbnail hosted for TikTok-first seven-platform posting
 Video SHA a599f891dc2912b62ab036234631ec2e5428cdb3c19d42a3ee292f28413e3446, cover SHA 7b92379c8cf64ff3a59b56b6680aaf7a61927778535c9ef7fe2e4e76d3b56e11. Staging only; verify Pages HTTP 200 and exact SHA before live Social Poster delivery. TikTok FIRST; six other official destinations later; no post claimed. See docs/handoffs/2026-11-13-scored-upcoming-novels-native-social-delivery.md.
 
