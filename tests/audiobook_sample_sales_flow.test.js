@@ -17,8 +17,9 @@ for (const [slug, number, payhip] of books) {
     const html = fs.readFileSync(path.join(__dirname, '..', 'audio', `book-${number}-sample.html`), 'utf8');
     assert.equal((html.match(/data-track="audiobook_payhip"/g) || []).length, 2);
     assert.equal((html.match(new RegExp(payhip, 'g')) || []).length, 2);
-    assert.match(html, /complete audiobook is currently available in Vivian Arlow's voice only/i);
-    assert.match(html, /Other voices are preview-only/);
+    assert.match(html, /complete audiobook is available now in Vivian Arlow's voice/i);
+    assert.match(html, /Alternative full-length narrator editions are coming soon/);
+    assert.equal((html.match(/Alternative full-length narration coming soon/g) || []).length, 3, 'only the three alternative narrators should have coming-soon badges');
     assert.match(html, /MP3 and chaptered M4B/);
     assert.doesNotMatch(html, /Audiobook editions are in production/);
     assert.doesNotMatch(html, /before the full Classic and Immersive editions are released/);
