@@ -33,3 +33,9 @@ Revert only site source changes on main if a buyer-facing regression is found, p
 
 ## Evidence
 `\\JT-DESKTOP\JayTreeFarm\Projects\JayTreeBooksWebsiteAudit_20261114\` contains immutable generated receipts/screenshots and scripts. Before declaring fully preserved, verify remote feature head SHA, this stage log and the LAN report paths/checksums.
+
+## Remote preservation verification
+- Draft review PR **#29**: https://github.com/jaytreeranch/JayTreeBooks/pull/29 (OPEN, DRAFT, not merged or deployed).
+- Last complete tested **source** commit before documentation-only changes: `c641af7a9d19120d245d6e1f405137eb09a229c9`; 24/24 Node regressions PASS. Do not confuse this with a main production SHA.
+- Development branch was compared with main: 18 commits ahead, 0 behind at QC time; exactly 13 intended files changed, no unrelated diffs.
+- Full review report and stage log were independently downloaded from GitHub to LAN; original LAN report SHA256 `37CD025DA8E3E9DA103EFE46F32BC4EEBB68321FCC9A698159B275394B8BB4D7`. Stage log latest hash must be refreshed after this addendum.
