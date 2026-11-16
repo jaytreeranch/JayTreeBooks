@@ -169,8 +169,24 @@ def validate_property(access: str, property_url: str = "sc-domain:jaytreebooks.c
                    s.get("permissionLevel") not in ("siteUnverifiedUser", None)
                    for s in result.get("siteEntry", []))
     except urllib.error.HTTPError as err:
+        # Include only a sanitized Google reason category, never the response body.
+        reason = "unknown"
+        try:
+            data = json.loads(err.read(8192)).get("error", {})
+            candidates = [d.get("reason") for d in data.get("details", [])
+                          if isinstance(d, dict)]
+            candidates.extend(d.get("reason") for d in data.get("errors", [])
+                              if isinstance(d, dict))
+            candidates.append(data.get("status"))
+            for candidate in candidates:
+                if (isinstance(candidate, str) and candidate.replace("_", "").isalnum()
+                        and len(candidate) <= 64):
+                    reason = candidate
+                    break
+        except (ValueError, OSError, TypeError, AttributeError):
+            pass
         raise AuthorizationError("Search Console permission check HTTP "
-                                 + str(err.code)) from None
+                                 + str(err.code) + " (" + reason + ")") from None
     except urllib.error.URLError:
         raise AuthorizationError("Search Console permission check unreachable") from None
 
@@ -241,12 +257,13 @@ def authorize_interactively(client_file: Path, *, timeout: int = 300) -> Path:
     refresh, access = result.get("refresh_token"), result.get("access_token")
     if not isinstance(refresh, str) or not refresh or not isinstance(access, str):
         raise AuthorizationError("Google consent did not return offline read-only access")
-    if not validate_property(access):
-        raise AuthorizationError("Google user cannot access sc-domain:jaytreebooks.com")
-    return save_authorization({
+    location = save_authorization({
         "client_id": client["client_id"], "client_secret": client["client_secret"],
         "refresh_token": refresh, "scope": SCOPE,
     })
+    if not validate_property(access):
+        raise AuthorizationError("Google consent encrypted locally but Google Search Console domain access is not yet confirmed")
+    return location
 
 
 def discover_client_files() -> list[Path]:

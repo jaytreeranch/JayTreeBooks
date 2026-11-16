@@ -171,5 +171,24 @@ class LocalOAuthTests(unittest.TestCase):
             self.assertTrue((path / "fixture-dashboard.html").is_file())
             self.assertFalse((path / "dashboard.html").exists())
             self.assertFalse((path / "history.csv").exists())
+    def test_google_permission_error_discloses_only_safe_reason(self):
+        import io
+        import urllib.error
+        response = io.BytesIO(json.dumps({
+            "error": {
+                "status": "PERMISSION_DENIED",
+                "message": "PRIVATE Google project or user identity",
+                "errors": [{"reason": "accessNotConfigured"}],
+            },
+        }).encode("utf-8"))
+        exc = urllib.error.HTTPError(
+            "https://www.googleapis.com/webmasters/v3/sites",
+            403, "Forbidden", {}, response)
+        with patch.object(auth.urllib.request, "urlopen", side_effect=exc):
+            with self.assertRaises(auth.AuthorizationError) as caught:
+                auth.validate_property("FAKE_ACCESS_TOKEN")
+        self.assertIn("accessNotConfigured", str(caught.exception))
+        self.assertNotIn("PRIVATE", str(caught.exception))
+        self.assertNotIn("FAKE_ACCESS_TOKEN", str(caught.exception))
 if __name__ == "__main__":
     unittest.main()

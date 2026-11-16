@@ -1,3 +1,4 @@
+**2026-11-16 update: the owner's Google read-only OAuth is NOW VERIFIED on JT-GE78 and the first genuine Google Search Console API snapshot HAS BEEN SAVED to JayTree LAN history, including dashboard.html. The stored credentials are per-user Windows DPAPI and were not committed to Git. Weekly scheduled execution still requires approved farm scheduler integration. Detailed receipt: docs/handoffs/2026-11-16-gsc-first-live-ranking-receipt.md. Earlier PENDING statements below describe the prior 2026-11-15 pre-consent state.**
 # JayTree Books - Free Google Search Console Ranking History
 
 Status (2026-11-15): offline collector built; live OAuth authorization and weekly trigger PENDING. No paid OpenSEO service or rank tracker is required.

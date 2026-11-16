@@ -1,3 +1,8 @@
+## 2026-11-16 - FIRST REAL FREE SEARCH CONSOLE REPORT: AUTHORIZED AND QC VERIFIED
+
+The owner enabled Google's Search Console API, and JT-GE78 completed official read-only Google OAuth consent and the direct first authenticated Search Analytics collection. Six exact queries by mobile/desktop were sampled for two complete 28-day periods; 12-row current history, source gsc_api (not mock). Private LAN artifacts: GSC_FREE_20261115/runtime/{snapshots/2026-11-16.json,history.csv,latest.md,dashboard.html}. DPAPI credential encrypted per Windows user; not in Git. Python regression 50/50 and Node 56/56 PASS. First-party live collection VERIFIED; weekly farm automation NOT ACTIVE, pending safe scheduler authority and Google OAuth app audience/token-lifetime review. The site ranking goals remain psychological mystery books and new mystery book, with no third-party paid provider. Source and complete rollback: docs/handoffs/2026-11-16-gsc-first-live-ranking-receipt.md . Public website remains unchanged.
+
+---
 Verified source checkpoint 4ba471c5229589af293f448c0dac3d87105d3016; LAN six-file SHA256 archive at GSC_FREE_20261115/selfhosted_20261116 (manifest 0CFFCBE16C089497889FACEAD9AF86CEF091DC9A5A8BF47623819E2A5B568C40). No Google OAuth consent yet; no live rankings or scheduled job.
 ## 2026-11-16 -- FREE first-party Google Search Console LOCAL AUTH AND DASHBOARD: QC PASS, USER CONSENT PENDING
 
