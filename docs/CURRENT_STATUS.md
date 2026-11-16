@@ -1,3 +1,4 @@
+Verified source 4ba471c5229589af293f448c0dac3d87105d3016; LAN backup /selfhosted_20261116, six-file SHA checked. Live OAuth still pending.
 # 2026-11-16 -- Free first-party Google Search Console OAuth and dashboard QC passed; live Google consent and scheduler PENDING.
 See docs/handoffs/2026-11-16-self-hosted-gsc-oauth-dashboard.md and docs/SEO_FREE_RANK_TRACKING.md.
 

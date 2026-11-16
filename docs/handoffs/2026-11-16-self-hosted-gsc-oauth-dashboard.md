@@ -26,3 +26,9 @@ On GE78, credentials are intentionally bound to Windows user via DPAPI. GE75 can
 
 ## Rollback and continuity
 Rollback changes only on this feature branch, no public website, Payhip, game, or video code touched. Preserve LAN history and original 2026-09-24 baseline. No secrets committed to GitHub. Commit/push remote SHA in stage log; do not claim live deployment.
+## Verified source checkpoint and LAN backup
+- GitHub source branch feat/free-gsc-weekly-tracker-20261115 commit 4ba471c5229589af293f448c0dac3d87105d3016 was independently checked with git ls-remote; exact match and clean worktree.
+- Auth and dashboard scripts, collector, tests and manual were copied to \\JT-DESKTOP\JayTreeFarm\Projects\JayTreeBooksWebsiteRedesign_20261114\GSC_FREE_20261115\selfhosted_20261116, with matching SHA-256 hashes for every file.
+- LAN manifest SHA-256: 0CFFCBE16C089497889FACEAD9AF86CEF091DC9A5A8BF47623819E2A5B568C40. Full Python 49/49 and JS 56/56 regression logs are copied to that private LAN folder.
+- A fixture-only dry run generated fixture-dashboard.html and fixture-history.csv; a genuine history.csv was NOT created. No Google credentials or private data were copied into source control or LAN milestone archive.
+- First-party Google OAuth remains owner-consent BLOCKED. No live Google ranking, first real receipt, or weekly schedule may be claimed.
