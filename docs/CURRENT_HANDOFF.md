@@ -1,3 +1,8 @@
+## November 16, 2026 - Genre discovery SEO links LIVE, Google indexing requests PENDING
+
+Approved PR #39 merged on production main at verified SHA 6c92bc2f155da226edae87967b983204fc560812. GitHub Pages run 43904070459 SUCCESS; four live public updated pages independently verified with all new genre links, HTTP 200, canonicals correct. Existing storefront checkout destinations and published design intact. Local Python 50/50, Node 61/61, headless Chromium 16/16 viewport and catalog generator PASS. LAN evidence at JayTreeFarm/Projects/JayTreeBooksWebsiteRedesign_20261114/SEO_LINKS_20261116. Official direct Google URL Inspection after deploy still reports three target URLs unknown to Google; only the owner-controlled Search Console UI can request ordinary book page indexing, and NO request has been submitted here. No paid SEO services. Rollback and exact next actions: docs/handoffs/2026-11-16-genre-hub-production-verified.md.
+
+---
 ## 2026-11-16 - Genre hub link enhancements: development QC PASS, publication pending
 
 On production main baseline 9a2eccd508f901c2d2384cc01562d6149e45bdbe, isolated feat/genre-internal-links-20261116 adds contextual genre links to Books and Audiobooks storefronts and two reading guides, with scoped cinematic mobile styling. No Payhip, legal, tracking, product/catalog or SEO landing metadata changed. Full Python 50/50 PASS; Node 61/61 PASS; 16/16 Chrome viewport checks PASS; storefront catalog sync PASS. Full details, Google indexing constraints, rollback and precise next release steps: docs/handoffs/2026-11-16-genre-hub-internal-links-release.md. Not yet published until PR merge, GitHub Pages build and live URL QC are independently verified.
