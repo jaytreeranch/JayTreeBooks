@@ -46,3 +46,37 @@ No public site files, Payhip links, page metadata, or existing baseline were cha
 
 ## QA
 Run python -m unittest discover -s tests -p test_gsc_weekly_tracker.py -v. Ten target tests verify fixed keywords, windows, filtering, null rank semantics, position movement, idempotency, fixture isolation, permission checking, safe OAuth failure and historic baseline import.
+
+## Nov 16: fully self-hosted secure Google sign-in and offline dashboard
+The following first-party components are now developed and QC-tested:
+- scripts/gsc_local_auth.py: on Windows uses the official Google Desktop OAuth2 browser consent flow with PKCE (state checked, callback listener bound exclusively to 127.0.0.1); only webmasters.readonly permission is requested. Verifies access to sc-domain:jaytreebooks.com before saving authorization. Uses current-Windows-user DPAPI to encrypt refresh token, OAuth client ID and client secret in %LOCALAPPDATA%\JayTree\GSC\oauth-v1.dpapi. No browser cookies or third-party plugin tokens are extracted.
+- scripts/gsc_weekly_tracker.py: now automatically uses that encrypted, local OAuth vault to refresh a temporary access token. Legacy env-based explicit authorization remains supported, but is not required once Google consent is completed.
+- scripts/gsc_local_dashboard.py: after a genuine Search Console collection, produces a static, offline LAN dashboard.html with keyword, device, impressions, clicks, average ranking position, previous 28-day average, movement, and local SVG position history. It has NO external scripts, CDNs, tracking pixels or subscriptions. Test-only fixtures produce fixture-dashboard.html and never overwrite genuine reports.
+- All 49 Python regression tests and 56 Node tests pass on JT-GE78. No Google permission has yet been granted; therefore there are still no genuine November keyword positions and no weekly job is active.
+
+### One-time owner-controlled consent, without paid software
+Official Google documentation: https://developers.google.com/identity/protocols/oauth2/native-app and https://developers.google.com/webmaster-tools/v1/how-tos/authorizing
+
+1. In the owner's existing Google account, open Google Cloud Console: https://console.cloud.google.com/. Create or select a Google Cloud project and enable the **Google Search Console API**. This API is free.
+2. Under Google Auth Platform, configure app branding/audience, and create an **OAuth client of type Desktop app**. Only request **https://www.googleapis.com/auth/webmasters.readonly**. Choose the appropriate Google publishing/audience setting; an External app left in Testing may have a refresh token that expires after seven days.
+3. Download the OAuth Desktop client JSON **privately to the Windows Downloads directory of the computer that will run the collector**, or keep it in a private approved local path. Do not paste or upload its contents to chat or GitHub.
+4. Once that file is available, the JayTree Local Control tunnel can launch:
+   python scripts/gsc_local_auth.py --status
+   python scripts/gsc_local_auth.py --authorize
+   The local program opens Google's official consent screen in that computer's browser. The account owner approves Google read-only permission; the temporary loopback callback stores an encrypted token on the SAME Windows user profile.
+5. Then the JayTree Local Control operator validates:
+   python scripts/gsc_local_auth.py --check
+   python scripts/gsc_weekly_tracker.py --out <JayTree private LAN runtime>
+   Only after a genuine Google receipt succeeds should the existing authorized farm manager schedule Monday collection. No Windows Scheduled Task, externally hosted app, or GitHub Actions schedule is authorized here.
+
+A browser login on a different computer does not automatically authorize this runner, and Google consent cannot be bypassed safely. The per-user Windows DPAPI vault is intentionally not portable between GE78 and GE75.
+
+### Availability and cost facts
+Google explicitly states **all Search Console API use is free** at https://developers.google.com/webmaster-tools/pricing. Its public usage quotas at https://developers.google.com/webmaster-tools/limits still apply; no system can promise unlimited Google private data extraction. This tracker needs approximately 24 Search Analytics calls for six keywords times two devices times two windows per weekly report, which is very small relative to published quotas. We avoid arbitrary third-party plan quotas, account caps, credit purchases and subscription fees.
+
+### Unattended-run status and recovery
+- Current authorized developer host JT-GE78: source and Python functional. The new CLI was status-checked, but shows private_consent_exists=false and no Desktop OAuth client JSON detected in the standard Downloads path.
+- JT-DESKTOP tunnel previously failed its MCP probe HTTP 429 (connection/session issue, not proof the PC is offline). GE75 worker access still needs its own SMB/Python correction.
+- Google consent and first real read: BLOCKED pending legitimate owner action. Until that consent is granted, this code MUST NOT claim a live report or activate recurring schedules.
+- Revoking consent in Google Account security ends future access. Removing the private encrypted vault disables this worker. Reauthorization is required if consent expires, is revoked or changes Windows user.
+- Rollback: remove the standalone local auth and dashboard runner source changes and retain all private historical snapshots; public website and Payhip code are unaffected.

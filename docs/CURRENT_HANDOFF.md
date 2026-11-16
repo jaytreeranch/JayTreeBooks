@@ -1,3 +1,8 @@
+## 2026-11-16 -- FREE first-party Google Search Console LOCAL AUTH AND DASHBOARD: QC PASS, USER CONSENT PENDING
+
+Replaced dependence on third-party ranking tools with local Google OAuth desktop helper using read-only scope, PKCE state protection, per-Windows-user DPAPI encrypted refresh-token vault and self-hosted static HTML Google position history dashboard. Paid plug-in not required; Google Search Console API usage is free but subject to normal Google quotas. GE78 tunnel and Python verified, Desktop MCP 429 (not proof offline). Full regression 49 Python + 56 Node PASS; 24 focused tests PASS. There is no existing Google Desktop OAuth client JSON or authorized local vault, so a legitimate Google Cloud client registration and owner's Google consent are required before a real Google snapshot. No live data or weekly schedule activated. Exact details: docs/handoffs/2026-11-16-self-hosted-gsc-oauth-dashboard.md and docs/SEO_FREE_RANK_TRACKING.md . Source on feature branch; no website deployment. Rollback: remove local-only components without touching website, previous baseline or production assets.
+
+---
 Preservation checkpoint: origin feature branch source commit 9d927d09cf3068b666f660b3dd0373d159261fe5 independently verified. Full repository Python 35/35 and Node 56/56 PASS; targeted collector 10/10 PASS. See the dated handoff for pending GSC Google consent and incomplete GE75 LAN/Python readiness.
 ## 2026-11-15 - FREE GOOGLE SEARCH CONSOLE WEEKLY HISTORY: OFFLINE QC PASS, LIVE AUTH PENDING
 

@@ -37,7 +37,14 @@ def token():
     keys = ("JT_GSC_OAUTH_CLIENT_ID", "JT_GSC_OAUTH_CLIENT_SECRET", "JT_GSC_OAUTH_REFRESH_TOKEN")
     values = [os.environ.get(k) for k in keys]
     if not all(values):
-        raise GscError("Google Search Console OAuth has not been authorized on this worker")
+        try:
+            from gsc_local_auth import AuthorizationError, get_access_token
+            return get_access_token()
+        except AuthorizationError:
+            raise GscError(
+                "Google Search Console not yet authorized for this Windows user; "
+                "run gsc_local_auth.py --status and complete read-only consent"
+            ) from None
     payload = urllib.parse.urlencode(dict(
         client_id=values[0], client_secret=values[1], refresh_token=values[2],
         grant_type="refresh_token")).encode()
@@ -184,6 +191,10 @@ def save(snapshot, output):
     atomic(output / ("fixture-history.csv" if is_test else "history.csv"), buffer.getvalue())
     latest = output / ("fixture-latest.md" if is_test else "latest.md")
     atomic(latest, report(snapshot))
+    from gsc_local_dashboard import save_dashboard
+    filename = "fixture-dashboard.html" if is_test else "dashboard.html"
+    save_dashboard(output / ("fixture-history.csv" if is_test else "history.csv"),
+                   output / filename, fixture=is_test)
     return str(latest)
 
 def pacific_today():
@@ -229,6 +240,13 @@ def import_legacy(path, output):
     atomic(folder / "README.md", "\n".join(lines) + "\n")
     return str(folder / (captured + ".json"))
 
+def local_consent_ready():
+    try:
+        from gsc_local_auth import vault_path
+        return vault_path().is_file()
+    except Exception:
+        return False
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path)
@@ -244,6 +262,7 @@ def main(argv=None):
                           bool(os.getenv("JT_GSC_ACCESS_TOKEN")) or
                           all(os.getenv(k) for k in ("JT_GSC_OAUTH_CLIENT_ID",
                               "JT_GSC_OAUTH_CLIENT_SECRET", "JT_GSC_OAUTH_REFRESH_TOKEN")),
+                          "self_hosted_consent_exists": local_consent_ready(),
                           "historical_snapshots": len(list((args.out / "snapshots").glob("*.json")))
                           if args.out else 0, "paid_plugin": False}))
         return 0

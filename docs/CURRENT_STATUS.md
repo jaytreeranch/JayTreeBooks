@@ -1,3 +1,6 @@
+# 2026-11-16 -- Free first-party Google Search Console OAuth and dashboard QC passed; live Google consent and scheduler PENDING.
+See docs/handoffs/2026-11-16-self-hosted-gsc-oauth-dashboard.md and docs/SEO_FREE_RANK_TRACKING.md.
+
 # JayTree Books - Current source handoff index (2026-11-15)
 
 Live published website status is documented in docs/CURRENT_HANDOFF.md. Do not confuse this development branch with a new live website release.
