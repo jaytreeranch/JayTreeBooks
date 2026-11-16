@@ -29,3 +29,8 @@ Complete the owner-approved, no-paid-vendor first-party Google Search Console in
 
 ## Rollback
 Remove or disable the isolated collector scheduler integration; preserve all original Google history, the new first real snapshot, encrypted vault and existing production website. Revoke Google consent if access is no longer desired. No live website files changed by this milestone.
+## Preservation checkpoint and scheduler coordination
+- Verified live source GitHub feature branch checkpoint: 15b07000c7a50a80b966189bcf64deb9a0893dc4. Its remote branch HEAD matched via git ls-remote.
+- Verified SHA-256 copies of nine source/test/real-report/QC files in private LAN GSC_FREE_20261115/first_live_20261116. The private manifest hash is 099FE9D4226215E3E3B18FA2887198D01920B6C6A63582B02D1AB739EC993DE8. Do not upload this private manifest or report data to GitHub.
+- Read-only Production Manager inspection found historical active lease-recovery work and GE75 holds. Do not modify or compete with that controller merely to schedule this small job. Weekly schedule remains PENDING; prefer a single authorized existing PM scheduler after fresh live manager health verification, with the same JT-GE78 Windows-user DPAPI context.
+- Google API initial HTTP 403 was resolved after owner enabled API. A second Google consent, property check, and genuine data collection all passed. Private exact keyword ranks live only on LAN.
