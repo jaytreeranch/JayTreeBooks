@@ -1,3 +1,8 @@
+## 2026-11-16 - Genre hub link enhancements: development QC PASS, publication pending
+
+On production main baseline 9a2eccd508f901c2d2384cc01562d6149e45bdbe, isolated feat/genre-internal-links-20261116 adds contextual genre links to Books and Audiobooks storefronts and two reading guides, with scoped cinematic mobile styling. No Payhip, legal, tracking, product/catalog or SEO landing metadata changed. Full Python 50/50 PASS; Node 61/61 PASS; 16/16 Chrome viewport checks PASS; storefront catalog sync PASS. Full details, Google indexing constraints, rollback and precise next release steps: docs/handoffs/2026-11-16-genre-hub-internal-links-release.md. Not yet published until PR merge, GitHub Pages build and live URL QC are independently verified.
+
+---
 ## November 15, 2026 — Niche Google SERP diagnostic RESULTS
 
 Six niche/story-mechanism mobile/US keyword checks completed and none showed JayTreeBooks.com within first 30 sampled results. Two book-title branded controls also completed with no JayTree result within top 10; two additional jobs failed upstream with DataForSEO `Internal SE Server Error` and are NOT position evidence. This strengthens the case to inspect first-party Google Search Console indexing and impressions, but does NOT prove deindexing. The two core target phrases still have no JayTree result within inspected first 50. No website changes, keyword-goal changes or scheduled tracker credit spend. Exact queries, provider errors and continuity at `docs/handoffs/2026-11-15-google-serp-baseline-and-niche-diagnostics.md`.
