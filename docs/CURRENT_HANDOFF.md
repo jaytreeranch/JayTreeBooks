@@ -1,3 +1,8 @@
+## 2026-11-16 -- ORGANIC DISCOVERY/INDEX STATUS AUDIT: READ-ONLY PASS, NO SITE DEPLOYMENT
+
+Our direct GSC read-only API now independently verifies that the homepage and psychological-mystery landing page are indexed; the new-mystery hub and Books shop are currently URL-unknown, while Audiobooks is discovered/not yet indexed. Public pages themselves return 200 with correct self-canonicals and index-follow; 35-URL sitemap last fetched Nov 15 with 0 API-reported errors/warnings. Main near-term need is priority Google recrawl/index requests and contextual internal linking, not a wholesale website rebuild or paid SEO subscription. Raw query/page results remain private on LAN. Detailed safe roadmap: docs/handoffs/2026-11-16-search-discovery-indexing-audit.md. No published website or production manager changed; follow up from fresh website main branch after development QC.
+
+---
 First live GSC source preservation: commit 15b07000c7a50a80b966189bcf64deb9a0893dc4 remotely verified; private LAN first_live_20261116/manifest.json SHA-256 099FE9D4226215E3E3B18FA2887198D01920B6C6A63582B02D1AB739EC993DE8, nine source/test/report receipts matched. Protected PM lease/GE75 recovery work remains separate; weekly scheduling is NOT ENABLED.
 ## 2026-11-16 - FIRST REAL FREE SEARCH CONSOLE REPORT: AUTHORIZED AND QC VERIFIED
 
