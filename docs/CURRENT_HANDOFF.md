@@ -1,3 +1,8 @@
+## 2026-11-24 - Historical checkout receipts 6/6, shop DNS preflight verified
+
+Merchant/Payhip/GoDaddy admin access and current checkout verification pending. No new charges or DNS changes. See docs/handoffs/2026-11-24-shopping-checkout-dns-evidence.md.
+
+---
 ## 2026-11-24 - Six offline Shopping previews, QC 5/5 PASS
 
 Private LAN previews only; checkout verification and Merchant Center access still blocked. No live changes. See docs/handoffs/2026-11-24-shopping-offline-preview.md.
