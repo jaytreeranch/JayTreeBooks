@@ -1,4 +1,9 @@
-﻿## 2026-11-24 - Free Shopping candidate audit (not submitted)
+## 2026-11-24 - Six offline Shopping previews, QC 5/5 PASS
+
+Private LAN previews only; checkout verification and Merchant Center access still blocked. No live changes. See docs/handoffs/2026-11-24-shopping-offline-preview.md.
+
+---
+## 2026-11-24 - Free Shopping candidate audit (not submitted)
 
 Six candidate audiobooks documented; checkout and Merchant Center authentication pending. No production changes or paid services. See docs/handoffs/2026-11-24-free-shopping-readiness.md.
 
