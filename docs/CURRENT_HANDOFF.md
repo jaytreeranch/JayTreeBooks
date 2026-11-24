@@ -1,3 +1,8 @@
+## 2026-11-24 - Authenticated GSC and Payhip, current prices 6/6 verified
+
+Merchant signup terms and GoDaddy login pending. See docs/handoffs/2026-11-24-shopping-authenticated-dashboard.md. No spend or live changes.
+
+---
 ## 2026-11-24 - Historical checkout receipts 6/6, shop DNS preflight verified
 
 Merchant/Payhip/GoDaddy admin access and current checkout verification pending. No new charges or DNS changes. See docs/handoffs/2026-11-24-shopping-checkout-dns-evidence.md.
