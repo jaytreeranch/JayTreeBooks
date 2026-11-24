@@ -1,3 +1,8 @@
+## 2026-11-24 - Merchant Center account verified; shop CNAME LIVE on authoritative DNS
+
+Payhip verification pending propagation; main HTTPS 200. No paid advertising or product submission. See docs/handoffs/2026-11-24-shopping-domain-dns-live.md.
+
+---
 ## 2026-11-24 - Authenticated GSC and Payhip, current prices 6/6 verified
 
 Merchant signup terms and GoDaddy login pending. See docs/handoffs/2026-11-24-shopping-authenticated-dashboard.md. No spend or live changes.
