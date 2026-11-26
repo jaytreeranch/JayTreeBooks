@@ -23,7 +23,7 @@
       "title": "The Hollow Year | Official Book Trailer | Psychological Mystery Thriller",
       "url": "https://www.youtube.com/watch?v=EQZsN90mLHU",
       "published": "2026-09-26T15:01:14+00:00",
-      "duration_seconds": 0
+      "duration_seconds": 40
     }
   },
   "mystery_cases": {
@@ -33,32 +33,32 @@
         "title": "The Midnight Caller | Can You Solve Mystery Case #001?",
         "url": "https://www.youtube.com/watch?v=643W5-_bLPA",
         "published": "2026-09-07T04:26:27+00:00",
-        "duration_seconds": 0
+        "duration_seconds": 360
       },
       "teaser": {
         "video_id": "kG4Dm7GZc8s",
         "title": "Case #001 Is OPEN — Can You Solve The Midnight Caller? 🔎 #Shorts",
         "url": "https://www.youtube.com/watch?v=kG4Dm7GZc8s",
         "published": "2026-09-07T04:56:22+00:00",
-        "duration_seconds": 0
+        "duration_seconds": 30
       },
       "reveal": {
         "video_id": "R-5cB9FaVOA",
         "title": "The Midnight Caller REVEALED | Mystery Case #001 Solution",
         "url": "https://www.youtube.com/watch?v=R-5cB9FaVOA",
         "published": "2026-09-13T15:10:23+00:00",
-        "duration_seconds": 0
+        "duration_seconds": 180
       }
     }
   },
-  "last_checked": "2026-11-26T05:12:07Z",
+  "last_checked": "2026-11-26T15:24:10Z",
   "latest_upload": {
     "video_id": "Xjbw5HoO2EU",
     "title": "Six Mystery Audiobooks — $1.99 Each | JayTree Books #Shorts",
     "url": "https://www.youtube.com/watch?v=Xjbw5HoO2EU",
     "published": "2026-11-15T05:44:55+00:00"
   },
-  "last_synced": "2026-11-26T05:12:07Z",
+  "last_synced": "2026-11-26T15:24:10Z",
   "latest_mystery_case": {
     "case_number": "001",
     "case": {
@@ -66,21 +66,21 @@
       "title": "The Midnight Caller | Can You Solve Mystery Case #001?",
       "url": "https://www.youtube.com/watch?v=643W5-_bLPA",
       "published": "2026-09-07T04:26:27+00:00",
-      "duration_seconds": 0
+      "duration_seconds": 360
     },
     "reveal": {
       "video_id": "R-5cB9FaVOA",
       "title": "The Midnight Caller REVEALED | Mystery Case #001 Solution",
       "url": "https://www.youtube.com/watch?v=R-5cB9FaVOA",
       "published": "2026-09-13T15:10:23+00:00",
-      "duration_seconds": 0
+      "duration_seconds": 180
     },
     "teaser": {
       "video_id": "kG4Dm7GZc8s",
       "title": "Case #001 Is OPEN — Can You Solve The Midnight Caller? 🔎 #Shorts",
       "url": "https://www.youtube.com/watch?v=kG4Dm7GZc8s",
       "published": "2026-09-07T04:56:22+00:00",
-      "duration_seconds": 0
+      "duration_seconds": 30
     }
   }
 }
